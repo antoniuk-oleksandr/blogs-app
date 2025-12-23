@@ -1,0 +1,124 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.9'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
+    id "org.sonarqube" version "7.2.0.6526"
+    id "com.adarshr.test-logger" version "4.0.0"
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "me.paulschwarz:spring-dotenv:4.0.0"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.postgresql:postgresql:42.7.8'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
+    implementation 'org.apache.commons:commons-lang3:3.18.0'
+
+    implementation('io.jsonwebtoken:jjwt-api:0.12.6')
+    runtimeOnly('io.jsonwebtoken:jjwt-impl:0.12.6') {
+        exclude group: 'org.bouncycastle'
+    }
+    runtimeOnly('io.jsonwebtoken:jjwt-jackson:0.12.6')
+
+//    implementation 'io.jsonwebtoken:jjwt:0.13.0'
+
+//    implementation 'com.adarshr.test-logger:com.adarshr.test-logger.gradle.plugin:4.0.0'
+
+    implementation 'org.flywaydb:flyway-core:11.19.1'
+    implementation 'org.flywaydb:flyway-database-postgresql:11.19.1'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'jakarta.validation:jakarta.validation-api:4.0.0-M1'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation("org.assertj:assertj-core:3.27.6")
+
+    testImplementation "org.testcontainers:junit-jupiter"
+    testImplementation "org.testcontainers:postgresql"
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+}
+
+test {
+    outputs.upToDateWhen { false }
+    useJUnitPlatform()
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.apache.commons:commons-lang3:3.18.0'
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.coverage.exclusions", [
+                "**/Application.java",
+                "**/config/**",
+                "**/dto/**",
+                "**/entity/**"
+        ].join(",")
+    }
+}
+
+//test {
+//    useJUnitPlatform()
+//    finalizedBy jacocoTestReport
+//
+//    testLogging {
+//        events "passed", "skipped", "failed"   // show all events
+//        exceptionFormat "full"                 // show full stacktrace + messages
+//        showStandardStreams = true             // optional: show System.out.println
+//    }
+//}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
+}
+
+//sonarqube {
+//    properties {
+//        property "sonar.scm.disabled", "true"
+//    }
+//}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
