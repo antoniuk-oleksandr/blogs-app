@@ -5,6 +5,7 @@ import com.example.blogs.app.api.auth.dto.TokenPair;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +13,14 @@ import org.springframework.stereotype.Service;
  * Orchestrates user registration by coordinating password hashing, user creation, and token generation.
  */
 @Service
+@AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-    private final JWTService jwtService;
 
-    /**
-     * Constructs an AuthServiceImpl with required dependencies.
-     *
-     * @param userService service for user management operations
-     * @param passwordEncoder encoder for hashing passwords
-     * @param jwtService service for JWT token generation
-     */
-    public AuthServiceImpl(UserService userService, PasswordEncoder passwordEncoder, JWTService jwtService) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
+    private final UserService userService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final JWTService jwtService;
 
     @Override
     public TokenPair register(RegisterRequest registerRequest) {

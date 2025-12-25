@@ -14,13 +14,6 @@ import java.util.Map;
 @Configuration
 public class ExceptionHttpStatusMapper {
 
-    /**
-     * Constructs a new ExceptionHttpStatusMapper.
-     * Spring automatically instantiates this configuration bean.
-     */
-    public ExceptionHttpStatusMapper() {
-    }
-
     private final Map<Class<? extends Throwable>, HttpStatus> mappings = Map.of(
             UsernameTakenException.class, HttpStatus.CONFLICT,
             EmailTakenException.class, HttpStatus.CONFLICT

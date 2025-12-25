@@ -16,6 +16,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,34 +45,4 @@ public class UserEntity {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-    /**
-     * Default constructor required by JPA.
-     */
-    public UserEntity() {
-    }
-
-    /**
-     * All-args constructor for creating a complete user entity.
-     *
-     * @param id the unique identifier
-     * @param username the unique username
-     * @param passwordHash the BCrypt-hashed password
-     * @param email the unique email address
-     * @param bio optional user biography
-     * @param profilePictureUrl optional profile picture URL
-     * @param createdAt timestamp when the user was created
-     * @param updatedAt timestamp when the user was last updated
-     */
-    public UserEntity(Long id, String username, String passwordHash, String email, String bio,
-                     String profilePictureUrl, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.username = username;
-        this.passwordHash = passwordHash;
-        this.email = email;
-        this.bio = bio;
-        this.profilePictureUrl = profilePictureUrl;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 }

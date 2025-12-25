@@ -15,14 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-
-    /**
-     * Constructs a new SecurityConfig.
-     * Spring automatically instantiates this configuration bean.
-     */
-    public SecurityConfig() {
-    }
-
     /**
      * Configures the security filter chain with stateless session management.
      * Currently, permits all requests - authentication will be added later.

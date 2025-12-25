@@ -22,12 +22,6 @@ import java.lang.annotation.Target;
  */
 public class AuthControllerDocs {
 
-    /**
-     * Private constructor to prevent instantiation of this utility class.
-     */
-    private AuthControllerDocs() {
-    }
-
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Operation(

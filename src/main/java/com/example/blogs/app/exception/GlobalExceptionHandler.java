@@ -1,6 +1,7 @@
 package com.example.blogs.app.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -18,18 +19,11 @@ import java.util.List;
  * Centralized exception handler that translates exceptions into standardized error responses.
  * Handles validation errors, domain exceptions, and generic failures.
  */
+@AllArgsConstructor
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private final ExceptionHttpStatusMapper statusMapper;
 
-    /**
-     * Constructs a GlobalExceptionHandler with the status mapper.
-     *
-     * @param statusMapper mapper for resolving HTTP status codes from exceptions
-     */
-    public GlobalExceptionHandler(ExceptionHttpStatusMapper statusMapper) {
-        this.statusMapper = statusMapper;
-    }
+    private final ExceptionHttpStatusMapper statusMapper;
 
     /**
      * Main exception handler that routes different exception types to appropriate handlers.
