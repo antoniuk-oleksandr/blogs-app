@@ -8,14 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class Application {
-
-	/**
-	 * Default constructor for the Application class.
-	 * Spring Boot uses this to instantiate the application context.
-	 */
-	public Application() {
-	}
-
 	/**
 	 * Main method that bootstraps the Spring Boot application.
 	 *

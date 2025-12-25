@@ -7,6 +7,7 @@ import com.example.blogs.app.api.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,17 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Authentication", description = "User authentication and registration endpoints")
 @RestController
 @RequestMapping("/auth")
+@AllArgsConstructor
 public class AuthController {
-    private final AuthService authService;
 
-    /**
-     * Constructs an AuthController with the required authentication service.
-     *
-     * @param authService the service handling authentication operations
-     */
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
+    private final AuthService authService;
 
     /**
      * Registers a new user and returns authentication tokens.

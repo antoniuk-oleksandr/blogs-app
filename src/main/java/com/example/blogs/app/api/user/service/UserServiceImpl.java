@@ -6,6 +6,7 @@ import com.example.blogs.app.api.user.exception.UsernameTakenException;
 import com.example.blogs.app.api.user.repository.UserRepository;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import lombok.AllArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
@@ -13,17 +14,10 @@ import org.springframework.stereotype.Service;
  * Translates database constraint violations into domain-specific exceptions during user creation.
  */
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
 
-    /**
-     * Constructs a UserServiceImpl with the required repository.
-     *
-     * @param userRepository repository for user persistence operations
-     */
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     @Override
     public UserEntity createUser(CreateUserCommand command) {

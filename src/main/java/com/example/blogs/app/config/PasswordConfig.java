@@ -10,14 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 public class PasswordConfig {
-
-    /**
-     * Constructs a new PasswordConfig.
-     * Spring automatically instantiates this configuration bean.
-     */
-    public PasswordConfig() {
-    }
-
     /**
      * Creates a BCrypt password encoder bean for password hashing.
      *
