@@ -25,6 +25,23 @@ services:
     volumes:
       - sonar_data:/opt/sonarqube/data
 
+  blogs-app-spring:
+    container_name: blogs-app-spring
+    build:
+      context: ../../
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://blogs-app-db:5432/${POSTGRES_DB}
+      POSTGRES_USERNAME: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    depends_on:
+      - blogs-app-db
+    networks:
+      - default
+
 volumes:
   postgres_data:
   sonar_data:
