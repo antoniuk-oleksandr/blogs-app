@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: blogs-app
+    env: docker
+    dockerfilePath: Dockerfile           
+    branch: dev                          
+    plan: free                            
+    envVars:
+      - key: POSTGRES_URL
+        fromDatabase:
+          name: blogs-db                 
+      - key: POSTGRES_USERNAME
+        fromDatabase:
+          name: blogs-db
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: blogs-db
+      - key: JWT_SECRET_KEY
+    buildCommand: ./gradlew bootJar
+    startCommand: java -jar build/libs/*.jar
+    healthCheckPath: /actuator/health
+    autoDeploy: true        
+
+databases:
+  - name: blogs-db
+    databaseName: blogs
+    user: admin
+    plan: free
