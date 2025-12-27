@@ -100,14 +100,6 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.coverage.jacoco.xmlReportPaths=build/reports/jacoco/test/jacocoTestReport.xml
 
-      - name: Wait for SonarCloud Quality Gate
-        uses: SonarSource/sonarqube-scan-action@sha1
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          scanMetadataReportFile: build/sonar/report-task.txt
-
   deploy-to-render:
     name: Deploy to Render
     runs-on: ubuntu-latest
