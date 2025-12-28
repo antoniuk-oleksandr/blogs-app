@@ -2,12 +2,18 @@
 
 > Enterprise-grade REST API for a modern blog platform featuring JWT authentication, Redis caching, and comprehensive observability
 
+
+<div align="center">
+
 [![JavaDoc](https://img.shields.io/badge/docs-JavaDoc-blue?style=for-the-badge&logo=openjdk)](https://antoniuk-oleksandr.github.io/blogs-app/javadoc/)
 [![API Docs](https://img.shields.io/badge/docs-OpenAPI-85EA2D?style=for-the-badge&logo=redoc)](https://antoniuk-oleksandr.github.io/blogs-app/openapi/api-documentation.html)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=antoniuk-oleksandr_blogs-app&metric=alert_status&style=for-the-badge)](https://sonarcloud.io/summary/new_code?id=antoniuk-oleksandr_blogs-app)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antoniuk-oleksandr_blogs-app&metric=coverage&style=for-the-badge)](https://sonarcloud.io/summary/new_code?id=antoniuk-oleksandr_blogs-app)
-[![CI](https://github.com/antoniuk-oleksandr/blogs-app/actions/workflows/ci-cd.yml/badge.svg?branch=dev)](https://github.com/antoniuk-oleksandr/blogs-app/actions/workflows/ci-cd.yaml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+
+[![Quality Gate Status](https://img.shields.io/sonar/quality_gate/antoniuk-oleksandr_blogs-app?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/summary/new_code?id=antoniuk-oleksandr_blogs-app)
+[![Sonar Coverage](https://img.shields.io/sonar/coverage/antoniuk-oleksandr_blogs-app?server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/summary/new_code?id=antoniuk-oleksandr_blogs-app)
+[![CI/CD Pipeline](https://img.shields.io/github/actions/workflow/status/antoniuk-oleksandr/blogs-app/ci-cd.yaml?style=for-the-badge)](https://github.com/antoniuk-oleksandr/blogs-app/actions/workflows/ci-cd.yaml)
+
+</div>
 
 ## ✨ Features
 
