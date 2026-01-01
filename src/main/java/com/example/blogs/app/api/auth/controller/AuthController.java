@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.auth.controller;
 
 import com.example.blogs.app.api.auth.docs.AuthControllerDocs;
+import com.example.blogs.app.api.auth.dto.LoginRequest;
 import com.example.blogs.app.api.auth.dto.TokenPair;
 import com.example.blogs.app.api.auth.dto.RegisterRequest;
 import com.example.blogs.app.api.auth.service.AuthService;
@@ -38,5 +39,19 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(authService.register(registerRequest));
+    }
+
+    /**
+     * Authenticates a user and returns authentication tokens.
+     *
+     * @param loginRequest the login credentials including username/email and password
+     * @return HTTP 200 with access and refresh tokens
+     */
+    @AuthControllerDocs.Login
+    @PostMapping("/login")
+    public ResponseEntity<TokenPair> login(@NotNull @Valid @RequestBody LoginRequest loginRequest) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(authService.login(loginRequest));
     }
 }
