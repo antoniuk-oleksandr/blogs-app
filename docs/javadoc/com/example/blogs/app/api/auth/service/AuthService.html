@@ -107,8 +107,13 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#login(com.example.blogs.app.api.auth.dto.LoginRequest)" class="member-name-link">login</a><wbr>(<a href="../dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a>&nbsp;loginRequest)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Authenticates a user and generates JWT tokens.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Registers a new user and returns JWT tokens for immediate authentication.</div>
 </div>
 </div>
@@ -135,6 +140,21 @@ loadScripts(document, 'script');</script>
 <dd><code>registerRequest</code> - user registration details</dd>
 <dt>Returns:</dt>
 <dd>access and refresh token pair</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="login(com.example.blogs.app.api.auth.dto.LoginRequest)">
+<h3>login</h3>
+<div class="member-signature"><span class="return-type"><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></span>&nbsp;<span class="element-name">login</span><wbr><span class="parameters">(<a href="../dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a>&nbsp;loginRequest)</span></div>
+<div class="block">Authenticates a user and generates JWT tokens.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>loginRequest</code> - user login credentials</dd>
+<dt>Returns:</dt>
+<dd>access and refresh token pair</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/UnauthorizedException.html" title="class in com.example.blogs.app.api.auth.exception">UnauthorizedException</a></code> - if credentials are invalid</dd>
 </dl>
 </section>
 </li>

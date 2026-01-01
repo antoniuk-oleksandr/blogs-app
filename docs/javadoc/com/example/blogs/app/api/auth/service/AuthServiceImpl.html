@@ -109,12 +109,8 @@ implements <a href="AuthService.html" title="interface in com.example.blogs.app.
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.example.blogs.app.api.user.service.UserService,org.springframework.security.crypto.password.PasswordEncoder,com.example.blogs.app.api.auth.service.JWTService)" class="member-name-link">AuthServiceImpl</a><wbr>(<a href="../../user/service/UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a>&nbsp;userService,
- org.springframework.security.crypto.password.PasswordEncoder&nbsp;passwordEncoder,
- <a href="JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a>&nbsp;jwtService)</code></div>
-<div class="col-last even-row-color">
-<div class="block">Constructs an AuthServiceImpl with required dependencies.</div>
-</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">AuthServiceImpl</a>()</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -130,8 +126,13 @@ implements <a href="AuthService.html" title="interface in com.example.blogs.app.
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#login(com.example.blogs.app.api.auth.dto.LoginRequest)" class="member-name-link">login</a><wbr>(<a href="../dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a>&nbsp;loginRequest)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Authenticates a user and generates JWT tokens.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Registers a new user and returns JWT tokens for immediate authentication.</div>
 </div>
 </div>
@@ -152,18 +153,9 @@ implements <a href="AuthService.html" title="interface in com.example.blogs.app.
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.example.blogs.app.api.user.service.UserService,org.springframework.security.crypto.password.PasswordEncoder,com.example.blogs.app.api.auth.service.JWTService)">
+<section class="detail" id="&lt;init&gt;()">
 <h3>AuthServiceImpl</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AuthServiceImpl</span><wbr><span class="parameters">(<a href="../../user/service/UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a>&nbsp;userService,
- org.springframework.security.crypto.password.PasswordEncoder&nbsp;passwordEncoder,
- <a href="JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a>&nbsp;jwtService)</span></div>
-<div class="block">Constructs an AuthServiceImpl with required dependencies.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>userService</code> - service for user management operations</dd>
-<dd><code>passwordEncoder</code> - encoder for hashing passwords</dd>
-<dd><code>jwtService</code> - service for JWT token generation</dd>
-</dl>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AuthServiceImpl</span>()</div>
 </section>
 </li>
 </ul>
@@ -185,6 +177,22 @@ implements <a href="AuthService.html" title="interface in com.example.blogs.app.
 <dd><code><a href="AuthService.html#register(com.example.blogs.app.api.auth.dto.RegisterRequest)">register</a></code>&nbsp;in interface&nbsp;<code><a href="AuthService.html" title="interface in com.example.blogs.app.api.auth.service">AuthService</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>registerRequest</code> - user registration details</dd>
+<dt>Returns:</dt>
+<dd>access and refresh token pair</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="login(com.example.blogs.app.api.auth.dto.LoginRequest)">
+<h3>login</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></span>&nbsp;<span class="element-name">login</span><wbr><span class="parameters">(<a href="../dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a>&nbsp;loginRequest)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="AuthService.html#login(com.example.blogs.app.api.auth.dto.LoginRequest)">AuthService</a></code></span></div>
+<div class="block">Authenticates a user and generates JWT tokens.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="AuthService.html#login(com.example.blogs.app.api.auth.dto.LoginRequest)">login</a></code>&nbsp;in interface&nbsp;<code><a href="AuthService.html" title="interface in com.example.blogs.app.api.auth.service">AuthService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>loginRequest</code> - user login credentials</dd>
 <dt>Returns:</dt>
 <dd>access and refresh token pair</dd>
 </dl>
