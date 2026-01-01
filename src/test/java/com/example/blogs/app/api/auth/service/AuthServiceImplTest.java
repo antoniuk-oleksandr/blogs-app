@@ -1,7 +1,9 @@
 package com.example.blogs.app.api.auth.service;
 
+import com.example.blogs.app.api.auth.dto.LoginRequest;
 import com.example.blogs.app.api.auth.dto.RegisterRequest;
 import com.example.blogs.app.api.auth.dto.TokenPair;
+import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.service.UserService;
@@ -82,6 +84,56 @@ class AuthServiceImplTest {
         verifyPasswordWasHashed("plainPassword", "hashed");
     }
 
+    @Test
+    void login_shouldReturnLoginRequestSuccessfully() {
+        LoginRequest loginRequest = new LoginRequest("testuser", "password123");
+        UserEntity mockUser = createUser(1L, "testuser", "email@gmail.com", "hashedPassword");
+
+        when(userService.findUserByUsernameOrEmail("testuser")).thenReturn(mockUser);
+        when(passwordEncoder.matches(any(CharSequence.class), anyString())).thenReturn(true);
+        stubTokenGeneration("testuser", "accessToken", "refreshToken");
+
+        TokenPair tokenPair = authService.login(loginRequest);
+
+        assertThat(tokenPair.accessToken()).isEqualTo("accessToken");
+        assertThat(tokenPair.refreshToken()).isEqualTo("refreshToken");
+        verify(userService).findUserByUsernameOrEmail("testuser");
+        verify(passwordEncoder).matches("password123", "hashedPassword");
+        verifyTokensGeneratedFor("testuser");
+    }
+
+    @Test
+    void login_shouldThrowUnauthorizedExceptionForInvalidCredentials() {
+        LoginRequest loginRequest = new LoginRequest("invalidUser", "wrongPassword");
+
+        when(userService.findUserByUsernameOrEmail("invalidUser")).thenThrow(new RuntimeException());
+
+        assertThatThrownBy(() -> authService.login(loginRequest))
+                .isInstanceOf(Exception.class);
+
+        verify(userService).findUserByUsernameOrEmail("invalidUser");
+        verify(passwordEncoder, never()).matches(any(CharSequence.class), anyString());
+        verify(jwtService, never()).generateAccessToken(anyString());
+        verify(jwtService, never()).generateRefreshToken(anyString());
+    }
+
+    @Test
+    void login_shouldThrowUnauthorizedException_whenPasswordIsWrong() {
+        LoginRequest loginRequest = new LoginRequest("testuser", "password123");
+        UserEntity mockUser = createUser(1L, "testuser", "email@gmail.com", "hashedPassword");
+
+        when(userService.findUserByUsernameOrEmail("testuser")).thenReturn(mockUser);
+        when(passwordEncoder.matches(any(CharSequence.class), anyString())).thenReturn(false);
+
+        assertThatThrownBy(() -> authService.login(loginRequest))
+                .isInstanceOf(UnauthorizedException.class);
+
+        verify(userService).findUserByUsernameOrEmail("testuser");
+        verify(passwordEncoder).matches("password123", "hashedPassword");
+        verify(jwtService, never()).generateAccessToken(anyString());
+        verify(jwtService, never()).generateRefreshToken(anyString());
+    }
+
     private UserEntity createUser(Long id, String username, String email, String passwordHash) {
         return UserEntity.builder()
                 .id(id)
@@ -90,6 +142,7 @@ class AuthServiceImplTest {
                 .passwordHash(passwordHash)
                 .build();
     }
+
 
     private void stubPasswordEncoding(String rawPassword, String hashedPassword) {
         when(passwordEncoder.encode(rawPassword)).thenReturn(hashedPassword);
