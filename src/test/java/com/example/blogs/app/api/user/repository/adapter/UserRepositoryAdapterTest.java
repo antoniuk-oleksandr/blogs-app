@@ -15,12 +15,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import java.util.Optional;
+
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserRepositoryAdapterTest {
-    
+
     @Mock
     private UserRepository userRepository;
 
@@ -33,12 +35,7 @@ class UserRepositoryAdapterTest {
 
     @Test
     void createUser_shouldCreateUserSuccessfully() {
-        UserEntity mockUser = UserEntity.builder()
-                .id(1L)
-                .username("testuser")
-                .passwordHash("hashedpassword")
-                .email("test@gmail.com")
-                .build();
+        UserEntity mockUser = createTestUserEntity();
 
         when(userRepository.save(any(UserEntity.class))).thenReturn(mockUser);
 
@@ -110,6 +107,65 @@ class UserRepositoryAdapterTest {
 
         assertThatThrownBy(() -> userRepositoryAdapter.save(command))
                 .isInstanceOf(FailedToCreateUser.class);
+    }
+
+    @Test
+    void findByUsernameOrEmail_shouldReturnUserByUsername_whenUserExists() {
+        when(userRepository.findUserByUsernameOrEmail(anyString(), anyString()))
+                .thenReturn(Optional.of(createTestUserEntity()));
+
+        UserEntity user = userRepositoryAdapter.findByUsernameOrEmail("testuser");
+
+        assertThat(user.getUsername()).isEqualTo("testuser");
+        assertThat(user.getEmail()).isEqualTo("test@gmail.com");
+        assertThat(user.getPasswordHash()).isEqualTo("hashedpassword");
+        verify(userRepository).findUserByUsernameOrEmail("testuser", "testuser");
+    }
+
+    @Test
+    void findByUsernameOrEmail_shouldReturnUserByEmail_whenUserExists() {
+        when(userRepository.findUserByUsernameOrEmail(anyString(), anyString()))
+                .thenReturn(Optional.of(createTestUserEntity()));
+
+        UserEntity user = userRepositoryAdapter.findByUsernameOrEmail("test@gmail.com");
+
+        assertThat(user.getUsername()).isEqualTo("testuser");
+        assertThat(user.getEmail()).isEqualTo("test@gmail.com");
+        assertThat(user.getPasswordHash()).isEqualTo("hashedpassword");
+        verify(userRepository).findUserByUsernameOrEmail("test@gmail.com", "test@gmail.com");
+    }
+
+    @Test
+    void findByUsernameOrEmail_shouldThrowUserNotFoundException_whenUserDoesNotExist() {
+        when(userRepository.findUserByUsernameOrEmail(anyString(), anyString()))
+                .thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userRepositoryAdapter.findByUsernameOrEmail("nonexistentuser"))
+                .isInstanceOf(com.example.blogs.app.api.user.exception.UserNotFoundException.class);
+
+        verify(userRepository).findUserByUsernameOrEmail("nonexistentuser", "nonexistentuser");
+    }
+
+    @Test
+    void findByUsernameOrEmail_shouldThrowFailedToFindUserException_whenDataAccessExceptionOccurs() {
+        DataAccessException exception = new DataIntegrityViolationException("generic data access issue");
+
+        when(userRepository.findUserByUsernameOrEmail(anyString(), anyString()))
+                .thenThrow(exception);
+
+        assertThatThrownBy(() -> userRepositoryAdapter.findByUsernameOrEmail("testuser"))
+                .isInstanceOf(com.example.blogs.app.api.user.exception.FailedToFindUserException.class);
+
+        verify(userRepository).findUserByUsernameOrEmail("testuser", "testuser");
+    }
+
+    private UserEntity createTestUserEntity() {
+        return UserEntity.builder()
+                .id(1L)
+                .username("testuser")
+                .passwordHash("hashedpassword")
+                .email("test@gmail.com")
+                .build();
     }
 
     private CreateUserCommand createTestUserCommand() {

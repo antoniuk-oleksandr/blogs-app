@@ -13,6 +13,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -58,5 +59,45 @@ class UserRepositoryTest {
                 .isCloseTo(now, within(1, ChronoUnit.SECONDS));
         assertThat(actualUser.getCreatedAt())
                 .isCloseTo(now, within(1, ChronoUnit.SECONDS));
+    }
+
+    @Test
+    void findUserByUsernameOrEmail_shouldReturnUserByUsername_whenUserExists() {
+        UserEntity partialUser = UserEntity.builder()
+                .username("test")
+                .passwordHash("passwordHash")
+                .email("test@gmail.com")
+                .build();
+
+        userRepository.save(partialUser);
+
+        Optional<UserEntity> actualUser = userRepository
+                .findUserByUsernameOrEmail("test", "test");
+
+        assertThat(actualUser).isPresent();
+        assertThat(actualUser.get().getUsername()).isEqualTo("test");
+        assertThat(actualUser.get().getEmail()).isEqualTo("test@gmail.com");
+        assertThat(actualUser.get().getPasswordHash()).isEqualTo("passwordHash");
+        assertThat(actualUser.get().getId()).isNotNull().isNotNegative();
+    }
+
+    @Test
+    void findUserByUsernameOrEmail_shouldReturnUserByEmail_whenUserExists() {
+        UserEntity partialUser = UserEntity.builder()
+                .username("test")
+                .passwordHash("passwordHash")
+                .email("test@gmail.com")
+                .build();
+
+        userRepository.save(partialUser);
+
+        Optional<UserEntity> actualUser = userRepository
+                .findUserByUsernameOrEmail("test@gmail.com", "test@gmail.com");
+
+        assertThat(actualUser).isPresent();
+        assertThat(actualUser.get().getUsername()).isEqualTo("test");
+        assertThat(actualUser.get().getEmail()).isEqualTo("test@gmail.com");
+        assertThat(actualUser.get().getPasswordHash()).isEqualTo("passwordHash");
+        assertThat(actualUser.get().getId()).isNotNull().isNotNegative();
     }
 }

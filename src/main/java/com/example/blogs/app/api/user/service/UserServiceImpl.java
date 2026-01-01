@@ -19,4 +19,9 @@ public class UserServiceImpl implements UserService {
     public UserEntity createUser(CreateUserCommand command) {
         return userRepositoryAdapter.save(command);
     }
+
+    @Override
+    public UserEntity findUserByUsernameOrEmail(String usernameOrEmail) {
+        return userRepositoryAdapter.findByUsernameOrEmail(usernameOrEmail);
+    }
 }

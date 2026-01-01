@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Component;
 
+/**
+ * Translates database constraint violations and errors into domain-specific exceptions.
+ */
 @Component
 @AllArgsConstructor
 public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
@@ -39,6 +42,18 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
             }
 
             throw new FailedToCreateUser();
+        }
+    }
+
+    @Override
+    public UserEntity findByUsernameOrEmail(String usernameOrEmail) {
+        try {
+            return userRepository.findUserByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+                    .orElseThrow(UserNotFoundException::new);
+        } catch (UserNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new FailedToFindUserException();
         }
     }
 }

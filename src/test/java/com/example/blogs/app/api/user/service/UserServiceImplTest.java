@@ -27,11 +27,7 @@ class UserServiceImplTest {
 
     @Test
     void createUser_shouldCreateUserSuccessfully() {
-        UserEntity mockUser = UserEntity.builder()
-                .username("testuser")
-                .passwordHash("hashedpassword")
-                .email("test@gmail.com")
-                .build();
+        UserEntity mockUser = createTestUser();
 
         when(userRepositoryAdapter.save(any(CreateUserCommand.class))).thenReturn(mockUser);
 
@@ -46,5 +42,27 @@ class UserServiceImplTest {
         assertThat(actualUser.getEmail()).isEqualTo("test@gmail.com");
         assertThat(actualUser.getPasswordHash()).isEqualTo("hashedpassword");
         verify(userRepositoryAdapter).save(any(CreateUserCommand.class));
+    }
+
+    @Test
+    void findUserByUsernameOrEmail_shouldReturnUserByUsernameSuccessfully() {
+        UserEntity mockUser = createTestUser();
+
+        when(userRepositoryAdapter.findByUsernameOrEmail(anyString())).thenReturn(mockUser);
+
+        UserEntity actualUser = userService.findUserByUsernameOrEmail("testuser");
+
+        assertThat(actualUser.getUsername()).isEqualTo("testuser");
+        assertThat(actualUser.getEmail()).isEqualTo("test@gmail.com");
+        assertThat(actualUser.getPasswordHash()).isEqualTo("hashedpassword");
+        verify(userRepositoryAdapter).findByUsernameOrEmail("testuser");
+    }
+
+    UserEntity createTestUser() {
+        return UserEntity.builder()
+                .username("testuser")
+                .passwordHash("hashedpassword")
+                .email("test@gmail.com")
+                .build();
     }
 }
