@@ -243,4 +243,143 @@ public class AuthControllerDocs {
      */
     public @interface Register {
     }
+
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Login user",
+            description = """
+                    Authenticates an existing user and returns JWT authentication tokens.
+                                
+                    ## Requirements
+                    - **Username or Email**: Valid username or email address
+                    - **Password**: User's password
+                                
+                    ## Response
+                    Returns a token pair upon successful authentication:
+                    - **Access Token**: Short-lived token for API authentication (15 min)
+                    - **Refresh Token**: Long-lived token for obtaining new access tokens (30 days)
+                                
+                    ## Security
+                    - Password is verified using BCrypt
+                    - Tokens are signed using HS256 algorithm
+                    - No sensitive data is included in JWT payload
+                    """,
+            tags = {"Authentication"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "User successfully authenticated",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = TokenPair.class),
+                            examples = @ExampleObject(
+                                    name = "Successful Login",
+                                    summary = "User authenticated successfully",
+                                    description = "Returns JWT tokens for authentication",
+                                    value = """
+                                            {
+                                              "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huZG9lIiwiaWF0IjoxNzAzMjU2MDAwLCJleHAiOjE3MDMyNTY5MDB9.signature",
+                                              "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huZG9lIiwiaWF0IjoxNzAzMjU2MDAwLCJleHAiOjE3MDM4NjA4MDB9.signature"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Validation failed - invalid or missing request data",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Missing Required Fields",
+                                            summary = "One or more required fields are missing",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/auth/login",
+                                                      "errors": [
+                                                        "Username or email is required",
+                                                        "Password is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Missing Request Body",
+                                            summary = "Request body is required but not provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/auth/login",
+                                                      "errors": [
+                                                        "Request body is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - invalid credentials",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Invalid Credentials",
+                                    summary = "Username/email or password is incorrect",
+                                    value = """
+                                            {
+                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "status": 401,
+                                              "error": "Unauthorized",
+                                              "message": "Invalid credentials",
+                                              "path": "/auth/login"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - unexpected failure",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Server Error",
+                                    summary = "Unexpected error occurred during login",
+                                    value = """
+                                            {
+                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "status": 500,
+                                              "error": "Internal Server Error",
+                                              "message": "An unexpected error occurred while processing your request",
+                                              "path": "/auth/login"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the user login endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for user login, including all request/response schemas and examples.
+     * </p>
+     */
+    public @interface Login {
+    }
 }

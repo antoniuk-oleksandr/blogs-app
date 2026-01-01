@@ -1,5 +1,6 @@
 package com.example.blogs.app.api.auth.controller;
 
+import com.example.blogs.app.api.auth.dto.LoginRequest;
 import com.example.blogs.app.api.auth.dto.RegisterRequest;
 import com.example.blogs.app.api.auth.dto.TokenPair;
 import com.example.blogs.app.api.auth.service.AuthService;
@@ -105,5 +106,64 @@ class AuthControllerTest {
                 )
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errors[0]").value("Request body is required"));
+    }
+
+    @Test
+    @SneakyThrows
+    void login_shouldReturn200_whenSuccessfulLogin() {
+        when(authService.login(any(LoginRequest.class))).thenReturn(
+                new TokenPair("accessToken", "refreshToken")
+        );
+
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "usernameOrEmail": "test",
+                                    "password": "test12345"
+                                }
+                                """)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken").exists())
+                .andExpect(jsonPath("$.refreshToken").exists());
+    }
+
+    @Test
+    @SneakyThrows
+    void login_shouldReturnRequiredEmail_whenRequestBodyIsNotStated() {
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors[0]").value("Request body is required"));
+    }
+
+    @Test
+    @SneakyThrows
+    void login_shouldReturnRequiredEmail_whenRequestBodyPasswordIsNotStated() {
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "usernameOrEmail": "test"
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors[0]").value("Password is required"));
+    }
+
+    @Test
+    @SneakyThrows
+    void login_shouldReturnRequiredEmail_whenRequestBodyUsernameOrEmailIsNotStated() {
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "password": "test12345"
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors[0]").value("Username or email is required"));
     }
 }

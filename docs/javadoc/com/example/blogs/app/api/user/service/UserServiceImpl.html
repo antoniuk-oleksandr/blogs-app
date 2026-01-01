@@ -109,10 +109,8 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.example.blogs.app.api.user.repository.UserRepository)" class="member-name-link">UserServiceImpl</a><wbr>(<a href="../repository/UserRepository.html" title="interface in com.example.blogs.app.api.user.repository">UserRepository</a>&nbsp;userRepository)</code></div>
-<div class="col-last even-row-color">
-<div class="block">Constructs a UserServiceImpl with the required repository.</div>
-</div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E()" class="member-name-link">UserServiceImpl</a>()</code></div>
+<div class="col-last even-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -132,6 +130,11 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates a new user in the system.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findUserByUsernameOrEmail(java.lang.String)" class="member-name-link">findUserByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves a user by username or email address.</div>
+</div>
 </div>
 </div>
 </div>
@@ -150,14 +153,9 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.example.blogs.app.api.user.repository.UserRepository)">
+<section class="detail" id="&lt;init&gt;()">
 <h3>UserServiceImpl</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">UserServiceImpl</span><wbr><span class="parameters">(<a href="../repository/UserRepository.html" title="interface in com.example.blogs.app.api.user.repository">UserRepository</a>&nbsp;userRepository)</span></div>
-<div class="block">Constructs a UserServiceImpl with the required repository.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>userRepository</code> - repository for user persistence operations</dd>
-</dl>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">UserServiceImpl</span>()</div>
 </section>
 </li>
 </ul>
@@ -181,6 +179,22 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <dd><code>command</code> - user creation details</dd>
 <dt>Returns:</dt>
 <dd>the persisted user entity</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="findUserByUsernameOrEmail(java.lang.String)">
+<h3>findUserByUsernameOrEmail</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">findUserByUsernameOrEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="UserService.html#findUserByUsernameOrEmail(java.lang.String)">UserService</a></code></span></div>
+<div class="block">Retrieves a user by username or email address.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="UserService.html#findUserByUsernameOrEmail(java.lang.String)">findUserByUsernameOrEmail</a></code>&nbsp;in interface&nbsp;<code><a href="UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>usernameOrEmail</code> - the username or email to search for</dd>
+<dt>Returns:</dt>
+<dd>the matching user entity</dd>
 </dl>
 </section>
 </li>

@@ -55,11 +55,13 @@ loadScripts(document, 'script');</script>
 <li><a href="com/example/blogs/app/api/auth/controller/package-tree.html">com.example.blogs.app.api.auth.controller</a>, </li>
 <li><a href="com/example/blogs/app/api/auth/docs/package-tree.html">com.example.blogs.app.api.auth.docs</a>, </li>
 <li><a href="com/example/blogs/app/api/auth/dto/package-tree.html">com.example.blogs.app.api.auth.dto</a>, </li>
+<li><a href="com/example/blogs/app/api/auth/exception/package-tree.html">com.example.blogs.app.api.auth.exception</a>, </li>
 <li><a href="com/example/blogs/app/api/auth/service/package-tree.html">com.example.blogs.app.api.auth.service</a>, </li>
 <li><a href="com/example/blogs/app/api/user/dto/package-tree.html">com.example.blogs.app.api.user.dto</a>, </li>
 <li><a href="com/example/blogs/app/api/user/entity/package-tree.html">com.example.blogs.app.api.user.entity</a>, </li>
 <li><a href="com/example/blogs/app/api/user/exception/package-tree.html">com.example.blogs.app.api.user.exception</a>, </li>
 <li><a href="com/example/blogs/app/api/user/repository/package-tree.html">com.example.blogs.app.api.user.repository</a>, </li>
+<li><a href="com/example/blogs/app/api/user/repository/adapter/package-tree.html">com.example.blogs.app.api.user.repository.adapter</a>, </li>
 <li><a href="com/example/blogs/app/api/user/service/package-tree.html">com.example.blogs.app.api.user.service</a>, </li>
 <li><a href="com/example/blogs/app/config/package-tree.html">com.example.blogs.app.config</a>, </li>
 <li><a href="com/example/blogs/app/exception/package-tree.html">com.example.blogs.app.exception</a></li>
@@ -87,7 +89,10 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/EmailTakenException.html" class="type-name-link" title="class in com.example.blogs.app.api.user.exception">EmailTakenException</a></li>
 <li class="circle">com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/FailedToCreateUser.html" class="type-name-link" title="class in com.example.blogs.app.api.user.exception">FailedToCreateUser</a></li>
+<li class="circle">com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/FailedToFindUserException.html" class="type-name-link" title="class in com.example.blogs.app.api.user.exception">FailedToFindUserException</a></li>
+<li class="circle">com.example.blogs.app.api.auth.exception.<a href="com/example/blogs/app/api/auth/exception/UnauthorizedException.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.exception">UnauthorizedException</a></li>
 <li class="circle">com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/UsernameTakenException.html" class="type-name-link" title="class in com.example.blogs.app.api.user.exception">UsernameTakenException</a></li>
+<li class="circle">com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/UserNotFoundException.html" class="type-name-link" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></li>
 </ul>
 </li>
 </ul>
@@ -95,6 +100,7 @@ loadScripts(document, 'script');</script>
 </ul>
 </li>
 <li class="circle">com.example.blogs.app.api.user.entity.<a href="com/example/blogs/app/api/user/entity/UserEntity.html" class="type-name-link" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></li>
+<li class="circle">com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapterImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapterImpl</a> (implements com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a>)</li>
 <li class="circle">com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a> (implements com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a>)</li>
 </ul>
 </li>
@@ -145,12 +151,14 @@ loadScripts(document, 'script');</script>
 </li>
 </ul>
 </li>
+<li class="circle">com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html" class="type-name-link" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></li>
 <li class="circle">com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserService.html" class="type-name-link" title="interface in com.example.blogs.app.api.user.service">UserService</a></li>
 </ul>
 </section>
 <section class="hierarchy">
 <h2 title="Annotation Interface Hierarchy">Annotation Interface Hierarchy</h2>
 <ul>
+<li class="circle">com.example.blogs.app.api.auth.docs.<a href="com/example/blogs/app/api/auth/docs/AuthControllerDocs.Login.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.auth.docs">AuthControllerDocs.Login</a> (implements java.lang.annotation.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>)</li>
 <li class="circle">com.example.blogs.app.api.auth.docs.<a href="com/example/blogs/app/api/auth/docs/AuthControllerDocs.Register.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.auth.docs">AuthControllerDocs.Register</a> (implements java.lang.annotation.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/annotation/Annotation.html" title="class or interface in java.lang.annotation" class="external-link">Annotation</a>)</li>
 </ul>
 </section>
@@ -163,6 +171,7 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" class="type-name-link" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></li>
 <li class="circle">com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ErrorResponse.html" class="type-name-link" title="class in com.example.blogs.app.exception">ErrorResponse</a></li>
+<li class="circle">com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LoginRequest.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a></li>
 <li class="circle">com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a></li>
 <li class="circle">com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/TokenPair.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></li>
 </ul>

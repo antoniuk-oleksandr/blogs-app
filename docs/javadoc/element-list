@@ -2,11 +2,13 @@ com.example.blogs.app
 com.example.blogs.app.api.auth.controller
 com.example.blogs.app.api.auth.docs
 com.example.blogs.app.api.auth.dto
+com.example.blogs.app.api.auth.exception
 com.example.blogs.app.api.auth.service
 com.example.blogs.app.api.user.dto
 com.example.blogs.app.api.user.entity
 com.example.blogs.app.api.user.exception
 com.example.blogs.app.api.user.repository
+com.example.blogs.app.api.user.repository.adapter
 com.example.blogs.app.api.user.service
 com.example.blogs.app.config
 com.example.blogs.app.exception
