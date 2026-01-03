@@ -77,7 +77,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Orchestrates user registration by coordinating password hashing, user creation, and token generation.</div>
+<div class="block">Orchestrates user authentication operations by coordinating password hashing, user validation, and token generation.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
@@ -107,21 +107,37 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Centralized exception handler that translates exceptions into standardized error responses.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/auth/service/JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/config/JwtDecoderConfig.html" title="class in com.example.blogs.app.config">JwtDecoderConfig</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Provides JWT decoder bean for validating and parsing JWT tokens in Spring Security OAuth2 resource server.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/auth/service/JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Low-level utility for generating signed JWT tokens with custom claims and expiration.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTHelperImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTHelperImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Generates JWT tokens using JJWT library with HMAC SHA256 signing.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Generates JWT tokens with preconfigured expiration times for access and refresh flows.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Delegates to JWTHelper with application-configured expiration durations for access and refresh tokens.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html" title="interface in com.example.blogs.app.api.auth.service">JwtTokenGenerator</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="block">Generates JWT token pairs (access and refresh) with user claims for authentication.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html" title="class in com.example.blogs.app.api.auth.service">JwtTokenGeneratorImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Creates JWT token pairs with embedded user claims for access and refresh authentication flows.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/security/JwtToUserPrincipalConverter.html" title="class in com.example.blogs.app.security">JwtToUserPrincipalConverter</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Converts JWT tokens to UserPrincipal authentication tokens for Spring Security context.</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/auth/dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab4">
@@ -158,6 +174,14 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/user/exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Thrown when a requested user does not exist in the system.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="block">Represents the authenticated user's identity extracted from JWT token claims.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Spring Security authentication token holding UserPrincipal and JWT credentials.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/user/repository/UserRepository.html" title="interface in com.example.blogs.app.api.user.repository">UserRepository</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">

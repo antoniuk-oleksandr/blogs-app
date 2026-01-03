@@ -49,7 +49,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="com/example/blogs/app/api/auth/dto/TokenPair.html#accessToken()" class="member-name-link">accessToken()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></dt>
@@ -84,7 +84,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a> - Class in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
 <dd>
-<div class="block">Orchestrates user registration by coordinating password hashing, user creation, and token generation.</div>
+<div class="block">Orchestrates user authentication operations by coordinating password hashing, user validation, and token generation.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html#%3Cinit%3E()" class="member-name-link">AuthServiceImpl()</a> - Constructor for class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a></dt>
 <dd>&nbsp;</dd>
@@ -119,6 +119,18 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/exception/package-summary.html">com.example.blogs.app.exception</a> - package com.example.blogs.app.exception</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a> - package com.example.blogs.app.security</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/security/JwtToUserPrincipalConverter.html#convert(org.springframework.security.oauth2.jwt.Jwt)" class="member-name-link">convert(Jwt)</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/JwtToUserPrincipalConverter.html" title="class in com.example.blogs.app.security">JwtToUserPrincipalConverter</a></dt>
+<dd>
+<div class="block">Extracts user information from JWT claims and creates an authentication token.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html#createClaims(com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)" class="member-name-link">createClaims(UserEntity, String)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html" title="interface in com.example.blogs.app.api.auth.service">JwtTokenGenerator</a></dt>
+<dd>
+<div class="block">Creates JWT claims map from user entity data with token type.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html#createClaims(com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)" class="member-name-link">createClaims(UserEntity, String)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html" title="class in com.example.blogs.app.api.auth.service">JwtTokenGeneratorImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/user/service/UserService.html#createUser(com.example.blogs.app.api.user.dto.CreateUserCommand)" class="member-name-link">createUser(CreateUserCommand)</a> - Method in interface com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></dt>
 <dd>
 <div class="block">Creates a new user in the system.</div>
@@ -143,6 +155,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html#email()" class="member-name-link">email()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/api/user/dto/CreateUserCommand.html#param-email"><code>email</code></a> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#email()" class="member-name-link">email()</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>email</code> record component.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/exception/EmailTakenException.html" class="type-name-link" title="class in com.example.blogs.app.api.user.exception">EmailTakenException</a> - Exception Class in <a href="com/example/blogs/app/api/user/exception/package-summary.html">com.example.blogs.app.api.user.exception</a></dt>
 <dd>
@@ -172,6 +188,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/exception/ErrorResponse.html#error()" class="member-name-link">error()</a> - Method in record class com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/exception/ErrorResponse.html#param-error"><code>error</code></a> record component.</div>
@@ -213,7 +235,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/config/SecurityConfig.html#filterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)" class="member-name-link">filterChain(HttpSecurity)</a> - Method in class com.example.blogs.app.config.<a href="com/example/blogs/app/config/SecurityConfig.html" title="class in com.example.blogs.app.config">SecurityConfig</a></dt>
 <dd>
-<div class="block">Configures the security filter chain with stateless session management.</div>
+<div class="block">Configures the security filter chain with JWT-based stateless authentication.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html#findByUsernameOrEmail(java.lang.String)" class="member-name-link">findByUsernameOrEmail(String)</a> - Method in interface com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></dt>
 <dd>
@@ -237,13 +259,33 @@ loadScripts(document, 'script');</script>
 <div class="block">Generates an access token with short-lived expiration.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html#generateAccessToken(java.lang.String)" class="member-name-link">generateAccessToken(String)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Generates an access token with short-lived expiration.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JWTService.html#generateAccessToken(java.lang.String,java.util.Map)" class="member-name-link">generateAccessToken(String, Map&lt;String, Object&gt;)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></dt>
+<dd>
+<div class="block">Generates an access token with short-lived expiration.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html#generateAccessToken(java.lang.String,java.util.Map)" class="member-name-link">generateAccessToken(String, Map&lt;String, Object&gt;)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></dt>
+<dd>
+<div class="block">Generates an access token with short-lived expiration.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/JWTService.html#generateRefreshToken(java.lang.String)" class="member-name-link">generateRefreshToken(String)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></dt>
 <dd>
 <div class="block">Generates a refresh token with extended expiration.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html#generateRefreshToken(java.lang.String)" class="member-name-link">generateRefreshToken(String)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Generates a refresh token with extended expiration.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JWTService.html#generateRefreshToken(java.lang.String,java.util.Map)" class="member-name-link">generateRefreshToken(String, Map&lt;String, Object&gt;)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></dt>
+<dd>
+<div class="block">Generates a refresh token with extended expiration.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html#generateRefreshToken(java.lang.String,java.util.Map)" class="member-name-link">generateRefreshToken(String, Map&lt;String, Object&gt;)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></dt>
+<dd>
+<div class="block">Generates a refresh token with extended expiration.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/JWTHelper.html#generateToken(java.lang.String,java.time.Duration)" class="member-name-link">generateToken(String, Duration)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></dt>
 <dd>
 <div class="block">Generates a token with no additional claims.</div>
@@ -255,6 +297,16 @@ loadScripts(document, 'script');</script>
 <div class="block">Generates a token with custom claims.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html#generateToken(java.lang.String,java.util.Map,java.time.Duration)" class="member-name-link">generateToken(String, Map&lt;String, Object&gt;, Duration)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTHelperImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html#generateTokens(com.example.blogs.app.api.user.entity.UserEntity)" class="member-name-link">generateTokens(UserEntity)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html" title="interface in com.example.blogs.app.api.auth.service">JwtTokenGenerator</a></dt>
+<dd>
+<div class="block">Generates a complete token pair containing access and refresh tokens for the user.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html#generateTokens(com.example.blogs.app.api.user.entity.UserEntity)" class="member-name-link">generateTokens(UserEntity)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html" title="class in com.example.blogs.app.api.auth.service">JwtTokenGeneratorImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#getCredentials()" class="member-name-link">getCredentials()</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#getPrincipal()" class="member-name-link">getPrincipal()</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/exception/GlobalExceptionHandler.html" class="type-name-link" title="class in com.example.blogs.app.exception">GlobalExceptionHandler</a> - Class in <a href="com/example/blogs/app/exception/package-summary.html">com.example.blogs.app.exception</a></dt>
 <dd>
@@ -289,9 +341,34 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:I">I</h2>
+<dl class="index">
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#id()" class="member-name-link">id()</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>id</code> record component.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:J">J</h2>
 <dl class="index">
+<dt><a href="com/example/blogs/app/config/JwtDecoderConfig.html#jwtDecoder()" class="member-name-link">jwtDecoder()</a> - Method in class com.example.blogs.app.config.<a href="com/example/blogs/app/config/JwtDecoderConfig.html" title="class in com.example.blogs.app.config">JwtDecoderConfig</a></dt>
+<dd>
+<div class="block">Creates a JWT decoder bean that validates and parses JWT tokens using JJWT library.</div>
+</dd>
+<dt><a href="com/example/blogs/app/config/JwtDecoderConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">JwtDecoderConfig</a> - Class in <a href="com/example/blogs/app/config/package-summary.html">com.example.blogs.app.config</a></dt>
+<dd>
+<div class="block">Provides JWT decoder bean for validating and parsing JWT tokens in Spring Security OAuth2 resource server.</div>
+</dd>
+<dt><a href="com/example/blogs/app/config/JwtDecoderConfig.html#%3Cinit%3E(java.lang.String)" class="member-name-link">JwtDecoderConfig(String)</a> - Constructor for class com.example.blogs.app.config.<a href="com/example/blogs/app/config/JwtDecoderConfig.html" title="class in com.example.blogs.app.config">JwtDecoderConfig</a></dt>
+<dd>
+<div class="block">Constructs JwtDecoderConfig with the configured HMAC SHA256 secret key.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/JWTHelper.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a> - Interface in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
 <dd>
 <div class="block">Low-level utility for generating signed JWT tokens with custom claims and expiration.</div>
@@ -316,6 +393,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Constructs a JWTServiceImpl with configured dependencies and token expiration durations.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">JwtTokenGenerator</a> - Interface in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
+<dd>
+<div class="block">Generates JWT token pairs (access and refresh) with user claims for authentication.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">JwtTokenGeneratorImpl</a> - Class in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
+<dd>
+<div class="block">Creates JWT token pairs with embedded user claims for access and refresh authentication flows.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html#%3Cinit%3E()" class="member-name-link">JwtTokenGeneratorImpl()</a> - Constructor for class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html" title="class in com.example.blogs.app.api.auth.service">JwtTokenGeneratorImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/security/JwtToUserPrincipalConverter.html" class="type-name-link" title="class in com.example.blogs.app.security">JwtToUserPrincipalConverter</a> - Class in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
+<dd>
+<div class="block">Converts JWT tokens to UserPrincipal authentication tokens for Spring Security context.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/JwtToUserPrincipalConverter.html#%3Cinit%3E()" class="member-name-link">JwtToUserPrincipalConverter()</a> - Constructor for class com.example.blogs.app.security.<a href="com/example/blogs/app/security/JwtToUserPrincipalConverter.html" title="class in com.example.blogs.app.security">JwtToUserPrincipalConverter</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
@@ -343,6 +436,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/Application.html#main(java.lang.String%5B%5D)" class="member-name-link">main(String[])</a> - Static method in class com.example.blogs.app.<a href="com/example/blogs/app/Application.html" title="class in com.example.blogs.app">Application</a></dt>
 <dd>
 <div class="block">Main method that bootstraps the Spring Boot application.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/controller/AuthController.html#me(com.example.blogs.app.security.UserPrincipal)" class="member-name-link">me(UserPrincipal)</a> - Method in class com.example.blogs.app.api.auth.controller.<a href="com/example/blogs/app/api/auth/controller/AuthController.html" title="class in com.example.blogs.app.api.auth.controller">AuthController</a></dt>
+<dd>
+<div class="block">Returns the authenticated user's principal information.</div>
 </dd>
 <dt><a href="com/example/blogs/app/exception/ErrorResponse.html#message()" class="member-name-link">message()</a> - Method in record class com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a></dt>
 <dd>
@@ -376,6 +473,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/exception/ErrorResponse.html#path()" class="member-name-link">path()</a> - Method in record class com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/exception/ErrorResponse.html#param-path"><code>path</code></a> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#profilePictureUrl()" class="member-name-link">profilePictureUrl()</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>profilePictureUrl</code> record component.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
@@ -460,6 +561,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
@@ -483,6 +588,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/api/user/dto/CreateUserCommand.html#param-username"><code>username</code></a> record component.</div>
 </dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#username()" class="member-name-link">username()</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>username</code> record component.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/LoginRequest.html#usernameOrEmail()" class="member-name-link">usernameOrEmail()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>usernameOrEmail</code> record component.</div>
@@ -501,6 +610,22 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/exception/UserNotFoundException.html#%3Cinit%3E()" class="member-name-link">UserNotFoundException()</a> - Constructor for exception class com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html" class="type-name-link" title="class in com.example.blogs.app.security">UserPrincipal</a> - Record Class in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
+<dd>
+<div class="block">Represents the authenticated user's identity extracted from JWT token claims.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipal.html#%3Cinit%3E(java.lang.Long,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">UserPrincipal(Long, String, String, String)</a> - Constructor for record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>UserPrincipal</code> record class.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" class="type-name-link" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a> - Class in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
+<dd>
+<div class="block">Spring Security authentication token holding UserPrincipal and JWT credentials.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#%3Cinit%3E(com.example.blogs.app.security.UserPrincipal,org.springframework.security.oauth2.jwt.Jwt)" class="member-name-link">UserPrincipalAuthenticationToken(UserPrincipal, Jwt)</a> - Constructor for class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
+<dd>
+<div class="block">Creates an authenticated token with UserPrincipal and JWT.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/repository/UserRepository.html" class="type-name-link" title="interface in com.example.blogs.app.api.user.repository">UserRepository</a> - Interface in <a href="com/example/blogs/app/api/user/repository/package-summary.html">com.example.blogs.app.api.user.repository</a></dt>
 <dd>
 <div class="block">Data access for user entities with unique constraints on username and email.</div>
@@ -526,7 +651,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html#%3Cinit%3E()" class="member-name-link">UserServiceImpl()</a> - Constructor for class com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>

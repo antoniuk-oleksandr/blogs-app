@@ -6,6 +6,8 @@ import com.example.blogs.app.api.auth.dto.TokenPair;
 import com.example.blogs.app.api.auth.service.AuthService;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
 import com.example.blogs.app.exception.GlobalExceptionHandler;
+import com.example.blogs.app.security.UserPrincipal;
+import com.example.blogs.app.security.UserPrincipalAuthenticationToken;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +15,24 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthController.class)
 @Import({GlobalExceptionHandler.class, ExceptionHttpStatusMapper.class})
 @AutoConfigureMockMvc(addFilters = false)
+
+
+//@SpringBootTest
+//@AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest {
 
     @Autowired
@@ -165,5 +175,46 @@ class AuthControllerTest {
                                 """))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errors[0]").value("Username or email is required"));
+    }
+
+    @Test
+    @SneakyThrows
+    void me_shouldReturn200_whenSuccessful() {
+        Jwt jwt = Jwt.withTokenValue("mock-token")
+                .header("alg", "RS256")
+                .header("typ", "JWT")
+                .claim("sub", "1")
+                .claim("username", "test")
+                .claim("email", "test@gmail.com")
+                .claim("profilePictureUrl", "picture")
+                .issuedAt(java.time.Instant.now())
+                .expiresAt(java.time.Instant.now().plusSeconds(3600))
+                .build();
+
+
+        UserPrincipal userPrincipal = new UserPrincipal(
+                1L,
+                "test",
+                "test@gmail.com",
+                "picture"
+        );
+
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        try {
+            mockMvc.perform(get("/auth/me")
+                            .accept(MediaType.APPLICATION_JSON)
+                    )
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.id").value(1))
+                    .andExpect(jsonPath("$.username").value("test"))
+                    .andExpect(jsonPath("$.email").value("test@gmail.com"))
+                    .andExpect(jsonPath("$.profilePictureUrl").value("picture"));
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
     }
 }

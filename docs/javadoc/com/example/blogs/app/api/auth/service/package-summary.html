@@ -83,7 +83,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="AuthServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">Orchestrates user registration by coordinating password hashing, user creation, and token generation.</div>
+<div class="block">Orchestrates user authentication operations by coordinating password hashing, user validation, and token generation.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
@@ -100,6 +100,14 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Delegates to JWTHelper with application-configured expiration durations for access and refresh tokens.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="JwtTokenGenerator.html" title="interface in com.example.blogs.app.api.auth.service">JwtTokenGenerator</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">Generates JWT token pairs (access and refresh) with user claims for authentication.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="JwtTokenGeneratorImpl.html" title="class in com.example.blogs.app.api.auth.service">JwtTokenGeneratorImpl</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Creates JWT token pairs with embedded user claims for access and refresh authentication flows.</div>
 </div>
 </div>
 </div>
