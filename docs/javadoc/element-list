@@ -12,3 +12,4 @@ com.example.blogs.app.api.user.repository.adapter
 com.example.blogs.app.api.user.service
 com.example.blogs.app.config
 com.example.blogs.app.exception
+com.example.blogs.app.security

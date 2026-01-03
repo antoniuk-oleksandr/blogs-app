@@ -4,6 +4,7 @@ import com.example.blogs.app.api.auth.docs.AuthControllerDocs;
 import com.example.blogs.app.api.auth.dto.LoginRequest;
 import com.example.blogs.app.api.auth.dto.TokenPair;
 import com.example.blogs.app.api.auth.dto.RegisterRequest;
+import com.example.blogs.app.security.UserPrincipal;
 import com.example.blogs.app.api.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -11,10 +12,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller for user authentication and registration.
@@ -47,11 +46,24 @@ public class AuthController {
      * @param loginRequest the login credentials including username/email and password
      * @return HTTP 200 with access and refresh tokens
      */
-    @AuthControllerDocs.Login
     @PostMapping("/login")
+    @AuthControllerDocs.Login
     public ResponseEntity<TokenPair> login(@NotNull @Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(authService.login(loginRequest));
+    }
+
+    /**
+     * Returns the authenticated user's principal information.
+     *
+     * @param user the authenticated user principal from the JWT token
+     * @return HTTP 200 with user principal details
+     */
+    @GetMapping("/me")
+    public ResponseEntity<UserPrincipal> me(@AuthenticationPrincipal UserPrincipal user) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(user);
     }
 }

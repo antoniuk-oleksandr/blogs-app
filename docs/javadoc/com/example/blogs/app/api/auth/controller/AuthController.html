@@ -126,9 +126,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Authenticates a user and returns authentication tokens.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(@NotNull @Valid <a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#me(com.example.blogs.app.security.UserPrincipal)" class="member-name-link">me</a><wbr>(<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&nbsp;user)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the authenticated user's principal information.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(@NotNull @Valid <a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Registers a new user and returns authentication tokens.</div>
 </div>
 </div>
@@ -189,6 +194,21 @@ loadScripts(document, 'script');</script>
 <dd><code>loginRequest</code> - the login credentials including username/email and password</dd>
 <dt>Returns:</dt>
 <dd>HTTP 200 with access and refresh tokens</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="me(com.example.blogs.app.security.UserPrincipal)">
+<h3>me</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/GetMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@GetMapping</a>("/me")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&gt;</span>&nbsp;<span class="element-name">me</span><wbr><span class="parameters">(@AuthenticationPrincipal
+ <a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&nbsp;user)</span></div>
+<div class="block">Returns the authenticated user's principal information.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>user</code> - the authenticated user principal from the JWT token</dd>
+<dt>Returns:</dt>
+<dd>HTTP 200 with user principal details</dd>
 </dl>
 </section>
 </li>

@@ -64,21 +64,30 @@ loadScripts(document, 'script');</script>
 <li><a href="com/example/blogs/app/api/user/repository/adapter/package-tree.html">com.example.blogs.app.api.user.repository.adapter</a>, </li>
 <li><a href="com/example/blogs/app/api/user/service/package-tree.html">com.example.blogs.app.api.user.service</a>, </li>
 <li><a href="com/example/blogs/app/config/package-tree.html">com.example.blogs.app.config</a>, </li>
-<li><a href="com/example/blogs/app/exception/package-tree.html">com.example.blogs.app.exception</a></li>
+<li><a href="com/example/blogs/app/exception/package-tree.html">com.example.blogs.app.exception</a>, </li>
+<li><a href="com/example/blogs/app/security/package-tree.html">com.example.blogs.app.security</a></li>
 </ul>
 <section class="hierarchy">
 <h2 title="Class Hierarchy">Class Hierarchy</h2>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
+<li class="circle">org.springframework.security.authentication.AbstractAuthenticationToken (implements org.springframework.security.core.Authentication, org.springframework.security.core.CredentialsContainer)
+<ul>
+<li class="circle">com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" class="type-name-link" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></li>
+</ul>
+</li>
 <li class="circle">com.example.blogs.app.<a href="com/example/blogs/app/Application.html" class="type-name-link" title="class in com.example.blogs.app">Application</a></li>
 <li class="circle">com.example.blogs.app.api.auth.controller.<a href="com/example/blogs/app/api/auth/controller/AuthController.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.controller">AuthController</a></li>
 <li class="circle">com.example.blogs.app.api.auth.docs.<a href="com/example/blogs/app/api/auth/docs/AuthControllerDocs.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.docs">AuthControllerDocs</a></li>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/AuthService.html" title="interface in com.example.blogs.app.api.auth.service">AuthService</a>)</li>
 <li class="circle">com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ExceptionHttpStatusMapper.html" class="type-name-link" title="class in com.example.blogs.app.exception">ExceptionHttpStatusMapper</a></li>
 <li class="circle">com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/GlobalExceptionHandler.html" class="type-name-link" title="class in com.example.blogs.app.exception">GlobalExceptionHandler</a></li>
+<li class="circle">com.example.blogs.app.config.<a href="com/example/blogs/app/config/JwtDecoderConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">JwtDecoderConfig</a></li>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">JWTHelperImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a>)</li>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a>)</li>
+<li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGeneratorImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">JwtTokenGeneratorImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html" title="interface in com.example.blogs.app.api.auth.service">JwtTokenGenerator</a>)</li>
+<li class="circle">com.example.blogs.app.security.<a href="com/example/blogs/app/security/JwtToUserPrincipalConverter.html" class="type-name-link" title="class in com.example.blogs.app.security">JwtToUserPrincipalConverter</a> (implements org.springframework.core.convert.converter.<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/convert/converter/Converter.html" title="class or interface in org.springframework.core.convert.converter" class="external-link">Converter</a>&lt;S,<wbr>T&gt;)</li>
 <li class="circle">com.example.blogs.app.config.<a href="com/example/blogs/app/config/PasswordConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">PasswordConfig</a></li>
 <li class="circle">com.example.blogs.app.config.<a href="com/example/blogs/app/config/SecurityConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">SecurityConfig</a></li>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Throwable.html" class="type-name-link external-link" title="class or interface in java.lang">Throwable</a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a>)
@@ -112,6 +121,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/AuthService.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">AuthService</a></li>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelper.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></li>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></li>
+<li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JwtTokenGenerator.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">JwtTokenGenerator</a></li>
 <li class="circle">org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;
 <ul>
 <li class="circle">org.springframework.data.jpa.repository.JpaRepository&lt;T,<wbr>ID&gt; (also extends org.springframework.data.repository.ListCrudRepository&lt;T,<wbr>ID&gt;, org.springframework.data.repository.ListPagingAndSortingRepository&lt;T,<wbr>ID&gt;)
@@ -174,6 +184,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LoginRequest.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a></li>
 <li class="circle">com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a></li>
 <li class="circle">com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/TokenPair.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></li>
+<li class="circle">com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" class="type-name-link" title="class in com.example.blogs.app.security">UserPrincipal</a></li>
 </ul>
 </li>
 </ul>

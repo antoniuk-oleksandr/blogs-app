@@ -1,5 +1,6 @@
 package com.example.blogs.app.config;
 
+import com.example.blogs.app.security.JwtToUserPrincipalConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,8 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
     /**
-     * Configures the security filter chain with stateless session management.
-     * Currently, permits all requests - authentication will be added later.
+     * Configures the security filter chain with JWT-based stateless authentication.
+     * Protects /auth/me endpoint and permits all other requests.
      *
      * @param http the HttpSecurity to configure
      * @return configured SecurityFilterChain
@@ -26,10 +27,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/me").authenticated()
+                        .anyRequest().permitAll()
+                )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .oauth2ResourceServer(
+                        oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new JwtToUserPrincipalConverter()))
                 );
 
         return http.build();
