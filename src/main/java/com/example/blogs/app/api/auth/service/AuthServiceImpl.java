@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * Orchestrates user registration by coordinating password hashing, user creation, and token generation.
+ * Orchestrates user authentication operations by coordinating password hashing, user validation, and token generation.
  */
 @Service
 @AllArgsConstructor
@@ -22,7 +22,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final JWTService jwtService;
+    private final JwtTokenGenerator jwtTokenGenerator;
 
     @Override
     public TokenPair register(RegisterRequest registerRequest) {
@@ -36,10 +36,7 @@ public class AuthServiceImpl implements AuthService {
 
         UserEntity user = userService.createUser(command);
 
-        return new TokenPair(
-                jwtService.generateAccessToken(user.getUsername()),
-                jwtService.generateRefreshToken(user.getUsername())
-        );
+        return jwtTokenGenerator.generateTokens(user);
     }
 
     @Override
@@ -57,9 +54,6 @@ public class AuthServiceImpl implements AuthService {
             throw new UnauthorizedException();
         }
 
-        return new TokenPair(
-                jwtService.generateAccessToken(user.getUsername()),
-                jwtService.generateRefreshToken(user.getUsername())
-        );
+        return jwtTokenGenerator.generateTokens(user);
     }
 }

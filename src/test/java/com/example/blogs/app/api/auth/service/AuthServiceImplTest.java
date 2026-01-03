@@ -28,13 +28,13 @@ class AuthServiceImplTest {
     private PasswordEncoder passwordEncoder;
 
     @Mock
-    private JWTService jwtService;
+    private JwtTokenGenerator jwtTokenGenerator;
 
     private AuthService authService;
 
     @BeforeEach
     void setUp() {
-        authService = new AuthServiceImpl(userService, passwordEncoder, jwtService);
+        authService = new AuthServiceImpl(userService, passwordEncoder, jwtTokenGenerator);
     }
 
     @Test
@@ -45,16 +45,15 @@ class AuthServiceImplTest {
 
         stubPasswordEncoding("password123", hashedPassword);
         stubUserCreation(createdUser);
-        stubTokenGeneration("testuser", "accessToken", "refreshToken");
+        stubTokenGeneration("access", "refresh");
 
         TokenPair result = authService.register(request);
 
-        assertThat(result.accessToken()).isEqualTo("accessToken");
-        assertThat(result.refreshToken()).isEqualTo("refreshToken");
+        assertThat(result.accessToken()).isEqualTo("access");
+        assertThat(result.refreshToken()).isEqualTo("refresh");
 
         verify(passwordEncoder).encode("password123");
         verifyUserCreatedWith("testuser", "email@gmail.com", hashedPassword);
-        verifyTokensGeneratedFor("testuser");
     }
 
     @Test
@@ -64,11 +63,11 @@ class AuthServiceImplTest {
 
         stubPasswordEncoding(anyString(), "hashed");
         stubUserCreation(createdUser);
-        stubTokenGeneration("john_doe", "access", "refresh");
+        stubTokenGeneration("access", "refresh");
 
-        authService.register(request);
-
-        verifyTokensGeneratedFor("john_doe");
+        TokenPair tokenPair = authService.register(request);
+        assertThat(tokenPair.accessToken()).isEqualTo("access");
+        assertThat(tokenPair.refreshToken()).isEqualTo("refresh");
     }
 
     @Test
@@ -77,11 +76,13 @@ class AuthServiceImplTest {
 
         stubPasswordEncoding("plainPassword", "hashed");
         stubUserCreation(createUser(1L, "testuser", "test@example.com", "hashed"));
-        stubTokenGeneration("testuser", "token", "token");
+        stubTokenGeneration("access", "refresh");
 
-        authService.register(request);
+        TokenPair tokenPair =  authService.register(request);
 
         verifyPasswordWasHashed("plainPassword", "hashed");
+        assertThat(tokenPair.accessToken()).isEqualTo("access");
+        assertThat(tokenPair.refreshToken()).isEqualTo("refresh");
     }
 
     @Test
@@ -91,15 +92,14 @@ class AuthServiceImplTest {
 
         when(userService.findUserByUsernameOrEmail("testuser")).thenReturn(mockUser);
         when(passwordEncoder.matches(any(CharSequence.class), anyString())).thenReturn(true);
-        stubTokenGeneration("testuser", "accessToken", "refreshToken");
+        stubTokenGeneration("access", "refresh");
 
         TokenPair tokenPair = authService.login(loginRequest);
 
-        assertThat(tokenPair.accessToken()).isEqualTo("accessToken");
-        assertThat(tokenPair.refreshToken()).isEqualTo("refreshToken");
+        assertThat(tokenPair.accessToken()).isEqualTo("access");
+        assertThat(tokenPair.refreshToken()).isEqualTo("refresh");
         verify(userService).findUserByUsernameOrEmail("testuser");
         verify(passwordEncoder).matches("password123", "hashedPassword");
-        verifyTokensGeneratedFor("testuser");
     }
 
     @Test
@@ -113,8 +113,7 @@ class AuthServiceImplTest {
 
         verify(userService).findUserByUsernameOrEmail("invalidUser");
         verify(passwordEncoder, never()).matches(any(CharSequence.class), anyString());
-        verify(jwtService, never()).generateAccessToken(anyString());
-        verify(jwtService, never()).generateRefreshToken(anyString());
+        verify(jwtTokenGenerator, never()).generateTokens(any(UserEntity.class));
     }
 
     @Test
@@ -130,8 +129,7 @@ class AuthServiceImplTest {
 
         verify(userService).findUserByUsernameOrEmail("testuser");
         verify(passwordEncoder).matches("password123", "hashedPassword");
-        verify(jwtService, never()).generateAccessToken(anyString());
-        verify(jwtService, never()).generateRefreshToken(anyString());
+        verify(jwtTokenGenerator, never()).generateTokens(any(UserEntity.class));
     }
 
     private UserEntity createUser(Long id, String username, String email, String passwordHash) {
@@ -152,9 +150,9 @@ class AuthServiceImplTest {
         when(userService.createUser(any(CreateUserCommand.class))).thenReturn(user);
     }
 
-    private void stubTokenGeneration(String username, String accessToken, String refreshToken) {
-        when(jwtService.generateAccessToken(username)).thenReturn(accessToken);
-        when(jwtService.generateRefreshToken(username)).thenReturn(refreshToken);
+    private void stubTokenGeneration(String accessToken, String refreshToken) {
+        when(jwtTokenGenerator.generateTokens(any(UserEntity.class)))
+                .thenReturn(new TokenPair(accessToken, refreshToken));
     }
 
     private void verifyUserCreatedWith(String username, String email, String passwordHash) {
@@ -167,10 +165,6 @@ class AuthServiceImplTest {
         assertThat(captured.passwordHash()).isEqualTo(passwordHash);
     }
 
-    private void verifyTokensGeneratedFor(String username) {
-        verify(jwtService).generateAccessToken(username);
-        verify(jwtService).generateRefreshToken(username);
-    }
 
     private void verifyPasswordWasHashed(String rawPassword, String hashedPassword) {
         ArgumentCaptor<CreateUserCommand> captor = ArgumentCaptor.forClass(CreateUserCommand.class);

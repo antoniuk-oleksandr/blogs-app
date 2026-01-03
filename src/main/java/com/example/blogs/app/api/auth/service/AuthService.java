@@ -1,6 +1,5 @@
 package com.example.blogs.app.api.auth.service;
 
-
 import com.example.blogs.app.api.auth.dto.LoginRequest;
 import com.example.blogs.app.api.auth.dto.RegisterRequest;
 import com.example.blogs.app.api.auth.dto.TokenPair;
