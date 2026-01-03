@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Duration;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
@@ -17,7 +18,7 @@ class JWTServiceImplTest {
     @Mock
     private JWTHelper jwtHelper;
 
-    private JWTServiceImpl jwtService;
+    private JWTService jwtService;
 
     private Duration accessTokenExpiration;
     private Duration refreshTokenExpiration;
@@ -56,5 +57,89 @@ class JWTServiceImplTest {
 
         assertThat(token).isEqualTo(fakeToken);
         verify(jwtHelper).generateToken(subject, refreshTokenExpiration);
+    }
+
+    @Test
+    void generateAccessToken_shouldReturnToken_whenSubjectAndClaimsProvided() {
+        String subject = "user123";
+        Map<String, Object> claims = Map.of("role", "USER", "email", "user@example.com");
+
+        stubTokenGeneration(subject, claims, accessTokenExpiration, "access.token.here");
+
+        String result = jwtService.generateAccessToken(subject, claims);
+
+        assertThat(result).isEqualTo("access.token.here");
+        verifyTokenGenerated(subject, claims, accessTokenExpiration);
+    }
+
+    @Test
+    void generateAccessToken_shouldUseCorrectExpiration_whenGeneratingToken() {
+        String subject = "user456";
+        Map<String, Object> claims = Map.of("username", "testuser");
+
+        stubTokenGeneration(subject, claims, accessTokenExpiration, "token");
+
+        jwtService.generateAccessToken(subject, claims);
+
+        verifyTokenGenerated(subject, claims, accessTokenExpiration);
+    }
+
+    @Test
+    void generateAccessToken_shouldReturnToken_whenClaimsAreEmpty() {
+        String subject = "user789";
+        Map<String, Object> emptyClaims = Map.of();
+
+        stubTokenGeneration(subject, emptyClaims, accessTokenExpiration, "access.token.empty");
+
+        String result = jwtService.generateAccessToken(subject, emptyClaims);
+
+        assertThat(result).isEqualTo("access.token.empty");
+        verifyTokenGenerated(subject, emptyClaims, accessTokenExpiration);
+    }
+
+    @Test
+    void generateRefreshToken_shouldReturnToken_whenSubjectAndClaimsProvided() {
+        String subject = "user123";
+        Map<String, Object> claims = Map.of("role", "USER");
+
+        stubTokenGeneration(subject, claims, refreshTokenExpiration, "refresh.token.here");
+
+        String result = jwtService.generateRefreshToken(subject, claims);
+
+        assertThat(result).isEqualTo("refresh.token.here");
+        verifyTokenGenerated(subject, claims, refreshTokenExpiration);
+    }
+
+    @Test
+    void generateRefreshToken_shouldUseCorrectExpiration_whenGeneratingToken() {
+        String subject = "user456";
+        Map<String, Object> claims = Map.of("username", "testuser");
+
+        stubTokenGeneration(subject, claims, refreshTokenExpiration, "token");
+
+        jwtService.generateRefreshToken(subject, claims);
+
+        verifyTokenGenerated(subject, claims, refreshTokenExpiration);
+    }
+
+    @Test
+    void generateRefreshToken_shouldReturnToken_whenClaimsAreEmpty() {
+        String subject = "user789";
+        Map<String, Object> emptyClaims = Map.of();
+
+        stubTokenGeneration(subject, emptyClaims, refreshTokenExpiration, "refresh.token.empty");
+
+        String result = jwtService.generateRefreshToken(subject, emptyClaims);
+
+        assertThat(result).isEqualTo("refresh.token.empty");
+        verifyTokenGenerated(subject, emptyClaims, refreshTokenExpiration);
+    }
+
+    private void stubTokenGeneration(String subject, Map<String, Object> claims, Duration expiration, String token) {
+        when(jwtHelper.generateToken(subject, claims, expiration)).thenReturn(token);
+    }
+
+    private void verifyTokenGenerated(String subject, Map<String, Object> claims, Duration expiration) {
+        verify(jwtHelper).generateToken(subject, claims, expiration);
     }
 }
