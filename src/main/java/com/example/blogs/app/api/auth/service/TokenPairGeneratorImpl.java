@@ -12,10 +12,16 @@ import java.util.Map;
  */
 @Component
 @AllArgsConstructor
-public class JwtTokenGeneratorImpl implements JwtTokenGenerator {
+public class TokenPairGeneratorImpl implements TokenPairGenerator {
 
     private final JWTService jwtService;
 
+    /**
+     * Generates a complete token pair containing access and refresh tokens for the user.
+     *
+     * @param user the user entity to generate tokens for
+     * @return token pair with access and refresh tokens containing user claims
+     */
     @Override
     public TokenPair generateTokens(UserEntity user) {
         Map<String, Object> accessClaims = createClaims(user, "access");
@@ -27,6 +33,13 @@ public class JwtTokenGeneratorImpl implements JwtTokenGenerator {
         return new TokenPair(accessToken, refreshToken);
     }
 
+    /**
+     * Creates JWT claims map from user entity data with token type.
+     *
+     * @param user the user entity to extract claims from
+     * @param type the token type ("access" or "refresh")
+     * @return map of claims including username, email, profilePictureUrl, and type
+     */
     @Override
     public Map<String, Object> createClaims(UserEntity user, String type) {
         String profilePictureUrl = user.getProfilePictureUrl() != null ? user.getProfilePictureUrl() : "";

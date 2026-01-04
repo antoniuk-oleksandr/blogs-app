@@ -1,11 +1,9 @@
 package com.example.blogs.app.api.auth.service;
 
-import com.example.blogs.app.api.auth.dto.LoginRequest;
-import com.example.blogs.app.api.auth.dto.RegisterRequest;
-import com.example.blogs.app.api.auth.dto.TokenPair;
+import com.example.blogs.app.api.auth.dto.*;
+import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
-import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 import com.example.blogs.app.api.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final JwtTokenGenerator jwtTokenGenerator;
+    private final TokenPairGenerator tokenPairGenerator;
 
     @Override
     public TokenPair register(RegisterRequest registerRequest) {
@@ -36,7 +34,7 @@ public class AuthServiceImpl implements AuthService {
 
         UserEntity user = userService.createUser(command);
 
-        return jwtTokenGenerator.generateTokens(user);
+        return tokenPairGenerator.generateTokens(user);
     }
 
     @Override
@@ -46,14 +44,14 @@ public class AuthServiceImpl implements AuthService {
         try {
             user = userService.findUserByUsernameOrEmail(loginRequest.usernameOrEmail());
         } catch (Exception e) {
-            throw new UnauthorizedException();
+            throw new InvalidCredentialsException();
         }
 
         boolean matches = passwordEncoder.matches(loginRequest.password(), user.getPasswordHash());
         if (!matches) {
-            throw new UnauthorizedException();
+            throw new InvalidCredentialsException();
         }
 
-        return jwtTokenGenerator.generateTokens(user);
+        return tokenPairGenerator.generateTokens(user);
     }
 }

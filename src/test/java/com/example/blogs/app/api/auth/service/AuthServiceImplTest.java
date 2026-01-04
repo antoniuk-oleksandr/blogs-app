@@ -1,9 +1,7 @@
 package com.example.blogs.app.api.auth.service;
 
-import com.example.blogs.app.api.auth.dto.LoginRequest;
-import com.example.blogs.app.api.auth.dto.RegisterRequest;
-import com.example.blogs.app.api.auth.dto.TokenPair;
-import com.example.blogs.app.api.auth.exception.UnauthorizedException;
+import com.example.blogs.app.api.auth.dto.*;
+import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.service.UserService;
@@ -28,13 +26,13 @@ class AuthServiceImplTest {
     private PasswordEncoder passwordEncoder;
 
     @Mock
-    private JwtTokenGenerator jwtTokenGenerator;
+    private TokenPairGenerator tokenPairGenerator;
 
     private AuthService authService;
 
     @BeforeEach
     void setUp() {
-        authService = new AuthServiceImpl(userService, passwordEncoder, jwtTokenGenerator);
+        authService = new AuthServiceImpl(userService, passwordEncoder, tokenPairGenerator);
     }
 
     @Test
@@ -78,7 +76,7 @@ class AuthServiceImplTest {
         stubUserCreation(createUser(1L, "testuser", "test@example.com", "hashed"));
         stubTokenGeneration("access", "refresh");
 
-        TokenPair tokenPair =  authService.register(request);
+        TokenPair tokenPair = authService.register(request);
 
         verifyPasswordWasHashed("plainPassword", "hashed");
         assertThat(tokenPair.accessToken()).isEqualTo("access");
@@ -113,7 +111,7 @@ class AuthServiceImplTest {
 
         verify(userService).findUserByUsernameOrEmail("invalidUser");
         verify(passwordEncoder, never()).matches(any(CharSequence.class), anyString());
-        verify(jwtTokenGenerator, never()).generateTokens(any(UserEntity.class));
+        verify(tokenPairGenerator, never()).generateTokens(any(UserEntity.class));
     }
 
     @Test
@@ -125,11 +123,11 @@ class AuthServiceImplTest {
         when(passwordEncoder.matches(any(CharSequence.class), anyString())).thenReturn(false);
 
         assertThatThrownBy(() -> authService.login(loginRequest))
-                .isInstanceOf(UnauthorizedException.class);
+                .isInstanceOf(InvalidCredentialsException.class);
 
         verify(userService).findUserByUsernameOrEmail("testuser");
         verify(passwordEncoder).matches("password123", "hashedPassword");
-        verify(jwtTokenGenerator, never()).generateTokens(any(UserEntity.class));
+        verify(tokenPairGenerator, never()).generateTokens(any(UserEntity.class));
     }
 
     private UserEntity createUser(Long id, String username, String email, String passwordHash) {
@@ -141,7 +139,6 @@ class AuthServiceImplTest {
                 .build();
     }
 
-
     private void stubPasswordEncoding(String rawPassword, String hashedPassword) {
         when(passwordEncoder.encode(rawPassword)).thenReturn(hashedPassword);
     }
@@ -151,7 +148,7 @@ class AuthServiceImplTest {
     }
 
     private void stubTokenGeneration(String accessToken, String refreshToken) {
-        when(jwtTokenGenerator.generateTokens(any(UserEntity.class)))
+        when(tokenPairGenerator.generateTokens(any(UserEntity.class)))
                 .thenReturn(new TokenPair(accessToken, refreshToken));
     }
 

@@ -12,16 +12,16 @@ import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class JwtTokenGeneratorImplTest {
+class TokenPairGeneratorImplTest {
 
     @Mock
     private JWTService jwtService;
 
-    private JwtTokenGenerator jwtTokenGenerator;
+    private TokenPairGenerator tokenPairGenerator;
 
     @BeforeEach
     void setUp() {
-        jwtTokenGenerator = new JwtTokenGeneratorImpl(jwtService);
+        tokenPairGenerator = new TokenPairGeneratorImpl(jwtService);
     }
 
     @Test
@@ -33,7 +33,7 @@ class JwtTokenGeneratorImplTest {
 
         UserEntity user = createUserEntity("https://example.com/profile.jpg");
 
-        TokenPair tokenPair = jwtTokenGenerator.generateTokens(user);
+        TokenPair tokenPair = tokenPairGenerator.generateTokens(user);
 
         assertThat(tokenPair.accessToken()).isEqualTo("accessToken");
         assertThat(tokenPair.refreshToken()).isEqualTo("refreshToken");
@@ -50,7 +50,7 @@ class JwtTokenGeneratorImplTest {
 
         UserEntity user = createUserEntity(null);
 
-        TokenPair tokenPair = jwtTokenGenerator.generateTokens(user);
+        TokenPair tokenPair = tokenPairGenerator.generateTokens(user);
 
         assertThat(tokenPair.accessToken()).isEqualTo("accessToken");
         assertThat(tokenPair.refreshToken()).isEqualTo("refreshToken");
@@ -62,7 +62,7 @@ class JwtTokenGeneratorImplTest {
     void createClaims_shouldReturnClaimsMapSuccessfully() {
         UserEntity user = createUserEntity("https://example.com/profile.jpg");
 
-        var claims = jwtTokenGenerator.createClaims(user, "access");
+        var claims = tokenPairGenerator.createClaims(user, "access");
 
         assertThat(claims).containsEntry("username", "testuser")
                 .containsEntry("email", "test@gmail.com")
@@ -74,7 +74,7 @@ class JwtTokenGeneratorImplTest {
     void createClaims_shouldReturnClaimsMapSuccessfully_whenProfilePictureIsNull() {
         UserEntity user = createUserEntity(null);
 
-        var claims = jwtTokenGenerator.createClaims(user, "refresh");
+        var claims = tokenPairGenerator.createClaims(user, "refresh");
 
         assertThat(claims).containsEntry("username", "testuser")
                 .containsEntry("email", "test@gmail.com")

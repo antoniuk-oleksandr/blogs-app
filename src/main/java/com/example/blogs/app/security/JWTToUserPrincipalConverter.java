@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * Converts JWT tokens to UserPrincipal authentication tokens for Spring Security context.
  */
 @Component
-public class JwtToUserPrincipalConverter implements Converter<Jwt, AbstractAuthenticationToken> {
+public class JWTToUserPrincipalConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
     /**
      * Extracts user information from JWT claims and creates an authentication token.

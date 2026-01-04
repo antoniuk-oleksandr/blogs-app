@@ -1,6 +1,6 @@
 package com.example.blogs.app.config;
 
-import com.example.blogs.app.security.JwtToUserPrincipalConverter;
+import com.example.blogs.app.security.JWTToUserPrincipalConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -36,7 +36,7 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .oauth2ResourceServer(
-                        oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new JwtToUserPrincipalConverter()))
+                        oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new JWTToUserPrincipalConverter()))
                 );
 
         return http.build();
