@@ -39,4 +39,16 @@ public interface JWTService {
      * @return signed JWT access token
      */
     String generateAccessToken(String subject, Map<String, Object> claims);
+
+    /**
+     * @param token the JWT token to validate
+     * @return true if the token is valid, false otherwise
+     */
+    boolean validateToken(String token);
+
+    /**
+     * @param token the JWT token to parse
+     * @return map of claims extracted from the token
+     */
+    Map<String, Object> parseClaims(String token);
 }
