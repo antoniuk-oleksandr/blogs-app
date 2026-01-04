@@ -111,9 +111,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Authenticates a user and generates JWT tokens.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#refreshAccessToken(com.example.blogs.app.api.auth.dto.RefreshTokenRequest)" class="member-name-link">refreshAccessToken</a><wbr>(<a href="../dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a>&nbsp;tokenRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Refreshes an access token using a valid refresh token.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Registers a new user and returns JWT tokens for immediate authentication.</div>
 </div>
 </div>
@@ -154,7 +159,22 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>access and refresh token pair</dd>
 <dt>Throws:</dt>
-<dd><code><a href="../exception/UnauthorizedException.html" title="class in com.example.blogs.app.api.auth.exception">UnauthorizedException</a></code> - if credentials are invalid</dd>
+<dd><code><a href="../exception/InvalidCredentialsException.html" title="class in com.example.blogs.app.api.auth.exception">InvalidCredentialsException</a></code> - if credentials are invalid</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="refreshAccessToken(com.example.blogs.app.api.auth.dto.RefreshTokenRequest)">
+<h3>refreshAccessToken</h3>
+<div class="member-signature"><span class="return-type"><a href="../dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></span>&nbsp;<span class="element-name">refreshAccessToken</span><wbr><span class="parameters">(<a href="../dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a>&nbsp;tokenRequest)</span></div>
+<div class="block">Refreshes an access token using a valid refresh token.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>tokenRequest</code> - request containing the refresh token</dd>
+<dt>Returns:</dt>
+<dd>new access token with updated expiration</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/UnauthorizedException.html" title="class in com.example.blogs.app.api.auth.exception">UnauthorizedException</a></code> - if refresh token is invalid or expired</dd>
 </dl>
 </section>
 </li>

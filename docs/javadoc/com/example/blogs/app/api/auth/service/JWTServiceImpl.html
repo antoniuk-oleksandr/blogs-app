@@ -151,6 +151,16 @@ implements <a href="JWTService.html" title="interface in com.example.blogs.app.a
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Generates a refresh token with extended expiration.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#parseClaims(java.lang.String)" class="member-name-link">parseClaims</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Parses and extracts claims from a JWT token.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#validateToken(java.lang.String)" class="member-name-link">validateToken</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Validates a JWT token signature and expiration.</div>
+</div>
 </div>
 </div>
 </div>
@@ -254,6 +264,38 @@ implements <a href="JWTService.html" title="interface in com.example.blogs.app.a
 <dd><code>subject</code> - the subject of the token</dd>
 <dt>Returns:</dt>
 <dd>signed JWT access token</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="validateToken(java.lang.String)">
+<h3>validateToken</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">validateToken</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</span></div>
+<div class="block">Validates a JWT token signature and expiration.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="JWTService.html#validateToken(java.lang.String)">validateToken</a></code>&nbsp;in interface&nbsp;<code><a href="JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>token</code> - the JWT token to validate</dd>
+<dt>Returns:</dt>
+<dd>true if token is valid and not expired, false otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="parseClaims(java.lang.String)">
+<h3>parseClaims</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</span>&nbsp;<span class="element-name">parseClaims</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</span></div>
+<div class="block">Parses and extracts claims from a JWT token.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="JWTService.html#parseClaims(java.lang.String)">parseClaims</a></code>&nbsp;in interface&nbsp;<code><a href="JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>token</code> - the JWT token to parse</dd>
+<dt>Returns:</dt>
+<dd>map of claims from the token payload</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/FailedToParseClaimsException.html" title="class in com.example.blogs.app.api.auth.exception">FailedToParseClaimsException</a></code> - if token is malformed or signature is invalid</dd>
 </dl>
 </section>
 </li>

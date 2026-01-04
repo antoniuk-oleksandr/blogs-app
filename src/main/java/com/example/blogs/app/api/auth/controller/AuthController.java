@@ -1,9 +1,7 @@
 package com.example.blogs.app.api.auth.controller;
 
 import com.example.blogs.app.api.auth.docs.AuthControllerDocs;
-import com.example.blogs.app.api.auth.dto.LoginRequest;
-import com.example.blogs.app.api.auth.dto.TokenPair;
-import com.example.blogs.app.api.auth.dto.RegisterRequest;
+import com.example.blogs.app.api.auth.dto.*;
 import com.example.blogs.app.security.UserPrincipal;
 import com.example.blogs.app.api.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -60,10 +58,25 @@ public class AuthController {
      * @param user the authenticated user principal from the JWT token
      * @return HTTP 200 with user principal details
      */
+    @AuthControllerDocs.Me
     @GetMapping("/me")
     public ResponseEntity<UserPrincipal> me(@AuthenticationPrincipal UserPrincipal user) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(user);
+    }
+
+    /**
+     * Refreshes the access token using a valid refresh token.
+     *
+     * @param tokenRequest the refresh token request containing the refresh token
+     * @return HTTP 200 with a new access token
+     */
+    @AuthControllerDocs.Refresh
+    @PostMapping("/refresh")
+    public ResponseEntity<AccessTokenResponse> refreshToken(@NotNull @Valid @RequestBody RefreshTokenRequest tokenRequest) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(authService.refreshAccessToken(tokenRequest));
     }
 }
