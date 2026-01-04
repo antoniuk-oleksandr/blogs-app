@@ -22,6 +22,13 @@ import java.lang.annotation.Target;
  */
 public class AuthControllerDocs {
 
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the user registration endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for user registration, including all request/response schemas and examples.
+     * </p>
+     */
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Operation(
@@ -234,16 +241,16 @@ public class AuthControllerDocs {
                     )
             )
     })
-    /**
-     * Meta-annotation combining all OpenAPI documentation for the user registration endpoint.
-     * <p>
-     * Apply this annotation to controller methods to include complete API documentation
-     * for user registration, including all request/response schemas and examples.
-     * </p>
-     */
     public @interface Register {
     }
 
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the user login endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for user login, including all request/response schemas and examples.
+     * </p>
+     */
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Operation(
@@ -373,13 +380,315 @@ public class AuthControllerDocs {
                     )
             )
     })
+    public @interface Login {
+    }
+
     /**
-     * Meta-annotation combining all OpenAPI documentation for the user login endpoint.
+     * Meta-annotation combining all OpenAPI documentation for the get current user endpoint.
      * <p>
      * Apply this annotation to controller methods to include complete API documentation
-     * for user login, including all request/response schemas and examples.
+     * for retrieving authenticated user information.
      * </p>
      */
-    public @interface Login {
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Get authenticated user information",
+            description = """
+                    Returns the currently authenticated user's principal information extracted from the JWT token.
+                                
+                    ## Requirements
+                    - Valid JWT access token must be provided in Authorization header
+                    - Token must not be expired
+                                
+                    ## Response
+                    Returns user principal containing:
+                    - **User ID**: Unique user identifier
+                    - **Username**: User's username
+                    - **Email**: User's email address
+                    - **Profile Picture URL**: URL to user's profile picture (if set)
+                                
+                    ## Security
+                    - Requires authentication via Bearer token
+                    - Only returns information for the authenticated user
+                    """,
+            tags = {"Authentication"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved authenticated user information",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = com.example.blogs.app.security.UserPrincipal.class),
+                            examples = @ExampleObject(
+                                    name = "User Principal",
+                                    summary = "Authenticated user information",
+                                    description = "User details extracted from JWT token",
+                                    value = """
+                                            {
+                                              "id": 123,
+                                              "username": "johndoe",
+                                              "email": "johndoe@example.com",
+                                              "profilePictureUrl": "https://example.com/profile.jpg"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - missing, invalid, or expired token",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Missing Authorization Header",
+                                            summary = "No authentication token provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Full authentication is required to access this resource",
+                                                      "path": "/auth/me"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Invalid Token",
+                                            summary = "Token is malformed or signature is invalid",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Invalid JWT token",
+                                                      "path": "/auth/me"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Expired Token",
+                                            summary = "Token has expired",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Token has expired",
+                                                      "path": "/auth/me"
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - unexpected failure",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Server Error",
+                                    summary = "Unexpected error occurred",
+                                    value = """
+                                            {
+                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "status": 500,
+                                              "error": "Internal Server Error",
+                                              "message": "An unexpected error occurred while processing your request",
+                                              "path": "/auth/me"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    public @interface Me {
+    }
+
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the refresh token endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for refreshing access tokens, including all request/response schemas and examples.
+     * </p>
+     */
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Refresh access token",
+            description = """
+                    Generates a new access token using a valid refresh token.
+                                
+                    ## Requirements
+                    - Valid refresh token obtained from login or registration
+                    - Token must not be expired
+                    - Token type must be "refresh"
+                                
+                    ## Response
+                    Returns a new access token with updated expiration:
+                    - **Access Token**: Short-lived token for API authentication (15 min)
+                                
+                    ## Use Case
+                    Use this endpoint when your access token has expired but your refresh token is still valid.
+                    This allows maintaining user session without requiring re-authentication.
+                                
+                    ## Security
+                    - Refresh token is validated and verified
+                    - User claims are preserved from the original refresh token
+                    - Only refresh token type is accepted (access tokens will be rejected)
+                    """,
+            tags = {"Authentication"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully refreshed access token",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = com.example.blogs.app.api.auth.dto.AccessTokenResponse.class),
+                            examples = @ExampleObject(
+                                    name = "New Access Token",
+                                    summary = "New access token generated",
+                                    description = "Fresh access token with updated expiration",
+                                    value = """
+                                            {
+                                              "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMiLCJ1c2VybmFtZSI6ImpvaG5kb2UiLCJpYXQiOjE3MDMyNTYwMDAsImV4cCI6MTcwMzI1NjkwMH0.signature"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Validation failed - invalid or missing request data",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Missing Refresh Token",
+                                            summary = "Refresh token is required but not provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/auth/refresh",
+                                                      "errors": [
+                                                        "Refresh token is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Missing Request Body",
+                                            summary = "Request body is required but not provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/auth/refresh",
+                                                      "errors": [
+                                                        "Request body is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - invalid, expired, or wrong token type",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Invalid Refresh Token",
+                                            summary = "Refresh token is invalid or malformed",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Unauthorized access",
+                                                      "path": "/auth/refresh"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Expired Refresh Token",
+                                            summary = "Refresh token has expired",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Unauthorized access",
+                                                      "path": "/auth/refresh"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Wrong Token Type",
+                                            summary = "Access token provided instead of refresh token",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Unauthorized access",
+                                                      "path": "/auth/refresh"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Failed to Parse Claims",
+                                            summary = "Token claims cannot be parsed",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Unauthorized access",
+                                                      "path": "/auth/refresh"
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - unexpected failure",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Server Error",
+                                    summary = "Unexpected error occurred during token refresh",
+                                    value = """
+                                            {
+                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "status": 500,
+                                              "error": "Internal Server Error",
+                                              "message": "An unexpected error occurred while processing your request",
+                                              "path": "/auth/refresh"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    public @interface Refresh {
     }
 }

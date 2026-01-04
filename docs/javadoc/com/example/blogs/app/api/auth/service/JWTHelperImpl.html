@@ -109,7 +109,8 @@ implements <a href="JWTHelper.html" title="interface in com.example.blogs.app.ap
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String)" class="member-name-link">JWTHelperImpl</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;secretKey)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(java.lang.String,io.jsonwebtoken.JwtParser)" class="member-name-link">JWTHelperImpl</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;secretKey,
+ io.jsonwebtoken.JwtParser&nbsp;jwtParser)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Constructs a JWTHelperImpl with the configured secret key.</div>
 </div>
@@ -131,14 +132,24 @@ implements <a href="JWTHelper.html" title="interface in com.example.blogs.app.ap
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generateToken(java.lang.String,java.time.Duration)" class="member-name-link">generateToken</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subject,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Duration.html" title="class or interface in java.time" class="external-link">Duration</a>&nbsp;expiration)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a token with no additional claims.</div>
+<div class="block">Generates a JWT token with no additional claims.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#generateToken(java.lang.String,java.util.Map,java.time.Duration)" class="member-name-link">generateToken</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subject,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;&nbsp;claims,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Duration.html" title="class or interface in java.time" class="external-link">Duration</a>&nbsp;expiration)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a token with custom claims.</div>
+<div class="block">Generates a JWT token with custom claims and expiration.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#parseClaims(java.lang.String)" class="member-name-link">parseClaims</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Parses and extracts claims from a JWT token.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#validateToken(java.lang.String)" class="member-name-link">validateToken</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Validates a JWT token signature and expiration.</div>
 </div>
 </div>
 </div>
@@ -158,14 +169,16 @@ implements <a href="JWTHelper.html" title="interface in com.example.blogs.app.ap
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String)">
+<section class="detail" id="&lt;init&gt;(java.lang.String,io.jsonwebtoken.JwtParser)">
 <h3>JWTHelperImpl</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">JWTHelperImpl</span><wbr><span class="parameters">(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html" title="class or interface in org.springframework.beans.factory.annotation" class="external-link">@Value</a>("${jwt.secret-key}")
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;secretKey)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;secretKey,
+ io.jsonwebtoken.JwtParser&nbsp;jwtParser)</span></div>
 <div class="block">Constructs a JWTHelperImpl with the configured secret key.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>secretKey</code> - the secret key used for signing tokens, loaded from application properties</dd>
+<dd><code>jwtParser</code> - the JWT parser for validating and parsing tokens</dd>
 </dl>
 </section>
 </li>
@@ -182,16 +195,15 @@ implements <a href="JWTHelper.html" title="interface in com.example.blogs.app.ap
 <h3>generateToken</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">generateToken</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subject,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Duration.html" title="class or interface in java.time" class="external-link">Duration</a>&nbsp;expiration)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="JWTHelper.html#generateToken(java.lang.String,java.time.Duration)">JWTHelper</a></code></span></div>
-<div class="block">Generates a token with no additional claims.</div>
+<div class="block">Generates a JWT token with no additional claims.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="JWTHelper.html#generateToken(java.lang.String,java.time.Duration)">generateToken</a></code>&nbsp;in interface&nbsp;<code><a href="JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>subject</code> - the token subject</dd>
+<dd><code>subject</code> - the token subject (typically user ID)</dd>
 <dd><code>expiration</code> - time until expiration</dd>
 <dt>Returns:</dt>
-<dd>signed JWT token</dd>
+<dd>signed JWT token string</dd>
 </dl>
 </section>
 </li>
@@ -201,17 +213,48 @@ implements <a href="JWTHelper.html" title="interface in com.example.blogs.app.ap
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">generateToken</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;subject,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;&nbsp;claims,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Duration.html" title="class or interface in java.time" class="external-link">Duration</a>&nbsp;expiration)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="JWTHelper.html#generateToken(java.lang.String,java.util.Map,java.time.Duration)">JWTHelper</a></code></span></div>
-<div class="block">Generates a token with custom claims.</div>
+<div class="block">Generates a JWT token with custom claims and expiration.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="JWTHelper.html#generateToken(java.lang.String,java.util.Map,java.time.Duration)">generateToken</a></code>&nbsp;in interface&nbsp;<code><a href="JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>subject</code> - the token subject</dd>
-<dd><code>claims</code> - additional JWT claims</dd>
+<dd><code>subject</code> - the token subject (typically user ID)</dd>
+<dd><code>claims</code> - additional JWT claims to include in payload</dd>
 <dd><code>expiration</code> - time until expiration</dd>
 <dt>Returns:</dt>
-<dd>signed JWT token</dd>
+<dd>signed JWT token string</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="validateToken(java.lang.String)">
+<h3>validateToken</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">validateToken</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</span></div>
+<div class="block">Validates a JWT token signature and expiration.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="JWTHelper.html#validateToken(java.lang.String)">validateToken</a></code>&nbsp;in interface&nbsp;<code><a href="JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>token</code> - the JWT token to validate</dd>
+<dt>Returns:</dt>
+<dd>true if token is valid and not expired, false otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="parseClaims(java.lang.String)">
+<h3>parseClaims</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>,<wbr><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&gt;</span>&nbsp;<span class="element-name">parseClaims</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;token)</span></div>
+<div class="block">Parses and extracts claims from a JWT token.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="JWTHelper.html#parseClaims(java.lang.String)">parseClaims</a></code>&nbsp;in interface&nbsp;<code><a href="JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>token</code> - the JWT token to parse</dd>
+<dt>Returns:</dt>
+<dd>map of claims from the token payload</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/FailedToParseClaimsException.html" title="class in com.example.blogs.app.api.auth.exception">FailedToParseClaimsException</a></code> - if token is malformed or signature is invalid</dd>
 </dl>
 </section>
 </li>

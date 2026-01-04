@@ -2,6 +2,7 @@ package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.dto.*;
 import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
+import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.service.UserService;
@@ -12,6 +13,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -28,11 +32,14 @@ class AuthServiceImplTest {
     @Mock
     private TokenPairGenerator tokenPairGenerator;
 
+    @Mock
+    private JWTService jwtService;
+
     private AuthService authService;
 
     @BeforeEach
     void setUp() {
-        authService = new AuthServiceImpl(userService, passwordEncoder, tokenPairGenerator);
+        authService = new AuthServiceImpl(userService, passwordEncoder, tokenPairGenerator, jwtService);
     }
 
     @Test
@@ -128,6 +135,81 @@ class AuthServiceImplTest {
         verify(userService).findUserByUsernameOrEmail("testuser");
         verify(passwordEncoder).matches("password123", "hashedPassword");
         verify(tokenPairGenerator, never()).generateTokens(any(UserEntity.class));
+    }
+
+    @Test
+    void refreshAccessToken_shouldReturnNewAccessToken() {
+        Map<String, Object> accessTokenClaims = Map.ofEntries(
+                Map.entry("username", "testuser"),
+                Map.entry("email", "test@gmail.com"),
+                Map.entry("profilePictureUrl", "test")
+        );
+
+        Map<String, Object> fullClaims = new HashMap<>(accessTokenClaims);
+        fullClaims.put("sub", "1");
+        fullClaims.put("type", "refresh");
+
+        when(jwtService.validateToken(anyString())).thenReturn(true);
+        when(jwtService.parseClaims(anyString())).thenReturn(fullClaims);
+        when(jwtService.generateAccessToken(anyString(), anyMap()))
+                .thenReturn("newAccessToken");
+
+        AccessTokenResponse accessTokenResponse = authService
+                .refreshAccessToken(new RefreshTokenRequest("validRefreshToken"));
+
+        assertThat(accessTokenResponse.accessToken()).isEqualTo("newAccessToken");
+        verify(jwtService).validateToken("validRefreshToken");
+        verify(jwtService).parseClaims("validRefreshToken");
+        verify(jwtService).generateAccessToken("1", accessTokenClaims);
+    }
+
+    @Test
+    void refreshAccessToken_shouldThrowUnauthorizedException_whenTokenIsInvalid() {
+        when(jwtService.validateToken(anyString())).thenReturn(false);
+
+        RefreshTokenRequest request = new RefreshTokenRequest("invalidRefreshToken");
+
+        assertThatThrownBy(() -> authService.refreshAccessToken(request))
+                .isInstanceOf(UnauthorizedException.class);
+
+        verify(jwtService).validateToken("invalidRefreshToken");
+        verify(jwtService, never()).parseClaims(anyString());
+        verify(jwtService, never()).generateAccessToken(anyString(), anyMap());
+    }
+
+    @Test
+    void refreshAccessToken_shouldThrowUnauthorizedException_whenClaimsCannotBeParsed() {
+        when(jwtService.validateToken(anyString())).thenReturn(true);
+        when(jwtService.parseClaims(anyString())).thenThrow(new RuntimeException());
+
+        RefreshTokenRequest request = new RefreshTokenRequest("malformedToken");
+
+        assertThatThrownBy(() -> authService.refreshAccessToken(request))
+                .isInstanceOf(UnauthorizedException.class);
+
+        verify(jwtService).validateToken("malformedToken");
+        verify(jwtService).parseClaims("malformedToken");
+        verify(jwtService, never()).generateAccessToken(anyString(), anyMap());
+    }
+
+    @Test
+    void refreshAccessToken_shouldThrowUnauthorizedException_whenTokenIsNotRefreshType() {
+        Map<String, Object> claims = Map.of(
+                "sub", "1",
+                "type", "access"
+        );
+
+        when(jwtService.validateToken(anyString())).thenReturn(true);
+        when(jwtService.parseClaims(anyString())).thenReturn(claims);
+
+        RefreshTokenRequest request = new RefreshTokenRequest("invalidTypeToken");
+
+        assertThatThrownBy(() -> authService.refreshAccessToken(request))
+                .isInstanceOf(UnauthorizedException.class);
+
+        verify(jwtService).validateToken("invalidTypeToken");
+        verify(jwtService).parseClaims("invalidTypeToken");
+        verify(jwtService, never()).generateAccessToken(anyString(), anyMap());
     }
 
     private UserEntity createUser(Long id, String username, String email, String passwordHash) {

@@ -1,8 +1,10 @@
 package com.example.blogs.app.api.auth.controller;
 
+import com.example.blogs.app.api.auth.dto.AccessTokenResponse;
 import com.example.blogs.app.api.auth.dto.LoginRequest;
 import com.example.blogs.app.api.auth.dto.RegisterRequest;
 import com.example.blogs.app.api.auth.dto.TokenPair;
+import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 import com.example.blogs.app.api.auth.service.AuthService;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
 import com.example.blogs.app.exception.GlobalExceptionHandler;
@@ -216,5 +218,57 @@ class AuthControllerTest {
         } finally {
             SecurityContextHolder.clearContext();
         }
+    }
+
+    @Test
+    @SneakyThrows
+    void refreshToken_shouldReturn200_whenSuccessful() {
+        when(authService.refreshAccessToken(any())).thenReturn(
+                new AccessTokenResponse("newAccessToken")
+        );
+
+        mockMvc.perform(post("/auth/refresh")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "refreshToken": "someRefreshToken"
+                                }
+                                """)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accessToken")
+                        .value("newAccessToken"));
+    }
+
+    @Test
+    @SneakyThrows
+    void refreshToken_shouldReturn400_whenRefreshTokenIsNotStated() {
+        mockMvc.perform(post("/auth/refresh")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors[0]")
+                        .value("Refresh token is required"));
+    }
+
+    @Test
+    @SneakyThrows
+    void refreshToken_shouldReturn401_whenRefreshTokenIsInvalid() {
+        when(authService.refreshAccessToken(any()))
+                .thenThrow(new UnauthorizedException());
+
+        mockMvc.perform(post("/auth/refresh")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "refreshToken": "invalidRefreshToken"
+                                }
+                                """))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.message")
+                        .value("Unauthorized access"));
     }
 }

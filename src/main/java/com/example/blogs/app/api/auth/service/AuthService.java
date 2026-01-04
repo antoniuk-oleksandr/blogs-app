@@ -1,8 +1,8 @@
 package com.example.blogs.app.api.auth.service;
 
-import com.example.blogs.app.api.auth.dto.LoginRequest;
-import com.example.blogs.app.api.auth.dto.RegisterRequest;
-import com.example.blogs.app.api.auth.dto.TokenPair;
+import com.example.blogs.app.api.auth.dto.*;
+import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
+import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 
 /**
  * Handles authentication operations including user registration and token generation.
@@ -21,7 +21,16 @@ public interface AuthService {
      *
      * @param loginRequest user login credentials
      * @return access and refresh token pair
-     * @throws com.example.blogs.app.api.auth.exception.UnauthorizedException if credentials are invalid
+     * @throws InvalidCredentialsException if credentials are invalid
      */
     TokenPair login(LoginRequest loginRequest);
+
+    /**
+     * Refreshes an access token using a valid refresh token.
+     *
+     * @param tokenRequest request containing the refresh token
+     * @return new access token with updated expiration
+     * @throws UnauthorizedException if refresh token is invalid or expired
+     */
+    AccessTokenResponse refreshAccessToken(RefreshTokenRequest tokenRequest);
 }
