@@ -18,7 +18,7 @@ import java.util.Map;
  * Provides JWT decoder bean for validating and parsing JWT tokens in Spring Security OAuth2 resource server.
  */
 @Configuration
-public class JwtDecoderConfig {
+public class JWTDecoderConfig {
     private final SecretKey secretKey;
 
     /**
@@ -26,7 +26,7 @@ public class JwtDecoderConfig {
      *
      * @param secret the secret key for JWT verification, loaded from application properties
      */
-    public JwtDecoderConfig(@Value("${jwt.secret-key}") String secret) {
+    public JWTDecoderConfig(@Value("${jwt.secret-key}") String secret) {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
     }
 
