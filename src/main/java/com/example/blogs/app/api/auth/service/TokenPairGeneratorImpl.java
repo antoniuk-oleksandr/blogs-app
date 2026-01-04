@@ -12,7 +12,7 @@ import java.util.Map;
  */
 @Component
 @AllArgsConstructor
-public class JwtTokenGeneratorImpl implements JwtTokenGenerator {
+public class JWTTokenGeneratorImpl implements JWTTokenGenerator {
 
     private final JWTService jwtService;
 

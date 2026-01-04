@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Generates JWT token pairs (access and refresh) with user claims for authentication.
  */
-public interface JwtTokenGenerator {
+public interface JWTTokenGenerator {
     /**
      * Generates a complete token pair containing access and refresh tokens for the user.
      *

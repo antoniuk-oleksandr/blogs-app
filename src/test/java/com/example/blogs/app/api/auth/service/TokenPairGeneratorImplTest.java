@@ -12,16 +12,16 @@ import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-class JwtTokenGeneratorImplTest {
+class JWTTokenGeneratorImplTest {
 
     @Mock
     private JWTService jwtService;
 
-    private JwtTokenGenerator jwtTokenGenerator;
+    private JWTTokenGenerator jwtTokenGenerator;
 
     @BeforeEach
     void setUp() {
-        jwtTokenGenerator = new JwtTokenGeneratorImpl(jwtService);
+        jwtTokenGenerator = new JWTTokenGeneratorImpl(jwtService);
     }
 
     @Test
