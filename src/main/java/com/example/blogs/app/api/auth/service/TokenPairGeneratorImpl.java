@@ -2,6 +2,7 @@ package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.dto.TokenPair;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.security.JtiGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,11 @@ public class TokenPairGeneratorImpl implements TokenPairGenerator {
 
     private final JWTService jwtService;
 
+    private final JtiGenerator jtiGenerator;
+
     /**
      * Generates a complete token pair containing access and refresh tokens for the user.
+     * Uses UUID-based JTI as the JWT subject claim for token identification.
      *
      * @param user the user entity to generate tokens for
      * @return token pair with access and refresh tokens containing user claims
@@ -27,8 +31,11 @@ public class TokenPairGeneratorImpl implements TokenPairGenerator {
         Map<String, Object> accessClaims = createClaims(user, "access");
         Map<String, Object> refreshClaims = createClaims(user, "refresh");
 
-        String accessToken = jwtService.generateAccessToken(user.getId().toString(), accessClaims);
-        String refreshToken = jwtService.generateRefreshToken(user.getId().toString(), refreshClaims);
+        String accessJti = jtiGenerator.generateJti();
+        String refreshJti = jtiGenerator.generateJti();
+
+        String accessToken = jwtService.generateAccessToken(accessJti, accessClaims);
+        String refreshToken = jwtService.generateRefreshToken(refreshJti, refreshClaims);
 
         return new TokenPair(accessToken, refreshToken);
     }
@@ -38,13 +45,14 @@ public class TokenPairGeneratorImpl implements TokenPairGenerator {
      *
      * @param user the user entity to extract claims from
      * @param type the token type ("access" or "refresh")
-     * @return map of claims including username, email, profilePictureUrl, and type
+     * @return map of claims including id, username, email, profilePictureUrl, and type
      */
     @Override
     public Map<String, Object> createClaims(UserEntity user, String type) {
         String profilePictureUrl = user.getProfilePictureUrl() != null ? user.getProfilePictureUrl() : "";
 
         return Map.ofEntries(
+                Map.entry("id", user.getId().toString()),
                 Map.entry("username", user.getUsername()),
                 Map.entry("email", user.getEmail()),
                 Map.entry("profilePictureUrl", profilePictureUrl),

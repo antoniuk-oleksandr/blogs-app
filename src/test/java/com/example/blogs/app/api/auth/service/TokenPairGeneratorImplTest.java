@@ -2,6 +2,7 @@ package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.dto.TokenPair;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.security.JtiGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,15 +18,19 @@ class TokenPairGeneratorImplTest {
     @Mock
     private JWTService jwtService;
 
+    @Mock
+    private JtiGenerator jtiGenerator;
+
     private TokenPairGenerator tokenPairGenerator;
 
     @BeforeEach
     void setUp() {
-        tokenPairGenerator = new TokenPairGeneratorImpl(jwtService);
+        tokenPairGenerator = new TokenPairGeneratorImpl(jwtService, jtiGenerator);
     }
 
     @Test
     void generateTokens_shouldReturnTokenPairSuccessfully() {
+        when(jtiGenerator.generateJti()).thenReturn("jti");
         when(jwtService.generateAccessToken(anyString(), anyMap()))
                 .thenReturn("accessToken");
         when(jwtService.generateRefreshToken(anyString(), anyMap()))
@@ -39,10 +44,12 @@ class TokenPairGeneratorImplTest {
         assertThat(tokenPair.refreshToken()).isEqualTo("refreshToken");
         verify(jwtService).generateAccessToken(anyString(), anyMap());
         verify(jwtService).generateRefreshToken(anyString(), anyMap());
+        verify(jtiGenerator, times(2)).generateJti();
     }
 
     @Test
     void generateTokens_shouldReturnTokenPairSuccessfully_whenProfilePictureIsNull() {
+        when(jtiGenerator.generateJti()).thenReturn("jti");
         when(jwtService.generateAccessToken(anyString(), anyMap()))
                 .thenReturn("accessToken");
         when(jwtService.generateRefreshToken(anyString(), anyMap()))
@@ -56,6 +63,7 @@ class TokenPairGeneratorImplTest {
         assertThat(tokenPair.refreshToken()).isEqualTo("refreshToken");
         verify(jwtService).generateAccessToken(anyString(), anyMap());
         verify(jwtService).generateRefreshToken(anyString(), anyMap());
+        verify(jtiGenerator, times(2)).generateJti();
     }
 
     @Test
