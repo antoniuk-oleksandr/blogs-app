@@ -171,7 +171,8 @@ implements <a href="TokenPairGenerator.html" title="interface in com.example.blo
 <section class="detail" id="generateTokens(com.example.blogs.app.api.user.entity.UserEntity)">
 <h3>generateTokens</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></span>&nbsp;<span class="element-name">generateTokens</span><wbr><span class="parameters">(<a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;user)</span></div>
-<div class="block">Generates a complete token pair containing access and refresh tokens for the user.</div>
+<div class="block">Generates a complete token pair containing access and refresh tokens for the user.
+ Uses UUID-based JTI as the JWT subject claim for token identification.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="TokenPairGenerator.html#generateTokens(com.example.blogs.app.api.user.entity.UserEntity)">generateTokens</a></code>&nbsp;in interface&nbsp;<code><a href="TokenPairGenerator.html" title="interface in com.example.blogs.app.api.auth.service">TokenPairGenerator</a></code></dd>
@@ -195,7 +196,7 @@ implements <a href="TokenPairGenerator.html" title="interface in com.example.blo
 <dd><code>user</code> - the user entity to extract claims from</dd>
 <dd><code>type</code> - the token type ("access" or "refresh")</dd>
 <dt>Returns:</dt>
-<dd>map of claims including username, email, profilePictureUrl, and type</dd>
+<dd>map of claims including id, username, email, profilePictureUrl, and type</dd>
 </dl>
 </section>
 </li>

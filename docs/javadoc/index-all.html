@@ -314,6 +314,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Generates an access token with short-lived expiration.</div>
 </dd>
+<dt><a href="com/example/blogs/app/security/JtiGenerator.html#generateJti()" class="member-name-link">generateJti()</a> - Method in interface com.example.blogs.app.security.<a href="com/example/blogs/app/security/JtiGenerator.html" title="interface in com.example.blogs.app.security">JtiGenerator</a></dt>
+<dd>
+<div class="block">Generates a unique JWT Token Identifier.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/JtiGeneratorImpl.html#generateJti()" class="member-name-link">generateJti()</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/JtiGeneratorImpl.html" title="class in com.example.blogs.app.security">JtiGeneratorImpl</a></dt>
+<dd>
+<div class="block">Generates a unique JWT Token Identifier using UUID.randomUUID().</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/JWTService.html#generateRefreshToken(java.lang.String)" class="member-name-link">generateRefreshToken(String)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></dt>
 <dd>
 <div class="block">Generates a refresh token with extended expiration.</div>
@@ -423,6 +431,16 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:J">J</h2>
 <dl class="index">
+<dt><a href="com/example/blogs/app/security/JtiGenerator.html" class="type-name-link" title="interface in com.example.blogs.app.security">JtiGenerator</a> - Interface in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
+<dd>
+<div class="block">Generates unique JWT Token Identifiers (JTI) for use as the subject claim in JWTs.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/JtiGeneratorImpl.html" class="type-name-link" title="class in com.example.blogs.app.security">JtiGeneratorImpl</a> - Class in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
+<dd>
+<div class="block">Default implementation of JtiGenerator that produces UUID-based token identifiers.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/JtiGeneratorImpl.html#%3Cinit%3E()" class="member-name-link">JtiGeneratorImpl()</a> - Constructor for class com.example.blogs.app.security.<a href="com/example/blogs/app/security/JtiGeneratorImpl.html" title="class in com.example.blogs.app.security">JtiGeneratorImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/config/JWTConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">JWTConfig</a> - Class in <a href="com/example/blogs/app/config/package-summary.html">com.example.blogs.app.config</a></dt>
 <dd>
 <div class="block">Configuration for JWT parsing and validation using JJWT library.</div>
