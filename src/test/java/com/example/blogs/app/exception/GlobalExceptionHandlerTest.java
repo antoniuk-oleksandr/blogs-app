@@ -16,6 +16,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -198,6 +199,6 @@ class GlobalExceptionHandlerTest {
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().timestamp()).isNotNull();
-        assertThat(response.getBody().timestamp()).isBeforeOrEqualTo(java.time.LocalDateTime.now());
+        assertThat(response.getBody().timestamp()).isBeforeOrEqualTo(LocalDateTime.now());
     }
 }
