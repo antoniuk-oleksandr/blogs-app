@@ -691,4 +691,167 @@ public class AuthControllerDocs {
     })
     public @interface Refresh {
     }
+
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the logout endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for user logout and token revocation, including all request/response schemas and examples.
+     * </p>
+     */
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Logout user and revoke refresh token",
+            description = """
+                    Revokes a refresh token to invalidate all active sessions using that token.
+                                
+                    ## Requirements
+                    - Valid refresh token obtained from login or registration
+                    - Token must not have been previously revoked
+                                
+                    ## Response
+                    Returns HTTP 204 No Content on successful revocation
+                                
+                    ## Use Case
+                    Use this endpoint when a user explicitly logs out or when you need to invalidate
+                    a specific refresh token for security purposes (e.g., device logout).
+                                
+                    ## Security
+                    - Token is hashed before storage to prevent token exposure
+                    - Expired tokens are automatically cleaned up by scheduled task
+                    - Once revoked, the token cannot be used to refresh access tokens
+                    - Duplicate revocation attempts return 409 Conflict
+                    """,
+            tags = {"Authentication"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Token successfully revoked - logout successful",
+                    content = @Content()
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Validation failed - invalid or missing request data",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Missing Refresh Token",
+                                            summary = "Refresh token is required but not provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/auth/logout",
+                                                      "errors": [
+                                                        "Refresh token is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Missing Request Body",
+                                            summary = "Request body is required but not provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/auth/logout",
+                                                      "errors": [
+                                                        "Request body is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - invalid or expired token",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Invalid Refresh Token",
+                                            summary = "Refresh token is invalid or malformed",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Unauthorized access",
+                                                      "path": "/auth/logout"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Expired Refresh Token",
+                                            summary = "Refresh token has expired",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Unauthorized access",
+                                                      "path": "/auth/logout"
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "Conflict - token has already been revoked",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Token Already Revoked",
+                                    summary = "This token was already revoked in a previous logout",
+                                    value = """
+                                            {
+                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "status": 409,
+                                              "error": "Conflict",
+                                              "message": "Token is already revoked.",
+                                              "path": "/auth/logout"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - unexpected failure",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Server Error",
+                                    summary = "Unexpected error occurred during logout",
+                                    value = """
+                                            {
+                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "status": 500,
+                                              "error": "Internal Server Error",
+                                              "message": "An unexpected error occurred while processing your request",
+                                              "path": "/auth/logout"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    public @interface Logout {
+    }
 }

@@ -6,6 +6,11 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Revoked JWT token entity with automatic timestamp tracking and expiration indexing.
+ * Stores hashed refresh tokens that have been explicitly revoked before their natural expiration.
+ * Includes an index on expires_at to optimize scheduled cleanup operations.
+ */
 @Entity
 @Getter
 @Builder

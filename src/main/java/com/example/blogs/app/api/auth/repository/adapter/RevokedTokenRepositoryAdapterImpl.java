@@ -13,6 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+/**
+ * Translates database constraint violations and SQL errors into domain-specific exceptions
+ * for revoked token operations.
+ */
 @Component
 @AllArgsConstructor
 public class RevokedTokenRepositoryAdapterImpl implements RevokedTokenRepositoryAdapter {

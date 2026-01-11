@@ -79,7 +79,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="AuthService.html" title="interface in com.example.blogs.app.api.auth.service">AuthService</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">Handles authentication operations including user registration and token generation.</div>
+<div class="block">Handles authentication operations including user registration, login, token management,
+ and logout functionality.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="AuthServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
@@ -100,6 +101,14 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Delegates to JWTHelper with application-configured expiration durations for access and refresh tokens.</div>
+</div>
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="RevokedTokenCleaner.html" title="interface in com.example.blogs.app.api.auth.service">RevokedTokenCleaner</a></div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
+<div class="block">Scheduled task for removing expired tokens from the revoked tokens table.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="RevokedTokenCleanerImpl.html" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Configures and executes scheduled cleanup of expired revoked tokens.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab1"><a href="TokenPairGenerator.html" title="interface in com.example.blogs.app.api.auth.service">TokenPairGenerator</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab1">

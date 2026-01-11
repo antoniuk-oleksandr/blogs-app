@@ -7,6 +7,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.HexFormat;
 
+/**
+ * SHA-256 based hashing implementation for creating one-way token digests.
+ * Uses UTF-8 encoding and hexadecimal output format.
+ */
 @Component
 @AllArgsConstructor
 public class HasherImpl implements Hasher {

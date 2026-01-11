@@ -14,7 +14,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controller for user authentication and registration.
+ * REST controller for user authentication, registration, and token management.
+ * Provides endpoints for user registration, login, token refresh, logout, and
+ * retrieving authenticated user information.
  */
 @Tag(name = "Authentication", description = "User authentication and registration endpoints")
 @RestController
@@ -80,6 +82,13 @@ public class AuthController {
                 .body(authService.refreshAccessToken(tokenRequest));
     }
 
+    /**
+     * Revokes a refresh token to logout the user.
+     *
+     * @param logoutRequest the logout request containing the refresh token to revoke
+     * @return HTTP 204 No Content on successful logout
+     */
+    @AuthControllerDocs.Logout
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@NotNull @Valid @RequestBody LogoutRequest logoutRequest) {
         authService.logout(logoutRequest);
