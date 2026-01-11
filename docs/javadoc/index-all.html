@@ -49,7 +49,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html#accessToken()" class="member-name-link">accessToken()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></dt>
@@ -76,7 +76,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/controller/AuthController.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.controller">AuthController</a> - Class in <a href="com/example/blogs/app/api/auth/controller/package-summary.html">com.example.blogs.app.api.auth.controller</a></dt>
 <dd>
-<div class="block">Controller for user authentication and registration.</div>
+<div class="block">REST controller for user authentication, registration, and token management.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/controller/AuthController.html#%3Cinit%3E()" class="member-name-link">AuthController()</a> - Constructor for class com.example.blogs.app.api.auth.controller.<a href="com/example/blogs/app/api/auth/controller/AuthController.html" title="class in com.example.blogs.app.api.auth.controller">AuthController</a></dt>
 <dd>&nbsp;</dd>
@@ -89,6 +89,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/auth/docs/AuthControllerDocs.Login.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.auth.docs">AuthControllerDocs.Login</a> - Annotation Interface in <a href="com/example/blogs/app/api/auth/docs/package-summary.html">com.example.blogs.app.api.auth.docs</a></dt>
 <dd>
 <div class="block">Meta-annotation combining all OpenAPI documentation for the user login endpoint.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/docs/AuthControllerDocs.Logout.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.auth.docs">AuthControllerDocs.Logout</a> - Annotation Interface in <a href="com/example/blogs/app/api/auth/docs/package-summary.html">com.example.blogs.app.api.auth.docs</a></dt>
+<dd>
+<div class="block">Meta-annotation combining all OpenAPI documentation for the logout endpoint.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/docs/AuthControllerDocs.Me.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.auth.docs">AuthControllerDocs.Me</a> - Annotation Interface in <a href="com/example/blogs/app/api/auth/docs/package-summary.html">com.example.blogs.app.api.auth.docs</a></dt>
 <dd>
@@ -104,7 +108,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/AuthService.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">AuthService</a> - Interface in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
 <dd>
-<div class="block">Handles authentication operations including user registration and token generation.</div>
+<div class="block">Handles authentication operations including user registration, login, token management,
+ and logout functionality.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a> - Class in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
 <dd>
@@ -115,6 +120,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
+<dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleaner.html#cleanUpExpiredTokens()" class="member-name-link">cleanUpExpiredTokens()</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleaner.html" title="interface in com.example.blogs.app.api.auth.service">RevokedTokenCleaner</a></dt>
+<dd>
+<div class="block">Deletes all revoked tokens with expiration timestamps before the current time.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html#cleanUpExpiredTokens()" class="member-name-link">cleanUpExpiredTokens()</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a></dt>
+<dd>
+<div class="block">Executes the cleanup operation by deleting all expired revoked tokens.</div>
+</dd>
 <dt><a href="com/example/blogs/app/package-summary.html">com.example.blogs.app</a> - package com.example.blogs.app</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/controller/package-summary.html">com.example.blogs.app.api.auth.controller</a> - package com.example.blogs.app.api.auth.controller</dt>
@@ -123,7 +136,13 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/package-summary.html">com.example.blogs.app.api.auth.dto</a> - package com.example.blogs.app.api.auth.dto</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/entity/package-summary.html">com.example.blogs.app.api.auth.entity</a> - package com.example.blogs.app.api.auth.entity</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/exception/package-summary.html">com.example.blogs.app.api.auth.exception</a> - package com.example.blogs.app.api.auth.exception</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/package-summary.html">com.example.blogs.app.api.auth.repository</a> - package com.example.blogs.app.api.auth.repository</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/package-summary.html">com.example.blogs.app.api.auth.repository.adapter</a> - package com.example.blogs.app.api.auth.repository.adapter</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a> - package com.example.blogs.app.api.auth.service</dt>
 <dd>&nbsp;</dd>
@@ -145,6 +164,17 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a> - package com.example.blogs.app.security</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/util/package-summary.html">com.example.blogs.app.util</a> - package com.example.blogs.app.util</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html#configureTasks(org.springframework.scheduling.config.ScheduledTaskRegistrar)" class="member-name-link">configureTasks(ScheduledTaskRegistrar)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a></dt>
+<dd>
+<div class="block">Configures the scheduled task with a dynamic cron trigger.</div>
+</dd>
+<dt><a href="com/example/blogs/app/util/SqlExceptionUtils.html#containsUniqueViolation(java.lang.Throwable,java.lang.String)" class="member-name-link">containsUniqueViolation(Throwable, String)</a> - Method in class com.example.blogs.app.util.<a href="com/example/blogs/app/util/SqlExceptionUtils.html" title="class in com.example.blogs.app.util">SqlExceptionUtils</a></dt>
+<dd>
+<div class="block">Checks if an exception chain contains a PostgreSQL unique constraint violation
+ for a specific column.</div>
+</dd>
 <dt><a href="com/example/blogs/app/security/JWTToUserPrincipalConverter.html#convert(org.springframework.security.oauth2.jwt.Jwt)" class="member-name-link">convert(Jwt)</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/JWTToUserPrincipalConverter.html" title="class in com.example.blogs.app.security">JWTToUserPrincipalConverter</a></dt>
 <dd>
 <div class="block">Extracts user information from JWT claims and creates an authentication token.</div>
@@ -171,6 +201,19 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>CreateUserCommand</code> record class.</div>
 </dd>
+</dl>
+<h2 class="title" id="I:D">D</h2>
+<dl class="index">
+<dt><a href="com/example/blogs/app/api/auth/repository/RevokedTokenRepository.html#deleteByExpiresAtBefore(java.time.LocalDateTime)" class="member-name-link">deleteByExpiresAtBefore(LocalDateTime)</a> - Method in interface com.example.blogs.app.api.auth.repository.<a href="com/example/blogs/app/api/auth/repository/RevokedTokenRepository.html" title="interface in com.example.blogs.app.api.auth.repository">RevokedTokenRepository</a></dt>
+<dd>
+<div class="block">Deletes all revoked tokens that expired before the specified timestamp.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html#deleteExpiredTokens(java.time.LocalDateTime)" class="member-name-link">deleteExpiredTokens(LocalDateTime)</a> - Method in interface com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Removes all revoked tokens that expired before the specified timestamp.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html#deleteExpiredTokens(java.time.LocalDateTime)" class="member-name-link">deleteExpiredTokens(LocalDateTime)</a> - Method in class com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapterImpl</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
@@ -199,6 +242,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/LoginRequest.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
@@ -250,9 +297,29 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/exception/ExceptionHttpStatusMapper.html#%3Cinit%3E()" class="member-name-link">ExceptionHttpStatusMapper()</a> - Constructor for class com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ExceptionHttpStatusMapper.html" title="class in com.example.blogs.app.exception">ExceptionHttpStatusMapper</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/RevokedTokenRepository.html#existsByToken(java.lang.String)" class="member-name-link">existsByToken(String)</a> - Method in interface com.example.blogs.app.api.auth.repository.<a href="com/example/blogs/app/api/auth/repository/RevokedTokenRepository.html" title="interface in com.example.blogs.app.api.auth.repository">RevokedTokenRepository</a></dt>
+<dd>
+<div class="block">Checks if a token exists in the revoked tokens table.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
+<dt><a href="com/example/blogs/app/api/auth/exception/FailedToCheckTokenRevokedException.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.exception">FailedToCheckTokenRevokedException</a> - Exception Class in <a href="com/example/blogs/app/api/auth/exception/package-summary.html">com.example.blogs.app.api.auth.exception</a></dt>
+<dd>
+<div class="block">Thrown when a database error occurs while checking if a token has been revoked.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/exception/FailedToCheckTokenRevokedException.html#%3Cinit%3E(java.lang.Throwable)" class="member-name-link">FailedToCheckTokenRevokedException(Throwable)</a> - Constructor for exception class com.example.blogs.app.api.auth.exception.<a href="com/example/blogs/app/api/auth/exception/FailedToCheckTokenRevokedException.html" title="class in com.example.blogs.app.api.auth.exception">FailedToCheckTokenRevokedException</a></dt>
+<dd>
+<div class="block">Constructs a new FailedToCheckTokenRevokedException with the underlying cause.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/exception/FailedToCleanRevokedTokensException.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.exception">FailedToCleanRevokedTokensException</a> - Exception Class in <a href="com/example/blogs/app/api/auth/exception/package-summary.html">com.example.blogs.app.api.auth.exception</a></dt>
+<dd>
+<div class="block">Thrown when a database error occurs during scheduled cleanup of expired revoked tokens.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/exception/FailedToCleanRevokedTokensException.html#%3Cinit%3E(java.lang.Throwable)" class="member-name-link">FailedToCleanRevokedTokensException(Throwable)</a> - Constructor for exception class com.example.blogs.app.api.auth.exception.<a href="com/example/blogs/app/api/auth/exception/FailedToCleanRevokedTokensException.html" title="class in com.example.blogs.app.api.auth.exception">FailedToCleanRevokedTokensException</a></dt>
+<dd>
+<div class="block">Constructs a new FailedToCleanRevokedTokensException with the underlying cause.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/exception/FailedToCreateUser.html" class="type-name-link" title="class in com.example.blogs.app.api.user.exception">FailedToCreateUser</a> - Exception Class in <a href="com/example/blogs/app/api/user/exception/package-summary.html">com.example.blogs.app.api.user.exception</a></dt>
 <dd>
 <div class="block">Thrown when user creation fails for reasons other than uniqueness constraint violations.</div>
@@ -276,6 +343,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/auth/exception/FailedToParseClaimsException.html#%3Cinit%3E()" class="member-name-link">FailedToParseClaimsException()</a> - Constructor for exception class com.example.blogs.app.api.auth.exception.<a href="com/example/blogs/app/api/auth/exception/FailedToParseClaimsException.html" title="class in com.example.blogs.app.api.auth.exception">FailedToParseClaimsException</a></dt>
 <dd>
 <div class="block">Constructs a new FailedToParseClaims exception with a default message.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/exception/FailedToRevokeTokenExecption.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.exception">FailedToRevokeTokenExecption</a> - Exception Class in <a href="com/example/blogs/app/api/auth/exception/package-summary.html">com.example.blogs.app.api.auth.exception</a></dt>
+<dd>
+<div class="block">Thrown when a database error occurs while attempting to persist a revoked token.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/exception/FailedToRevokeTokenExecption.html#%3Cinit%3E()" class="member-name-link">FailedToRevokeTokenExecption()</a> - Constructor for exception class com.example.blogs.app.api.auth.exception.<a href="com/example/blogs/app/api/auth/exception/FailedToRevokeTokenExecption.html" title="class in com.example.blogs.app.api.auth.exception">FailedToRevokeTokenExecption</a></dt>
+<dd>
+<div class="block">Constructs a new FailedToRevokeTokenExecption with a default message.</div>
 </dd>
 <dt><a href="com/example/blogs/app/config/SecurityConfig.html#filterChain(org.springframework.security.config.annotation.web.builders.HttpSecurity)" class="member-name-link">filterChain(HttpSecurity)</a> - Method in class com.example.blogs.app.config.<a href="com/example/blogs/app/config/SecurityConfig.html" title="class in com.example.blogs.app.config">SecurityConfig</a></dt>
 <dd>
@@ -379,11 +454,21 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Main exception handler that routes different exception types to appropriate handlers.</div>
 </dd>
+<dt><a href="com/example/blogs/app/security/Hasher.html#hash(java.lang.String)" class="member-name-link">hash(String)</a> - Method in interface com.example.blogs.app.security.<a href="com/example/blogs/app/security/Hasher.html" title="interface in com.example.blogs.app.security">Hasher</a></dt>
+<dd>
+<div class="block">Generates a SHA-256 hash of the input string.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/HasherImpl.html#hash(java.lang.String)" class="member-name-link">hash(String)</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/HasherImpl.html" title="class in com.example.blogs.app.security">HasherImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/LoginRequest.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
@@ -413,6 +498,16 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/security/Hasher.html" class="type-name-link" title="interface in com.example.blogs.app.security">Hasher</a> - Interface in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
+<dd>
+<div class="block">Cryptographic hashing service for generating irreversible token digests.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/HasherImpl.html" class="type-name-link" title="class in com.example.blogs.app.security">HasherImpl</a> - Class in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
+<dd>
+<div class="block">SHA-256 based hashing implementation for creating one-way token digests.</div>
+</dd>
+<dt><a href="com/example/blogs/app/security/HasherImpl.html#%3Cinit%3E()" class="member-name-link">HasherImpl()</a> - Constructor for class com.example.blogs.app.security.<a href="com/example/blogs/app/security/HasherImpl.html" title="class in com.example.blogs.app.security">HasherImpl</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
@@ -428,6 +523,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Constructs a new InvalidCredentialsException with a default message.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html#isTokenRevoked(java.lang.String)" class="member-name-link">isTokenRevoked(String)</a> - Method in interface com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Checks if a token has been revoked.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html#isTokenRevoked(java.lang.String)" class="member-name-link">isTokenRevoked(String)</a> - Method in class com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapterImpl</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:J">J</h2>
 <dl class="index">
@@ -516,6 +617,24 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>LoginRequest</code> record class.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/auth/controller/AuthController.html#logout(com.example.blogs.app.api.auth.dto.LogoutRequest)" class="member-name-link">logout(LogoutRequest)</a> - Method in class com.example.blogs.app.api.auth.controller.<a href="com/example/blogs/app/api/auth/controller/AuthController.html" title="class in com.example.blogs.app.api.auth.controller">AuthController</a></dt>
+<dd>
+<div class="block">Revokes a refresh token to logout the user.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/AuthService.html#logout(com.example.blogs.app.api.auth.dto.LogoutRequest)" class="member-name-link">logout(LogoutRequest)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/AuthService.html" title="interface in com.example.blogs.app.api.auth.service">AuthService</a></dt>
+<dd>
+<div class="block">Revokes a refresh token and invalidates all associated sessions.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html#logout(com.example.blogs.app.api.auth.dto.LogoutRequest)" class="member-name-link">logout(LogoutRequest)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/AuthServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">AuthServiceImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a> - Record Class in <a href="com/example/blogs/app/api/auth/dto/package-summary.html">com.example.blogs.app.api.auth.dto</a></dt>
+<dd>
+<div class="block">Request payload for user logout containing the refresh token to revoke.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html#%3Cinit%3E(java.lang.String)" class="member-name-link">LogoutRequest(String)</a> - Constructor for record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>LogoutRequest</code> record class.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
@@ -589,6 +708,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Refreshes an access token by validating the refresh token and generating a new access token.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html#refreshToken()" class="member-name-link">refreshToken()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a></dt>
+<dd>
+<div class="block">Returns the value of the <a href="./com/example/blogs/app/api/auth/dto/LogoutRequest.html#param-refreshToken"><code>refreshToken</code></a> record component.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/RefreshTokenRequest.html#refreshToken()" class="member-name-link">refreshToken()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/api/auth/dto/RefreshTokenRequest.html#param-refreshToken"><code>refreshToken</code></a> record component.</div>
@@ -631,6 +754,39 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Resolves the HTTP status for a given exception.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleaner.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">RevokedTokenCleaner</a> - Interface in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
+<dd>
+<div class="block">Scheduled task for removing expired tokens from the revoked tokens table.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a> - Class in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
+<dd>
+<div class="block">Configures and executes scheduled cleanup of expired revoked tokens.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html#%3Cinit%3E(com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter,java.lang.String)" class="member-name-link">RevokedTokenCleanerImpl(RevokedTokenRepositoryAdapter, String)</a> - Constructor for class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a></dt>
+<dd>
+<div class="block">Constructs a new revoked token cleaner with repository adapter and cron schedule.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/entity/RevokedTokenEntity.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.entity">RevokedTokenEntity</a> - Class in <a href="com/example/blogs/app/api/auth/entity/package-summary.html">com.example.blogs.app.api.auth.entity</a></dt>
+<dd>
+<div class="block">Revoked JWT token entity with automatic timestamp tracking and expiration indexing.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/entity/RevokedTokenEntity.html#%3Cinit%3E()" class="member-name-link">RevokedTokenEntity()</a> - Constructor for class com.example.blogs.app.api.auth.entity.<a href="com/example/blogs/app/api/auth/entity/RevokedTokenEntity.html" title="class in com.example.blogs.app.api.auth.entity">RevokedTokenEntity</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/RevokedTokenRepository.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.repository">RevokedTokenRepository</a> - Interface in <a href="com/example/blogs/app/api/auth/repository/package-summary.html">com.example.blogs.app.api.auth.repository</a></dt>
+<dd>
+<div class="block">Data access for revoked token entities with operations for token validation and cleanup.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a> - Interface in <a href="com/example/blogs/app/api/auth/repository/adapter/package-summary.html">com.example.blogs.app.api.auth.repository.adapter</a></dt>
+<dd>
+<div class="block">Adapter for revoked token operations with domain-specific exception handling.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapterImpl</a> - Class in <a href="com/example/blogs/app/api/auth/repository/adapter/package-summary.html">com.example.blogs.app.api.auth.repository.adapter</a></dt>
+<dd>
+<div class="block">Translates database constraint violations and SQL errors into domain-specific exceptions
+ for revoked token operations.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html#%3Cinit%3E()" class="member-name-link">RevokedTokenRepositoryAdapterImpl()</a> - Constructor for class com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapterImpl</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
@@ -640,11 +796,23 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapterImpl.html#save(com.example.blogs.app.api.user.dto.CreateUserCommand)" class="member-name-link">save(CreateUserCommand)</a> - Method in class com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapterImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html#saveRevokedToken(java.lang.String,java.time.LocalDateTime)" class="member-name-link">saveRevokedToken(String, LocalDateTime)</a> - Method in interface com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Persists a revoked token with its expiration timestamp.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html#saveRevokedToken(java.lang.String,java.time.LocalDateTime)" class="member-name-link">saveRevokedToken(String, LocalDateTime)</a> - Method in class com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapterImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/config/SecurityConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">SecurityConfig</a> - Class in <a href="com/example/blogs/app/config/package-summary.html">com.example.blogs.app.config</a></dt>
 <dd>
 <div class="block">Configures Spring Security for a stateless JWT-based API.</div>
 </dd>
 <dt><a href="com/example/blogs/app/config/SecurityConfig.html#%3Cinit%3E()" class="member-name-link">SecurityConfig()</a> - Constructor for class com.example.blogs.app.config.<a href="com/example/blogs/app/config/SecurityConfig.html" title="class in com.example.blogs.app.config">SecurityConfig</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/util/SqlExceptionUtils.html" class="type-name-link" title="class in com.example.blogs.app.util">SqlExceptionUtils</a> - Class in <a href="com/example/blogs/app/util/package-summary.html">com.example.blogs.app.util</a></dt>
+<dd>
+<div class="block">Utility for analyzing PostgreSQL exceptions and extracting constraint violation details.</div>
+</dd>
+<dt><a href="com/example/blogs/app/util/SqlExceptionUtils.html#%3Cinit%3E()" class="member-name-link">SqlExceptionUtils()</a> - Constructor for class com.example.blogs.app.util.<a href="com/example/blogs/app/util/SqlExceptionUtils.html" title="class in com.example.blogs.app.util">SqlExceptionUtils</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/exception/ErrorResponse.html#status()" class="member-name-link">status()</a> - Method in record class com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a></dt>
 <dd>
@@ -656,6 +824,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/exception/ErrorResponse.html#timestamp()" class="member-name-link">timestamp()</a> - Method in record class com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/exception/ErrorResponse.html#param-timestamp"><code>timestamp</code></a> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/exception/TokenAlreadyRevokedException.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.exception">TokenAlreadyRevokedException</a> - Exception Class in <a href="com/example/blogs/app/api/auth/exception/package-summary.html">com.example.blogs.app.api.auth.exception</a></dt>
+<dd>
+<div class="block">Thrown when attempting to revoke a token that has already been revoked.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/exception/TokenAlreadyRevokedException.html#%3Cinit%3E()" class="member-name-link">TokenAlreadyRevokedException()</a> - Constructor for exception class com.example.blogs.app.api.auth.exception.<a href="com/example/blogs/app/api/auth/exception/TokenAlreadyRevokedException.html" title="class in com.example.blogs.app.api.auth.exception">TokenAlreadyRevokedException</a></dt>
+<dd>
+<div class="block">Constructs a new TokenAlreadyRevokedException with a default message.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/TokenPair.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a> - Record Class in <a href="com/example/blogs/app/api/auth/dto/package-summary.html">com.example.blogs.app.api.auth.dto</a></dt>
 <dd>
@@ -680,6 +856,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/LoginRequest.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LoginRequest.html" title="class in com.example.blogs.app.api.auth.dto">LoginRequest</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
@@ -797,24 +977,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html#%3Cinit%3E()" class="member-name-link">UserServiceImpl()</a> - Constructor for class com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<h2 class="title" id="I:V">V</h2>
-<dl class="index">
-<dt><a href="com/example/blogs/app/api/auth/service/JWTHelper.html#validateToken(java.lang.String)" class="member-name-link">validateToken(String)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a></dt>
-<dd>
-<div class="block">Validates a JWT token signature and expiration.</div>
-</dd>
-<dt><a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html#validateToken(java.lang.String)" class="member-name-link">validateToken(String)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTHelperImpl</a></dt>
-<dd>
-<div class="block">Validates a JWT token signature and expiration.</div>
-</dd>
-<dt><a href="com/example/blogs/app/api/auth/service/JWTService.html#validateToken(java.lang.String)" class="member-name-link">validateToken(String)</a> - Method in interface com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html#validateToken(java.lang.String)" class="member-name-link">validateToken(String)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a></dt>
-<dd>
-<div class="block">Validates a JWT token signature and expiration.</div>
-</dd>
-</dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>

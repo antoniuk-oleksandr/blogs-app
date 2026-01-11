@@ -93,7 +93,9 @@ loadScripts(document, 'script');</script>
 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestMapping</a>("/auth")
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">AuthController</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Controller for user authentication and registration.</div>
+<div class="block">REST controller for user authentication, registration, and token management.
+ Provides endpoints for user registration, login, token refresh, logout, and
+ retrieving authenticated user information.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -126,19 +128,24 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Authenticates a user and returns authentication tokens.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#me(com.example.blogs.app.security.UserPrincipal)" class="member-name-link">me</a><wbr>(<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&nbsp;user)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#logout(com.example.blogs.app.api.auth.dto.LogoutRequest)" class="member-name-link">logout</a><wbr>(@NotNull @Valid <a href="../dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a>&nbsp;logoutRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Revokes a refresh token to logout the user.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#me(com.example.blogs.app.security.UserPrincipal)" class="member-name-link">me</a><wbr>(<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&nbsp;user)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the authenticated user's principal information.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#refreshToken(com.example.blogs.app.api.auth.dto.RefreshTokenRequest)" class="member-name-link">refreshToken</a><wbr>(@NotNull @Valid <a href="../dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a>&nbsp;tokenRequest)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#refreshToken(com.example.blogs.app.api.auth.dto.RefreshTokenRequest)" class="member-name-link">refreshToken</a><wbr>(@NotNull @Valid <a href="../dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a>&nbsp;tokenRequest)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Refreshes the access token using a valid refresh token.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(@NotNull @Valid <a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(@NotNull @Valid <a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Registers a new user and returns authentication tokens.</div>
 </div>
 </div>
@@ -229,6 +236,21 @@ loadScripts(document, 'script');</script>
 <dd><code>tokenRequest</code> - the refresh token request containing the refresh token</dd>
 <dt>Returns:</dt>
 <dd>HTTP 200 with a new access token</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="logout(com.example.blogs.app.api.auth.dto.LogoutRequest)">
+<h3>logout</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PostMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PostMapping</a>("/logout")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">logout</span><wbr><span class="parameters">(@NotNull @Valid <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestBody</a>
+ @NotNull @Valid <a href="../dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a>&nbsp;logoutRequest)</span></div>
+<div class="block">Revokes a refresh token to logout the user.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>logoutRequest</code> - the logout request containing the refresh token to revoke</dd>
+<dt>Returns:</dt>
+<dd>HTTP 204 No Content on successful logout</dd>
 </dl>
 </section>
 </li>

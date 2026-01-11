@@ -91,7 +91,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">AuthService</span></div>
-<div class="block">Handles authentication operations including user registration and token generation.</div>
+<div class="block">Handles authentication operations including user registration, login, token management,
+ and logout functionality.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -111,14 +112,19 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Authenticates a user and generates JWT tokens.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#refreshAccessToken(com.example.blogs.app.api.auth.dto.RefreshTokenRequest)" class="member-name-link">refreshAccessToken</a><wbr>(<a href="../dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a>&nbsp;tokenRequest)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/RevokedTokenEntity.html" title="class in com.example.blogs.app.api.auth.entity">RevokedTokenEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#logout(com.example.blogs.app.api.auth.dto.LogoutRequest)" class="member-name-link">logout</a><wbr>(<a href="../dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a>&nbsp;logoutRequest)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Revokes a refresh token and invalidates all associated sessions.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#refreshAccessToken(com.example.blogs.app.api.auth.dto.RefreshTokenRequest)" class="member-name-link">refreshAccessToken</a><wbr>(<a href="../dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a>&nbsp;tokenRequest)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Refreshes an access token using a valid refresh token.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/TokenPair.html" title="class in com.example.blogs.app.api.auth.dto">TokenPair</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#register(com.example.blogs.app.api.auth.dto.RegisterRequest)" class="member-name-link">register</a><wbr>(<a href="../dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a>&nbsp;registerRequest)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Registers a new user and returns JWT tokens for immediate authentication.</div>
 </div>
 </div>
@@ -145,6 +151,9 @@ loadScripts(document, 'script');</script>
 <dd><code>registerRequest</code> - user registration details</dd>
 <dt>Returns:</dt>
 <dd>access and refresh token pair</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../user/exception/UsernameTakenException.html" title="class in com.example.blogs.app.api.user.exception">UsernameTakenException</a></code> - if username already exists</dd>
+<dd><code><a href="../../user/exception/EmailTakenException.html" title="class in com.example.blogs.app.api.user.exception">EmailTakenException</a></code> - if email already exists</dd>
 </dl>
 </section>
 </li>
@@ -174,6 +183,22 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>new access token with updated expiration</dd>
 <dt>Throws:</dt>
+<dd><code><a href="../exception/UnauthorizedException.html" title="class in com.example.blogs.app.api.auth.exception">UnauthorizedException</a></code> - if refresh token is invalid, expired, or revoked</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="logout(com.example.blogs.app.api.auth.dto.LogoutRequest)">
+<h3>logout</h3>
+<div class="member-signature"><span class="return-type"><a href="../entity/RevokedTokenEntity.html" title="class in com.example.blogs.app.api.auth.entity">RevokedTokenEntity</a></span>&nbsp;<span class="element-name">logout</span><wbr><span class="parameters">(<a href="../dto/LogoutRequest.html" title="class in com.example.blogs.app.api.auth.dto">LogoutRequest</a>&nbsp;logoutRequest)</span></div>
+<div class="block">Revokes a refresh token and invalidates all associated sessions.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>logoutRequest</code> - request containing the refresh token to revoke</dd>
+<dt>Returns:</dt>
+<dd>persisted revoked token entity</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/TokenAlreadyRevokedException.html" title="class in com.example.blogs.app.api.auth.exception">TokenAlreadyRevokedException</a></code> - if token was already revoked</dd>
 <dd><code><a href="../exception/UnauthorizedException.html" title="class in com.example.blogs.app.api.auth.exception">UnauthorizedException</a></code> - if refresh token is invalid or expired</dd>
 </dl>
 </section>

@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+/**
+ * Configures and executes scheduled cleanup of expired revoked tokens.
+ * Uses a cron expression from application configuration to determine cleanup frequency.
+ */
 @Component
 public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingConfigurer {
 
@@ -16,6 +20,12 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
 
     private final String cron;
 
+    /**
+     * Constructs a new revoked token cleaner with repository adapter and cron schedule.
+     *
+     * @param revokedTokenRepositoryAdapter adapter for accessing revoked token data
+     * @param cron cron expression defining cleanup schedule (e.g., "0 0 2 * * *" for 2 AM daily)
+     */
     public RevokedTokenCleanerImpl(
             RevokedTokenRepositoryAdapter revokedTokenRepositoryAdapter,
             @Value("${revoked-token-cleaner.cron}") String cron
@@ -24,6 +34,12 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
         this.cron = cron;
     }
 
+    /**
+     * Configures the scheduled task with a dynamic cron trigger.
+     * Registers the cleanup task to be executed according to the cron expression.
+     *
+     * @param taskRegistrar Spring's task registrar for scheduling configuration
+     */
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
         taskRegistrar.addTriggerTask(
@@ -32,6 +48,10 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
         );
     }
 
+    /**
+     * Executes the cleanup operation by deleting all expired revoked tokens.
+     * Called automatically by the Spring scheduler based on the configured cron expression.
+     */
     @Override
     public void cleanUpExpiredTokens() {
         LocalDateTime now = LocalDateTime.now();
