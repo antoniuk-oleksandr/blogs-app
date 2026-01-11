@@ -1,9 +1,7 @@
 package com.example.blogs.app.api.auth.controller;
 
-import com.example.blogs.app.api.auth.dto.AccessTokenResponse;
-import com.example.blogs.app.api.auth.dto.LoginRequest;
-import com.example.blogs.app.api.auth.dto.RegisterRequest;
-import com.example.blogs.app.api.auth.dto.TokenPair;
+import com.example.blogs.app.api.auth.dto.*;
+import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 import com.example.blogs.app.api.auth.service.AuthService;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
@@ -261,6 +259,53 @@ class AuthControllerTest {
                 .thenThrow(new UnauthorizedException());
 
         mockMvc.perform(post("/auth/refresh")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "refreshToken": "invalidRefreshToken"
+                                }
+                                """))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.message")
+                        .value("Unauthorized access"));
+    }
+
+    @Test
+    @SneakyThrows
+    void logout_shouldReturn204_whenSuccessful() {
+        when(authService.logout(any(LogoutRequest.class))).thenReturn(any(RevokedTokenEntity.class));
+
+        mockMvc.perform(post("/auth/logout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "refreshToken": "invalidRefreshToken"
+                                }
+                                """))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @SneakyThrows
+    void logout_shouldReturn400_whenRefreshTokenIsNotStated() {
+        mockMvc.perform(post("/auth/logout")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                }
+                                """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors[0]")
+                        .value("Refresh token is required"));
+    }
+
+    @Test
+    @SneakyThrows
+    void logout_shouldReturn401_whenRefreshTokenIsInvalid() {
+        when(authService.logout(any()))
+                .thenThrow(new UnauthorizedException());
+
+        mockMvc.perform(post("/auth/logout")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {

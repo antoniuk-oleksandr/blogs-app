@@ -1,11 +1,15 @@
 package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.dto.*;
+import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
+import com.example.blogs.app.api.auth.exception.FailedToParseClaimsException;
 import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
+import com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.service.UserService;
+import com.example.blogs.app.security.Hasher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +18,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,11 +41,24 @@ class AuthServiceImplTest {
     @Mock
     private JWTService jwtService;
 
+    @Mock
+    RevokedTokenRepositoryAdapter revokedTokenRepositoryAdapter;
+
+    @Mock
+    private Hasher hasher;
+
     private AuthService authService;
 
     @BeforeEach
     void setUp() {
-        authService = new AuthServiceImpl(userService, passwordEncoder, tokenPairGenerator, jwtService);
+        authService = new AuthServiceImpl(
+                userService,
+                passwordEncoder,
+                tokenPairGenerator,
+                jwtService,
+                revokedTokenRepositoryAdapter,
+                hasher
+        );
     }
 
     @Test
@@ -149,7 +168,8 @@ class AuthServiceImplTest {
         fullClaims.put("sub", "1");
         fullClaims.put("type", "refresh");
 
-        when(jwtService.validateToken(anyString())).thenReturn(true);
+        when(hasher.hash(anyString())).thenReturn("hashedRefreshToken");
+        when(revokedTokenRepositoryAdapter.isTokenRevoked(anyString())).thenReturn(false);
         when(jwtService.parseClaims(anyString())).thenReturn(fullClaims);
         when(jwtService.generateAccessToken(anyString(), anyMap()))
                 .thenReturn("newAccessToken");
@@ -158,37 +178,21 @@ class AuthServiceImplTest {
                 .refreshAccessToken(new RefreshTokenRequest("validRefreshToken"));
 
         assertThat(accessTokenResponse.accessToken()).isEqualTo("newAccessToken");
-        verify(jwtService).validateToken("validRefreshToken");
-        verify(jwtService).parseClaims("validRefreshToken");
         verify(jwtService).generateAccessToken("1", accessTokenClaims);
     }
 
     @Test
     void refreshAccessToken_shouldThrowUnauthorizedException_whenTokenIsInvalid() {
-        when(jwtService.validateToken(anyString())).thenReturn(false);
+        when(hasher.hash(anyString())).thenReturn("hashedRefreshToken");
+        when(revokedTokenRepositoryAdapter.isTokenRevoked(anyString())).thenReturn(false);
+        when(jwtService.parseClaims(anyString())).thenThrow(FailedToParseClaimsException.class);
 
         RefreshTokenRequest request = new RefreshTokenRequest("invalidRefreshToken");
 
         assertThatThrownBy(() -> authService.refreshAccessToken(request))
                 .isInstanceOf(UnauthorizedException.class);
 
-        verify(jwtService).validateToken("invalidRefreshToken");
-        verify(jwtService, never()).parseClaims(anyString());
-        verify(jwtService, never()).generateAccessToken(anyString(), anyMap());
-    }
-
-    @Test
-    void refreshAccessToken_shouldThrowUnauthorizedException_whenClaimsCannotBeParsed() {
-        when(jwtService.validateToken(anyString())).thenReturn(true);
-        when(jwtService.parseClaims(anyString())).thenThrow(new RuntimeException());
-
-        RefreshTokenRequest request = new RefreshTokenRequest("malformedToken");
-
-        assertThatThrownBy(() -> authService.refreshAccessToken(request))
-                .isInstanceOf(UnauthorizedException.class);
-
-        verify(jwtService).validateToken("malformedToken");
-        verify(jwtService).parseClaims("malformedToken");
+        verify(jwtService).parseClaims(anyString());
         verify(jwtService, never()).generateAccessToken(anyString(), anyMap());
     }
 
@@ -199,7 +203,8 @@ class AuthServiceImplTest {
                 "type", "access"
         );
 
-        when(jwtService.validateToken(anyString())).thenReturn(true);
+        when(hasher.hash(anyString())).thenReturn("hashedRefreshToken");
+        when(revokedTokenRepositoryAdapter.isTokenRevoked(anyString())).thenReturn(false);
         when(jwtService.parseClaims(anyString())).thenReturn(claims);
 
         RefreshTokenRequest request = new RefreshTokenRequest("invalidTypeToken");
@@ -207,9 +212,63 @@ class AuthServiceImplTest {
         assertThatThrownBy(() -> authService.refreshAccessToken(request))
                 .isInstanceOf(UnauthorizedException.class);
 
-        verify(jwtService).validateToken("invalidTypeToken");
         verify(jwtService).parseClaims("invalidTypeToken");
         verify(jwtService, never()).generateAccessToken(anyString(), anyMap());
+    }
+
+    @Test
+    void refreshAccessToken_shouldThrowUnauthorizedException_whenTokenIsRevoked() {
+        when(hasher.hash(anyString())).thenReturn("hashedRefreshToken");
+        when(revokedTokenRepositoryAdapter.isTokenRevoked("hashedRefreshToken")).thenReturn(true);
+
+        RefreshTokenRequest request = new RefreshTokenRequest("revokedToken");
+
+        assertThatThrownBy(() -> authService.refreshAccessToken(request))
+                .isInstanceOf(UnauthorizedException.class);
+
+        verify(revokedTokenRepositoryAdapter).isTokenRevoked(anyString());
+        verify(jwtService, never()).parseClaims(anyString());
+        verify(jwtService, never()).generateAccessToken(anyString(), anyMap());
+    }
+
+    @Test
+    void logout_shouldRevokeRefreshTokenSuccessfully() {
+        LocalDateTime now = LocalDateTime.now().plusHours(1).withNano(0);
+        Map<String, Object> claims = Map.ofEntries(
+                Map.entry("exp", now.toEpochSecond(ZoneOffset.UTC))
+        );
+        RevokedTokenEntity mockedEntity = RevokedTokenEntity.builder()
+                .id(1L)
+                .token("hashedToken")
+                .expiresAt(now)
+                .build();
+
+        when(jwtService.parseClaims(anyString())).thenReturn(claims);
+        when(hasher.hash(anyString())).thenReturn("hashedToken");
+        when(revokedTokenRepositoryAdapter.saveRevokedToken(anyString(), any(LocalDateTime.class)))
+                .thenReturn(mockedEntity);
+
+        LogoutRequest request = new LogoutRequest("validRefreshToken");
+        RevokedTokenEntity revokedToken = authService.logout(request);
+
+        assertThat(revokedToken).isNotNull();
+        verify(jwtService).parseClaims("validRefreshToken");
+        verify(hasher).hash("validRefreshToken");
+        verify(revokedTokenRepositoryAdapter).saveRevokedToken("hashedToken", now);
+    }
+
+    @Test
+    void logout_shouldThrowUnauthorizedException_whenTokenIsInvalid() {
+        when(jwtService.parseClaims(anyString())).thenThrow(FailedToParseClaimsException.class);
+
+        LogoutRequest request = new LogoutRequest("invalidRefreshToken");
+
+        assertThatThrownBy(() -> authService.logout(request))
+                .isInstanceOf(UnauthorizedException.class);
+
+        verify(jwtService).parseClaims("invalidRefreshToken");
+        verify(hasher, never()).hash(anyString());
+        verify(revokedTokenRepositoryAdapter, never()).saveRevokedToken(anyString(), any(LocalDateTime.class));
     }
 
     private UserEntity createUser(Long id, String username, String email, String passwordHash) {

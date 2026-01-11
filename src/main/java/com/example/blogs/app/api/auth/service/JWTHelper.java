@@ -29,14 +29,6 @@ public interface JWTHelper {
     String generateToken(String subject, Map<String, Object> claims, Duration expiration);
 
     /**
-     * Validates a JWT token signature and expiration.
-     *
-     * @param token the JWT token to validate
-     * @return true if token is valid and not expired, false otherwise
-     */
-    boolean validateToken(String token);
-
-    /**
      * Parses and extracts claims from a JWT token.
      *
      * @param token the JWT token to parse

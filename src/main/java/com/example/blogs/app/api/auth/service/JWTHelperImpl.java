@@ -74,22 +74,6 @@ public class JWTHelperImpl implements JWTHelper {
     }
 
     /**
-     * Validates a JWT token signature and expiration.
-     *
-     * @param token the JWT token to validate
-     * @return true if token is valid and not expired, false otherwise
-     */
-    @Override
-    public boolean validateToken(String token) {
-        try {
-            jwtParser.parse(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
      * Parses and extracts claims from a JWT token.
      *
      * @param token the JWT token to parse

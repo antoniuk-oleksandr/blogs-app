@@ -136,24 +136,6 @@ class JWTServiceImplTest {
     }
 
     @Test
-    void validateToken_shouldReturnTrue_whenTokenIsValid() {
-        when(jwtHelper.validateToken("token")).thenReturn(true);
-        boolean isValid = jwtService.validateToken("token");
-
-        assertThat(isValid).isTrue();
-        verify(jwtHelper).validateToken("token");
-    }
-
-    @Test
-    void validateToken_shouldReturnFalse_whenTokenIsInvalid() {
-        when(jwtHelper.validateToken("invalid-token")).thenReturn(false);
-        boolean isValid = jwtService.validateToken("invalid-token");
-
-        assertThat(isValid).isFalse();
-        verify(jwtHelper).validateToken("invalid-token");
-    }
-
-    @Test
     void parseClaims_shouldReturnClaims() {
         when(jwtHelper.parseClaims("token"))
                 .thenReturn(Map.of("sub", "1", "username", "testuser"));
