@@ -79,4 +79,10 @@ public class AuthController {
                 .status(HttpStatus.OK)
                 .body(authService.refreshAccessToken(tokenRequest));
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(@NotNull @Valid @RequestBody LogoutRequest logoutRequest) {
+        authService.logout(logoutRequest);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

@@ -1,6 +1,6 @@
 package com.example.blogs.app.api.auth.service;
 
-import com.example.blogs.app.api.auth.exception.FailedToParseClaimsException;
+import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -83,22 +83,11 @@ public class JWTServiceImpl implements JWTService {
     }
 
     /**
-     * Validates a JWT token signature and expiration.
-     *
-     * @param token the JWT token to validate
-     * @return true if token is valid and not expired, false otherwise
-     */
-    @Override
-    public boolean validateToken(String token) {
-        return jwtHelper.validateToken(token);
-    }
-
-    /**
      * Parses and extracts claims from a JWT token.
      *
      * @param token the JWT token to parse
      * @return map of claims from the token payload
-     * @throws FailedToParseClaimsException if token is malformed or signature is invalid
+     * @throws UnauthorizedException if token is malformed or signature is invalid
      */
     @Override
     public Map<String, Object> parseClaims(String token) {

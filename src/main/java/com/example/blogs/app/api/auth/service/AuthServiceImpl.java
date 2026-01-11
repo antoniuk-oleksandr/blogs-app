@@ -1,15 +1,20 @@
 package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.dto.*;
+import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
 import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
+import com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.service.UserService;
+import com.example.blogs.app.security.Hasher;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Map;
 
 /**
@@ -26,6 +31,10 @@ public class AuthServiceImpl implements AuthService {
     private final TokenPairGenerator tokenPairGenerator;
 
     private final JWTService jwtService;
+
+    private final RevokedTokenRepositoryAdapter revokedTokenRepositoryAdapter;
+
+    private final Hasher hasher;
 
     @Override
     public TokenPair register(RegisterRequest registerRequest) {
@@ -70,8 +79,8 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public AccessTokenResponse refreshAccessToken(RefreshTokenRequest tokenRequest) {
-        boolean valid = jwtService.validateToken(tokenRequest.refreshToken());
-        if (!valid) {
+        String tokenHash = hasher.hash(tokenRequest.refreshToken());
+        if (revokedTokenRepositoryAdapter.isTokenRevoked(tokenHash)) {
             throw new UnauthorizedException();
         }
 
@@ -97,5 +106,24 @@ public class AuthServiceImpl implements AuthService {
         String accessToken = jwtService.generateAccessToken(subject, accessTokenClaims);
 
         return new AccessTokenResponse(accessToken);
+    }
+
+    @Override
+    public RevokedTokenEntity logout(LogoutRequest logoutRequest) {
+        Map<String, Object> claims;
+        try {
+            claims = jwtService.parseClaims(logoutRequest.refreshToken());
+        } catch (Exception e) {
+            throw new UnauthorizedException();
+        }
+
+        String exp = claims.get("exp").toString();
+        LocalDateTime expiresAt = LocalDateTime.ofEpochSecond(
+                Long.parseLong(exp), 0, ZoneOffset.UTC
+        );
+
+        String tokenHash = hasher.hash(logoutRequest.refreshToken());
+
+        return revokedTokenRepositoryAdapter.saveRevokedToken(tokenHash, expiresAt);
     }
 }

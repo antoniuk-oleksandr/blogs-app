@@ -108,26 +108,4 @@ class JWTHelperImplTest {
                 .isInstanceOf(FailedToParseClaimsException.class);
         verify(jwtParser).parseSignedClaims("invalid-token");
     }
-
-    @Test
-    void validateToken_shouldReturnTrue_whenTokenIsValid() {
-        when(jwtParser.parse(anyString()))
-                .thenReturn(jwt);
-
-        boolean isValid = jwtHelper.validateToken("valid-token");
-
-        assertThat(isValid).isTrue();
-        verify(jwtParser).parse("valid-token");
-    }
-
-    @Test
-    void validateToken_shouldReturnFalse_whenTokenIsInvalid() {
-        when(jwtParser.parse(anyString()))
-                .thenThrow(new RuntimeException("Invalid token"));
-
-        boolean isValid = jwtHelper.validateToken("invalid-token");
-
-        assertThat(isValid).isFalse();
-        verify(jwtParser).parse("invalid-token");
-    }
 }

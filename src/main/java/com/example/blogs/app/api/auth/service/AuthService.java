@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.dto.*;
+import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
 import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 
@@ -33,4 +34,6 @@ public interface AuthService {
      * @throws UnauthorizedException if refresh token is invalid or expired
      */
     AccessTokenResponse refreshAccessToken(RefreshTokenRequest tokenRequest);
+
+    RevokedTokenEntity logout(LogoutRequest logoutRequest);
 }
