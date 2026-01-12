@@ -11,6 +11,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a blog post with metadata, content, and author relationship.
+ */
 @Table(name = "posts")
 @Entity
 @Builder

@@ -97,6 +97,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">PostRepositoryAdapterImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></span></div>
+<div class="block">Wraps post repository operations with exception translation for consistent error handling.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -126,7 +127,9 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByAuthorId(long)" class="member-name-link">findByAuthorId</a><wbr>(long&nbsp;userId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves all posts authored by the specified user with exception translation.</div>
+</div>
 </div>
 </div>
 </div>
@@ -162,9 +165,17 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <section class="detail" id="findByAuthorId(long)">
 <h3>findByAuthorId</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</span>&nbsp;<span class="element-name">findByAuthorId</span><wbr><span class="parameters">(long&nbsp;userId)</span></div>
+<div class="block">Retrieves all posts authored by the specified user with exception translation.
+ Wraps repository exceptions in a domain-specific exception for consistent error handling.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="PostRepositoryAdapter.html#findByAuthorId(long)">findByAuthorId</a></code>&nbsp;in interface&nbsp;<code><a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>userId</code> - the ID of the author</dd>
+<dt>Returns:</dt>
+<dd>list of posts by the author</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToFindPostsByAuthorIdException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostsByAuthorIdException</a></code> - if the repository operation fails</dd>
 </dl>
 </section>
 </li>

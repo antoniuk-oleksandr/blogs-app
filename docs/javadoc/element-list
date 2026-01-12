@@ -12,9 +12,11 @@ com.example.blogs.app.api.post.exception
 com.example.blogs.app.api.post.repository
 com.example.blogs.app.api.post.repository.adapter
 com.example.blogs.app.api.post.service
+com.example.blogs.app.api.user.controller
 com.example.blogs.app.api.user.dto
 com.example.blogs.app.api.user.entity
 com.example.blogs.app.api.user.exception
+com.example.blogs.app.api.user.mapper
 com.example.blogs.app.api.user.repository
 com.example.blogs.app.api.user.repository.adapter
 com.example.blogs.app.api.user.service
