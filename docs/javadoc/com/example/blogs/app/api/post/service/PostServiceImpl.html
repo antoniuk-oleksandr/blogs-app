@@ -97,6 +97,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">PostServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></span></div>
+<div class="block">Orchestrates post retrieval operations by coordinating with the post repository adapter.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -126,7 +127,9 @@ implements <a href="PostService.html" title="interface in com.example.blogs.app.
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPostsByUserId(long)" class="member-name-link">getPostsByUserId</a><wbr>(long&nbsp;userId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves all posts created by the specified user.</div>
+</div>
 </div>
 </div>
 </div>
@@ -162,9 +165,15 @@ implements <a href="PostService.html" title="interface in com.example.blogs.app.
 <section class="detail" id="getPostsByUserId(long)">
 <h3>getPostsByUserId</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</span>&nbsp;<span class="element-name">getPostsByUserId</span><wbr><span class="parameters">(long&nbsp;userId)</span></div>
+<div class="block">Retrieves all posts created by the specified user.
+ Delegates to the repository adapter for data retrieval.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="PostService.html#getPostsByUserId(long)">getPostsByUserId</a></code>&nbsp;in interface&nbsp;<code><a href="PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>userId</code> - the ID of the user</dd>
+<dt>Returns:</dt>
+<dd>list of posts created by the user</dd>
 </dl>
 </section>
 </li>

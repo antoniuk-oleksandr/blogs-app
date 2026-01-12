@@ -14,6 +14,9 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
 
+/**
+ * Unit tests for post service business logic and repository coordination.
+ */
 @ExtendWith(MockitoExtension.class)
 class PostServiceImplTest {
 
@@ -27,6 +30,9 @@ class PostServiceImplTest {
         postService = new PostServiceImpl(postRepositoryAdapter);
     }
 
+    /**
+     * Verifies that the service retrieves posts for a given user ID by delegating to the adapter.
+     */
     @Test
     void getPostsByUserId_shouldReturnPostsForGivenUserId() {
         UserEntity mockUser = UserEntity.builder().id(1L).username("testuser").build();

@@ -91,6 +91,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">PostRepositoryAdapter</span></div>
+<div class="block">Adapter for post repository operations with exception handling.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -107,7 +108,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findByAuthorId(long)" class="member-name-link">findByAuthorId</a><wbr>(long&nbsp;userId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Retrieves all posts authored by the specified user with exception translation.</div>
+</div>
 </div>
 </div>
 </div>
@@ -126,6 +129,15 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="findByAuthorId(long)">
 <h3>findByAuthorId</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</span>&nbsp;<span class="element-name">findByAuthorId</span><wbr><span class="parameters">(long&nbsp;userId)</span></div>
+<div class="block">Retrieves all posts authored by the specified user with exception translation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>userId</code> - the ID of the author</dd>
+<dt>Returns:</dt>
+<dd>list of posts by the author</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToFindPostsByAuthorIdException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostsByAuthorIdException</a></code> - if the repository operation fails</dd>
+</dl>
 </section>
 </li>
 </ul>
