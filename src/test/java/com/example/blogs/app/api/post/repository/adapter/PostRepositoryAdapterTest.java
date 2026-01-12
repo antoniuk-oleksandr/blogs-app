@@ -14,9 +14,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-/**
- * Unit tests for post repository adapter exception handling and delegation.
- */
 @ExtendWith(MockitoExtension.class)
 class PostRepositoryAdapterTest {
 
@@ -30,9 +27,6 @@ class PostRepositoryAdapterTest {
         postRepositoryAdapter = new PostRepositoryAdapterImpl(postRepository);
     }
 
-    /**
-     * Verifies that the adapter successfully delegates to the repository and returns posts.
-     */
     @Test
     void findByAuthorId_shouldReturnPosts_whenAuthorIdExists() {
         List<PostEntity> mockPosts = List.of(new PostEntity(), new PostEntity());
@@ -44,9 +38,6 @@ class PostRepositoryAdapterTest {
         verify(postRepository).findByAuthorId(1L);
     }
 
-    /**
-     * Verifies that repository exceptions are wrapped in domain-specific exceptions.
-     */
     @Test
     void findByAuthorId_shouldThrowException_whenRepositoryFails() {
         when(postRepository.findByAuthorId(anyLong())).thenThrow(FailedToFindPostsByAuthorIdException.class);

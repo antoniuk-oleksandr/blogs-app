@@ -12,9 +12,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
-/**
- * Integration tests for post repository operations against a PostgreSQL database.
- */
 @DataJpaTest
 class PostRepositoryTest extends AbstractPostgresTest {
 
@@ -24,9 +21,6 @@ class PostRepositoryTest extends AbstractPostgresTest {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * Verifies that posts can be retrieved by author ID when the author exists.
-     */
     @Test
     void findByAuthorId_shouldReturnPosts_whenAuthorIdExists() {
         UserEntity user = UserEntity.builder()
