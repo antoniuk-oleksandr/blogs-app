@@ -1,5 +1,6 @@
 package com.example.blogs.app.api.user.service;
 
+import com.example.blogs.app.api.user.dto.UserDTO;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 
@@ -24,8 +25,10 @@ public interface UserService {
      *
      * @param usernameOrEmail the username or email to search for
      * @return the matching user entity
-     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException if no user is found
+     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException     if no user is found
      * @throws com.example.blogs.app.api.user.exception.FailedToFindUserException for database errors
      */
     UserEntity findUserByUsernameOrEmail(String usernameOrEmail);
+
+    UserDTO getUserByUsername(String username);
 }
