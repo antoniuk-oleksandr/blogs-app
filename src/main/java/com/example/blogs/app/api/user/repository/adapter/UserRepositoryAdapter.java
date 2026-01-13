@@ -28,5 +28,13 @@ public interface UserRepositoryAdapter {
      */
     UserEntity findByUsernameOrEmail(String usernameOrEmail);
 
+    /**
+     * Finds a user by username.
+     *
+     * @param username the username to search for
+     * @return the matching user entity
+     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException     if no user is found
+     * @throws com.example.blogs.app.api.user.exception.FailedToFindUserException for database errors
+     */
     UserEntity findByUsername(String username);
 }

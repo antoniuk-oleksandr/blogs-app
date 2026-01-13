@@ -57,6 +57,14 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
         }
     }
 
+    /**
+     * Finds a user by username and translates exceptions to domain-specific errors.
+     *
+     * @param username the username to search for
+     * @return the matching user entity
+     * @throws UserNotFoundException if no user is found
+     * @throws FailedToFindUserException for database errors
+     */
     @Override
     public UserEntity findByUsername(String username) {
         try {

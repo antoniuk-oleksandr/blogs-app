@@ -110,11 +110,15 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&gt;</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findByUsername(java.lang.String)" class="member-name-link">findByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Finds a user by username.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findUserByUsernameOrEmail(java.lang.String,java.lang.String)" class="member-name-link">findUserByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;email)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Finds a user by username or email address.</div>
+</div>
 </div>
 </div>
 </div>
@@ -152,12 +156,13 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <h3>findUserByUsernameOrEmail</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&gt;</span>&nbsp;<span class="element-name">findUserByUsernameOrEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;email)</span></div>
+<div class="block">Finds a user by username or email address.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>username</code> - username</dd>
-<dd><code>email</code> - email address</dd>
+<dd><code>username</code> - username to search for</dd>
+<dd><code>email</code> - email address to search for</dd>
 <dt>Returns:</dt>
-<dd>Optional<UserEntity> matching the given username or email</dd>
+<dd>optional containing user if found, empty otherwise</dd>
 </dl>
 </section>
 </li>
@@ -165,6 +170,13 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <section class="detail" id="findByUsername(java.lang.String)">
 <h3>findByUsername</h3>
 <div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&gt;</span>&nbsp;<span class="element-name">findByUsername</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</span></div>
+<div class="block">Finds a user by username.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>username</code> - username to search for</dd>
+<dt>Returns:</dt>
+<dd>optional containing user if found, empty otherwise</dd>
+</dl>
 </section>
 </li>
 </ul>

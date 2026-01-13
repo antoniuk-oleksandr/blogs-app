@@ -151,7 +151,7 @@ task generateOpenApiHtml(type: Exec) {
         file("docs/openapi").mkdirs()  // Changed from build/docs/openapi
     }
 
-    commandLine 'redocly', 'build-docs',
+    commandLine 'npx', '@redocly/cli', 'build-docs',
             'http://localhost:8080/v3/api-docs',
             '-o', 'docs/openapi/api-documentation.html'  // Changed path
 

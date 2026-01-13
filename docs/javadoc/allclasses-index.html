@@ -294,15 +294,29 @@ loadScripts(document, 'script');</script>
 <div class="block">Thrown when a request fails authorization due to invalid, expired, or missing authentication credentials.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/user/controller/UserController.html" title="class in com.example.blogs.app.api.user.controller">UserController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">REST API endpoints for user profile operations.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/user/docs/UserControllerDocs.html" title="class in com.example.blogs.app.api.user.docs">UserControllerDocs</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">OpenAPI documentation annotations for user controller endpoints.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab6"><a href="com/example/blogs/app/api/user/docs/UserControllerDocs.GetUserByUsername.html" title="annotation interface in com.example.blogs.app.api.user.docs">UserControllerDocs.GetUserByUsername</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab6">
+<div class="block">Meta-annotation combining all OpenAPI documentation for the get user by username endpoint.</div>
+</div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/user/dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="block">User profile data transfer object containing personal information and post summaries.</div>
+</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">User entity with unique constraints on username and email.</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/user/mapper/UserMapper.html" title="interface in com.example.blogs.app.api.user.mapper">UserMapper</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">&nbsp;</div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="block">MapStruct mapper for converting user entities and posts to data transfer objects.</div>
+</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/user/exception/UsernameTakenException.html" title="class in com.example.blogs.app.api.user.exception">UsernameTakenException</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Thrown when attempting to create a user with an already-existing username.</div>
@@ -341,7 +355,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Translates database constraint violations into domain-specific exceptions during user creation.</div>
+<div class="block">Orchestrates user operations by coordinating repository access, post retrieval, and entity-to-DTO mapping.</div>
 </div>
 </div>
 </div>

@@ -114,7 +114,7 @@ class AuthServiceImplTest {
         LoginRequest loginRequest = new LoginRequest("testuser", "password123");
         UserEntity mockUser = createUser(1L, "testuser", "email@gmail.com", "hashedPassword");
 
-        when(userService.findUserByUsernameOrEmail("testuser")).thenReturn(mockUser);
+        when(userService.getUserByUsernameOrEmail("testuser")).thenReturn(mockUser);
         when(passwordEncoder.matches(any(CharSequence.class), anyString())).thenReturn(true);
         stubTokenGeneration("access", "refresh");
 
@@ -122,7 +122,7 @@ class AuthServiceImplTest {
 
         assertThat(tokenPair.accessToken()).isEqualTo("access");
         assertThat(tokenPair.refreshToken()).isEqualTo("refresh");
-        verify(userService).findUserByUsernameOrEmail("testuser");
+        verify(userService).getUserByUsernameOrEmail("testuser");
         verify(passwordEncoder).matches("password123", "hashedPassword");
     }
 
@@ -130,12 +130,12 @@ class AuthServiceImplTest {
     void login_shouldThrowUnauthorizedExceptionForInvalidCredentials() {
         LoginRequest loginRequest = new LoginRequest("invalidUser", "wrongPassword");
 
-        when(userService.findUserByUsernameOrEmail("invalidUser")).thenThrow(new RuntimeException());
+        when(userService.getUserByUsernameOrEmail("invalidUser")).thenThrow(new RuntimeException());
 
         assertThatThrownBy(() -> authService.login(loginRequest))
                 .isInstanceOf(Exception.class);
 
-        verify(userService).findUserByUsernameOrEmail("invalidUser");
+        verify(userService).getUserByUsernameOrEmail("invalidUser");
         verify(passwordEncoder, never()).matches(any(CharSequence.class), anyString());
         verify(tokenPairGenerator, never()).generateTokens(any(UserEntity.class));
     }
@@ -145,13 +145,13 @@ class AuthServiceImplTest {
         LoginRequest loginRequest = new LoginRequest("testuser", "password123");
         UserEntity mockUser = createUser(1L, "testuser", "email@gmail.com", "hashedPassword");
 
-        when(userService.findUserByUsernameOrEmail("testuser")).thenReturn(mockUser);
+        when(userService.getUserByUsernameOrEmail("testuser")).thenReturn(mockUser);
         when(passwordEncoder.matches(any(CharSequence.class), anyString())).thenReturn(false);
 
         assertThatThrownBy(() -> authService.login(loginRequest))
                 .isInstanceOf(InvalidCredentialsException.class);
 
-        verify(userService).findUserByUsernameOrEmail("testuser");
+        verify(userService).getUserByUsernameOrEmail("testuser");
         verify(passwordEncoder).matches("password123", "hashedPassword");
         verify(tokenPairGenerator, never()).generateTokens(any(UserEntity.class));
     }

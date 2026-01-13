@@ -3,6 +3,7 @@ package com.example.blogs.app.api.user.service;
 import com.example.blogs.app.api.user.dto.UserDTO;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.exception.*;
 
 /**
  * Manages user lifecycle operations.
@@ -14,9 +15,9 @@ public interface UserService {
      *
      * @param command user creation details
      * @return the persisted user entity
-     * @throws com.example.blogs.app.api.user.exception.UsernameTakenException if username already exists
-     * @throws com.example.blogs.app.api.user.exception.EmailTakenException    if email already exists
-     * @throws com.example.blogs.app.api.user.exception.FailedToCreateUser     for other persistence failures
+     * @throws UsernameTakenException if username already exists
+     * @throws EmailTakenException if email already exists
+     * @throws FailedToCreateUser for other persistence failures
      */
     UserEntity createUser(CreateUserCommand command);
 
@@ -25,10 +26,18 @@ public interface UserService {
      *
      * @param usernameOrEmail the username or email to search for
      * @return the matching user entity
-     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException     if no user is found
-     * @throws com.example.blogs.app.api.user.exception.FailedToFindUserException for database errors
+     * @throws UserNotFoundException if no user is found
+     * @throws FailedToFindUserException for database errors
      */
-    UserEntity findUserByUsernameOrEmail(String usernameOrEmail);
+    UserEntity getUserByUsernameOrEmail(String usernameOrEmail);
 
+    /**
+     * Retrieves complete user profile with posts by username.
+     *
+     * @param username the username to search for
+     * @return user data transfer object with profile information and post summaries
+     * @throws UserNotFoundException if no user is found
+     * @throws FailedToFindUserException for database errors
+     */
     UserDTO getUserByUsername(String username);
 }

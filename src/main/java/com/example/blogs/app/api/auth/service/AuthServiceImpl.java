@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
         UserEntity user;
 
         try {
-            user = userService.findUserByUsernameOrEmail(loginRequest.usernameOrEmail());
+            user = userService.getUserByUsernameOrEmail(loginRequest.usernameOrEmail());
         } catch (Exception e) {
             throw new InvalidCredentialsException();
         }

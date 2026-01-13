@@ -111,14 +111,16 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Creates a new user in the system.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findUserByUsernameOrEmail(java.lang.String)" class="member-name-link">findUserByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Retrieves complete user profile with posts by username.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getUserByUsernameOrEmail(java.lang.String)" class="member-name-link">getUserByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Retrieves a user by username or email address.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -151,9 +153,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="findUserByUsernameOrEmail(java.lang.String)">
-<h3>findUserByUsernameOrEmail</h3>
-<div class="member-signature"><span class="return-type"><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">findUserByUsernameOrEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</span></div>
+<section class="detail" id="getUserByUsernameOrEmail(java.lang.String)">
+<h3>getUserByUsernameOrEmail</h3>
+<div class="member-signature"><span class="return-type"><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">getUserByUsernameOrEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</span></div>
 <div class="block">Retrieves a user by username or email address.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -170,6 +172,16 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getUserByUsername(java.lang.String)">
 <h3>getUserByUsername</h3>
 <div class="member-signature"><span class="return-type"><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></span>&nbsp;<span class="element-name">getUserByUsername</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</span></div>
+<div class="block">Retrieves complete user profile with posts by username.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>username</code> - the username to search for</dd>
+<dt>Returns:</dt>
+<dd>user data transfer object with profile information and post summaries</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></code> - if no user is found</dd>
+<dd><code><a href="../exception/FailedToFindUserException.html" title="class in com.example.blogs.app.api.user.exception">FailedToFindUserException</a></code> - for database errors</dd>
+</dl>
 </section>
 </li>
 </ul>

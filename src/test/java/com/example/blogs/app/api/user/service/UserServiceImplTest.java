@@ -58,12 +58,12 @@ class UserServiceImplTest {
     }
 
     @Test
-    void findUserByUsernameOrEmail_shouldReturnUserByUsernameSuccessfully() {
+    void getUserByUsernameOrEmail_shouldReturnUserByUsernameSuccessfully() {
         UserEntity mockUser = createTestUser();
 
         when(userRepositoryAdapter.findByUsernameOrEmail(anyString())).thenReturn(mockUser);
 
-        UserEntity actualUser = userService.findUserByUsernameOrEmail("testuser");
+        UserEntity actualUser = userService.getUserByUsernameOrEmail("testuser");
 
         assertThat(actualUser.getUsername()).isEqualTo("testuser");
         assertThat(actualUser.getEmail()).isEqualTo("test@gmail.com");
