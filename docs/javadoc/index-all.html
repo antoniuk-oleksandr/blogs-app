@@ -165,6 +165,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/user/controller/package-summary.html">com.example.blogs.app.api.user.controller</a> - package com.example.blogs.app.api.user.controller</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/user/docs/package-summary.html">com.example.blogs.app.api.user.docs</a> - package com.example.blogs.app.api.user.docs</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/user/dto/package-summary.html">com.example.blogs.app.api.user.dto</a> - package com.example.blogs.app.api.user.dto</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/user/entity/package-summary.html">com.example.blogs.app.api.user.entity</a> - package com.example.blogs.app.api.user.entity</dt>
@@ -414,25 +416,27 @@ loadScripts(document, 'script');</script>
 <div class="block">Retrieves all posts authored by the specified user.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html#findByUsername(java.lang.String)" class="member-name-link">findByUsername(String)</a> - Method in interface com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Finds a user by username.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapterImpl.html#findByUsername(java.lang.String)" class="member-name-link">findByUsername(String)</a> - Method in class com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapterImpl</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Finds a user by username and translates exceptions to domain-specific errors.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/repository/UserRepository.html#findByUsername(java.lang.String)" class="member-name-link">findByUsername(String)</a> - Method in interface com.example.blogs.app.api.user.repository.<a href="com/example/blogs/app/api/user/repository/UserRepository.html" title="interface in com.example.blogs.app.api.user.repository">UserRepository</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Finds a user by username.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html#findByUsernameOrEmail(java.lang.String)" class="member-name-link">findByUsernameOrEmail(String)</a> - Method in interface com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></dt>
 <dd>
 <div class="block">Finds a user by username or email address.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapterImpl.html#findByUsernameOrEmail(java.lang.String)" class="member-name-link">findByUsernameOrEmail(String)</a> - Method in class com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapterImpl</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/example/blogs/app/api/user/service/UserService.html#findUserByUsernameOrEmail(java.lang.String)" class="member-name-link">findUserByUsernameOrEmail(String)</a> - Method in interface com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></dt>
-<dd>
-<div class="block">Retrieves a user by username or email address.</div>
-</dd>
-<dt><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html#findUserByUsernameOrEmail(java.lang.String)" class="member-name-link">findUserByUsernameOrEmail(String)</a> - Method in class com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/user/repository/UserRepository.html#findUserByUsernameOrEmail(java.lang.String,java.lang.String)" class="member-name-link">findUserByUsernameOrEmail(String, String)</a> - Method in interface com.example.blogs.app.api.user.repository.<a href="com/example/blogs/app/api/user/repository/UserRepository.html" title="interface in com.example.blogs.app.api.user.repository">UserRepository</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Finds a user by username or email address.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
@@ -513,10 +517,22 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#getPrincipal()" class="member-name-link">getPrincipal()</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/user/controller/UserController.html#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername(String)</a> - Method in class com.example.blogs.app.api.user.controller.<a href="com/example/blogs/app/api/user/controller/UserController.html" title="class in com.example.blogs.app.api.user.controller">UserController</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Retrieves complete user profile including posts by username.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/service/UserService.html#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername(String)</a> - Method in interface com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Retrieves complete user profile with posts by username.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername(String)</a> - Method in class com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a></dt>
+<dd>
+<div class="block">Retrieves complete user profile with posts by username.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/service/UserService.html#getUserByUsernameOrEmail(java.lang.String)" class="member-name-link">getUserByUsernameOrEmail(String)</a> - Method in interface com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></dt>
+<dd>
+<div class="block">Retrieves a user by username or email address.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html#getUserByUsernameOrEmail(java.lang.String)" class="member-name-link">getUserByUsernameOrEmail(String)</a> - Method in class com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/exception/GlobalExceptionHandler.html" class="type-name-link" title="class in com.example.blogs.app.exception">GlobalExceptionHandler</a> - Class in <a href="com/example/blogs/app/exception/package-summary.html">com.example.blogs.app.exception</a></dt>
 <dd>
@@ -1031,9 +1047,13 @@ loadScripts(document, 'script');</script>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/mapper/UserMapper.html#toUserDTO(com.example.blogs.app.api.user.entity.UserEntity,java.util.List)" class="member-name-link">toUserDTO(UserEntity, List&lt;PostEntity&gt;)</a> - Method in interface com.example.blogs.app.api.user.mapper.<a href="com/example/blogs/app/api/user/mapper/UserMapper.html" title="interface in com.example.blogs.app.api.user.mapper">UserMapper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Maps user entity and associated posts to a complete user DTO.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/mapper/UserMapper.html#toUserPostSummaryDto(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">toUserPostSummaryDto(PostEntity)</a> - Method in interface com.example.blogs.app.api.user.mapper.<a href="com/example/blogs/app/api/user/mapper/UserMapper.html" title="interface in com.example.blogs.app.api.user.mapper">UserMapper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">Maps a post entity to a post summary DTO.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
@@ -1046,11 +1066,25 @@ loadScripts(document, 'script');</script>
 <div class="block">Constructs a new UnauthorizedException with a default message.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/controller/UserController.html" class="type-name-link" title="class in com.example.blogs.app.api.user.controller">UserController</a> - Class in <a href="com/example/blogs/app/api/user/controller/package-summary.html">com.example.blogs.app.api.user.controller</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">REST API endpoints for user profile operations.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/controller/UserController.html#%3Cinit%3E()" class="member-name-link">UserController()</a> - Constructor for class com.example.blogs.app.api.user.controller.<a href="com/example/blogs/app/api/user/controller/UserController.html" title="class in com.example.blogs.app.api.user.controller">UserController</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.user.dto">UserDTO</a> - Record Class in <a href="com/example/blogs/app/api/user/dto/package-summary.html">com.example.blogs.app.api.user.dto</a></dt>
+<dt><a href="com/example/blogs/app/api/user/docs/UserControllerDocs.html" class="type-name-link" title="class in com.example.blogs.app.api.user.docs">UserControllerDocs</a> - Class in <a href="com/example/blogs/app/api/user/docs/package-summary.html">com.example.blogs.app.api.user.docs</a></dt>
+<dd>
+<div class="block">OpenAPI documentation annotations for user controller endpoints.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/docs/UserControllerDocs.html#%3Cinit%3E()" class="member-name-link">UserControllerDocs()</a> - Constructor for class com.example.blogs.app.api.user.docs.<a href="com/example/blogs/app/api/user/docs/UserControllerDocs.html" title="class in com.example.blogs.app.api.user.docs">UserControllerDocs</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/user/docs/UserControllerDocs.GetUserByUsername.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.user.docs">UserControllerDocs.GetUserByUsername</a> - Annotation Interface in <a href="com/example/blogs/app/api/user/docs/package-summary.html">com.example.blogs.app.api.user.docs</a></dt>
+<dd>
+<div class="block">Meta-annotation combining all OpenAPI documentation for the get user by username endpoint.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/dto/UserDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.user.dto">UserDTO</a> - Record Class in <a href="com/example/blogs/app/api/user/dto/package-summary.html">com.example.blogs.app.api.user.dto</a></dt>
+<dd>
+<div class="block">User profile data transfer object containing personal information and post summaries.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/dto/UserDTO.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.util.List)" class="member-name-link">UserDTO(String, String, String, List&lt;UserPostSummaryDto&gt;)</a> - Constructor for record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>UserDTO</code> record class.</div>
@@ -1062,7 +1096,9 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/user/entity/UserEntity.html#%3Cinit%3E()" class="member-name-link">UserEntity()</a> - Constructor for class com.example.blogs.app.api.user.entity.<a href="com/example/blogs/app/api/user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/user/mapper/UserMapper.html" class="type-name-link" title="interface in com.example.blogs.app.api.user.mapper">UserMapper</a> - Interface in <a href="com/example/blogs/app/api/user/mapper/package-summary.html">com.example.blogs.app.api.user.mapper</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">MapStruct mapper for converting user entities and posts to data transfer objects.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html#username()" class="member-name-link">username()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/api/auth/dto/RegisterRequest.html#param-username"><code>username</code></a> record component.</div>
@@ -1143,7 +1179,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a> - Class in <a href="com/example/blogs/app/api/user/service/package-summary.html">com.example.blogs.app.api.user.service</a></dt>
 <dd>
-<div class="block">Translates database constraint violations into domain-specific exceptions during user creation.</div>
+<div class="block">Orchestrates user operations by coordinating repository access, post retrieval, and entity-to-DTO mapping.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/service/UserServiceImpl.html#%3Cinit%3E()" class="member-name-link">UserServiceImpl()</a> - Constructor for class com.example.blogs.app.api.user.service.<a href="com/example/blogs/app/api/user/service/UserServiceImpl.html" title="class in com.example.blogs.app.api.user.service">UserServiceImpl</a></dt>
 <dd>&nbsp;</dd>

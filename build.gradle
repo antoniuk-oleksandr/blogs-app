@@ -37,6 +37,8 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.7.8'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14'
     implementation 'org.apache.commons:commons-lang3:3.18.0'
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+
 
     implementation('io.jsonwebtoken:jjwt-api:0.12.6')
     runtimeOnly('io.jsonwebtoken:jjwt-impl:0.12.6') {
@@ -54,6 +56,7 @@ dependencies {
     implementation 'jakarta.validation:jakarta.validation-api:4.0.0-M1'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
@@ -148,7 +151,7 @@ task generateOpenApiHtml(type: Exec) {
         file("docs/openapi").mkdirs()  // Changed from build/docs/openapi
     }
 
-    commandLine 'redocly', 'build-docs',
+    commandLine 'npx', '@redocly/cli', 'build-docs',
             'http://localhost:8080/v3/api-docs',
             '-o', 'docs/openapi/api-documentation.html'  // Changed path
 

@@ -24,60 +24,72 @@ class UserRepositoryTest extends AbstractPostgresTest {
         UserEntity partialUser = UserEntity.builder()
                 .username("test")
                 .passwordHash("passwordHash")
-                .email("email@gmail.com")
+                .email("test@gmail.com")
                 .build();
 
         UserEntity actualUser = userRepository.save(partialUser);
-
         LocalDateTime now = LocalDateTime.now();
-        assertThat(actualUser.getId()).isNotNull().isNotNegative();
-        assertThat(actualUser.getUsername()).isEqualTo("test");
-        assertThat(actualUser.getEmail()).isEqualTo("email@gmail.com");
-        assertThat(actualUser.getBio()).isNull();
-        assertThat(actualUser.getProfilePictureUrl()).isNull();
-        assertThat(actualUser.getUpdatedAt())
-                .isCloseTo(now, within(1, ChronoUnit.SECONDS));
-        assertThat(actualUser.getCreatedAt())
-                .isCloseTo(now, within(1, ChronoUnit.SECONDS));
+
+        assertUserEntity(actualUser, now);
     }
 
     @Test
     void findUserByUsernameOrEmail_shouldReturnUserByUsername_whenUserExists() {
-        UserEntity partialUser = UserEntity.builder()
-                .username("test")
-                .passwordHash("passwordHash")
-                .email("test@gmail.com")
-                .build();
-
+        UserEntity partialUser = createTestUserEntity();
         userRepository.save(partialUser);
+        LocalDateTime now = LocalDateTime.now();
 
         Optional<UserEntity> actualUser = userRepository
                 .findUserByUsernameOrEmail("test", "test");
 
-        assertThat(actualUser).isPresent();
-        assertThat(actualUser.get().getUsername()).isEqualTo("test");
-        assertThat(actualUser.get().getEmail()).isEqualTo("test@gmail.com");
-        assertThat(actualUser.get().getPasswordHash()).isEqualTo("passwordHash");
-        assertThat(actualUser.get().getId()).isNotNull().isNotNegative();
+        assertOptionalUserEntity(actualUser, now);
     }
 
     @Test
     void findUserByUsernameOrEmail_shouldReturnUserByEmail_whenUserExists() {
-        UserEntity partialUser = UserEntity.builder()
-                .username("test")
-                .passwordHash("passwordHash")
-                .email("test@gmail.com")
-                .build();
-
+        UserEntity partialUser = createTestUserEntity();
         userRepository.save(partialUser);
+        LocalDateTime now = LocalDateTime.now();
 
         Optional<UserEntity> actualUser = userRepository
                 .findUserByUsernameOrEmail("test@gmail.com", "test@gmail.com");
 
-        assertThat(actualUser).isPresent();
-        assertThat(actualUser.get().getUsername()).isEqualTo("test");
-        assertThat(actualUser.get().getEmail()).isEqualTo("test@gmail.com");
-        assertThat(actualUser.get().getPasswordHash()).isEqualTo("passwordHash");
-        assertThat(actualUser.get().getId()).isNotNull().isNotNegative();
+        assertOptionalUserEntity(actualUser, now);
+    }
+
+    @Test
+    void findByUsername_shouldReturnUser_whenUserExists() {
+        UserEntity partialUser = createTestUserEntity();
+        userRepository.save(partialUser);
+        LocalDateTime now = LocalDateTime.now();
+
+        Optional<UserEntity> actualUser = userRepository
+                .findByUsername("test");
+
+        assertOptionalUserEntity(actualUser, now);
+    }
+
+    private UserEntity createTestUserEntity() {
+        return UserEntity.builder()
+                .username("test")
+                .passwordHash("passwordHash")
+                .email("test@gmail.com")
+                .build();
+    }
+
+    private void assertUserEntity(UserEntity user, LocalDateTime time) {
+        assertThat(user.getUsername()).isEqualTo("test");
+        assertThat(user.getEmail()).isEqualTo("test@gmail.com");
+        assertThat(user.getPasswordHash()).isEqualTo("passwordHash");
+        assertThat(user.getId()).isNotNull().isNotNegative();
+        assertThat(user.getUpdatedAt())
+                .isCloseTo(time, within(1, ChronoUnit.SECONDS));
+        assertThat(user.getCreatedAt())
+                .isCloseTo(time, within(1, ChronoUnit.SECONDS));
+    }
+
+    private void assertOptionalUserEntity(Optional<UserEntity> user, LocalDateTime time) {
+        assertThat(user).isPresent();
+        assertUserEntity(user.get(), time);
     }
 }

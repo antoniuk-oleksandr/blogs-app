@@ -97,7 +97,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">UserServiceImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></span></div>
-<div class="block">Translates database constraint violations into domain-specific exceptions during user creation.</div>
+<div class="block">Orchestrates user operations by coordinating repository access, post retrieval, and entity-to-DTO mapping.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -130,14 +130,16 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Creates a new user in the system.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findUserByUsernameOrEmail(java.lang.String)" class="member-name-link">findUserByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves complete user profile with posts by username.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getUserByUsernameOrEmail(java.lang.String)" class="member-name-link">getUserByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves a user by username or email address.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getUserByUsername(java.lang.String)" class="member-name-link">getUserByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -186,14 +188,14 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 </section>
 </li>
 <li>
-<section class="detail" id="findUserByUsernameOrEmail(java.lang.String)">
-<h3>findUserByUsernameOrEmail</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">findUserByUsernameOrEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="UserService.html#findUserByUsernameOrEmail(java.lang.String)">UserService</a></code></span></div>
+<section class="detail" id="getUserByUsernameOrEmail(java.lang.String)">
+<h3>getUserByUsernameOrEmail</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">getUserByUsernameOrEmail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="UserService.html#getUserByUsernameOrEmail(java.lang.String)">UserService</a></code></span></div>
 <div class="block">Retrieves a user by username or email address.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="UserService.html#findUserByUsernameOrEmail(java.lang.String)">findUserByUsernameOrEmail</a></code>&nbsp;in interface&nbsp;<code><a href="UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></code></dd>
+<dd><code><a href="UserService.html#getUserByUsernameOrEmail(java.lang.String)">getUserByUsernameOrEmail</a></code>&nbsp;in interface&nbsp;<code><a href="UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>usernameOrEmail</code> - the username or email to search for</dd>
 <dt>Returns:</dt>
@@ -205,9 +207,18 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <section class="detail" id="getUserByUsername(java.lang.String)">
 <h3>getUserByUsername</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></span>&nbsp;<span class="element-name">getUserByUsername</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</span></div>
+<div class="block">Retrieves complete user profile with posts by username.
+ Fetches user entity, loads associated posts, and maps to DTO.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="UserService.html#getUserByUsername(java.lang.String)">getUserByUsername</a></code>&nbsp;in interface&nbsp;<code><a href="UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>username</code> - the username to search for</dd>
+<dt>Returns:</dt>
+<dd>user data transfer object with profile information and post summaries</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></code> - if no user is found</dd>
+<dd><code><a href="../exception/FailedToFindUserException.html" title="class in com.example.blogs.app.api.user.exception">FailedToFindUserException</a></code> - for database errors</dd>
 </dl>
 </section>
 </li>

@@ -127,7 +127,9 @@ implements <a href="UserRepositoryAdapter.html" title="interface in com.example.
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByUsername(java.lang.String)" class="member-name-link">findByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Finds a user by username and translates exceptions to domain-specific errors.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByUsernameOrEmail(java.lang.String)" class="member-name-link">findByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -205,9 +207,17 @@ implements <a href="UserRepositoryAdapter.html" title="interface in com.example.
 <section class="detail" id="findByUsername(java.lang.String)">
 <h3>findByUsername</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">findByUsername</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</span></div>
+<div class="block">Finds a user by username and translates exceptions to domain-specific errors.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="UserRepositoryAdapter.html#findByUsername(java.lang.String)">findByUsername</a></code>&nbsp;in interface&nbsp;<code><a href="UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>username</code> - the username to search for</dd>
+<dt>Returns:</dt>
+<dd>the matching user entity</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></code> - if no user is found</dd>
+<dd><code><a href="../../exception/FailedToFindUserException.html" title="class in com.example.blogs.app.api.user.exception">FailedToFindUserException</a></code> - for database errors</dd>
 </dl>
 </section>
 </li>
