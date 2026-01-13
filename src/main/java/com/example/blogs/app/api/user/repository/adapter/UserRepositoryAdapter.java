@@ -13,8 +13,8 @@ public interface UserRepositoryAdapter {
      * @param command user creation details
      * @return the saved user entity
      * @throws com.example.blogs.app.api.user.exception.UsernameTakenException if username already exists
-     * @throws com.example.blogs.app.api.user.exception.EmailTakenException if email already exists
-     * @throws com.example.blogs.app.api.user.exception.FailedToCreateUser for other persistence failures
+     * @throws com.example.blogs.app.api.user.exception.EmailTakenException    if email already exists
+     * @throws com.example.blogs.app.api.user.exception.FailedToCreateUser     for other persistence failures
      */
     UserEntity save(CreateUserCommand command);
 
@@ -23,8 +23,10 @@ public interface UserRepositoryAdapter {
      *
      * @param usernameOrEmail the username or email to search for
      * @return the matching user entity
-     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException if no user is found
+     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException     if no user is found
      * @throws com.example.blogs.app.api.user.exception.FailedToFindUserException for database errors
      */
     UserEntity findByUsernameOrEmail(String usernameOrEmail);
+
+    UserEntity findByUsername(String username);
 }

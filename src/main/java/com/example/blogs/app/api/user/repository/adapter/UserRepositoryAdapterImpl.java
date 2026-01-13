@@ -56,4 +56,16 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
             throw new FailedToFindUserException();
         }
     }
+
+    @Override
+    public UserEntity findByUsername(String username) {
+        try {
+            return userRepository.findByUsername(username)
+                    .orElseThrow(UserNotFoundException::new);
+        } catch (UserNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new FailedToFindUserException();
+        }
+    }
 }

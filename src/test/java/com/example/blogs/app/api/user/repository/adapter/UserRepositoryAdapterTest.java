@@ -2,9 +2,7 @@ package com.example.blogs.app.api.user.repository.adapter;
 
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
-import com.example.blogs.app.api.user.exception.EmailTakenException;
-import com.example.blogs.app.api.user.exception.FailedToCreateUser;
-import com.example.blogs.app.api.user.exception.UsernameTakenException;
+import com.example.blogs.app.api.user.exception.*;
 import com.example.blogs.app.api.user.repository.UserRepository;
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
@@ -157,6 +155,43 @@ class UserRepositoryAdapterTest {
                 .isInstanceOf(com.example.blogs.app.api.user.exception.FailedToFindUserException.class);
 
         verify(userRepository).findUserByUsernameOrEmail("testuser", "testuser");
+    }
+
+    @Test
+    void findByUsername_shouldReturnUser_whenUserExists() {
+        when(userRepository.findByUsername(anyString()))
+                .thenReturn(Optional.of(createTestUserEntity()));
+
+        UserEntity user = userRepositoryAdapter.findByUsername("testuser");
+
+        assertThat(user.getId()).isEqualTo(1L);
+        assertThat(user.getUsername()).isEqualTo("testuser");
+        assertThat(user.getPasswordHash()).isEqualTo("hashedpassword");
+        assertThat(user.getEmail()).isEqualTo("test@gmail.com");
+        verify(userRepository).findByUsername("testuser");
+    }
+
+    @Test
+    void findByUsername_shouldThrowUserNotFoundException_whenUserDoesNotExist() {
+        when(userRepository.findByUsername(anyString()))
+                .thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> userRepositoryAdapter.findByUsername("nonexistentuser"))
+                .isInstanceOf(UserNotFoundException.class);
+
+        verify(userRepository).findByUsername("nonexistentuser");
+    }
+
+    @Test
+    void findByUsername_shouldThrowFailedToFindUserException_whenDataAccessExceptionOccurs() {
+        DataAccessException exception = new DataIntegrityViolationException("generic data access issue");
+        when(userRepository.findByUsername(anyString()))
+                .thenThrow(exception);
+
+        assertThatThrownBy(() -> userRepositoryAdapter.findByUsername("testuser"))
+                .isInstanceOf(FailedToFindUserException.class);
+
+        verify(userRepository).findByUsername("testuser");
     }
 
     private UserEntity createTestUserEntity() {
