@@ -153,6 +153,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a> - package com.example.blogs.app.api.auth.service</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/controller/package-summary.html">com.example.blogs.app.api.post.controller</a> - package com.example.blogs.app.api.post.controller</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/docs/package-summary.html">com.example.blogs.app.api.post.docs</a> - package com.example.blogs.app.api.post.docs</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/entity/package-summary.html">com.example.blogs.app.api.post.entity</a> - package com.example.blogs.app.api.post.entity</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a> - package com.example.blogs.app.api.post.exception</dt>
@@ -235,12 +239,36 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Deletes all revoked tokens that expired before the specified timestamp.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html#deleteById(java.lang.Long)" class="member-name-link">deleteById(Long)</a> - Method in interface com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Deletes a post by its ID with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html#deleteById(java.lang.Long)" class="member-name-link">deleteById(Long)</a> - Method in class com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapterImpl</a></dt>
+<dd>
+<div class="block">Deletes a post by its ID with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/repository/PostRepository.html#deleteByIdReturningCount(java.lang.Long)" class="member-name-link">deleteByIdReturningCount(Long)</a> - Method in interface com.example.blogs.app.api.post.repository.<a href="com/example/blogs/app/api/post/repository/PostRepository.html" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a></dt>
+<dd>
+<div class="block">Deletes a post by its ID and returns the deleted post's ID.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html#deleteExpiredTokens(java.time.LocalDateTime)" class="member-name-link">deleteExpiredTokens(LocalDateTime)</a> - Method in interface com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a></dt>
 <dd>
 <div class="block">Removes all revoked tokens that expired before the specified timestamp.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html#deleteExpiredTokens(java.time.LocalDateTime)" class="member-name-link">deleteExpiredTokens(LocalDateTime)</a> - Method in class com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapterImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/controller/PostController.html#deletePostById(java.lang.Long)" class="member-name-link">deletePostById(Long)</a> - Method in class com.example.blogs.app.api.post.controller.<a href="com/example/blogs/app/api/post/controller/PostController.html" title="class in com.example.blogs.app.api.post.controller">PostController</a></dt>
+<dd>
+<div class="block">Deletes a post by its ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/service/PostService.html#deletePostById(java.lang.Long)" class="member-name-link">deletePostById(Long)</a> - Method in interface com.example.blogs.app.api.post.service.<a href="com/example/blogs/app/api/post/service/PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></dt>
+<dd>
+<div class="block">Deletes a post by its ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/service/PostServiceImpl.html#deletePostById(java.lang.Long)" class="member-name-link">deletePostById(Long)</a> - Method in class com.example.blogs.app.api.post.service.<a href="com/example/blogs/app/api/post/service/PostServiceImpl.html" title="class in com.example.blogs.app.api.post.service">PostServiceImpl</a></dt>
+<dd>
+<div class="block">Deletes a post by its ID.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#description()" class="member-name-link">description()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>description</code> record component.</div>
@@ -366,6 +394,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/user/exception/FailedToCreateUser.html#%3Cinit%3E()" class="member-name-link">FailedToCreateUser()</a> - Constructor for exception class com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/FailedToCreateUser.html" title="class in com.example.blogs.app.api.user.exception">FailedToCreateUser</a></dt>
 <dd>
 <div class="block">Constructs a new FailedToCreateUser exception with a default error message.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/exception/FailedToDeletePostException.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">FailedToDeletePostException</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when a post deletion operation fails due to database or system errors.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/exception/FailedToDeletePostException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">FailedToDeletePostException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.post.exception.<a href="com/example/blogs/app/api/post/exception/FailedToDeletePostException.html" title="class in com.example.blogs.app.api.post.exception">FailedToDeletePostException</a></dt>
+<dd>
+<div class="block">Constructs a new FailedToDeletePostException with a default message and underlying cause.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/post/exception/FailedToFindPostsByAuthorIdException.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostsByAuthorIdException</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
 <dd>
@@ -794,12 +830,36 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/exception/ErrorResponse.html#param-path"><code>path</code></a> record component.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/controller/PostController.html" class="type-name-link" title="class in com.example.blogs.app.api.post.controller">PostController</a> - Class in <a href="com/example/blogs/app/api/post/controller/package-summary.html">com.example.blogs.app.api.post.controller</a></dt>
+<dd>
+<div class="block">REST controller for managing post resources.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/controller/PostController.html#%3Cinit%3E()" class="member-name-link">PostController()</a> - Constructor for class com.example.blogs.app.api.post.controller.<a href="com/example/blogs/app/api/post/controller/PostController.html" title="class in com.example.blogs.app.api.post.controller">PostController</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/docs/PostControllerDocs.html" class="type-name-link" title="class in com.example.blogs.app.api.post.docs">PostControllerDocs</a> - Class in <a href="com/example/blogs/app/api/post/docs/package-summary.html">com.example.blogs.app.api.post.docs</a></dt>
+<dd>
+<div class="block">OpenAPI documentation annotations for post controller endpoints.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/docs/PostControllerDocs.html#%3Cinit%3E()" class="member-name-link">PostControllerDocs()</a> - Constructor for class com.example.blogs.app.api.post.docs.<a href="com/example/blogs/app/api/post/docs/PostControllerDocs.html" title="class in com.example.blogs.app.api.post.docs">PostControllerDocs</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/docs/PostControllerDocs.DeletePostById.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.post.docs">PostControllerDocs.DeletePostById</a> - Annotation Interface in <a href="com/example/blogs/app/api/post/docs/package-summary.html">com.example.blogs.app.api.post.docs</a></dt>
+<dd>
+<div class="block">Meta-annotation combining all OpenAPI documentation for the delete post by ID endpoint.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/entity/PostEntity.html" class="type-name-link" title="class in com.example.blogs.app.api.post.entity">PostEntity</a> - Class in <a href="com/example/blogs/app/api/post/entity/package-summary.html">com.example.blogs.app.api.post.entity</a></dt>
 <dd>
 <div class="block">Represents a blog post with metadata, content, and author relationship.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/post/entity/PostEntity.html#%3Cinit%3E()" class="member-name-link">PostEntity()</a> - Constructor for class com.example.blogs.app.api.post.entity.<a href="com/example/blogs/app/api/post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/exception/PostNotFound.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">PostNotFound</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when a requested post does not exist.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/exception/PostNotFound.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">PostNotFound(Exception)</a> - Constructor for exception class com.example.blogs.app.api.post.exception.<a href="com/example/blogs/app/api/post/exception/PostNotFound.html" title="class in com.example.blogs.app.api.post.exception">PostNotFound</a></dt>
+<dd>
+<div class="block">Constructs a new PostNotFound with a default message and underlying cause.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/repository/PostRepository.html" class="type-name-link" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a> - Interface in <a href="com/example/blogs/app/api/post/repository/package-summary.html">com.example.blogs.app.api.post.repository</a></dt>
 <dd>
 <div class="block">JPA repository for managing post persistence operations.</div>

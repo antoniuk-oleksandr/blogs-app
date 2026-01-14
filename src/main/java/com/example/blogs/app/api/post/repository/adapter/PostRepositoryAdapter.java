@@ -18,4 +18,13 @@ public interface PostRepositoryAdapter {
      * @throws FailedToFindPostsByAuthorIdException if the repository operation fails
      */
     List<PostEntity> findByAuthorId(long userId);
+
+    /**
+     * Deletes a post by its ID with exception translation.
+     *
+     * @param postId the ID of the post to delete
+     * @throws PostNotFound if the post does not exist
+     * @throws FailedToDeletePostException if the repository operation fails
+     */
+    void deleteById(Long postId);
 }

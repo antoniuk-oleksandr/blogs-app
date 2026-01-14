@@ -107,7 +107,7 @@ public class GlobalExceptionHandler {
         HttpStatus status = this.statusMapper.resolve(exception);
 
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
+                LocalDateTime.now().withNano(0),
                 status.value(),
                 status.getReasonPhrase(),
                 exception.getMessage(),
@@ -125,7 +125,7 @@ public class GlobalExceptionHandler {
             String path
     ) {
         return new ErrorResponse(
-                LocalDateTime.now(),
+                LocalDateTime.now().withNano(0),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 "Validation Failed",

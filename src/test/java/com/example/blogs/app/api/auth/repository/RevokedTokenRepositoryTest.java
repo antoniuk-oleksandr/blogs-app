@@ -37,7 +37,7 @@ class RevokedTokenRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void deleteByExpiresAtBefore_shouldDeleteExpiredTokens() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
         RevokedTokenEntity expiredToken = RevokedTokenEntity.builder()
                 .token("expired-token")
                 .expiresAt(now.minusDays(1))
@@ -61,7 +61,7 @@ class RevokedTokenRepositoryTest extends AbstractPostgresTest {
     private RevokedTokenEntity createRevokedToken() {
         return RevokedTokenEntity.builder()
                 .token("token")
-                .expiresAt(LocalDateTime.now().plusDays(1))
+                .expiresAt(LocalDateTime.now().withNano(0).plusDays(1))
                 .build();
     }
 }

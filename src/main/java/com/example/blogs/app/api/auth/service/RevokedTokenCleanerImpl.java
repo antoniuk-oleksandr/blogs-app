@@ -54,7 +54,7 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
      */
     @Override
     public void cleanUpExpiredTokens() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
         revokedTokenRepositoryAdapter.deleteExpiredTokens(now);
     }
 }

@@ -7,6 +7,8 @@ com.example.blogs.app.api.auth.exception
 com.example.blogs.app.api.auth.repository
 com.example.blogs.app.api.auth.repository.adapter
 com.example.blogs.app.api.auth.service
+com.example.blogs.app.api.post.controller
+com.example.blogs.app.api.post.docs
 com.example.blogs.app.api.post.entity
 com.example.blogs.app.api.post.exception
 com.example.blogs.app.api.post.repository

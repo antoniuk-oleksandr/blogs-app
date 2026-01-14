@@ -233,7 +233,7 @@ class AuthServiceImplTest {
 
     @Test
     void logout_shouldRevokeRefreshTokenSuccessfully() {
-        LocalDateTime now = LocalDateTime.now().plusHours(1).withNano(0);
+        LocalDateTime now = LocalDateTime.now().withNano(0).plusHours(1);
         Map<String, Object> claims = Map.ofEntries(
                 Map.entry("exp", now.toEpochSecond(ZoneOffset.UTC))
         );

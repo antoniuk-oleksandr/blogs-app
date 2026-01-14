@@ -1,7 +1,9 @@
 package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
+import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
+import com.example.blogs.app.api.post.exception.PostNotFound;
 import com.example.blogs.app.api.post.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -31,6 +33,28 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
             return postRepository.findByAuthorId(userId);
         } catch (Exception e) {
             throw new FailedToFindPostsByAuthorIdException(e);
+        }
+    }
+
+    /**
+     * Deletes a post by its ID with exception translation.
+     * Verifies deletion success and wraps repository exceptions in domain-specific exceptions.
+     *
+     * @param postId the ID of the post to delete
+     * @throws PostNotFound if the post does not exist
+     * @throws FailedToDeletePostException if the repository operation fails
+     */
+    @Override
+    public void deleteById(Long postId) {
+        try {
+            Long id = postRepository.deleteByIdReturningCount(postId);
+            if (id == null || !id.equals(postId)) {
+                throw new PostNotFound(null);
+            }
+        } catch (PostNotFound e) {
+            throw e;
+        } catch (Exception e) {
+            throw new FailedToDeletePostException(e);
         }
     }
 }

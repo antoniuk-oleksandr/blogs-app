@@ -37,7 +37,7 @@ class UserControllerTest {
     @Test
     @SneakyThrows
     void getUserByUsername_shouldReturn200_whenUserExists() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
         List<UserPostSummaryDto> mockPostSummaries = List.of(
                 createMockPostSummary(now),
                 createMockPostSummary(now)

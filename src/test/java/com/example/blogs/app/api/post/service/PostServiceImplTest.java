@@ -41,4 +41,13 @@ class PostServiceImplTest {
         assertThat(result).isEqualTo(mockPosts);
         verify(postRepositoryAdapter, times(1)).findByAuthorId(1L);
     }
+
+    @Test
+    void deletePostById_shouldInvokeRepositoryDelete() {
+        Long postId = 1L;
+
+        postService.deletePostById(postId);
+
+        verify(postRepositoryAdapter).deleteById(postId);
+    }
 }
