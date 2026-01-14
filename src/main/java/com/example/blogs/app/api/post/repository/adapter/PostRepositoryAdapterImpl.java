@@ -36,6 +36,14 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         }
     }
 
+    /**
+     * Deletes a post by its ID with exception translation.
+     * Verifies deletion success and wraps repository exceptions in domain-specific exceptions.
+     *
+     * @param postId the ID of the post to delete
+     * @throws PostNotFound if the post does not exist
+     * @throws FailedToDeletePostException if the repository operation fails
+     */
     @Override
     public void deleteById(Long postId) {
         try {

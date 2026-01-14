@@ -106,9 +106,14 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getPostsByUserId(long)" class="member-name-link">getPostsByUserId</a><wbr>(long&nbsp;userId)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#deletePostById(java.lang.Long)" class="member-name-link">deletePostById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Deletes a post by its ID.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getPostsByUserId(long)" class="member-name-link">getPostsByUserId</a><wbr>(long&nbsp;userId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Retrieves all posts created by the specified user.</div>
 </div>
 </div>
@@ -135,6 +140,17 @@ loadScripts(document, 'script');</script>
 <dd><code>userId</code> - the ID of the user</dd>
 <dt>Returns:</dt>
 <dd>list of posts created by the user</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="deletePostById(java.lang.Long)">
+<h3>deletePostById</h3>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">deletePostById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</span></div>
+<div class="block">Deletes a post by its ID.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post to delete</dd>
 </dl>
 </section>
 </li>

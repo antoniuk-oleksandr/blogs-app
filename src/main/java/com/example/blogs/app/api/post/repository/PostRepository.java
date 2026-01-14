@@ -19,6 +19,12 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
      */
     List<PostEntity> findByAuthorId(long userId);
 
+    /**
+     * Deletes a post by its ID and returns the deleted post's ID.
+     *
+     * @param postId the ID of the post to delete
+     * @return the ID of the deleted post, or null if no post was found
+     */
     @Query(value = "DELETE FROM posts WHERE id = :id RETURNING id", nativeQuery = true)
     Long deleteByIdReturningCount(@Param("id") Long postId);
 }

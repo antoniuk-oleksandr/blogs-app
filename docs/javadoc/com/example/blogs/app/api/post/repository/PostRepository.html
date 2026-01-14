@@ -107,9 +107,14 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findByAuthorId(long)" class="member-name-link">findByAuthorId</a><wbr>(long&nbsp;userId)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#deleteByIdReturningCount(java.lang.Long)" class="member-name-link">deleteByIdReturningCount</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Deletes a post by its ID and returns the deleted post's ID.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findByAuthorId(long)" class="member-name-link">findByAuthorId</a><wbr>(long&nbsp;userId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Retrieves all posts authored by the specified user.</div>
 </div>
 </div>
@@ -154,6 +159,22 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <dd><code>userId</code> - the ID of the author</dd>
 <dt>Returns:</dt>
 <dd>list of posts by the author</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="deleteByIdReturningCount(java.lang.Long)">
+<h3>deleteByIdReturningCount</h3>
+<div class="member-signature"><span class="annotations">@Query(value="DELETE FROM posts WHERE id = :id RETURNING id",
+       nativeQuery=true)
+</span><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a></span>&nbsp;<span class="element-name">deleteByIdReturningCount</span><wbr><span class="parameters">(@Param("id")
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</span></div>
+<div class="block">Deletes a post by its ID and returns the deleted post's ID.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post to delete</dd>
+<dt>Returns:</dt>
+<dd>the ID of the deleted post, or null if no post was found</dd>
 </dl>
 </section>
 </li>
