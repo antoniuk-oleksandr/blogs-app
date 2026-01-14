@@ -28,7 +28,7 @@ class UserRepositoryTest extends AbstractPostgresTest {
                 .build();
 
         UserEntity actualUser = userRepository.save(partialUser);
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
 
         assertUserEntity(actualUser, now);
     }
@@ -37,7 +37,7 @@ class UserRepositoryTest extends AbstractPostgresTest {
     void findUserByUsernameOrEmail_shouldReturnUserByUsername_whenUserExists() {
         UserEntity partialUser = createTestUserEntity();
         userRepository.save(partialUser);
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
 
         Optional<UserEntity> actualUser = userRepository
                 .findUserByUsernameOrEmail("test", "test");
@@ -49,7 +49,7 @@ class UserRepositoryTest extends AbstractPostgresTest {
     void findUserByUsernameOrEmail_shouldReturnUserByEmail_whenUserExists() {
         UserEntity partialUser = createTestUserEntity();
         userRepository.save(partialUser);
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
 
         Optional<UserEntity> actualUser = userRepository
                 .findUserByUsernameOrEmail("test@gmail.com", "test@gmail.com");
@@ -61,7 +61,7 @@ class UserRepositoryTest extends AbstractPostgresTest {
     void findByUsername_shouldReturnUser_whenUserExists() {
         UserEntity partialUser = createTestUserEntity();
         userRepository.save(partialUser);
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
 
         Optional<UserEntity> actualUser = userRepository
                 .findByUsername("test");

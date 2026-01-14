@@ -17,7 +17,7 @@ class UserMapperTest {
 
     @Test
     void toUserPostSummaryDto_shouldMapPostEntityToUserPostSummaryDto() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity user = UserEntity.builder().build();
         PostEntity postEntity = createPostEntity(1L, now, user);
 
@@ -58,7 +58,7 @@ class UserMapperTest {
 
     @Test
     void toUserDTO_shouldMapUserEntityAndPostsToUserDTO() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity userEntity = UserEntity.builder()
                 .username("testuser")
                 .bio("This is a bio")

@@ -41,7 +41,7 @@ class RevokedTokenRepositoryAdapterImplTest {
     void saveRevokedToken_shouldSaveTokenSuccessfully() {
         RevokedTokenEntity mockedEntity = RevokedTokenEntity.builder()
                 .token("sampleToken")
-                .expiresAt(LocalDateTime.now().plusHours(1))
+                .expiresAt(LocalDateTime.now().withNano(0).plusHours(1))
                 .build();
 
         when(revokedTokenJpaRepository.save(any(RevokedTokenEntity.class)))
@@ -58,7 +58,7 @@ class RevokedTokenRepositoryAdapterImplTest {
 
     @Test
     void saveRevokedToken_shouldThrowTokenAlreadyRevokedException_whenUniqueViolationOccurs() {
-        LocalDateTime expiresAt = LocalDateTime.now().plusHours(1);
+        LocalDateTime expiresAt = LocalDateTime.now().withNano(0).plusHours(1);
         when(revokedTokenJpaRepository.save(any(RevokedTokenEntity.class)))
                 .thenThrow(new RuntimeException("DB error"));
         when(sqlExceptionUtils.containsUniqueViolation(any(Exception.class), anyString()))
@@ -75,7 +75,7 @@ class RevokedTokenRepositoryAdapterImplTest {
 
     @Test
     void saveRevokedToken_shouldThrowFailedToRevokeTokenException_whenOtherExceptionOccurs() {
-        LocalDateTime expiresAt = LocalDateTime.now().plusHours(1);
+        LocalDateTime expiresAt = LocalDateTime.now().withNano(0).plusHours(1);
         when(revokedTokenJpaRepository.save(any(RevokedTokenEntity.class)))
                 .thenThrow(new RuntimeException("DB error"));
         when(sqlExceptionUtils.containsUniqueViolation(any(Exception.class), anyString()))
@@ -122,7 +122,7 @@ class RevokedTokenRepositoryAdapterImplTest {
 
     @Test
     void deleteExpiredTokens_shouldDeleteExpiredTokensSuccessfully() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
 
         revokedTokenRepositoryAdapter.deleteExpiredTokens(now);
 
@@ -133,7 +133,7 @@ class RevokedTokenRepositoryAdapterImplTest {
 
     @Test
     void deleteExpiredTokens_shouldThrowFailedToCleanRevokedTokensException_whenExceptionOccurs() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().withNano(0);
         doThrow(new RuntimeException("DB error")).when(revokedTokenJpaRepository)
                 .deleteByExpiresAtBefore(now);
 
