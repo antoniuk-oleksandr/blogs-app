@@ -3,6 +3,7 @@ package com.example.blogs.app.exception;
 import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
 import com.example.blogs.app.api.auth.exception.TokenAlreadyRevokedException;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
+import com.example.blogs.app.api.post.exception.PostNotFound;
 import com.example.blogs.app.api.user.exception.EmailTakenException;
 import com.example.blogs.app.api.user.exception.FailedToFindUserException;
 import com.example.blogs.app.api.user.exception.UserNotFoundException;
@@ -26,7 +27,8 @@ public class ExceptionHttpStatusMapper {
             InvalidCredentialsException.class, HttpStatus.UNAUTHORIZED,
             FailedToFindUserException.class, HttpStatus.INTERNAL_SERVER_ERROR,
             UnauthorizedException.class, HttpStatus.UNAUTHORIZED,
-            TokenAlreadyRevokedException.class, HttpStatus.CONFLICT
+            TokenAlreadyRevokedException.class, HttpStatus.CONFLICT,
+            PostNotFound.class, HttpStatus.NOT_FOUND
     );
 
     /**
