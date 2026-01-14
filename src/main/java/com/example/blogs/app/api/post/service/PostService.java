@@ -16,4 +16,6 @@ public interface PostService {
      * @return list of posts created by the user
      */
     List<PostEntity> getPostsByUserId(long userId);
+
+    void deletePostById(Long postId);
 }

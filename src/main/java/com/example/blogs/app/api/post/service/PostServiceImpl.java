@@ -27,4 +27,9 @@ public class PostServiceImpl implements PostService {
     public List<PostEntity> getPostsByUserId(long userId) {
         return postRepositoryAdapter.findByAuthorId(userId);
     }
+
+    @Override
+    public void deletePostById(Long postId) {
+        postRepositoryAdapter.deleteById(postId);
+    }
 }
