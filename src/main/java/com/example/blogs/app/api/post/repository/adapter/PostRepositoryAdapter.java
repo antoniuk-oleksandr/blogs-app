@@ -18,4 +18,6 @@ public interface PostRepositoryAdapter {
      * @throws FailedToFindPostsByAuthorIdException if the repository operation fails
      */
     List<PostEntity> findByAuthorId(long userId);
+
+    void deleteById(Long postId);
 }

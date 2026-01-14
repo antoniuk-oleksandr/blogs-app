@@ -2,6 +2,8 @@ package com.example.blogs.app.api.post.repository;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -16,4 +18,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
      * @return list of posts by the author
      */
     List<PostEntity> findByAuthorId(long userId);
+
+    @Query(value = "DELETE FROM posts WHERE id = :id RETURNING id", nativeQuery = true)
+    Long deleteByIdReturningCount(@Param("id") Long postId);
 }

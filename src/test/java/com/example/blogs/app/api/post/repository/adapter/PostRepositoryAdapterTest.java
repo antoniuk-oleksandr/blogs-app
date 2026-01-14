@@ -1,7 +1,9 @@
 package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
+import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
+import com.example.blogs.app.api.post.exception.PostNotFound;
 import com.example.blogs.app.api.post.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,5 +47,45 @@ class PostRepositoryAdapterTest {
         assertThatThrownBy(() -> postRepositoryAdapter.findByAuthorId(1L))
                 .isInstanceOf(RuntimeException.class);
         verify(postRepository).findByAuthorId(1L);
+    }
+
+    @Test
+    void deleteById_shouldDeletePost_whenPostIdExists() {
+        Long postId = 1L;
+        when(postRepository.deleteByIdReturningCount(postId)).thenReturn(postId);
+
+        postRepositoryAdapter.deleteById(postId);
+
+        verify(postRepository).deleteByIdReturningCount(postId);
+    }
+
+    @Test
+    void deleteById_shouldThrowPostNotFound_whenPostIdDoesNotExist() {
+        Long postId = 1L;
+        when(postRepository.deleteByIdReturningCount(postId)).thenReturn(null);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.deleteById(postId))
+                .isInstanceOf(PostNotFound.class);
+        verify(postRepository).deleteByIdReturningCount(postId);
+    }
+
+    @Test
+    void deleteById_shouldThrowPostNotFound_whenReturnedIdIsDifferent() {
+        Long postId = 1L;
+        when(postRepository.deleteByIdReturningCount(postId)).thenReturn(2L);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.deleteById(postId))
+                .isInstanceOf(PostNotFound.class);
+        verify(postRepository).deleteByIdReturningCount(postId);
+    }
+
+    @Test
+    void deleteById_shouldThrowFailedToDeletePostException_whenRepositoryFails() {
+        Long postId = 1L;
+        when(postRepository.deleteByIdReturningCount(postId)).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.deleteById(postId))
+                .isInstanceOf(FailedToDeletePostException.class);
+        verify(postRepository).deleteByIdReturningCount(postId);
     }
 }

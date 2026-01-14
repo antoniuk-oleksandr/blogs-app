@@ -50,4 +50,34 @@ class PostRepositoryTest extends AbstractPostgresTest {
         assertThat(foundPosts.getFirst().getContent()).isEqualTo("Sample Content");
         assertThat(foundPosts.getFirst().getAuthor().getId()).isEqualTo(createdUser.getId());
     }
+
+    @Test
+    void deleteByIdReturningCount_shouldReturnCount_whenPostIdExists() {
+        UserEntity user = UserEntity.builder()
+                .username("testuser")
+                .passwordHash("hashedpassword")
+                .email("test")
+                .build();
+        UserEntity createdUser = userRepository.save(user);
+        PostEntity post = PostEntity.builder()
+                .title("Sample Title")
+                .slug("sample-title")
+                .description("Sample Description")
+                .previewImageUrl("preview.jpg")
+                .content("Sample Content")
+                .author(createdUser)
+                .build();
+        PostEntity createdPost = postRepository.save(post);
+
+        Long deletedCount = postRepository.deleteByIdReturningCount(createdPost.getId());
+
+        assertThat(deletedCount).isEqualTo(createdPost.getId());
+    }
+
+    @Test
+    void deleteByIdReturningCount_shouldReturnNull_whenPostIdDoesNotExist() {
+        Long deletedCount = postRepository.deleteByIdReturningCount(9999L);
+
+        assertThat(deletedCount).isNull();
+    }
 }
