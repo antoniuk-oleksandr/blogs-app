@@ -1,7 +1,9 @@
 package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
+import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
+import com.example.blogs.app.api.post.exception.PostNotFoundException;
 
 import java.util.List;
 
@@ -23,8 +25,17 @@ public interface PostRepositoryAdapter {
      * Deletes a post by its ID with exception translation.
      *
      * @param postId the ID of the post to delete
-     * @throws PostNotFound if the post does not exist
+     * @throws PostNotFoundException                if the post does not exist
      * @throws FailedToDeletePostException if the repository operation fails
      */
     void deleteById(Long postId);
+
+    /**
+     * Retrieves a post by its unique slug identifier with exception translation.
+     *
+     * @param slug the unique slug of the post
+     * @return the post entity
+     * @throws PostNotFoundException if the post does not exist
+     */
+    PostEntity findBySlug(String slug);
 }

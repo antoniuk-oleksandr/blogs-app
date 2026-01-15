@@ -1,5 +1,6 @@
 package com.example.blogs.app.api.post.service;
 
+import com.example.blogs.app.api.post.dto.PostDTO;
 import com.example.blogs.app.api.post.entity.PostEntity;
 
 import java.util.List;
@@ -23,4 +24,12 @@ public interface PostService {
      * @param postId the ID of the post to delete
      */
     void deletePostById(Long postId);
+
+    /**
+     * Retrieves a post by its unique slug identifier with associated comments.
+     *
+     * @param slug the unique slug of the post
+     * @return post details with associated comments
+     */
+    PostDTO getPostBySlug(String slug);
 }

@@ -1,7 +1,9 @@
 package com.example.blogs.app.api.post.repository;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
+import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.fixture.UserFixtures;
 import com.example.blogs.app.api.user.repository.UserRepository;
 import com.example.blogs.app.support.AbstractPostgresTest;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -23,19 +26,8 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void findByAuthorId_shouldReturnPosts_whenAuthorIdExists() {
-        UserEntity user = UserEntity.builder()
-                .username("testuser")
-                .passwordHash("hashedpassword")
-                .email("test")
-                .build();
-        PostEntity post = PostEntity.builder()
-                .title("Sample Title")
-                .slug("sample-title")
-                .description("Sample Description")
-                .previewImageUrl("preview.jpg")
-                .content("Sample Content")
-                .author(user)
-                .build();
+        UserEntity user = UserFixtures.user();
+        PostEntity post = PostFixtures.post(user);
         UserEntity createdUser = userRepository.save(user);
         postRepository.save(post);
 
@@ -43,30 +35,19 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
         assertThat(foundPosts).isNotEmpty();
         assertThat(foundPosts.getFirst().getId()).isPositive();
-        assertThat(foundPosts.getFirst().getTitle()).isEqualTo("Sample Title");
-        assertThat(foundPosts.getFirst().getSlug()).isEqualTo("sample-title");
-        assertThat(foundPosts.getFirst().getPreviewImageUrl()).isEqualTo("preview.jpg");
-        assertThat(foundPosts.getFirst().getDescription()).isEqualTo("Sample Description");
-        assertThat(foundPosts.getFirst().getContent()).isEqualTo("Sample Content");
+        assertThat(foundPosts.getFirst().getTitle()).isEqualTo(post.getTitle());
+        assertThat(foundPosts.getFirst().getSlug()).isEqualTo(post.getSlug());
+        assertThat(foundPosts.getFirst().getPreviewImageUrl()).isEqualTo(post.getPreviewImageUrl());
+        assertThat(foundPosts.getFirst().getDescription()).isEqualTo(post.getDescription());
+        assertThat(foundPosts.getFirst().getContent()).isEqualTo(post.getContent());
         assertThat(foundPosts.getFirst().getAuthor().getId()).isEqualTo(createdUser.getId());
     }
 
     @Test
     void deleteByIdReturningCount_shouldReturnCount_whenPostIdExists() {
-        UserEntity user = UserEntity.builder()
-                .username("testuser")
-                .passwordHash("hashedpassword")
-                .email("test")
-                .build();
+        UserEntity user = UserFixtures.user();
         UserEntity createdUser = userRepository.save(user);
-        PostEntity post = PostEntity.builder()
-                .title("Sample Title")
-                .slug("sample-title")
-                .description("Sample Description")
-                .previewImageUrl("preview.jpg")
-                .content("Sample Content")
-                .author(createdUser)
-                .build();
+        PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
 
         Long deletedCount = postRepository.deleteByIdReturningCount(createdPost.getId());
@@ -79,5 +60,25 @@ class PostRepositoryTest extends AbstractPostgresTest {
         Long deletedCount = postRepository.deleteByIdReturningCount(9999L);
 
         assertThat(deletedCount).isNull();
+    }
+
+    @Test
+    void findBySlug_shouldReturnPost_whenSlugExists() {
+        UserEntity user = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(user);
+        PostEntity post = PostFixtures.post(createdUser);
+        PostEntity createdPost = postRepository.save(post);
+
+        Optional<PostEntity> foundPostOpt = postRepository.findBySlug("slug");
+
+        assertThat(foundPostOpt).isPresent();
+        PostEntity foundPost = foundPostOpt.get();
+        assertThat(foundPost.getId()).isEqualTo(createdPost.getId());
+        assertThat(foundPost.getTitle()).isEqualTo(post.getTitle());
+        assertThat(foundPost.getSlug()).isEqualTo(post.getSlug());
+        assertThat(foundPost.getPreviewImageUrl()).isEqualTo(post.getPreviewImageUrl());
+        assertThat(foundPost.getDescription()).isEqualTo(post.getDescription());
+        assertThat(foundPost.getContent()).isEqualTo(post.getContent());
+        assertThat(foundPost.getAuthor().getId()).isEqualTo(createdUser.getId());
     }
 }
