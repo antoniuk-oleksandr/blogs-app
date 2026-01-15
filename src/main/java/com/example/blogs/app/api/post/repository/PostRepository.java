@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JPA repository for managing post persistence operations.
@@ -27,4 +28,6 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
      */
     @Query(value = "DELETE FROM posts WHERE id = :id RETURNING id", nativeQuery = true)
     Long deleteByIdReturningCount(@Param("id") Long postId);
+
+    Optional<PostEntity> findBySlug(String slug);
 }

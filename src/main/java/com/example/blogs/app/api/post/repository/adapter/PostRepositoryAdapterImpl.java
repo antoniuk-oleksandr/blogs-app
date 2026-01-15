@@ -2,8 +2,9 @@ package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
+import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
-import com.example.blogs.app.api.post.exception.PostNotFound;
+import com.example.blogs.app.api.post.exception.PostNotFoundException;
 import com.example.blogs.app.api.post.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -41,7 +42,7 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
      * Verifies deletion success and wraps repository exceptions in domain-specific exceptions.
      *
      * @param postId the ID of the post to delete
-     * @throws PostNotFound if the post does not exist
+     * @throws PostNotFoundException       if the post does not exist
      * @throws FailedToDeletePostException if the repository operation fails
      */
     @Override
@@ -49,12 +50,24 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         try {
             Long id = postRepository.deleteByIdReturningCount(postId);
             if (id == null || !id.equals(postId)) {
-                throw new PostNotFound(null);
+                throw new PostNotFoundException(null);
             }
-        } catch (PostNotFound e) {
+        } catch (PostNotFoundException e) {
             throw e;
         } catch (Exception e) {
             throw new FailedToDeletePostException(e);
+        }
+    }
+
+    @Override
+    public PostEntity findBySlug(String slug) {
+        try {
+            return postRepository.findBySlug(slug)
+                    .orElseThrow(() -> new PostNotFoundException(null));
+        } catch (PostNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new FailedToFindPostBySlugException(e);
         }
     }
 }

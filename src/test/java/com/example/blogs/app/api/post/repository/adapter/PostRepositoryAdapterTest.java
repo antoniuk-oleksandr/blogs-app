@@ -2,8 +2,9 @@ package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
+import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
-import com.example.blogs.app.api.post.exception.PostNotFound;
+import com.example.blogs.app.api.post.exception.PostNotFoundException;
 import com.example.blogs.app.api.post.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -65,7 +67,7 @@ class PostRepositoryAdapterTest {
         when(postRepository.deleteByIdReturningCount(postId)).thenReturn(null);
 
         assertThatThrownBy(() -> postRepositoryAdapter.deleteById(postId))
-                .isInstanceOf(PostNotFound.class);
+                .isInstanceOf(PostNotFoundException.class);
         verify(postRepository).deleteByIdReturningCount(postId);
     }
 
@@ -75,7 +77,7 @@ class PostRepositoryAdapterTest {
         when(postRepository.deleteByIdReturningCount(postId)).thenReturn(2L);
 
         assertThatThrownBy(() -> postRepositoryAdapter.deleteById(postId))
-                .isInstanceOf(PostNotFound.class);
+                .isInstanceOf(PostNotFoundException.class);
         verify(postRepository).deleteByIdReturningCount(postId);
     }
 
@@ -87,5 +89,34 @@ class PostRepositoryAdapterTest {
         assertThatThrownBy(() -> postRepositoryAdapter.deleteById(postId))
                 .isInstanceOf(FailedToDeletePostException.class);
         verify(postRepository).deleteByIdReturningCount(postId);
+    }
+
+    @Test
+    void findBySlug_shouldReturnPost_whenSlugExists() {
+        PostEntity mockPost = new PostEntity();
+        when(postRepository.findBySlug(anyString())).thenReturn(Optional.of(mockPost));
+
+        PostEntity result = postRepositoryAdapter.findBySlug("slug");
+
+        assertThat(result).isEqualTo(mockPost);
+        verify(postRepository).findBySlug("slug");
+    }
+
+    @Test
+    void findBySlug_shouldThrowPostNotFound_whenSlugDoesNotExist() {
+        when(postRepository.findBySlug(anyString())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> postRepositoryAdapter.findBySlug("slug"))
+                .isInstanceOf(PostNotFoundException.class);
+        verify(postRepository).findBySlug("slug");
+    }
+
+    @Test
+    void findBySlug_shouldThrowFailedToFindPostBySlugException_whenRepositoryFails() {
+        when(postRepository.findBySlug(anyString())).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.findBySlug("slug"))
+                .isInstanceOf(FailedToFindPostBySlugException.class);
+        verify(postRepository).findBySlug("slug");
     }
 }
