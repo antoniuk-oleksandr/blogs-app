@@ -2,7 +2,7 @@ package com.example.blogs.app.api.user.mapper;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.dto.UserDTO;
-import com.example.blogs.app.api.user.dto.UserPostSummaryDto;
+import com.example.blogs.app.api.user.dto.UserPostSummaryDTO;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import org.mapstruct.Mapper;
 
@@ -29,5 +29,5 @@ public interface UserMapper {
      * @param postEntity post entity to map
      * @return post summary DTO
      */
-    UserPostSummaryDto toUserPostSummaryDto(PostEntity postEntity);
+    UserPostSummaryDTO toUserPostSummaryDto(PostEntity postEntity);
 }
