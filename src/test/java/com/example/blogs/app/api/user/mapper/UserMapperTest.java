@@ -2,7 +2,7 @@ package com.example.blogs.app.api.user.mapper;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.dto.UserDTO;
-import com.example.blogs.app.api.user.dto.UserPostSummaryDto;
+import com.example.blogs.app.api.user.dto.UserPostSummaryDTO;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ class UserMapperTest {
         UserEntity user = UserEntity.builder().build();
         PostEntity postEntity = createPostEntity(1L, now, user);
 
-        UserPostSummaryDto postSummaryDto = userMapper.toUserPostSummaryDto(postEntity);
+        UserPostSummaryDTO postSummaryDto = userMapper.toUserPostSummaryDto(postEntity);
 
         assertThat(postSummaryDto.title()).isEqualTo(postEntity.getTitle());
         assertThat(postSummaryDto.description()).isEqualTo(postEntity.getDescription());
@@ -32,7 +32,7 @@ class UserMapperTest {
 
     @Test
     void toUserPostSummaryDto_shouldHandleNullPostEntity() {
-        UserPostSummaryDto postSummaryDto = userMapper.toUserPostSummaryDto(null);
+        UserPostSummaryDTO postSummaryDto = userMapper.toUserPostSummaryDto(null);
 
         assertThat(postSummaryDto).isNull();
     }
@@ -47,7 +47,7 @@ class UserMapperTest {
                 .createdAt(null)
                 .build();
 
-        UserPostSummaryDto postSummaryDto = userMapper.toUserPostSummaryDto(postEntity);
+        UserPostSummaryDTO postSummaryDto = userMapper.toUserPostSummaryDto(postEntity);
 
         assertThat(postSummaryDto.title()).isNull();
         assertThat(postSummaryDto.description()).isNull();

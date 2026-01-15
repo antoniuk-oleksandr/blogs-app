@@ -1,7 +1,7 @@
 package com.example.blogs.app.api.user.controller;
 
 import com.example.blogs.app.api.user.dto.UserDTO;
-import com.example.blogs.app.api.user.dto.UserPostSummaryDto;
+import com.example.blogs.app.api.user.dto.UserPostSummaryDTO;
 import com.example.blogs.app.api.user.exception.FailedToFindUserException;
 import com.example.blogs.app.api.user.exception.UserNotFoundException;
 import com.example.blogs.app.api.user.service.UserService;
@@ -38,7 +38,7 @@ class UserControllerTest {
     @SneakyThrows
     void getUserByUsername_shouldReturn200_whenUserExists() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        List<UserPostSummaryDto> mockPostSummaries = List.of(
+        List<UserPostSummaryDTO> mockPostSummaries = List.of(
                 createMockPostSummary(now),
                 createMockPostSummary(now)
         );
@@ -90,8 +90,8 @@ class UserControllerTest {
         verify(userService).getUserByUsername("someuser");
     }
 
-    private UserPostSummaryDto createMockPostSummary(LocalDateTime time) {
-        return UserPostSummaryDto.builder()
+    private UserPostSummaryDTO createMockPostSummary(LocalDateTime time) {
+        return UserPostSummaryDTO.builder()
                 .title("title")
                 .description("description")
                 .slug("slug")

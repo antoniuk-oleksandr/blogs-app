@@ -1,10 +1,12 @@
 package com.example.blogs.app.api.comment.service;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.repository.adapter.CommentRepositoryAdapter;
 import com.example.blogs.app.api.post.entity.PostEntity;
+import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.user.entity.UserEntity;
-import com.example.blogs.app.util.TestUtils;
+import com.example.blogs.app.api.user.fixture.UserFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,11 +36,11 @@ class CommentServiceTest {
     @Test
     void getCommentsByPostId_shouldReturnComments() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockUser = TestUtils.createMockUserEntity(1L, now);
-        PostEntity mockPost = TestUtils.createMockPostEntity(1L, now, mockUser);
+        UserEntity mockUser = UserFixtures.user(1L, now);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
         List<CommentEntity> mockComments = List.of(
-                TestUtils.createMockCommentEntity(1L, now, mockUser, mockPost),
-                TestUtils.createMockCommentEntity(2L, now, mockUser, mockPost)
+                CommentFixtures.comment(1L, now, mockUser, mockPost),
+                CommentFixtures.comment(2L, now, mockUser, mockPost)
         );
         when(commentRepositoryAdapter.findAllByPostId(1L)).thenReturn(mockComments);
 
