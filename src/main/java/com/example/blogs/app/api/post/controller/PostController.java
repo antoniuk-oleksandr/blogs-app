@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.post.controller;
 
 import com.example.blogs.app.api.post.docs.PostControllerDocs;
+import com.example.blogs.app.api.post.dto.PostDTO;
 import com.example.blogs.app.api.post.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,11 @@ public class PostController {
         postService.deletePostById(postId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{slug}")
+    public ResponseEntity<PostDTO> getPostBySlug(@PathVariable String slug) {
+        PostDTO postDTO = postService.getPostBySlug(slug);
+        return ResponseEntity.ok(postDTO);
     }
 }
