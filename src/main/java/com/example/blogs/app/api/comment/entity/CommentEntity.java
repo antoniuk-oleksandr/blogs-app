@@ -3,16 +3,14 @@ package com.example.blogs.app.api.comment.entity;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @Entity
 @Builder
 @AllArgsConstructor
@@ -61,5 +59,5 @@ public class CommentEntity {
             nullable = false,
             columnDefinition = "BOOLEAN DEFAULT FALSE"
     )
-    private boolean isEdited;
+    private boolean edited;
 }

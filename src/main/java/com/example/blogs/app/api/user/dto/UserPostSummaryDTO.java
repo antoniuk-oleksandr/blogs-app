@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * Summary information for a user's post including title, description, and preview details.
  */
 @Builder
-public record UserPostSummaryDto(
+public record UserPostSummaryDTO(
         String title,
         String description,
         String slug,

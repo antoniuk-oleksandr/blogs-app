@@ -12,6 +12,6 @@ public record UserDTO(
         String username,
         String bio,
         String profilePictureUrl,
-        List<UserPostSummaryDto> posts
+        List<UserPostSummaryDTO> posts
 ) {
 }

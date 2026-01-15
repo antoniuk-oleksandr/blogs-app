@@ -4,7 +4,7 @@ import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.service.PostService;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.dto.UserDTO;
-import com.example.blogs.app.api.user.dto.UserPostSummaryDto;
+import com.example.blogs.app.api.user.dto.UserPostSummaryDTO;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.mapper.UserMapper;
 import com.example.blogs.app.api.user.repository.adapter.UserRepositoryAdapter;
@@ -77,9 +77,9 @@ class UserServiceImplTest {
         List<PostEntity> mockPosts = List.of(
                 new PostEntity(), new PostEntity()
         );
-        List<UserPostSummaryDto> mockPostSummaries = List.of(
-                UserPostSummaryDto.builder().build(),
-                UserPostSummaryDto.builder().build()
+        List<UserPostSummaryDTO> mockPostSummaries = List.of(
+                UserPostSummaryDTO.builder().build(),
+                UserPostSummaryDTO.builder().build()
         );
         UserDTO mockUserDTO = UserDTO.builder()
                 .username("testuser")
