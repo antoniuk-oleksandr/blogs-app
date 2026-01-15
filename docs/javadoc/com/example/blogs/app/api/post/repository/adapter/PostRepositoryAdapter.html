@@ -116,6 +116,11 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Retrieves all posts authored by the specified user with exception translation.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findBySlug(java.lang.String)" class="member-name-link">findBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
+</div>
 </div>
 </div>
 </div>
@@ -153,6 +158,24 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>postId</code> - the ID of the post to delete</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/PostNotFoundException.html" title="class in com.example.blogs.app.api.post.exception">PostNotFoundException</a></code> - if the post does not exist</dd>
+<dd><code><a href="../../exception/FailedToDeletePostException.html" title="class in com.example.blogs.app.api.post.exception">FailedToDeletePostException</a></code> - if the repository operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="findBySlug(java.lang.String)">
+<h3>findBySlug</h3>
+<div class="member-signature"><span class="return-type"><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></span>&nbsp;<span class="element-name">findBySlug</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</span></div>
+<div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>slug</code> - the unique slug of the post</dd>
+<dt>Returns:</dt>
+<dd>the post entity</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/PostNotFoundException.html" title="class in com.example.blogs.app.api.post.exception">PostNotFoundException</a></code> - if the post does not exist</dd>
 </dl>
 </section>
 </li>

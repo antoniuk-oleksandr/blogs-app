@@ -8,12 +8,23 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Wraps comment repository operations with exception translation for consistent error handling.
+ */
 @Component
 @AllArgsConstructor
 public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
 
     private final CommentRepository commentRepository;
 
+    /**
+     * Retrieves all comments associated with a specific post with exception translation.
+     * Wraps repository exceptions in a domain-specific exception for consistent error handling.
+     *
+     * @param postId the ID of the post
+     * @return list of comments for the post
+     * @throws FailedToFindCommentsByPostIdException if the repository operation fails
+     */
     @Override
     public List<CommentEntity> findAllByPostId(Long postId) {
         try {

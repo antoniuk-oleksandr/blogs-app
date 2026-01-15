@@ -106,6 +106,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Meta-annotation combining all OpenAPI documentation for the user registration endpoint.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#author()" class="member-name-link">author()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>author</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#author()" class="member-name-link">author()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>author</code> record component.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/AuthService.html" class="type-name-link" title="interface in com.example.blogs.app.api.auth.service">AuthService</a> - Interface in <a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a></dt>
 <dd>
 <div class="block">Handles authentication operations including user registration, login, token management,
@@ -153,13 +161,27 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/package-summary.html">com.example.blogs.app.api.auth.service</a> - package com.example.blogs.app.api.auth.service</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/entity/package-summary.html">com.example.blogs.app.api.comment.entity</a> - package com.example.blogs.app.api.comment.entity</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a> - package com.example.blogs.app.api.comment.exception</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/package-summary.html">com.example.blogs.app.api.comment.repository</a> - package com.example.blogs.app.api.comment.repository</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/package-summary.html">com.example.blogs.app.api.comment.repository.adapter</a> - package com.example.blogs.app.api.comment.repository.adapter</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/package-summary.html">com.example.blogs.app.api.comment.service</a> - package com.example.blogs.app.api.comment.service</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/controller/package-summary.html">com.example.blogs.app.api.post.controller</a> - package com.example.blogs.app.api.post.controller</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/docs/package-summary.html">com.example.blogs.app.api.post.docs</a> - package com.example.blogs.app.api.post.docs</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/package-summary.html">com.example.blogs.app.api.post.dto</a> - package com.example.blogs.app.api.post.dto</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/entity/package-summary.html">com.example.blogs.app.api.post.entity</a> - package com.example.blogs.app.api.post.entity</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a> - package com.example.blogs.app.api.post.exception</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/mapper/package-summary.html">com.example.blogs.app.api.post.mapper</a> - package com.example.blogs.app.api.post.mapper</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/repository/package-summary.html">com.example.blogs.app.api.post.repository</a> - package com.example.blogs.app.api.post.repository</dt>
 <dd>&nbsp;</dd>
@@ -193,6 +215,40 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/util/package-summary.html">com.example.blogs.app.util</a> - package com.example.blogs.app.util</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/entity/CommentEntity.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a> - Class in <a href="com/example/blogs/app/api/comment/entity/package-summary.html">com.example.blogs.app.api.comment.entity</a></dt>
+<dd>
+<div class="block">Entity representing a comment on a blog post.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/entity/CommentEntity.html#%3Cinit%3E()" class="member-name-link">CommentEntity()</a> - Constructor for class com.example.blogs.app.api.comment.entity.<a href="com/example/blogs/app/api/comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/CommentRepository.html" class="type-name-link" title="interface in com.example.blogs.app.api.comment.repository">CommentRepository</a> - Interface in <a href="com/example/blogs/app/api/comment/repository/package-summary.html">com.example.blogs.app.api.comment.repository</a></dt>
+<dd>
+<div class="block">JPA repository for managing comment persistence operations.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html" class="type-name-link" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a> - Interface in <a href="com/example/blogs/app/api/comment/repository/adapter/package-summary.html">com.example.blogs.app.api.comment.repository.adapter</a></dt>
+<dd>
+<div class="block">Adapter for comment repository operations with exception handling.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a> - Class in <a href="com/example/blogs/app/api/comment/repository/adapter/package-summary.html">com.example.blogs.app.api.comment.repository.adapter</a></dt>
+<dd>
+<div class="block">Wraps comment repository operations with exception translation for consistent error handling.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html#%3Cinit%3E()" class="member-name-link">CommentRepositoryAdapterImpl()</a> - Constructor for class com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#comments()" class="member-name-link">comments()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>comments</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentService.html" class="type-name-link" title="interface in com.example.blogs.app.api.comment.service">CommentService</a> - Interface in <a href="com/example/blogs/app/api/comment/service/package-summary.html">com.example.blogs.app.api.comment.service</a></dt>
+<dd>
+<div class="block">Service for comment-related business operations.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a> - Class in <a href="com/example/blogs/app/api/comment/service/package-summary.html">com.example.blogs.app.api.comment.service</a></dt>
+<dd>
+<div class="block">Orchestrates comment retrieval operations by coordinating with the comment repository adapter.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html#%3Cinit%3E()" class="member-name-link">CommentServiceImpl()</a> - Constructor for class com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html#configureTasks(org.springframework.scheduling.config.ScheduledTaskRegistrar)" class="member-name-link">configureTasks(ScheduledTaskRegistrar)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a></dt>
 <dd>
 <div class="block">Configures the scheduled task with a dynamic cron trigger.</div>
@@ -201,6 +257,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Checks if an exception chain contains a PostgreSQL unique constraint violation
  for a specific column.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#content()" class="member-name-link">content()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>content</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#content()" class="member-name-link">content()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>content</code> record component.</div>
 </dd>
 <dt><a href="com/example/blogs/app/security/JWTToUserPrincipalConverter.html#convert(org.springframework.security.oauth2.jwt.Jwt)" class="member-name-link">convert(Jwt)</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/JWTToUserPrincipalConverter.html" title="class in com.example.blogs.app.security">JWTToUserPrincipalConverter</a></dt>
 <dd>
@@ -214,7 +278,15 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates JWT claims map from user entity data with token type.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#createdAt()" class="member-name-link">createdAt()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#createdAt()" class="member-name-link">createdAt()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>createdAt</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#createdAt()" class="member-name-link">createdAt()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>createdAt</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#createdAt()" class="member-name-link">createdAt()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>createdAt</code> record component.</div>
 </dd>
@@ -269,13 +341,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Deletes a post by its ID.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#description()" class="member-name-link">description()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#description()" class="member-name-link">description()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>description</code> record component.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#edited()" class="member-name-link">edited()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>edited</code> record component.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html#email()" class="member-name-link">email()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/api/auth/dto/RegisterRequest.html#param-email"><code>email</code></a> record component.</div>
@@ -320,6 +396,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
@@ -328,7 +416,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
@@ -403,6 +491,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Constructs a new FailedToDeletePostException with a default message and underlying cause.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentsByPostIdException.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.exception">FailedToFindCommentsByPostIdException</a> - Exception Class in <a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when comment retrieval by post ID fails due to a system error.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentsByPostIdException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">FailedToFindCommentsByPostIdException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.comment.exception.<a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentsByPostIdException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToFindCommentsByPostIdException</a></dt>
+<dd>
+<div class="block">Constructs a new FailedToFindCommentsByPostIdException with a default message and underlying cause.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/exception/FailedToFindPostBySlugException.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostBySlugException</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when post retrieval by slug fails due to a system error.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/exception/FailedToFindPostBySlugException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">FailedToFindPostBySlugException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.post.exception.<a href="com/example/blogs/app/api/post/exception/FailedToFindPostBySlugException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostBySlugException</a></dt>
+<dd>
+<div class="block">Constructs a new FailedToFindPostBySlugException with a default message and underlying cause.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/exception/FailedToFindPostsByAuthorIdException.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostsByAuthorIdException</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
 <dd>
 <div class="block">Thrown when the repository fails to retrieve posts by author ID.</div>
@@ -439,6 +543,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Configures the security filter chain with JWT-based stateless authentication.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html#findAllByPostId(java.lang.Long)" class="member-name-link">findAllByPostId(Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Retrieves all comments associated with a specific post with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html#findAllByPostId(java.lang.Long)" class="member-name-link">findAllByPostId(Long)</a> - Method in class com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a></dt>
+<dd>
+<div class="block">Retrieves all comments associated with a specific post with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/CommentRepository.html#findAllByPostId(java.lang.Long)" class="member-name-link">findAllByPostId(Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.<a href="com/example/blogs/app/api/comment/repository/CommentRepository.html" title="interface in com.example.blogs.app.api.comment.repository">CommentRepository</a></dt>
+<dd>
+<div class="block">Retrieves all comments associated with a specific post.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html#findByAuthorId(long)" class="member-name-link">findByAuthorId(long)</a> - Method in interface com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></dt>
 <dd>
 <div class="block">Retrieves all posts authored by the specified user with exception translation.</div>
@@ -450,6 +566,18 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/post/repository/PostRepository.html#findByAuthorId(long)" class="member-name-link">findByAuthorId(long)</a> - Method in interface com.example.blogs.app.api.post.repository.<a href="com/example/blogs/app/api/post/repository/PostRepository.html" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a></dt>
 <dd>
 <div class="block">Retrieves all posts authored by the specified user.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html#findBySlug(java.lang.String)" class="member-name-link">findBySlug(String)</a> - Method in interface com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html#findBySlug(java.lang.String)" class="member-name-link">findBySlug(String)</a> - Method in class com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapterImpl</a></dt>
+<dd>
+<div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/repository/PostRepository.html#findBySlug(java.lang.String)" class="member-name-link">findBySlug(String)</a> - Method in interface com.example.blogs.app.api.post.repository.<a href="com/example/blogs/app/api/post/repository/PostRepository.html" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a></dt>
+<dd>
+<div class="block">Retrieves a post by its unique slug identifier.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html#findByUsername(java.lang.String)" class="member-name-link">findByUsername(String)</a> - Method in interface com.example.blogs.app.api.user.repository.adapter.<a href="com/example/blogs/app/api/user/repository/adapter/UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></dt>
 <dd>
@@ -540,8 +668,28 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Generates a complete token pair containing access and refresh tokens for the user.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentService.html#getCommentsByPostId(java.lang.Long)" class="member-name-link">getCommentsByPostId(Long)</a> - Method in interface com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentService.html" title="interface in com.example.blogs.app.api.comment.service">CommentService</a></dt>
+<dd>
+<div class="block">Retrieves all comments associated with a specific post.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html#getCommentsByPostId(java.lang.Long)" class="member-name-link">getCommentsByPostId(Long)</a> - Method in class com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></dt>
+<dd>
+<div class="block">Retrieves all comments associated with a specific post.</div>
+</dd>
 <dt><a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html#getCredentials()" class="member-name-link">getCredentials()</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/controller/PostController.html#getPostBySlug(java.lang.String)" class="member-name-link">getPostBySlug(String)</a> - Method in class com.example.blogs.app.api.post.controller.<a href="com/example/blogs/app/api/post/controller/PostController.html" title="class in com.example.blogs.app.api.post.controller">PostController</a></dt>
+<dd>
+<div class="block">Retrieves a post by its unique slug identifier.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/service/PostService.html#getPostBySlug(java.lang.String)" class="member-name-link">getPostBySlug(String)</a> - Method in interface com.example.blogs.app.api.post.service.<a href="com/example/blogs/app/api/post/service/PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></dt>
+<dd>
+<div class="block">Retrieves a post by its unique slug identifier with associated comments.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/service/PostServiceImpl.html#getPostBySlug(java.lang.String)" class="member-name-link">getPostBySlug(String)</a> - Method in class com.example.blogs.app.api.post.service.<a href="com/example/blogs/app/api/post/service/PostServiceImpl.html" title="class in com.example.blogs.app.api.post.service">PostServiceImpl</a></dt>
+<dd>
+<div class="block">Retrieves a post by its unique slug identifier with associated comments.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/service/PostService.html#getPostsByUserId(long)" class="member-name-link">getPostsByUserId(long)</a> - Method in interface com.example.blogs.app.api.post.service.<a href="com/example/blogs/app/api/post/service/PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></dt>
 <dd>
 <div class="block">Retrieves all posts created by the specified user.</div>
@@ -613,6 +761,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
@@ -621,7 +781,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
@@ -648,6 +808,18 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#id()" class="member-name-link">id()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>id</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#id()" class="member-name-link">id()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>id</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html#id()" class="member-name-link">id()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>id</code> record component.</div>
+</dd>
 <dt><a href="com/example/blogs/app/security/UserPrincipal.html#id()" class="member-name-link">id()</a> - Method in record class com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>id</code> record component.</div>
@@ -830,6 +1002,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/exception/ErrorResponse.html#param-path"><code>path</code></a> record component.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a> - Record Class in <a href="com/example/blogs/app/api/post/dto/package-summary.html">com.example.blogs.app.api.post.dto</a></dt>
+<dd>
+<div class="block">Data transfer object representing a summary of a comment on a post.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#%3Cinit%3E(java.lang.Long,java.lang.String,com.example.blogs.app.api.post.dto.PostUserSummaryDTO,java.time.LocalDateTime,boolean)" class="member-name-link">PostCommentSummaryDTO(Long, String, PostUserSummaryDTO, LocalDateTime, boolean)</a> - Constructor for record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>PostCommentSummaryDTO</code> record class.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/controller/PostController.html" class="type-name-link" title="class in com.example.blogs.app.api.post.controller">PostController</a> - Class in <a href="com/example/blogs/app/api/post/controller/package-summary.html">com.example.blogs.app.api.post.controller</a></dt>
 <dd>
 <div class="block">REST controller for managing post resources.</div>
@@ -846,17 +1026,29 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Meta-annotation combining all OpenAPI documentation for the delete post by ID endpoint.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.post.dto">PostDTO</a> - Record Class in <a href="com/example/blogs/app/api/post/dto/package-summary.html">com.example.blogs.app.api.post.dto</a></dt>
+<dd>
+<div class="block">Data transfer object representing a complete blog post with author and comments.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#%3Cinit%3E(java.lang.Long,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.time.LocalDateTime,com.example.blogs.app.api.post.dto.PostUserSummaryDTO,java.util.List)" class="member-name-link">PostDTO(Long, String, String, String, String, LocalDateTime, PostUserSummaryDTO, List&lt;PostCommentSummaryDTO&gt;)</a> - Constructor for record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>PostDTO</code> record class.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/entity/PostEntity.html" class="type-name-link" title="class in com.example.blogs.app.api.post.entity">PostEntity</a> - Class in <a href="com/example/blogs/app/api/post/entity/package-summary.html">com.example.blogs.app.api.post.entity</a></dt>
 <dd>
 <div class="block">Represents a blog post with metadata, content, and author relationship.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/post/entity/PostEntity.html#%3Cinit%3E()" class="member-name-link">PostEntity()</a> - Constructor for class com.example.blogs.app.api.post.entity.<a href="com/example/blogs/app/api/post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/example/blogs/app/api/post/exception/PostNotFound.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">PostNotFound</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
+<dt><a href="com/example/blogs/app/api/post/mapper/PostMapper.html" class="type-name-link" title="interface in com.example.blogs.app.api.post.mapper">PostMapper</a> - Interface in <a href="com/example/blogs/app/api/post/mapper/package-summary.html">com.example.blogs.app.api.post.mapper</a></dt>
+<dd>
+<div class="block">Mapper for converting between post entities and DTOs.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/exception/PostNotFoundException.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">PostNotFoundException</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
 <dd>
 <div class="block">Exception thrown when a requested post does not exist.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/post/exception/PostNotFound.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">PostNotFound(Exception)</a> - Constructor for exception class com.example.blogs.app.api.post.exception.<a href="com/example/blogs/app/api/post/exception/PostNotFound.html" title="class in com.example.blogs.app.api.post.exception">PostNotFound</a></dt>
+<dt><a href="com/example/blogs/app/api/post/exception/PostNotFoundException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">PostNotFoundException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.post.exception.<a href="com/example/blogs/app/api/post/exception/PostNotFoundException.html" title="class in com.example.blogs.app.api.post.exception">PostNotFoundException</a></dt>
 <dd>
 <div class="block">Constructs a new PostNotFound with a default message and underlying cause.</div>
 </dd>
@@ -888,9 +1080,25 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/post/service/PostServiceImpl.html#%3Cinit%3E()" class="member-name-link">PostServiceImpl()</a> - Constructor for class com.example.blogs.app.api.post.service.<a href="com/example/blogs/app/api/post/service/PostServiceImpl.html" title="class in com.example.blogs.app.api.post.service">PostServiceImpl</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#previewImageUrl()" class="member-name-link">previewImageUrl()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a> - Record Class in <a href="com/example/blogs/app/api/post/dto/package-summary.html">com.example.blogs.app.api.post.dto</a></dt>
+<dd>
+<div class="block">Data transfer object representing a summary of a user associated with a post or comment.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html#%3Cinit%3E(java.lang.Long,java.lang.String,java.lang.String)" class="member-name-link">PostUserSummaryDTO(Long, String, String)</a> - Constructor for record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>PostUserSummaryDTO</code> record class.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#previewImageUrl()" class="member-name-link">previewImageUrl()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>previewImageUrl</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#previewImageUrl()" class="member-name-link">previewImageUrl()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>previewImageUrl</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html#profilePictureUrl()" class="member-name-link">profilePictureUrl()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>profilePictureUrl</code> record component.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/dto/UserDTO.html#profilePictureUrl()" class="member-name-link">profilePictureUrl()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></dt>
 <dd>
@@ -1011,7 +1219,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/config/SecurityConfig.html#%3Cinit%3E()" class="member-name-link">SecurityConfig()</a> - Constructor for class com.example.blogs.app.config.<a href="com/example/blogs/app/config/SecurityConfig.html" title="class in com.example.blogs.app.config">SecurityConfig</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#slug()" class="member-name-link">slug()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#slug()" class="member-name-link">slug()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>slug</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#slug()" class="member-name-link">slug()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>slug</code> record component.</div>
 </dd>
@@ -1032,7 +1244,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/exception/ErrorResponse.html#param-timestamp"><code>timestamp</code></a> record component.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#title()" class="member-name-link">title()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#title()" class="member-name-link">title()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>title</code> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#title()" class="member-name-link">title()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>title</code> record component.</div>
 </dd>
@@ -1062,6 +1278,18 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/service/TokenPairGeneratorImpl.html#%3Cinit%3E()" class="member-name-link">TokenPairGeneratorImpl()</a> - Constructor for class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/TokenPairGeneratorImpl.html" title="class in com.example.blogs.app.api.auth.service">TokenPairGeneratorImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/post/mapper/PostMapper.html#toPostCommentSummaryDTO(com.example.blogs.app.api.comment.entity.CommentEntity)" class="member-name-link">toPostCommentSummaryDTO(CommentEntity)</a> - Method in interface com.example.blogs.app.api.post.mapper.<a href="com/example/blogs/app/api/post/mapper/PostMapper.html" title="interface in com.example.blogs.app.api.post.mapper">PostMapper</a></dt>
+<dd>
+<div class="block">Converts a comment entity to a post comment summary DTO.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/mapper/PostMapper.html#toPostDTO(com.example.blogs.app.api.post.entity.PostEntity,java.util.List)" class="member-name-link">toPostDTO(PostEntity, List&lt;CommentEntity&gt;)</a> - Method in interface com.example.blogs.app.api.post.mapper.<a href="com/example/blogs/app/api/post/mapper/PostMapper.html" title="interface in com.example.blogs.app.api.post.mapper">PostMapper</a></dt>
+<dd>
+<div class="block">Converts a post entity and its comments to a post DTO.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/mapper/PostMapper.html#toPostUserSummaryDTO(com.example.blogs.app.api.user.entity.UserEntity)" class="member-name-link">toPostUserSummaryDTO(UserEntity)</a> - Method in interface com.example.blogs.app.api.post.mapper.<a href="com/example/blogs/app/api/post/mapper/PostMapper.html" title="interface in com.example.blogs.app.api.post.mapper">PostMapper</a></dt>
+<dd>
+<div class="block">Converts a user entity to a post user summary DTO.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
@@ -1086,6 +1314,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
@@ -1094,7 +1334,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
@@ -1145,7 +1385,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">User profile data transfer object containing personal information and post summaries.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserDTO.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.util.List)" class="member-name-link">UserDTO(String, String, String, List&lt;UserPostSummaryDto&gt;)</a> - Constructor for record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/user/dto/UserDTO.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.util.List)" class="member-name-link">UserDTO(String, String, String, List&lt;UserPostSummaryDTO&gt;)</a> - Constructor for record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>UserDTO</code> record class.</div>
 </dd>
@@ -1162,6 +1402,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html#username()" class="member-name-link">username()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/RegisterRequest.html" title="class in com.example.blogs.app.api.auth.dto">RegisterRequest</a></dt>
 <dd>
 <div class="block">Returns the value of the <a href="./com/example/blogs/app/api/auth/dto/RegisterRequest.html#param-username"><code>username</code></a> record component.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html#username()" class="member-name-link">username()</a> - Method in record class com.example.blogs.app.api.post.dto.<a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>username</code> record component.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html#username()" class="member-name-link">username()</a> - Method in record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></dt>
 <dd>
@@ -1195,13 +1439,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Constructs a new UserNotFoundException with a default message.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" class="type-name-link" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a> - Record Class in <a href="com/example/blogs/app/api/user/dto/package-summary.html">com.example.blogs.app.api.user.dto</a></dt>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a> - Record Class in <a href="com/example/blogs/app/api/user/dto/package-summary.html">com.example.blogs.app.api.user.dto</a></dt>
 <dd>
 <div class="block">Summary information for a user's post including title, description, and preview details.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.time.LocalDateTime,java.lang.String)" class="member-name-link">UserPostSummaryDto(String, String, String, LocalDateTime, String)</a> - Constructor for record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></dt>
+<dt><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html#%3Cinit%3E(java.lang.String,java.lang.String,java.lang.String,java.time.LocalDateTime,java.lang.String)" class="member-name-link">UserPostSummaryDTO(String, String, String, LocalDateTime, String)</a> - Constructor for record class com.example.blogs.app.api.user.dto.<a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></dt>
 <dd>
-<div class="block">Creates an instance of a <code>UserPostSummaryDto</code> record class.</div>
+<div class="block">Creates an instance of a <code>UserPostSummaryDTO</code> record class.</div>
 </dd>
 <dt><a href="com/example/blogs/app/security/UserPrincipal.html" class="type-name-link" title="class in com.example.blogs.app.security">UserPrincipal</a> - Record Class in <a href="com/example/blogs/app/security/package-summary.html">com.example.blogs.app.security</a></dt>
 <dd>

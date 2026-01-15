@@ -59,6 +59,15 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         }
     }
 
+    /**
+     * Retrieves a post by its unique slug identifier with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param slug the unique slug of the post
+     * @return the post entity
+     * @throws PostNotFoundException if the post does not exist
+     * @throws FailedToFindPostBySlugException if the repository operation fails
+     */
     @Override
     public PostEntity findBySlug(String slug) {
         try {

@@ -47,6 +47,13 @@ public class PostServiceImpl implements PostService {
         postRepositoryAdapter.deleteById(postId);
     }
 
+    /**
+     * Retrieves a post by its unique slug identifier with associated comments.
+     * Delegates to the repository adapter for post retrieval and comment service for comments.
+     *
+     * @param slug the unique slug of the post
+     * @return post details with associated comments
+     */
     @Override
     public PostDTO getPostBySlug(String slug) {
         PostEntity post = postRepositoryAdapter.findBySlug(slug);

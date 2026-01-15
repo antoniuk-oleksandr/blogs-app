@@ -7,10 +7,17 @@ com.example.blogs.app.api.auth.exception
 com.example.blogs.app.api.auth.repository
 com.example.blogs.app.api.auth.repository.adapter
 com.example.blogs.app.api.auth.service
+com.example.blogs.app.api.comment.entity
+com.example.blogs.app.api.comment.exception
+com.example.blogs.app.api.comment.repository
+com.example.blogs.app.api.comment.repository.adapter
+com.example.blogs.app.api.comment.service
 com.example.blogs.app.api.post.controller
 com.example.blogs.app.api.post.docs
+com.example.blogs.app.api.post.dto
 com.example.blogs.app.api.post.entity
 com.example.blogs.app.api.post.exception
+com.example.blogs.app.api.post.mapper
 com.example.blogs.app.api.post.repository
 com.example.blogs.app.api.post.repository.adapter
 com.example.blogs.app.api.post.service

@@ -31,6 +31,12 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Retrieves a post by its unique slug identifier.
+     *
+     * @param slug the unique slug of the post
+     * @return post details with associated comments
+     */
     @GetMapping("/{slug}")
     public ResponseEntity<PostDTO> getPostBySlug(@PathVariable String slug) {
         PostDTO postDTO = postService.getPostBySlug(slug);

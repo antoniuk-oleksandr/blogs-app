@@ -100,6 +100,30 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Orchestrates user authentication operations by coordinating password hashing, user validation, and token generation.</div>
 </div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Entity representing a comment on a blog post.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/comment/repository/CommentRepository.html" title="interface in com.example.blogs.app.api.comment.repository">CommentRepository</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="block">JPA repository for managing comment persistence operations.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="block">Adapter for comment repository operations with exception handling.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Wraps comment repository operations with exception translation for consistent error handling.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/comment/service/CommentService.html" title="interface in com.example.blogs.app.api.comment.service">CommentService</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="block">Service for comment-related business operations.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Orchestrates comment retrieval operations by coordinating with the comment repository adapter.</div>
+</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/user/dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Command object for creating a new user with validated and processed data.</div>
@@ -131,6 +155,14 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/post/exception/FailedToDeletePostException.html" title="class in com.example.blogs.app.api.post.exception">FailedToDeletePostException</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Exception thrown when a post deletion operation fails due to database or system errors.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentsByPostIdException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToFindCommentsByPostIdException</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
+<div class="block">Exception thrown when comment retrieval by post ID fails due to a system error.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/post/exception/FailedToFindPostBySlugException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostBySlugException</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab5">
+<div class="block">Exception thrown when post retrieval by slug fails due to a system error.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/post/exception/FailedToFindPostsByAuthorIdException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostsByAuthorIdException</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
@@ -212,45 +244,61 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Provides BCrypt password encoding for secure password hashing.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/controller/PostController.html" title="class in com.example.blogs.app.api.post.controller">PostController</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/post/dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="block">Data transfer object representing a summary of a comment on a post.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/controller/PostController.html" title="class in com.example.blogs.app.api.post.controller">PostController</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">REST controller for managing post resources.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/docs/PostControllerDocs.html" title="class in com.example.blogs.app.api.post.docs">PostControllerDocs</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/docs/PostControllerDocs.html" title="class in com.example.blogs.app.api.post.docs">PostControllerDocs</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">OpenAPI documentation annotations for post controller endpoints.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab6"><a href="com/example/blogs/app/api/post/docs/PostControllerDocs.DeletePostById.html" title="annotation interface in com.example.blogs.app.api.post.docs">PostControllerDocs.DeletePostById</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab6">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab6"><a href="com/example/blogs/app/api/post/docs/PostControllerDocs.DeletePostById.html" title="annotation interface in com.example.blogs.app.api.post.docs">PostControllerDocs.DeletePostById</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab6">
 <div class="block">Meta-annotation combining all OpenAPI documentation for the delete post by ID endpoint.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/post/dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="block">Data transfer object representing a complete blog post with author and comments.</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Represents a blog post with metadata, content, and author relationship.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/post/exception/PostNotFound.html" title="class in com.example.blogs.app.api.post.exception">PostNotFound</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/post/mapper/PostMapper.html" title="interface in com.example.blogs.app.api.post.mapper">PostMapper</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="block">Mapper for converting between post entities and DTOs.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab5"><a href="com/example/blogs/app/api/post/exception/PostNotFoundException.html" title="class in com.example.blogs.app.api.post.exception">PostNotFoundException</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Exception thrown when a requested post does not exist.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/post/repository/PostRepository.html" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/post/repository/PostRepository.html" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">JPA repository for managing post persistence operations.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Adapter for post repository operations with exception handling.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapterImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapterImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Wraps post repository operations with exception translation for consistent error handling.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/post/service/PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="com/example/blogs/app/api/post/service/PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Service for post-related business operations.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/service/PostServiceImpl.html" title="class in com.example.blogs.app.api.post.service">PostServiceImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/example/blogs/app/api/post/service/PostServiceImpl.html" title="class in com.example.blogs.app.api.post.service">PostServiceImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Orchestrates post retrieval operations by coordinating with the post repository adapter.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/post/dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="block">Data transfer object representing a summary of a user associated with a post or comment.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/auth/dto/RefreshTokenRequest.html" title="class in com.example.blogs.app.api.auth.dto">RefreshTokenRequest</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
@@ -345,7 +393,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab5">
 <div class="block">Thrown when a requested user does not exist in the system.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDto.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDto</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/example/blogs/app/api/user/dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">Summary information for a user's post including title, description, and preview details.</div>
 </div>

@@ -5,6 +5,9 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Data transfer object representing a complete blog post with author and comments.
+ */
 @Builder
 public record PostDTO(
         Long id,

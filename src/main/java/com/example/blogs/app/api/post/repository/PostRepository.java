@@ -29,5 +29,11 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     @Query(value = "DELETE FROM posts WHERE id = :id RETURNING id", nativeQuery = true)
     Long deleteByIdReturningCount(@Param("id") Long postId);
 
+    /**
+     * Retrieves a post by its unique slug identifier.
+     *
+     * @param slug the unique slug of the post
+     * @return optional containing the post if found, empty otherwise
+     */
     Optional<PostEntity> findBySlug(String slug);
 }

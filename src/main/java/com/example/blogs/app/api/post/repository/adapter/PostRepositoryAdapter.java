@@ -30,5 +30,12 @@ public interface PostRepositoryAdapter {
      */
     void deleteById(Long postId);
 
+    /**
+     * Retrieves a post by its unique slug identifier with exception translation.
+     *
+     * @param slug the unique slug of the post
+     * @return the post entity
+     * @throws PostNotFoundException if the post does not exist
+     */
     PostEntity findBySlug(String slug);
 }

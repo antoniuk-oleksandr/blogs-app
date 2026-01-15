@@ -25,5 +25,11 @@ public interface PostService {
      */
     void deletePostById(Long postId);
 
+    /**
+     * Retrieves a post by its unique slug identifier with associated comments.
+     *
+     * @param slug the unique slug of the post
+     * @return post details with associated comments
+     */
     PostDTO getPostBySlug(String slug);
 }

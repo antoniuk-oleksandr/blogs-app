@@ -9,6 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entity representing a comment on a blog post.
+ */
 @Getter
 @Setter
 @Entity
