@@ -1,6 +1,10 @@
 package com.example.blogs.app.api.post.service;
 
+import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.comment.service.CommentService;
+import com.example.blogs.app.api.post.dto.PostDTO;
 import com.example.blogs.app.api.post.entity.PostEntity;
+import com.example.blogs.app.api.post.mapper.PostMapper;
 import com.example.blogs.app.api.post.repository.adapter.PostRepositoryAdapter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,10 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
 
     private final PostRepositoryAdapter postRepositoryAdapter;
+
+    private final CommentService commentService;
+
+    private final PostMapper postMapper;
 
     /**
      * Retrieves all posts created by the specified user.
@@ -37,5 +45,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePostById(Long postId) {
         postRepositoryAdapter.deleteById(postId);
+    }
+
+    @Override
+    public PostDTO getPostBySlug(String slug) {
+        PostEntity post = postRepositoryAdapter.findBySlug(slug);
+        List<CommentEntity> comments = commentService.getCommentsByPostId(post.getId());
+
+        return postMapper.toPostDTO(post, comments);
     }
 }
