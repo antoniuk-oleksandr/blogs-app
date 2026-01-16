@@ -97,8 +97,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">HasherImpl</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements <a href="Hasher.html" title="interface in com.example.blogs.app.security">Hasher</a></span></div>
-<div class="block">SHA-256 based hashing implementation for creating one-way token digests.
- Uses UTF-8 encoding and hexadecimal output format.</div>
+<div class="block">Hashes strings using SHA-256 algorithm and returns hexadecimal representation.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -129,7 +128,7 @@ implements <a href="Hasher.html" title="interface in com.example.blogs.app.secur
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hash(java.lang.String)" class="member-name-link">hash</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;input)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Generates a SHA-256 hash of the input string.</div>
+<div class="block">Hashes the input string using SHA-256 and returns hex-encoded result.</div>
 </div>
 </div>
 </div>
@@ -166,15 +165,16 @@ implements <a href="Hasher.html" title="interface in com.example.blogs.app.secur
 <section class="detail" id="hash(java.lang.String)">
 <h3>hash</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">hash</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;input)</span></div>
-<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="Hasher.html#hash(java.lang.String)">Hasher</a></code></span></div>
-<div class="block">Generates a SHA-256 hash of the input string.</div>
+<div class="block">Hashes the input string using SHA-256 and returns hex-encoded result.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="Hasher.html#hash(java.lang.String)">hash</a></code>&nbsp;in interface&nbsp;<code><a href="Hasher.html" title="interface in com.example.blogs.app.security">Hasher</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>input</code> - plaintext string to hash</dd>
+<dd><code>input</code> - the string to hash</dd>
 <dt>Returns:</dt>
 <dd>hexadecimal representation of the hash</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if hashing operation fails</dd>
 </dl>
 </section>
 </li>

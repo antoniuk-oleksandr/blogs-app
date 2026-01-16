@@ -127,6 +127,11 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Configures the security filter chain with JWT-based stateless authentication.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/MessageDigest.html" title="class or interface in java.security" class="external-link">MessageDigest</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#messageDigest()" class="member-name-link">messageDigest</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Provides a SHA-256 MessageDigest bean for token hashing.</div>
+</div>
 </div>
 </div>
 </div>
@@ -173,6 +178,20 @@ loadScripts(document, 'script');</script>
 <dd>configured SecurityFilterChain</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a></code> - if configuration fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="messageDigest()">
+<h3>messageDigest</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Bean.html" title="class or interface in org.springframework.context.annotation" class="external-link">@Bean</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/security/MessageDigest.html" title="class or interface in java.security" class="external-link">MessageDigest</a></span>&nbsp;<span class="element-name">messageDigest</span>()</div>
+<div class="block">Provides a SHA-256 MessageDigest bean for token hashing.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>SHA-256 MessageDigest instance</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalStateException.html" title="class or interface in java.lang" class="external-link">IllegalStateException</a></code> - if SHA-256 algorithm is not available</dd>
 </dl>
 </section>
 </li>

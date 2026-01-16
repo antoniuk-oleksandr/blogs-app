@@ -13,7 +13,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class JWTToUserPrincipalConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
-
+    /**
+     * Converts a JWT to a UserPrincipal authentication token.
+     * Extracts user information from JWT claims and creates an authenticated token.
+     *
+     * @param source the JWT to convert
+     * @return authenticated token containing UserPrincipal
+     * @throws IllegalArgumentException if JWT 'id' claim is missing or invalid
+     */
     @Override
     public AbstractAuthenticationToken convert(Jwt source) {
         long id;

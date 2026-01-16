@@ -55,6 +55,48 @@ public class PostControllerDocs {
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
             ),
             @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - invalid or expired JWT token",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Invalid JWT Token",
+                                    summary = "JWT token is invalid or has expired",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-16T16:15:06",
+                                              "status": 401,
+                                              "error": "Unauthorized",
+                                              "message": "Invalid or expired JWT token",
+                                              "path": "/posts/7"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden - access denied",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Access Denied",
+                                    summary = "User does not have permission to access this resource",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-16T16:16:26",
+                                              "status": 403,
+                                              "error": "Forbidden",
+                                              "message": "Access Denied",
+                                              "path": "/posts/11"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
                     responseCode = "404",
                     description = "Not Found - post does not exist",
                     content = @Content(
@@ -65,7 +107,7 @@ public class PostControllerDocs {
                                     summary = "The requested post does not exist",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 404,
                                               "error": "Not Found",
                                               "message": "Post not found",
@@ -86,7 +128,7 @@ public class PostControllerDocs {
                                     summary = "Post deletion failed due to database or system error",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 500,
                                               "error": "Internal Server Error",
                                               "message": "Failed to delete post",
@@ -98,5 +140,85 @@ public class PostControllerDocs {
             )
     })
     public @interface DeletePostById {
+    }
+
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the get post by slug endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for retrieving a post by its slug, including all response schemas and examples.
+     * </p>
+     */
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Get a post by slug",
+            description = """
+                    Retrieves a specific post from the system by its unique slug identifier,
+                    including all associated comments.
+                                
+                    ## Requirements
+                    - **Slug**: Must be a valid post slug that exists in the system
+                                
+                    ## Response
+                    Returns the post details with associated comments (200) upon success.
+                                
+                    ## Behavior
+                    - Post and its comments are retrieved from the database
+                    - If post doesn't exist, returns 404 Not Found
+                    - If retrieval fails due to database errors, returns 500 Internal Server Error
+                    """,
+            tags = {"Posts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Post successfully retrieved",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found - post does not exist",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Post Not Found",
+                                    summary = "The requested post does not exist",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-16T16:16:26",
+                                              "status": 404,
+                                              "error": "Not Found",
+                                              "message": "Post not found",
+                                              "path": "/posts/my-post-slug"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - failed to find post by slug",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Retrieval Failed",
+                                    summary = "Post retrieval failed due to database or system error",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-16T16:16:26",
+                                              "status": 500,
+                                              "error": "Internal Server Error",
+                                              "message": "Failed to find post by slug",
+                                              "path": "/posts/my-post-slug"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    public @interface GetPostBySlug {
     }
 }

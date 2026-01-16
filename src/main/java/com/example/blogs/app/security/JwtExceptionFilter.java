@@ -14,6 +14,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Catches JWT exceptions thrown during request processing and writes error responses.
+ */
 @Component
 @AllArgsConstructor
 public class JwtExceptionFilter extends OncePerRequestFilter {
@@ -22,6 +25,16 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
 
     private final ErrorResponseWriter errorResponseWriter;
 
+    /**
+     * Filters requests and catches JWT exceptions to write standardized error responses.
+     * Allows the filter chain to continue for non-JWT exceptions.
+     *
+     * @param request     the HTTP request
+     * @param response    the HTTP response
+     * @param filterChain the filter chain to continue
+     * @throws ServletException if servlet processing fails
+     * @throws IOException      if I/O operation fails
+     */
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,

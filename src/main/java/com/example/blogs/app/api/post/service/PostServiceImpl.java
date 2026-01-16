@@ -38,7 +38,7 @@ public class PostServiceImpl implements PostService {
 
     /**
      * Deletes a post by its ID.
-     * Delegates to the repository adapter for post deletion.
+     * Delegates to the repository adapter for deletion.
      *
      * @param postId the ID of the post to delete
      */

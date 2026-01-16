@@ -25,7 +25,7 @@ public interface PostRepositoryAdapter {
      * Deletes a post by its ID with exception translation.
      *
      * @param postId the ID of the post to delete
-     * @throws PostNotFoundException                if the post does not exist
+     * @throws PostNotFoundException       if the post does not exist
      * @throws FailedToDeletePostException if the repository operation fails
      */
     void deleteById(Long postId);
@@ -38,4 +38,21 @@ public interface PostRepositoryAdapter {
      * @throws PostNotFoundException if the post does not exist
      */
     PostEntity findBySlug(String slug);
+
+    /**
+     * Checks if a post exists by its ID.
+     *
+     * @param postId the ID of the post
+     * @return true if the post exists, false otherwise
+     */
+    boolean existsById(long postId);
+
+    /**
+     * Checks if a post exists by its ID and author ID.
+     *
+     * @param postId   the ID of the author
+     * @param authorId the ID of the author
+     * @return true if the post exists and belongs to the author, false otherwise
+     */
+    boolean existsByIdAndAuthorId(long postId, long authorId);
 }
