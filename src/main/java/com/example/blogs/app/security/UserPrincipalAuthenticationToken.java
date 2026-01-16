@@ -25,7 +25,7 @@ public class UserPrincipalAuthenticationToken extends AbstractAuthenticationToke
     }
 
     @Override
-    public Object getCredentials() {
+    public Jwt getCredentials() {
         return jwt;
     }
 
@@ -42,7 +42,7 @@ public class UserPrincipalAuthenticationToken extends AbstractAuthenticationToke
     }
 
     @Override
-    public Object getPrincipal() {
+    public UserPrincipal getPrincipal() {
         return principal;
     }
 

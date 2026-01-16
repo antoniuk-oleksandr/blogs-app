@@ -5,6 +5,7 @@ import com.example.blogs.app.api.user.dto.UserPostSummaryDTO;
 import com.example.blogs.app.api.user.exception.FailedToFindUserException;
 import com.example.blogs.app.api.user.exception.UserNotFoundException;
 import com.example.blogs.app.api.user.service.UserService;
+import com.example.blogs.app.exception.ErrorResponseWriter;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
 import com.example.blogs.app.exception.GlobalExceptionHandler;
 import lombok.SneakyThrows;
@@ -24,8 +25,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = UserController.class)
-@Import({GlobalExceptionHandler.class, ExceptionHttpStatusMapper.class})
 @AutoConfigureMockMvc(addFilters = false)
+@Import({
+        GlobalExceptionHandler.class,
+        ExceptionHttpStatusMapper.class,
+        ErrorResponseWriter.class
+})
 class UserControllerTest {
 
     @Autowired

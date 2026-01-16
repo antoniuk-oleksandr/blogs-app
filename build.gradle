@@ -92,7 +92,6 @@ sonarqube {
                 "**/config/**",
                 "**/dto/**",
                 "**/entity/**",
-                "**/security/**",
                 "**/**Docs**"
         ].join(",")
     }

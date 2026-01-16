@@ -4,6 +4,7 @@ import com.example.blogs.app.api.auth.dto.*;
 import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
 import com.example.blogs.app.api.auth.service.AuthService;
+import com.example.blogs.app.exception.ErrorResponseWriter;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
 import com.example.blogs.app.exception.GlobalExceptionHandler;
 import com.example.blogs.app.security.UserPrincipal;
@@ -27,7 +28,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthController.class)
-@Import({GlobalExceptionHandler.class, ExceptionHttpStatusMapper.class})
+@Import({
+        GlobalExceptionHandler.class,
+        ExceptionHttpStatusMapper.class,
+        ErrorResponseWriter.class
+})
 @AutoConfigureMockMvc(addFilters = false)
 
 
