@@ -5,6 +5,7 @@ import com.example.blogs.app.api.post.dto.PostDTO;
 import com.example.blogs.app.api.post.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,6 +25,7 @@ public class PostController {
      * @return no content response on successful deletion
      */
     @DeleteMapping("/{postId}")
+    @PreAuthorize("@postSecurity.isOwner(#postId)")
     @PostControllerDocs.DeletePostById
     public ResponseEntity<Void> deletePostById(@PathVariable Long postId) {
         postService.deletePostById(postId);
