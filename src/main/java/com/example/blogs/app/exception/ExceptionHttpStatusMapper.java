@@ -10,6 +10,7 @@ import com.example.blogs.app.api.user.exception.UserNotFoundException;
 import com.example.blogs.app.api.user.exception.UsernameTakenException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 
 import java.util.Map;
 
@@ -28,7 +29,8 @@ public class ExceptionHttpStatusMapper {
             FailedToFindUserException.class, HttpStatus.INTERNAL_SERVER_ERROR,
             UnauthorizedException.class, HttpStatus.UNAUTHORIZED,
             TokenAlreadyRevokedException.class, HttpStatus.CONFLICT,
-            PostNotFoundException.class, HttpStatus.NOT_FOUND
+            PostNotFoundException.class, HttpStatus.NOT_FOUND,
+            AuthorizationDeniedException.class, HttpStatus.FORBIDDEN
     );
 
     /**

@@ -8,6 +8,7 @@ import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
 import com.example.blogs.app.api.post.exception.PostNotFoundException;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.post.service.PostService;
+import com.example.blogs.app.exception.ErrorResponseWriter;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
 import com.example.blogs.app.exception.GlobalExceptionHandler;
 import lombok.SneakyThrows;
@@ -28,7 +29,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(controllers = PostController.class)
-@Import({GlobalExceptionHandler.class, ExceptionHttpStatusMapper.class})
+@Import({
+        GlobalExceptionHandler.class,
+        ExceptionHttpStatusMapper.class,
+        ErrorResponseWriter.class
+})
 class PostControllerTest {
 
     @Autowired
