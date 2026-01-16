@@ -99,7 +99,7 @@ public class UserControllerDocs {
                                     summary = "Requested user does not exist",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 404,
                                               "error": "Not Found",
                                               "message": "User not found with username: johndoe",
@@ -120,7 +120,7 @@ public class UserControllerDocs {
                                     summary = "Unexpected error occurred while retrieving user",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 500,
                                               "error": "Internal Server Error",
                                               "message": "An unexpected error occurred while processing your request",

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Handles JWT authentication failures by writing appropriate error responses.
+ */
 @Component
 @AllArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
@@ -21,6 +24,15 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     private final ErrorResponseWriter errorResponseWriter;
 
+    /**
+     * Handles authentication exceptions by determining the error type and writing an appropriate response.
+     * Distinguishes between expired JWT tokens and other JWT validation failures.
+     *
+     * @param request       the HTTP request that triggered authentication
+     * @param response      the HTTP response to write to
+     * @param authException the authentication exception that occurred
+     * @throws IOException if writing to response fails
+     */
     @Override
     public void commence(
             HttpServletRequest request,

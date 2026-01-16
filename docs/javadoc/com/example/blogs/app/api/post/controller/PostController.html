@@ -166,6 +166,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="deletePostById(java.lang.Long)">
 <h3>deletePostById</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/DeleteMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@DeleteMapping</a>("/{postId}")
+@PreAuthorize("@postSecurity.isOwner(#postId)")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Void.html" title="class or interface in java.lang" class="external-link">Void</a>&gt;</span>&nbsp;<span class="element-name">deletePostById</span><wbr><span class="parameters">(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PathVariable</a>
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</span></div>
 <div class="block">Deletes a post by its ID.</div>

@@ -60,6 +60,12 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Provides a SHA-256 MessageDigest bean for token hashing.
+     *
+     * @return SHA-256 MessageDigest instance
+     * @throws IllegalStateException if SHA-256 algorithm is not available
+     */
     @Bean
     public MessageDigest messageDigest() {
         try {

@@ -40,6 +40,7 @@ public class PostController {
      * @return post details with associated comments
      */
     @GetMapping("/{slug}")
+    @PostControllerDocs.GetPostBySlug
     public ResponseEntity<PostDTO> getPostBySlug(@PathVariable String slug) {
         PostDTO postDTO = postService.getPostBySlug(slug);
         return ResponseEntity.ok(postDTO);

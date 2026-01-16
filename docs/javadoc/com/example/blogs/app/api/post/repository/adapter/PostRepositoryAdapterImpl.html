@@ -130,6 +130,17 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Deletes a post by its ID with exception translation.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#existsById(long)" class="member-name-link">existsById</a><wbr>(long&nbsp;postId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if a post exists by its ID.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#existsByIdAndAuthorId(long,long)" class="member-name-link">existsByIdAndAuthorId</a><wbr>(long&nbsp;postId,
+ long&nbsp;authorId)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if a post exists by its ID and author ID.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByAuthorId(long)" class="member-name-link">findByAuthorId</a><wbr>(long&nbsp;userId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -222,6 +233,38 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/PostNotFoundException.html" title="class in com.example.blogs.app.api.post.exception">PostNotFoundException</a></code> - if the post does not exist</dd>
 <dd><code><a href="../../exception/FailedToFindPostBySlugException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostBySlugException</a></code> - if the repository operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="existsById(long)">
+<h3>existsById</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">existsById</span><wbr><span class="parameters">(long&nbsp;postId)</span></div>
+<div class="block">Checks if a post exists by its ID.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PostRepositoryAdapter.html#existsById(long)">existsById</a></code>&nbsp;in interface&nbsp;<code><a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post</dd>
+<dt>Returns:</dt>
+<dd>true if the post exists, false otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="existsByIdAndAuthorId(long,long)">
+<h3>existsByIdAndAuthorId</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">existsByIdAndAuthorId</span><wbr><span class="parameters">(long&nbsp;postId,
+ long&nbsp;authorId)</span></div>
+<div class="block">Checks if a post exists by its ID and author ID.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PostRepositoryAdapter.html#existsByIdAndAuthorId(long,long)">existsByIdAndAuthorId</a></code>&nbsp;in interface&nbsp;<code><a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post</dd>
+<dd><code>authorId</code> - the ID of the author</dd>
+<dt>Returns:</dt>
+<dd>true if the post exists and belongs to the author, false otherwise</dd>
 </dl>
 </section>
 </li>

@@ -20,6 +20,7 @@ com.example.blogs.app.api.post.exception
 com.example.blogs.app.api.post.mapper
 com.example.blogs.app.api.post.repository
 com.example.blogs.app.api.post.repository.adapter
+com.example.blogs.app.api.post.security
 com.example.blogs.app.api.post.service
 com.example.blogs.app.api.user.controller
 com.example.blogs.app.api.user.docs

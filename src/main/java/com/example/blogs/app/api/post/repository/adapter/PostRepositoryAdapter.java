@@ -39,7 +39,20 @@ public interface PostRepositoryAdapter {
      */
     PostEntity findBySlug(String slug);
 
+    /**
+     * Checks if a post exists by its ID.
+     *
+     * @param postId the ID of the post
+     * @return true if the post exists, false otherwise
+     */
     boolean existsById(long postId);
 
+    /**
+     * Checks if a post exists by its ID and author ID.
+     *
+     * @param postId   the ID of the author
+     * @param authorId the ID of the author
+     * @return true if the post exists and belongs to the author, false otherwise
+     */
     boolean existsByIdAndAuthorId(long postId, long authorId);
 }

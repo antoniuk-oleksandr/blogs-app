@@ -85,7 +85,7 @@ public class AuthControllerDocs {
                                             summary = "One or more required fields are missing",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -103,7 +103,7 @@ public class AuthControllerDocs {
                                             summary = "Email address format is invalid",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -119,7 +119,7 @@ public class AuthControllerDocs {
                                             summary = "Password does not meet minimum length requirement",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -135,7 +135,7 @@ public class AuthControllerDocs {
                                             summary = "Username does not meet length requirements",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -151,7 +151,7 @@ public class AuthControllerDocs {
                                             summary = "Multiple fields failed validation",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -169,7 +169,7 @@ public class AuthControllerDocs {
                                             summary = "Request body is required but not provided",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -195,7 +195,7 @@ public class AuthControllerDocs {
                                             summary = "Username is already taken",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 409,
                                                       "error": "Conflict",
                                                       "message": "Username already exists",
@@ -208,7 +208,7 @@ public class AuthControllerDocs {
                                             summary = "Email is already taken",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 409,
                                                       "error": "Conflict",
                                                       "message": "Email already exists",
@@ -230,7 +230,7 @@ public class AuthControllerDocs {
                                     summary = "Unexpected error occurred during registration",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 500,
                                               "error": "Internal Server Error",
                                               "message": "An unexpected error occurred while processing your request",
@@ -306,7 +306,7 @@ public class AuthControllerDocs {
                                             summary = "One or more required fields are missing",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -323,7 +323,7 @@ public class AuthControllerDocs {
                                             summary = "Request body is required but not provided",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -348,7 +348,7 @@ public class AuthControllerDocs {
                                     summary = "Username/email or password is incorrect",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 401,
                                               "error": "Unauthorized",
                                               "message": "Invalid credentials",
@@ -369,7 +369,7 @@ public class AuthControllerDocs {
                                     summary = "Unexpected error occurred during login",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 500,
                                               "error": "Internal Server Error",
                                               "message": "An unexpected error occurred while processing your request",
@@ -448,7 +448,7 @@ public class AuthControllerDocs {
                                             summary = "No authentication token provided",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Full authentication is required to access this resource",
@@ -461,7 +461,7 @@ public class AuthControllerDocs {
                                             summary = "Token is malformed or signature is invalid",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Invalid JWT token",
@@ -474,7 +474,7 @@ public class AuthControllerDocs {
                                             summary = "Token has expired",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Token has expired",
@@ -496,7 +496,7 @@ public class AuthControllerDocs {
                                     summary = "Unexpected error occurred",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 500,
                                               "error": "Internal Server Error",
                                               "message": "An unexpected error occurred while processing your request",
@@ -575,7 +575,7 @@ public class AuthControllerDocs {
                                             summary = "Refresh token is required but not provided",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -591,7 +591,7 @@ public class AuthControllerDocs {
                                             summary = "Request body is required but not provided",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -617,7 +617,7 @@ public class AuthControllerDocs {
                                             summary = "Refresh token is invalid or malformed",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Unauthorized access",
@@ -630,7 +630,7 @@ public class AuthControllerDocs {
                                             summary = "Refresh token has expired",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Unauthorized access",
@@ -643,7 +643,7 @@ public class AuthControllerDocs {
                                             summary = "Access token provided instead of refresh token",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Unauthorized access",
@@ -656,7 +656,7 @@ public class AuthControllerDocs {
                                             summary = "Token claims cannot be parsed",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Unauthorized access",
@@ -678,7 +678,7 @@ public class AuthControllerDocs {
                                     summary = "Unexpected error occurred during token refresh",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 500,
                                               "error": "Internal Server Error",
                                               "message": "An unexpected error occurred while processing your request",
@@ -743,7 +743,7 @@ public class AuthControllerDocs {
                                             summary = "Refresh token is required but not provided",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -759,7 +759,7 @@ public class AuthControllerDocs {
                                             summary = "Request body is required but not provided",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 400,
                                                       "error": "Bad Request",
                                                       "message": "Validation Failed",
@@ -785,7 +785,7 @@ public class AuthControllerDocs {
                                             summary = "Refresh token is invalid or malformed",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Unauthorized access",
@@ -798,7 +798,7 @@ public class AuthControllerDocs {
                                             summary = "Refresh token has expired",
                                             value = """
                                                     {
-                                                      "timestamp": "2024-12-22T02:36:59.123456",
+                                                      "timestamp": "2026-01-16T16:16:26",
                                                       "status": 401,
                                                       "error": "Unauthorized",
                                                       "message": "Unauthorized access",
@@ -820,7 +820,7 @@ public class AuthControllerDocs {
                                     summary = "This token was already revoked in a previous logout",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 409,
                                               "error": "Conflict",
                                               "message": "Token is already revoked.",
@@ -841,7 +841,7 @@ public class AuthControllerDocs {
                                     summary = "Unexpected error occurred during logout",
                                     value = """
                                             {
-                                              "timestamp": "2024-12-22T02:36:59.123456",
+                                              "timestamp": "2026-01-16T16:16:26",
                                               "status": 500,
                                               "error": "Internal Server Error",
                                               "message": "An unexpected error occurred while processing your request",
