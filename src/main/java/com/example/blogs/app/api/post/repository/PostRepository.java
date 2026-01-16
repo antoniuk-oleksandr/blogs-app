@@ -36,4 +36,8 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
      * @return optional containing the post if found, empty otherwise
      */
     Optional<PostEntity> findBySlug(String slug);
+
+    boolean existsById(long postId);
+
+    boolean existsByIdAndAuthorId(long postId, long authorId);
 }

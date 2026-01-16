@@ -119,4 +119,44 @@ class PostRepositoryAdapterTest {
                 .isInstanceOf(FailedToFindPostBySlugException.class);
         verify(postRepository).findBySlug("slug");
     }
+
+    @Test
+    void existsById_shouldReturnTrue_whenPostIdExists() {
+        when(postRepository.existsById(anyLong())).thenReturn(true);
+
+        boolean result = postRepositoryAdapter.existsById(1L);
+
+        assertThat(result).isTrue();
+        verify(postRepository).existsById(1L);
+    }
+
+    @Test
+    void existsById_shouldReturnFalse_whenPostIdDoesNotExist() {
+        when(postRepository.existsById(anyLong())).thenReturn(false);
+
+        boolean result = postRepositoryAdapter.existsById(1L);
+
+        assertThat(result).isFalse();
+        verify(postRepository).existsById(1L);
+    }
+
+    @Test
+    void existsByIdAndAuthorId_shouldReturnTrue_whenPostIdAndAuthorIdExist() {
+        when(postRepository.existsByIdAndAuthorId(anyLong(), anyLong())).thenReturn(true);
+
+        boolean result = postRepositoryAdapter.existsByIdAndAuthorId(1L, 1L);
+
+        assertThat(result).isTrue();
+        verify(postRepository).existsByIdAndAuthorId(1L, 1L);
+    }
+
+    @Test
+    void existsByIdAndAuthorId_shouldReturnFalse_whenPostIdAndAuthorIdDoNotExist() {
+        when(postRepository.existsByIdAndAuthorId(anyLong(), anyLong())).thenReturn(false);
+
+        boolean result = postRepositoryAdapter.existsByIdAndAuthorId(1L, 1L);
+
+        assertThat(result).isFalse();
+        verify(postRepository).existsByIdAndAuthorId(1L, 1L);
+    }
 }

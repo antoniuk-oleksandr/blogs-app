@@ -81,4 +81,42 @@ class PostRepositoryTest extends AbstractPostgresTest {
         assertThat(foundPost.getContent()).isEqualTo(post.getContent());
         assertThat(foundPost.getAuthor().getId()).isEqualTo(createdUser.getId());
     }
+
+    @Test
+    void existsById_shouldReturnTrue_whenPostIdExists() {
+        UserEntity user = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(user);
+        PostEntity post = PostFixtures.post(createdUser);
+        PostEntity createdPost = postRepository.save(post);
+
+        boolean exists = postRepository.existsById(createdPost.getId());
+
+        assertThat(exists).isTrue();
+    }
+
+    @Test
+    void existsById_shouldReturnFalse_whenPostIdDoesNotExist() {
+        boolean exists = postRepository.existsById(9999L);
+
+        assertThat(exists).isFalse();
+    }
+
+    @Test
+    void existsByIdAndAuthorId_shouldReturnTrue_whenPostIdAndAuthorIdExist() {
+        UserEntity user = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(user);
+        PostEntity post = PostFixtures.post(createdUser);
+        PostEntity createdPost = postRepository.save(post);
+
+        boolean exists = postRepository.existsByIdAndAuthorId(createdPost.getId(), createdUser.getId());
+
+        assertThat(exists).isTrue();
+    }
+
+    @Test
+    void existsByIdAndAuthorId_shouldReturnFalse_whenPostIdOrAuthorIdDoNotExist() {
+        boolean exists = postRepository.existsByIdAndAuthorId(9999L, 8888L);
+
+        assertThat(exists).isFalse();
+    }
 }

@@ -65,7 +65,7 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
      *
      * @param slug the unique slug of the post
      * @return the post entity
-     * @throws PostNotFoundException if the post does not exist
+     * @throws PostNotFoundException           if the post does not exist
      * @throws FailedToFindPostBySlugException if the repository operation fails
      */
     @Override
@@ -78,5 +78,15 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         } catch (Exception e) {
             throw new FailedToFindPostBySlugException(e);
         }
+    }
+
+    @Override
+    public boolean existsById(long postId) {
+        return postRepository.existsById(postId);
+    }
+
+    @Override
+    public boolean existsByIdAndAuthorId(long postId, long authorId) {
+        return postRepository.existsByIdAndAuthorId(postId, authorId);
     }
 }
