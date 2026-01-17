@@ -59,8 +59,8 @@ public class PostController {
      * @return updated post details
      */
     @PatchMapping("/{postId}")
-    @PreAuthorize("@postSecurity.isOwner(#postId)")
     @PostControllerDocs.UpdatePostById
+    @PreAuthorize("@postSecurity.isOwner(#postId)")
     public ResponseEntity<PostUpdateResponseDTO> updatePostById(
             @PathVariable Long postId,
             @NotNull @Valid @RequestBody PostUpdateRequestDTO requestDTO
