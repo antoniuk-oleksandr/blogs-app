@@ -1,6 +1,8 @@
 package com.example.blogs.app.api.post.service;
 
 import com.example.blogs.app.api.post.dto.PostDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateRequestDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateResponseDTO;
 import com.example.blogs.app.api.post.entity.PostEntity;
 
 import java.util.List;
@@ -32,4 +34,6 @@ public interface PostService {
      * @return post details with associated comments
      */
     PostDTO getPostBySlug(String slug);
+
+    PostUpdateResponseDTO updatePostById(long postId, PostUpdateRequestDTO requestDTO);
 }

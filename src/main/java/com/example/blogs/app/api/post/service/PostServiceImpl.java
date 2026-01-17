@@ -3,6 +3,8 @@ package com.example.blogs.app.api.post.service;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.service.CommentService;
 import com.example.blogs.app.api.post.dto.PostDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateRequestDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateResponseDTO;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.mapper.PostMapper;
 import com.example.blogs.app.api.post.repository.adapter.PostRepositoryAdapter;
@@ -23,6 +25,8 @@ public class PostServiceImpl implements PostService {
     private final CommentService commentService;
 
     private final PostMapper postMapper;
+
+    private final SlugService slugService;
 
     /**
      * Retrieves all posts created by the specified user.
@@ -60,5 +64,19 @@ public class PostServiceImpl implements PostService {
         List<CommentEntity> comments = commentService.getCommentsByPostId(post.getId());
 
         return postMapper.toPostDTO(post, comments);
+    }
+
+    @Override
+    public PostUpdateResponseDTO updatePostById(long postId, PostUpdateRequestDTO requestDTO) {
+        PostEntity post = postRepositoryAdapter.findById(postId);
+
+        if (requestDTO.title() != null && !requestDTO.title().isBlank()) {
+            post.setSlug(slugService.generate(requestDTO.title()));
+        }
+
+        PostEntity updatedPost = postMapper.toPostEntity(requestDTO, post);
+        PostEntity savedPost = postRepositoryAdapter.update(updatedPost);
+
+        return postMapper.toPostUpdateResponseDTO(savedPost);
     }
 }

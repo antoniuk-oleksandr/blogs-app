@@ -1,12 +1,13 @@
 package com.example.blogs.app.api.post.mapper;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
-import com.example.blogs.app.api.post.dto.PostCommentSummaryDTO;
-import com.example.blogs.app.api.post.dto.PostDTO;
-import com.example.blogs.app.api.post.dto.PostUserSummaryDTO;
+import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface PostMapper {
     /**
      * Converts a post entity and its comments to a post DTO.
      *
-     * @param post the post entity
+     * @param post     the post entity
      * @param comments the list of comments associated with the post
      * @return post DTO with comment summaries
      */
@@ -40,4 +41,9 @@ public interface PostMapper {
      * @return post comment summary DTO
      */
     PostCommentSummaryDTO toPostCommentSummaryDTO(CommentEntity comment);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    PostEntity toPostEntity(PostUpdateRequestDTO requestDTO, @MappingTarget PostEntity postEntity);
+
+    PostUpdateResponseDTO toPostUpdateResponseDTO(PostEntity postEntity);
 }
