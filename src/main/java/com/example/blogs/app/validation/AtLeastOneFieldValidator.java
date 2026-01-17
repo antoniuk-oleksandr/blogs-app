@@ -6,6 +6,9 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+/**
+ * Validator that checks if at least one specified field contains a non-blank value.
+ */
 public class AtLeastOneFieldValidator implements ConstraintValidator<AtLeastOneField, Object> {
 
     private String[] fields;

@@ -100,6 +100,15 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         return postRepository.existsByIdAndAuthorId(postId, authorId);
     }
 
+    /**
+     * Retrieves a post by its ID with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param postId the ID of the post
+     * @return the post entity
+     * @throws PostNotFoundException             if the post does not exist
+     * @throws FailedToFindPostByIdException if the repository operation fails
+     */
     @Override
     public PostEntity findById(long postId) {
         try {
@@ -112,6 +121,14 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         }
     }
 
+    /**
+     * Updates a post entity with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param postEntity the post entity to update
+     * @return the updated post entity
+     * @throws FailedToUpdatePostException if the repository operation fails
+     */
     @Override
     public PostEntity update(PostEntity postEntity) {
         try {

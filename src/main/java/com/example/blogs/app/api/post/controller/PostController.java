@@ -50,8 +50,17 @@ public class PostController {
         return ResponseEntity.ok(postDTO);
     }
 
+    /**
+     * Updates a post by its ID with partial field updates.
+     * At least one field must be provided in the request.
+     *
+     * @param postId the ID of the post to update
+     * @param requestDTO the update request containing fields to update
+     * @return updated post details
+     */
     @PatchMapping("/{postId}")
     @PreAuthorize("@postSecurity.isOwner(#postId)")
+    @PostControllerDocs.UpdatePostById
     public ResponseEntity<PostUpdateResponseDTO> updatePostById(
             @PathVariable Long postId,
             @NotNull @Valid @RequestBody PostUpdateRequestDTO requestDTO

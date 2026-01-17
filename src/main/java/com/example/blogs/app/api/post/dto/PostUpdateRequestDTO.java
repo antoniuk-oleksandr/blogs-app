@@ -3,6 +3,9 @@ package com.example.blogs.app.api.post.dto;
 import com.example.blogs.app.validation.AtLeastOneField;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+/**
+ * Request DTO for updating a post with partial field updates.
+ */
 @AtLeastOneField(
         fields = {"title", "description", "content", "previewImageUrl"}
 )

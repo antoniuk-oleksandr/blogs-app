@@ -66,6 +66,14 @@ public class PostServiceImpl implements PostService {
         return postMapper.toPostDTO(post, comments);
     }
 
+    /**
+     * Updates a post by its ID with partial field updates.
+     * Regenerates slug when title is updated to maintain URL consistency.
+     *
+     * @param postId the ID of the post to update
+     * @param requestDTO the update request containing fields to update
+     * @return updated post details with new timestamp
+     */
     @Override
     public PostUpdateResponseDTO updatePostById(long postId, PostUpdateRequestDTO requestDTO) {
         PostEntity post = postRepositoryAdapter.findById(postId);

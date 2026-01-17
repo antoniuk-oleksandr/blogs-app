@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * Generates unique URL-friendly slugs by combining slugified titles with random suffixes.
+ */
 @Service
 @AllArgsConstructor
 public class SlugServiceImpl implements SlugService {

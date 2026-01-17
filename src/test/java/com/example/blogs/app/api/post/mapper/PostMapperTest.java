@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class PostMapperTest {
 
-    private PostMapper postMapper = new PostMapperImpl();
+    private final PostMapper postMapper = new PostMapperImpl();
 
     @Test
     void toPostDTO_shouldMapPostFieldsCorrectly() {

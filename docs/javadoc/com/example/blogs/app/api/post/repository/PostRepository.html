@@ -129,8 +129,13 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <div class="block">Retrieves all posts authored by the specified user.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findBySlug(java.lang.String)" class="member-name-link">findBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findById(long)" class="member-name-link">findById</a><wbr>(long&nbsp;postId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Retrieves a post by its ID.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#findBySlug(java.lang.String)" class="member-name-link">findBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Retrieves a post by its unique slug identifier.</div>
 </div>
 </div>
@@ -232,6 +237,19 @@ extends org.springframework.data.jpa.repository.JpaRepository&lt;<a href="../ent
 <dd><code>authorId</code> - the ID of the author</dd>
 <dt>Returns:</dt>
 <dd>true if the post exists and belongs to the author, false otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="findById(long)">
+<h3>findById</h3>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Optional.html" title="class or interface in java.util" class="external-link">Optional</a>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</span>&nbsp;<span class="element-name">findById</span><wbr><span class="parameters">(long&nbsp;postId)</span></div>
+<div class="block">Retrieves a post by its ID.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post</dd>
+<dt>Returns:</dt>
+<dd>optional containing the post if found, empty otherwise</dd>
 </dl>
 </section>
 </li>

@@ -54,5 +54,11 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
      */
     boolean existsByIdAndAuthorId(long postId, long authorId);
 
+    /**
+     * Retrieves a post by its ID.
+     *
+     * @param postId the ID of the post
+     * @return optional containing the post if found, empty otherwise
+     */
     Optional<PostEntity> findById(long postId);
 }

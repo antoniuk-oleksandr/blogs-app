@@ -42,8 +42,22 @@ public interface PostMapper {
      */
     PostCommentSummaryDTO toPostCommentSummaryDTO(CommentEntity comment);
 
+    /**
+     * Updates a post entity with non-null fields from the request DTO.
+     * Null values in the request are ignored, preserving existing entity values.
+     *
+     * @param requestDTO the update request containing fields to update
+     * @param postEntity the existing post entity to update
+     * @return updated post entity with merged values
+     */
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     PostEntity toPostEntity(PostUpdateRequestDTO requestDTO, @MappingTarget PostEntity postEntity);
 
+    /**
+     * Converts a post entity to a post update response DTO.
+     *
+     * @param postEntity the post entity
+     * @return post update response DTO
+     */
     PostUpdateResponseDTO toPostUpdateResponseDTO(PostEntity postEntity);
 }

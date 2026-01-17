@@ -131,6 +131,12 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves a post by its unique slug identifier.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePostById(java.lang.Long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)" class="member-name-link">updatePostById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
+ @NotNull @Valid <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates a post by its ID with partial field updates.</div>
+</div>
 </div>
 </div>
 </div>
@@ -190,6 +196,26 @@ loadScripts(document, 'script');</script>
 <dd><code>slug</code> - the unique slug of the post</dd>
 <dt>Returns:</dt>
 <dd>post details with associated comments</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updatePostById(java.lang.Long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)">
+<h3>updatePostById</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PatchMapping</a>("/{postId}")
+@PreAuthorize("@postSecurity.isOwner(#postId)")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a>&gt;</span>&nbsp;<span class="element-name">updatePostById</span><wbr><span class="parameters">(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PathVariable</a>
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
+ @NotNull @Valid <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestBody</a>
+ @NotNull @Valid <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</span></div>
+<div class="block">Updates a post by its ID with partial field updates.
+ At least one field must be provided in the request.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post to update</dd>
+<dd><code>requestDTO</code> - the update request containing fields to update</dd>
+<dt>Returns:</dt>
+<dd>updated post details</dd>
 </dl>
 </section>
 </li>

@@ -221,4 +221,189 @@ public class PostControllerDocs {
     })
     public @interface GetPostBySlug {
     }
+
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the update post by ID endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for updating a post, including all request/response schemas and examples.
+     * </p>
+     */
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Update a post by ID",
+            description = """
+                    Updates a specific post with partial field updates by its unique identifier.
+                                
+                    ## Requirements
+                    - **Post ID**: Must be a valid post identifier that exists in the system
+                    - **At least one field**: Must provide at least one field to update (title, description, or content)
+                                
+                    ## Response
+                    Returns the updated post details (200) upon success.
+                                
+                    ## Behavior
+                    - Only provided fields are updated; null fields are ignored
+                    - Slug is automatically regenerated if title is updated
+                    - If post doesn't exist, returns 404 Not Found
+                    - If no fields provided, returns 400 Bad Request
+                    - If update fails due to database errors, returns 500 Internal Server Error
+                    """,
+            tags = {"Posts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Post successfully updated",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = com.example.blogs.app.api.post.dto.PostUpdateResponseDTO.class),
+                            examples = @ExampleObject(
+                                    name = "Successful Update",
+                                    summary = "Post successfully updated with new values",
+                                    description = "Returns updated post with all current field values",
+                                    value = """
+                                            {
+                                              "id": 1,
+                                              "title": "Updated Title",
+                                              "description": "Updated description",
+                                              "content": "Updated content with more details",
+                                              "slug": "updated-title",
+                                              "previewImageUrl": "https://example.com/image.jpg",
+                                              "updatedAt": "2026-01-17T00:45:00"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Validation failed - invalid or missing request data",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "No Fields Provided",
+                                            summary = "At least one field must be provided for update",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-17T00:45:00",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/posts/1",
+                                                      "errors": [
+                                                        "At least one field must be provided"
+                                                      ]
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Missing Request Body",
+                                            summary = "Request body is required but not provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-17T00:45:00",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/posts/1",
+                                                      "errors": [
+                                                        "Request body is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - invalid or expired JWT token",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Invalid JWT Token",
+                                    summary = "JWT token is invalid or has expired",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-17T00:45:00",
+                                              "status": 401,
+                                              "error": "Unauthorized",
+                                              "message": "Invalid or expired JWT token",
+                                              "path": "/posts/1"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden - access denied",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Access Denied",
+                                    summary = "User does not have permission to update this post",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-17T00:45:00",
+                                              "status": 403,
+                                              "error": "Forbidden",
+                                              "message": "Access Denied",
+                                              "path": "/posts/1"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found - post does not exist",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Post Not Found",
+                                    summary = "The requested post does not exist",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-17T00:45:00",
+                                              "status": 404,
+                                              "error": "Not Found",
+                                              "message": "Post not found",
+                                              "path": "/posts/999"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - failed to update post",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Update Failed",
+                                    summary = "Post update failed due to database or system error",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-01-17T00:45:00",
+                                              "status": 500,
+                                              "error": "Internal Server Error",
+                                              "message": "Failed to update post",
+                                              "path": "/posts/1"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    public @interface UpdatePostById {
+    }
 }
