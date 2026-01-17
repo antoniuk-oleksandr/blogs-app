@@ -2,7 +2,11 @@ package com.example.blogs.app.api.post.controller;
 
 import com.example.blogs.app.api.post.docs.PostControllerDocs;
 import com.example.blogs.app.api.post.dto.PostDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateRequestDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateResponseDTO;
 import com.example.blogs.app.api.post.service.PostService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,5 +48,15 @@ public class PostController {
     public ResponseEntity<PostDTO> getPostBySlug(@PathVariable String slug) {
         PostDTO postDTO = postService.getPostBySlug(slug);
         return ResponseEntity.ok(postDTO);
+    }
+
+    @PatchMapping("/{postId}")
+    @PreAuthorize("@postSecurity.isOwner(#postId)")
+    public ResponseEntity<PostUpdateResponseDTO> updatePostById(
+            @PathVariable Long postId,
+            @NotNull @Valid @RequestBody PostUpdateRequestDTO requestDTO
+    ) {
+        return ResponseEntity
+                .ok(postService.updatePostById(postId, requestDTO));
     }
 }

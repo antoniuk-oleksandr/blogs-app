@@ -6,6 +6,7 @@ import com.example.blogs.app.security.JwtExceptionFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -43,8 +44,9 @@ public class SecurityConfig {
                 .addFilterBefore(jwtExceptionFilter, BearerTokenAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/me").authenticated()
-                        .requestMatchers("/posts/{postId}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/auth/me").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/posts/{postId}").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/posts/{postId}").authenticated()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session ->
