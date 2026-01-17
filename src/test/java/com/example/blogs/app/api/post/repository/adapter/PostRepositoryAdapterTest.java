@@ -1,17 +1,18 @@
 package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
-import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
-import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
-import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
-import com.example.blogs.app.api.post.exception.PostNotFoundException;
+import com.example.blogs.app.api.post.exception.*;
+import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.post.repository.PostRepository;
+import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.fixture.UserFixtures;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -158,5 +159,64 @@ class PostRepositoryAdapterTest {
 
         assertThat(result).isFalse();
         verify(postRepository).existsByIdAndAuthorId(1L, 1L);
+    }
+
+    @Test
+    void findById_shouldReturnPost_whenPostIdExists() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity author = UserFixtures.user(1L);
+        PostEntity mockPost = PostFixtures.post(1L, now, author);
+        when(postRepository.findById(anyLong())).thenReturn(Optional.of(mockPost));
+
+        PostEntity result = postRepositoryAdapter.findById(1L);
+
+        assertThat(result).isEqualTo(mockPost);
+        verify(postRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void findById_shouldThrowPostNotFound_whenPostIdDoesNotExist() {
+        when(postRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> postRepositoryAdapter.findById(1L))
+                .isInstanceOf(PostNotFoundException.class)
+                .hasMessage("Post not found");
+        verify(postRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void findById_shouldThrowFailedToFindPostByIdException_whenRepositoryFails() {
+        when(postRepository.findById(anyLong())).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.findById(1L))
+                .isInstanceOf(FailedToFindPostByIdException.class)
+                .hasMessage("Failed to find post by ID");
+        verify(postRepository).findById(1L);
+    }
+
+    @Test
+    void update_shouldReturnUpdatedPost_whenRepositorySucceeds() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockAuthor = UserFixtures.user(1L);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
+        when(postRepository.save(any(PostEntity.class))).thenReturn(mockPost);
+
+        PostEntity result = postRepositoryAdapter.update(mockPost);
+
+        assertThat(result).isEqualTo(mockPost);
+        verify(postRepository, times(1)).save(mockPost);
+    }
+
+    @Test
+    void update_shouldThrowFailedToUpdatePostException_whenRepositoryFails() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockAuthor = UserFixtures.user(1L);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
+        when(postRepository.save(any(PostEntity.class))).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.update(mockPost))
+                .isInstanceOf(FailedToUpdatePostException.class)
+                .hasMessage("Failed to update post");
+        verify(postRepository, times(1)).save(mockPost);
     }
 }

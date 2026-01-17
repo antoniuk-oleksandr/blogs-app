@@ -55,4 +55,8 @@ public interface PostRepositoryAdapter {
      * @return true if the post exists and belongs to the author, false otherwise
      */
     boolean existsByIdAndAuthorId(long postId, long authorId);
+
+    PostEntity findById(long postId);
+
+    PostEntity update(PostEntity postEntity);
 }

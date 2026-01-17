@@ -53,4 +53,6 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
      * @return true if the post exists and belongs to the author, false otherwise
      */
     boolean existsByIdAndAuthorId(long postId, long authorId);
+
+    Optional<PostEntity> findById(long postId);
 }
