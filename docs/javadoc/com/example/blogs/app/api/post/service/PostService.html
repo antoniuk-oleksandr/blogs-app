@@ -121,6 +121,12 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Retrieves all posts created by the specified user.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)" class="member-name-link">updatePostById</a><wbr>(long&nbsp;postId,
+ <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Updates a post by its ID with partial field updates.</div>
+</div>
 </div>
 </div>
 </div>
@@ -169,6 +175,22 @@ loadScripts(document, 'script');</script>
 <dd><code>slug</code> - the unique slug of the post</dd>
 <dt>Returns:</dt>
 <dd>post details with associated comments</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)">
+<h3>updatePostById</h3>
+<div class="member-signature"><span class="return-type"><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></span>&nbsp;<span class="element-name">updatePostById</span><wbr><span class="parameters">(long&nbsp;postId,
+ <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</span></div>
+<div class="block">Updates a post by its ID with partial field updates.
+ If the title is updated, a new slug is generated.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post to update</dd>
+<dd><code>requestDTO</code> - the update request containing fields to update</dd>
+<dt>Returns:</dt>
+<dd>updated post details with new timestamp</dd>
 </dl>
 </section>
 </li>

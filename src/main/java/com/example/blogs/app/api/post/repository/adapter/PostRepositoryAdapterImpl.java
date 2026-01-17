@@ -1,10 +1,7 @@
 package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
-import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
-import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
-import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
-import com.example.blogs.app.api.post.exception.PostNotFoundException;
+import com.example.blogs.app.api.post.exception.*;
 import com.example.blogs.app.api.post.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -101,5 +98,43 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
     @Override
     public boolean existsByIdAndAuthorId(long postId, long authorId) {
         return postRepository.existsByIdAndAuthorId(postId, authorId);
+    }
+
+    /**
+     * Retrieves a post by its ID with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param postId the ID of the post
+     * @return the post entity
+     * @throws PostNotFoundException             if the post does not exist
+     * @throws FailedToFindPostByIdException if the repository operation fails
+     */
+    @Override
+    public PostEntity findById(long postId) {
+        try {
+            return postRepository.findById(postId)
+                    .orElseThrow(() -> new PostNotFoundException(null));
+        } catch (PostNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new FailedToFindPostByIdException(e);
+        }
+    }
+
+    /**
+     * Updates a post entity with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param postEntity the post entity to update
+     * @return the updated post entity
+     * @throws FailedToUpdatePostException if the repository operation fails
+     */
+    @Override
+    public PostEntity update(PostEntity postEntity) {
+        try {
+            return postRepository.save(postEntity);
+        } catch (Exception e) {
+            throw new FailedToUpdatePostException(e);
+        }
     }
 }

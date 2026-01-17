@@ -35,3 +35,4 @@ com.example.blogs.app.config
 com.example.blogs.app.exception
 com.example.blogs.app.security
 com.example.blogs.app.util
+com.example.blogs.app.validation

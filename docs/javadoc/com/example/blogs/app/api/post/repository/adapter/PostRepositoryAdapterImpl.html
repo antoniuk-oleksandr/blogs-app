@@ -147,9 +147,19 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <div class="block">Retrieves all posts authored by the specified user with exception translation.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findBySlug(java.lang.String)" class="member-name-link">findBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findById(long)" class="member-name-link">findById</a><wbr>(long&nbsp;postId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves a post by its ID with exception translation.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findBySlug(java.lang.String)" class="member-name-link">findBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">update</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates a post entity with exception translation.</div>
 </div>
 </div>
 </div>
@@ -265,6 +275,43 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <dd><code>authorId</code> - the ID of the author</dd>
 <dt>Returns:</dt>
 <dd>true if the post exists and belongs to the author, false otherwise</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="findById(long)">
+<h3>findById</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></span>&nbsp;<span class="element-name">findById</span><wbr><span class="parameters">(long&nbsp;postId)</span></div>
+<div class="block">Retrieves a post by its ID with exception translation.
+ Wraps repository exceptions in domain-specific exceptions for consistent error handling.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PostRepositoryAdapter.html#findById(long)">findById</a></code>&nbsp;in interface&nbsp;<code><a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post</dd>
+<dt>Returns:</dt>
+<dd>the post entity</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/PostNotFoundException.html" title="class in com.example.blogs.app.api.post.exception">PostNotFoundException</a></code> - if the post does not exist</dd>
+<dd><code><a href="../../exception/FailedToFindPostByIdException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostByIdException</a></code> - if the repository operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="update(com.example.blogs.app.api.post.entity.PostEntity)">
+<h3>update</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</span></div>
+<div class="block">Updates a post entity with exception translation.
+ Wraps repository exceptions in domain-specific exceptions for consistent error handling.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PostRepositoryAdapter.html#update(com.example.blogs.app.api.post.entity.PostEntity)">update</a></code>&nbsp;in interface&nbsp;<code><a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>postEntity</code> - the post entity to update</dd>
+<dt>Returns:</dt>
+<dd>the updated post entity</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToUpdatePostException.html" title="class in com.example.blogs.app.api.post.exception">FailedToUpdatePostException</a></code> - if the repository operation fails</dd>
 </dl>
 </section>
 </li>

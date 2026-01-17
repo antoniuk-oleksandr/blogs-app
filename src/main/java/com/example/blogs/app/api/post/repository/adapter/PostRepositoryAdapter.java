@@ -1,9 +1,7 @@
 package com.example.blogs.app.api.post.repository.adapter;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
-import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
-import com.example.blogs.app.api.post.exception.FailedToFindPostsByAuthorIdException;
-import com.example.blogs.app.api.post.exception.PostNotFoundException;
+import com.example.blogs.app.api.post.exception.*;
 
 import java.util.List;
 
@@ -55,4 +53,23 @@ public interface PostRepositoryAdapter {
      * @return true if the post exists and belongs to the author, false otherwise
      */
     boolean existsByIdAndAuthorId(long postId, long authorId);
+
+    /**
+     * Retrieves a post by its ID with exception translation.
+     *
+     * @param postId the ID of the post
+     * @return the post entity
+     * @throws PostNotFoundException         if the post does not exist
+     * @throws FailedToFindPostByIdException if the repository operation fails
+     */
+    PostEntity findById(long postId);
+
+    /**
+     * Updates a post entity with exception translation.
+     *
+     * @param postEntity the post entity to update
+     * @return the updated post entity
+     * @throws FailedToUpdatePostException if the repository operation fails
+     */
+    PostEntity update(PostEntity postEntity);
 }

@@ -113,6 +113,17 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Converts a post entity and its comments to a post DTO.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostEntity(com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">toPostEntity</a><wbr>(<a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO,
+ <a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Updates a post entity with non-null fields from the request DTO.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostUpdateResponseDTO(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">toPostUpdateResponseDTO</a><wbr>(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Converts a post entity to a post update response DTO.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostUserSummaryDTO(com.example.blogs.app.api.user.entity.UserEntity)" class="member-name-link">toPostUserSummaryDTO</a><wbr>(<a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;post)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
@@ -170,6 +181,35 @@ loadScripts(document, 'script');</script>
 <dd><code>comment</code> - the comment entity</dd>
 <dt>Returns:</dt>
 <dd>post comment summary DTO</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toPostEntity(com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,com.example.blogs.app.api.post.entity.PostEntity)">
+<h3>toPostEntity</h3>
+<div class="member-signature"><span class="return-type"><a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></span>&nbsp;<span class="element-name">toPostEntity</span><wbr><span class="parameters">(<a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO,
+ <a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</span></div>
+<div class="block">Updates a post entity with non-null fields from the request DTO.
+ Null values in the request are ignored, preserving existing entity values.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>requestDTO</code> - the update request containing fields to update</dd>
+<dd><code>postEntity</code> - the existing post entity to update</dd>
+<dt>Returns:</dt>
+<dd>updated post entity with merged values</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toPostUpdateResponseDTO(com.example.blogs.app.api.post.entity.PostEntity)">
+<h3>toPostUpdateResponseDTO</h3>
+<div class="member-signature"><span class="return-type"><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></span>&nbsp;<span class="element-name">toPostUpdateResponseDTO</span><wbr><span class="parameters">(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</span></div>
+<div class="block">Converts a post entity to a post update response DTO.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>postEntity</code> - the post entity</dd>
+<dt>Returns:</dt>
+<dd>post update response DTO</dd>
 </dl>
 </section>
 </li>

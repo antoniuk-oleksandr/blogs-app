@@ -1,6 +1,8 @@
 package com.example.blogs.app.api.post.service;
 
 import com.example.blogs.app.api.post.dto.PostDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateRequestDTO;
+import com.example.blogs.app.api.post.dto.PostUpdateResponseDTO;
 import com.example.blogs.app.api.post.entity.PostEntity;
 
 import java.util.List;
@@ -32,4 +34,14 @@ public interface PostService {
      * @return post details with associated comments
      */
     PostDTO getPostBySlug(String slug);
+
+    /**
+     * Updates a post by its ID with partial field updates.
+     * If the title is updated, a new slug is generated.
+     *
+     * @param postId the ID of the post to update
+     * @param requestDTO the update request containing fields to update
+     * @return updated post details with new timestamp
+     */
+    PostUpdateResponseDTO updatePostById(long postId, PostUpdateRequestDTO requestDTO);
 }

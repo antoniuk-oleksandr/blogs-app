@@ -1,10 +1,9 @@
 package com.example.blogs.app.api.post.controller;
 
-import com.example.blogs.app.api.post.dto.PostCommentSummaryDTO;
-import com.example.blogs.app.api.post.dto.PostDTO;
-import com.example.blogs.app.api.post.dto.PostUserSummaryDTO;
+import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
+import com.example.blogs.app.api.post.exception.FailedToUpdatePostException;
 import com.example.blogs.app.api.post.exception.PostNotFoundException;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.post.service.PostService;
@@ -150,5 +149,160 @@ class PostControllerTest {
                         .value("Unexpected error"));
 
         verify(postService).getPostBySlug("slug");
+    }
+
+    @Test
+    @SneakyThrows
+    void updatePostById_shouldUpdatePost_whenAllFieldsAreProvided() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        Long postId = 1L;
+        String requestBody = """
+                {
+                    "title": "title",
+                    "content": "content",
+                    "description": "description",
+                    "slug": "slug",
+                    "previewImageUrl": "previewImageUrl"
+                }
+                """;
+
+        PostUpdateResponseDTO responseDTO = PostUpdateResponseDTO.builder()
+                .id(postId)
+                .title("title")
+                .description("description")
+                .content("content")
+                .slug("slug")
+                .previewImageUrl("previewImageUrl")
+                .updatedAt(now)
+                .build();
+        when(postService.updatePostById(anyLong(), any(PostUpdateRequestDTO.class)))
+                .thenReturn(responseDTO);
+
+        mockMvc.perform(patch("/posts/{postId}", postId)
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(postId))
+                .andExpect(jsonPath("$.title").value("title"))
+                .andExpect(jsonPath("$.description").value("description"))
+                .andExpect(jsonPath("$.content").value("content"))
+                .andExpect(jsonPath("$.slug").value("slug"))
+                .andExpect(jsonPath("$.previewImageUrl").value("previewImageUrl"))
+                .andExpect(jsonPath("$.updatedAt").value(now.toString()));
+
+        verify(postService, times(1)).updatePostById(eq(postId), any());
+    }
+
+    @Test
+    void updatePostById_shouldUpdatePost_whenSomeFieldsAreProvided() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        Long postId = 1L;
+        String requestBody = """
+                {
+                    "title": "title",
+                    "content": "content"
+                }
+                """;
+
+        PostUpdateResponseDTO responseDTO = PostUpdateResponseDTO.builder()
+                .id(postId)
+                .title("title")
+                .content("content")
+                .updatedAt(now)
+                .build();
+        when(postService.updatePostById(anyLong(), any(PostUpdateRequestDTO.class)))
+                .thenReturn(responseDTO);
+
+        try {
+            mockMvc.perform(patch("/posts/{postId}", postId)
+                            .contentType("application/json")
+                            .content(requestBody))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").value(postId))
+                    .andExpect(jsonPath("$.title").value("title"))
+                    .andExpect(jsonPath("$.content").value("content"))
+                    .andExpect(jsonPath("$.updatedAt").value(now.toString()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        verify(postService, times(1)).updatePostById(eq(postId), any());
+    }
+
+    @Test
+    @SneakyThrows
+    void updatePostById_shouldReturn404_whenPostDoesNotExist() {
+        Long postId = 1L;
+        String requestBody = """
+                {
+                    "title": "title"
+                }
+                """;
+
+        when(postService.updatePostById(anyLong(), any(PostUpdateRequestDTO.class)))
+                .thenThrow(new PostNotFoundException(null));
+
+        mockMvc.perform(patch("/posts/{postId}", postId)
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("Post not found"));
+
+        verify(postService, times(1)).updatePostById(eq(postId), any());
+    }
+
+    @Test
+    @SneakyThrows
+    void updatePostById_shouldReturn500_whenServiceThrowsFailedToUpdatePostException() {
+        Long postId = 1L;
+        String requestBody = """
+                {
+                    "title": "title"
+                }
+                """;
+
+        when(postService.updatePostById(anyLong(), any(PostUpdateRequestDTO.class)))
+                .thenThrow(new FailedToUpdatePostException(null));
+
+        mockMvc.perform(patch("/posts/{postId}", postId)
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.message").value("Failed to update post"));
+
+        verify(postService, times(1)).updatePostById(eq(postId), any());
+    }
+
+    @Test
+    @SneakyThrows
+    void updatePostById_shouldReturn400_whenRequestBodyIsNull() {
+        Long postId = 1L;
+
+        mockMvc.perform(patch("/posts/{postId}", postId)
+                        .contentType("application/json"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation Failed"))
+                .andExpect(jsonPath("$.errors[0]").value("Request body is required"));
+
+        verify(postService, never()).updatePostById(anyLong(), any());
+    }
+
+    @Test
+    @SneakyThrows
+    void updatePostById_shouldReturn400_whenNoFieldsAreProvided() {
+        Long postId = 1L;
+        String requestBody = """
+                {
+                }
+                """;
+
+        mockMvc.perform(patch("/posts/{postId}", postId)
+                        .contentType("application/json")
+                        .content(requestBody))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Validation Failed"))
+                .andExpect(jsonPath("$.errors[0]").value("At least one field must be provided"));
+
+        verify(postService, never()).updatePostById(anyLong(), any());
     }
 }

@@ -119,4 +119,24 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
         assertThat(exists).isFalse();
     }
+
+    @Test
+    void findById_shouldReturnPost_whenPostIdExists() {
+        UserEntity user = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(user);
+        PostEntity post = PostFixtures.post(createdUser);
+        PostEntity createdPost = postRepository.save(post);
+
+        Optional<PostEntity> foundPostOpt = postRepository.findById(createdPost.getId());
+
+        assertThat(foundPostOpt).isPresent();
+        PostEntity foundPost = foundPostOpt.get();
+        assertThat(foundPost.getId()).isEqualTo(createdPost.getId());
+        assertThat(foundPost.getTitle()).isEqualTo(post.getTitle());
+        assertThat(foundPost.getSlug()).isEqualTo(post.getSlug());
+        assertThat(foundPost.getPreviewImageUrl()).isEqualTo(post.getPreviewImageUrl());
+        assertThat(foundPost.getDescription()).isEqualTo(post.getDescription());
+        assertThat(foundPost.getContent()).isEqualTo(post.getContent());
+        assertThat(foundPost.getAuthor().getId()).isEqualTo(createdUser.getId());
+    }
 }
