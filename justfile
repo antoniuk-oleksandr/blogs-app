@@ -13,8 +13,14 @@ sonar:
       -Dsonar.projectKey=Blogs-App \
       -Dsonar.projectName='Blogs App' \
       -Dsonar.host.url=http://localhost:9000 \
-      -Dsonar.token=sqp_775d4ea6ed662b19a73f9470372c070ea0c03d21 \
+      -Dsonar.token=sqp_e3518a17963166bedaef989b31c043276d5b015f \
       -Dsonar.scm.disabled=true
 
 jacoco:
     ./gradlew test jacocoTestReport
+
+localstack-up:
+    docker compose -f infra/dev/docker-compose.localstack.yml  up -d
+
+localstack-down:
+    docker compose -f infra/dev/docker-compose.localstack.yml  down
