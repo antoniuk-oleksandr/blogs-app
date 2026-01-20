@@ -23,3 +23,7 @@ hs_err_pid*
 .project
 .settings
 ENDPOINTS.md
+
+**/.terraform/
+**/terraform.tfstate
+**/terraform.tfstate.*
