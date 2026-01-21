@@ -2,14 +2,21 @@ package com.example.blogs.app.api.post.service;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.service.CommentService;
-import com.example.blogs.app.api.post.dto.PostDTO;
-import com.example.blogs.app.api.post.dto.PostUpdateRequestDTO;
-import com.example.blogs.app.api.post.dto.PostUpdateResponseDTO;
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.post.exception.FailedToCreatePostException;
+import com.example.blogs.app.storage.FileLinkBuilder;
+import com.example.blogs.app.api.file.service.FileService;
+import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.mapper.PostMapper;
 import com.example.blogs.app.api.post.repository.adapter.PostRepositoryAdapter;
+import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.mapper.UserMapper;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,6 +34,12 @@ public class PostServiceImpl implements PostService {
     private final PostMapper postMapper;
 
     private final SlugService slugService;
+
+    private final FileService fileService;
+
+    private final FileLinkBuilder fileLinkBuilder;
+
+    private final UserMapper userMapper;
 
     /**
      * Retrieves all posts created by the specified user.
@@ -59,6 +72,7 @@ public class PostServiceImpl implements PostService {
      * @return post details with associated comments
      */
     @Override
+    @Transactional(readOnly = true)
     public PostDTO getPostBySlug(String slug) {
         PostEntity post = postRepositoryAdapter.findBySlug(slug);
         List<CommentEntity> comments = commentService.getCommentsByPostId(post.getId());
@@ -70,7 +84,7 @@ public class PostServiceImpl implements PostService {
      * Updates a post by its ID with partial field updates.
      * Regenerates slug when title is updated to maintain URL consistency.
      *
-     * @param postId the ID of the post to update
+     * @param postId     the ID of the post to update
      * @param requestDTO the update request containing fields to update
      * @return updated post details with new timestamp
      */
@@ -86,5 +100,40 @@ public class PostServiceImpl implements PostService {
         PostEntity savedPost = postRepositoryAdapter.update(updatedPost);
 
         return postMapper.toPostUpdateResponseDTO(savedPost);
+    }
+
+    /**
+     * Creates a new post with a preview image and generates a unique slug.
+     * Uploads the preview image to storage, saves the post entity, and returns the complete post details.
+     *
+     * @param authorId     the ID of the user creating the post
+     * @param requestDTO   the post creation request containing title, description, and content
+     * @param previewImage the preview image file to upload
+     * @return created post details with generated slug and preview image URL
+     * @throws FailedToCreatePostException if file upload or post creation fails
+     */
+    @Override
+    @SneakyThrows
+    @Transactional
+    public PostCreateResponseDTO createPost(
+            long authorId, PostCreateRequestDTO requestDTO, MultipartFile previewImage
+    ) {
+        try {
+            FileEntity fileEntity = fileService.upload(previewImage, "posts");
+            String previewImageUrl = fileLinkBuilder.buildLink(
+                    fileEntity.getFilePath(),
+                    fileEntity.getUuid(),
+                    fileEntity.getFileExtension()
+            );
+
+            String slug = slugService.generate(requestDTO.title());
+            UserEntity author = userMapper.toUserEntity(authorId);
+            PostEntity createPostEntity = postMapper.toPostEntity(requestDTO, slug, fileEntity, author);
+            PostEntity post = postRepositoryAdapter.save(createPostEntity);
+
+            return postMapper.toPostCreateResponseDTO(post, previewImageUrl);
+        } catch (Exception e) {
+            throw new FailedToCreatePostException(e);
+        }
     }
 }

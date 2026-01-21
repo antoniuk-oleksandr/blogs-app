@@ -125,25 +125,32 @@ implements <a href="PostService.html" title="interface in com.example.blogs.app.
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deletePostById(java.lang.Long)" class="member-name-link">deletePostById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/PostCreateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateResponseDTO</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createPost(long,com.example.blogs.app.api.post.dto.PostCreateRequestDTO,org.springframework.web.multipart.MultipartFile)" class="member-name-link">createPost</a><wbr>(long&nbsp;authorId,
+ <a href="../dto/PostCreateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;previewImage)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Creates a new post with a preview image and generates a unique slug.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deletePostById(java.lang.Long)" class="member-name-link">deletePostById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Deletes a post by its ID.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPostBySlug(java.lang.String)" class="member-name-link">getPostBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPostBySlug(java.lang.String)" class="member-name-link">getPostBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves a post by its unique slug identifier with associated comments.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPostsByUserId(long)" class="member-name-link">getPostsByUserId</a><wbr>(long&nbsp;userId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getPostsByUserId(long)" class="member-name-link">getPostsByUserId</a><wbr>(long&nbsp;userId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves all posts created by the specified user.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)" class="member-name-link">updatePostById</a><wbr>(long&nbsp;postId,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)" class="member-name-link">updatePostById</a><wbr>(long&nbsp;postId,
  <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates a post by its ID with partial field updates.</div>
 </div>
 </div>
@@ -210,7 +217,8 @@ implements <a href="PostService.html" title="interface in com.example.blogs.app.
 <li>
 <section class="detail" id="getPostBySlug(java.lang.String)">
 <h3>getPostBySlug</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></span>&nbsp;<span class="element-name">getPostBySlug</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html" title="class or interface in org.springframework.transaction.annotation" class="external-link">@Transactional</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html#readOnly()" title="class or interface in org.springframework.transaction.annotation" class="external-link">readOnly</a>=true)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></span>&nbsp;<span class="element-name">getPostBySlug</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</span></div>
 <div class="block">Retrieves a post by its unique slug identifier with associated comments.
  Delegates to the repository adapter for post retrieval and comment service for comments.</div>
 <dl class="notes">
@@ -238,6 +246,29 @@ implements <a href="PostService.html" title="interface in com.example.blogs.app.
 <dd><code>requestDTO</code> - the update request containing fields to update</dd>
 <dt>Returns:</dt>
 <dd>updated post details with new timestamp</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="createPost(long,com.example.blogs.app.api.post.dto.PostCreateRequestDTO,org.springframework.web.multipart.MultipartFile)">
+<h3>createPost</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html" title="class or interface in org.springframework.transaction.annotation" class="external-link">@Transactional</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/PostCreateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateResponseDTO</a></span>&nbsp;<span class="element-name">createPost</span><wbr><span class="parameters">(long&nbsp;authorId,
+ <a href="../dto/PostCreateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;previewImage)</span></div>
+<div class="block">Creates a new post with a preview image and generates a unique slug.
+ Uploads the preview image to storage, saves the post entity, and returns the complete post details.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PostService.html#createPost(long,com.example.blogs.app.api.post.dto.PostCreateRequestDTO,org.springframework.web.multipart.MultipartFile)">createPost</a></code>&nbsp;in interface&nbsp;<code><a href="PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>authorId</code> - the ID of the user creating the post</dd>
+<dd><code>requestDTO</code> - the post creation request containing title, description, and content</dd>
+<dd><code>previewImage</code> - the preview image file to upload</dd>
+<dt>Returns:</dt>
+<dd>created post details with generated slug and preview image URL</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/FailedToCreatePostException.html" title="class in com.example.blogs.app.api.post.exception">FailedToCreatePostException</a></code> - if file upload or post creation fails</dd>
 </dl>
 </section>
 </li>

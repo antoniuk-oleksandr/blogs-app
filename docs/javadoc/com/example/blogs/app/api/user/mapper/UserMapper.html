@@ -108,9 +108,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Maps user entity and associated posts to a complete user DTO.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserPostSummaryDto(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">toUserPostSummaryDto</a><wbr>(<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserEntity(java.lang.Long)" class="member-name-link">toUserEntity</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Creates a user entity with only the ID populated.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserPostSummaryDto(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">toUserPostSummaryDto</a><wbr>(<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Maps a post entity to a post summary DTO.</div>
 </div>
 </div>
@@ -152,6 +157,19 @@ loadScripts(document, 'script');</script>
 <dd><code>postEntity</code> - post entity to map</dd>
 <dt>Returns:</dt>
 <dd>post summary DTO</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toUserEntity(java.lang.Long)">
+<h3>toUserEntity</h3>
+<div class="member-signature"><span class="return-type"><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">toUserEntity</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="block">Creates a user entity with only the ID populated.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>id</code> - the user ID</dd>
+<dt>Returns:</dt>
+<dd>user entity with only ID set</dd>
 </dl>
 </section>
 </li>

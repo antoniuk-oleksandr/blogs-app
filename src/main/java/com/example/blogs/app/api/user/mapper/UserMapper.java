@@ -30,4 +30,12 @@ public interface UserMapper {
      * @return post summary DTO
      */
     UserPostSummaryDTO toUserPostSummaryDto(PostEntity postEntity);
+
+    /**
+     * Creates a user entity with only the ID populated.
+     *
+     * @param id the user ID
+     * @return user entity with only ID set
+     */
+    UserEntity toUserEntity(Long id);
 }

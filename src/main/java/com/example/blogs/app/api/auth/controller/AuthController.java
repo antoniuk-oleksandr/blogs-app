@@ -83,7 +83,7 @@ public class AuthController {
     }
 
     /**
-     * Revokes a refresh token to logout the user.
+     * Revokes a refresh token to log out the user.
      *
      * @param logoutRequest the logout request containing the refresh token to revoke
      * @return HTTP 204 No Content on successful logout

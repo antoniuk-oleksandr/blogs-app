@@ -1,9 +1,8 @@
 package com.example.blogs.app.api.post.service;
 
-import com.example.blogs.app.api.post.dto.PostDTO;
-import com.example.blogs.app.api.post.dto.PostUpdateRequestDTO;
-import com.example.blogs.app.api.post.dto.PostUpdateResponseDTO;
+import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,9 +38,19 @@ public interface PostService {
      * Updates a post by its ID with partial field updates.
      * If the title is updated, a new slug is generated.
      *
-     * @param postId the ID of the post to update
+     * @param postId     the ID of the post to update
      * @param requestDTO the update request containing fields to update
      * @return updated post details with new timestamp
      */
     PostUpdateResponseDTO updatePostById(long postId, PostUpdateRequestDTO requestDTO);
+
+    /**
+     * Creates a new post with a preview image and generates a unique slug.
+     *
+     * @param authorId     the ID of the user creating the post
+     * @param requestDTO   the post creation request containing title, description, and content
+     * @param previewImage the preview image file to upload
+     * @return created post details with generated slug and preview image URL
+     */
+    PostCreateResponseDTO createPost(long authorId, PostCreateRequestDTO requestDTO, MultipartFile previewImage);
 }

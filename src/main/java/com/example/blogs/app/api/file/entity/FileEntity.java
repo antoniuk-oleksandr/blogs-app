@@ -9,6 +9,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a file entity with metadata including file path, name, extension, and unique identifier.
+ */
 @Getter
 @Entity
 @Builder

@@ -72,4 +72,13 @@ public interface PostRepositoryAdapter {
      * @throws FailedToUpdatePostException if the repository operation fails
      */
     PostEntity update(PostEntity postEntity);
+
+    /**
+     * Saves a new post entity with exception translation.
+     *
+     * @param postEntity the post entity to save
+     * @return the saved post entity with generated ID
+     * @throws FailedToSavePostException if the repository operation fails
+     */
+    PostEntity save(PostEntity postEntity);
 }

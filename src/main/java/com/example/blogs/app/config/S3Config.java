@@ -12,6 +12,9 @@ import software.amazon.awssdk.services.s3.S3Configuration;
 
 import java.net.URI;
 
+/**
+ * Configuration class for AWS S3 client with support for custom endpoints and path-style access.
+ */
 @Configuration
 public class S3Config {
 
@@ -23,6 +26,14 @@ public class S3Config {
 
     private final String endpoint;
 
+    /**
+     * Constructs S3 configuration with AWS credentials and endpoint settings.
+     *
+     * @param region    the AWS region for the S3 bucket
+     * @param accessKey the AWS access key for authentication
+     * @param secretKey the AWS secret key for authentication
+     * @param endpoint  optional custom endpoint URL for S3-compatible services
+     */
     public S3Config(
             @Value("${aws.region}") String region,
             @Value("${aws.accessKey}") String accessKey,
@@ -35,6 +46,12 @@ public class S3Config {
         this.endpoint = endpoint;
     }
 
+    /**
+     * Creates and configures an S3 client bean with credentials and optional endpoint override.
+     * Enables path-style access when a custom endpoint is provided.
+     *
+     * @return configured S3 client ready for use
+     */
     @Bean
     public S3Client s3Client() {
         S3ClientBuilder builder = S3Client.builder()
