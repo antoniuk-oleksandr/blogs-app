@@ -1,5 +1,6 @@
 package com.example.blogs.app.api.post.entity;
 
+import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,8 +36,20 @@ public class PostEntity {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    @Column(name = "preview_image_url", nullable = false, columnDefinition = "TEXT")
-    private String previewImageUrl;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "author_id",
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_posts_author")
+    )
+    private UserEntity author;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "file_id",
+            foreignKey = @ForeignKey(name = "fk_posts_file")
+    )
+    private FileEntity file;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -45,12 +58,4 @@ public class PostEntity {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "author_id",
-            nullable = false,
-            foreignKey = @ForeignKey(name = "fk_posts_author")
-    )
-    private UserEntity author;
 }
