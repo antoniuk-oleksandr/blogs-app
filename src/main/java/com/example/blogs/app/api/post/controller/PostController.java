@@ -72,6 +72,15 @@ public class PostController {
                 .ok(postService.updatePostById(postId, requestDTO));
     }
 
+    /**
+     * Creates a new post with a preview image.
+     *
+     * @param userPrincipal authenticated user principal containing the author ID
+     * @param requestDTO    the post creation request containing title, description, and content
+     * @param previewImage  the preview image file to upload
+     * @return created post details with generated slug and preview image URL
+     */
+    @PostControllerDocs.CreatePost
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PostCreateResponseDTO> createPost(
             @AuthenticationPrincipal UserPrincipal userPrincipal,

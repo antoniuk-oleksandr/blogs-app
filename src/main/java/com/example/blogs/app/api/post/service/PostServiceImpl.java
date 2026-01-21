@@ -102,6 +102,16 @@ public class PostServiceImpl implements PostService {
         return postMapper.toPostUpdateResponseDTO(savedPost);
     }
 
+    /**
+     * Creates a new post with a preview image and generates a unique slug.
+     * Uploads the preview image to storage, saves the post entity, and returns the complete post details.
+     *
+     * @param authorId     the ID of the user creating the post
+     * @param requestDTO   the post creation request containing title, description, and content
+     * @param previewImage the preview image file to upload
+     * @return created post details with generated slug and preview image URL
+     * @throws FailedToCreatePostException if file upload or post creation fails
+     */
     @Override
     @SneakyThrows
     @Transactional

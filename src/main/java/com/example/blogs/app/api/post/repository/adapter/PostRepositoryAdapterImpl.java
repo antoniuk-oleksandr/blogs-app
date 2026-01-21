@@ -138,6 +138,14 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         }
     }
 
+    /**
+     * Saves a new post entity with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param postEntity the post entity to save
+     * @return the saved post entity with generated ID
+     * @throws FailedToSavePostException if the repository operation fails
+     */
     @Override
     public PostEntity save(PostEntity postEntity) {
         try {

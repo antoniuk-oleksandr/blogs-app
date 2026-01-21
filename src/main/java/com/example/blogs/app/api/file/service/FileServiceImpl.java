@@ -13,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
+/**
+ * Orchestrates file upload operations by coordinating storage upload and metadata persistence.
+ */
 @Service
 @AllArgsConstructor
 public class FileServiceImpl implements FileService {
@@ -23,6 +26,15 @@ public class FileServiceImpl implements FileService {
 
     private final FileUtils fileUtils;
 
+    /**
+     * Uploads a file to S3 storage and saves its metadata to the repository.
+     * Generates a unique identifier, normalizes the path, detects content type, and uploads to S3.
+     *
+     * @param file     the multipart file to upload
+     * @param filePath the storage path where the file should be uploaded
+     * @return the saved file entity with metadata
+     * @throws FailedToUploadFileException if the S3 upload fails
+     */
     @Override
     @SneakyThrows
     public FileEntity upload(MultipartFile file, String filePath) {

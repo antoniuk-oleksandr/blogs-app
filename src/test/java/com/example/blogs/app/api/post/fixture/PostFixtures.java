@@ -129,6 +129,13 @@ public class PostFixtures {
         return postDTO(id, time, postUserSummaryDTO(1L), List.of());
     }
 
+    /**
+     * Creates a post creation response DTO with the specified ID and timestamp.
+     *
+     * @param id   the post ID
+     * @param time the creation timestamp
+     * @return configured post creation response DTO
+     */
     public static PostCreateResponseDTO postCreateResponseDTO(Long id, LocalDateTime time) {
         return PostCreateResponseDTO.builder()
                 .id(id)
@@ -141,6 +148,11 @@ public class PostFixtures {
                 .build();
     }
 
+    /**
+     * Creates a post creation request DTO with default values.
+     *
+     * @return configured post creation request DTO
+     */
     public  static PostCreateRequestDTO postCreateRequestDTO() {
         return new PostCreateRequestDTO(
                 "title",

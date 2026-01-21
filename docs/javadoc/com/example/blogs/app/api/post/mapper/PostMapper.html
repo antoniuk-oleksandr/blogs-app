@@ -107,11 +107,25 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Converts a comment entity to a post comment summary DTO.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostDTO(com.example.blogs.app.api.post.entity.PostEntity,java.util.List)" class="member-name-link">toPostDTO</a><wbr>(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;post,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;&nbsp;comments)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostCreateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateResponseDTO</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostCreateResponseDTO(com.example.blogs.app.api.post.entity.PostEntity,java.lang.String)" class="member-name-link">toPostCreateResponseDTO</a><wbr>(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;previewImageUrl)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Converts a post entity to a post creation response DTO with preview image URL.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostDTO(com.example.blogs.app.api.post.entity.PostEntity,java.util.List)" class="member-name-link">toPostDTO</a><wbr>(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;post,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;&nbsp;comments)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Converts a post entity and its comments to a post DTO.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostEntity(com.example.blogs.app.api.post.dto.PostCreateRequestDTO,java.lang.String,com.example.blogs.app.api.file.entity.FileEntity,com.example.blogs.app.api.user.entity.UserEntity)" class="member-name-link">toPostEntity</a><wbr>(<a href="../dto/PostCreateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug,
+ <a href="../../file/entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a>&nbsp;file,
+ <a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;author)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Converts a post creation request to a post entity with generated slug, file, and author.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostEntity(com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">toPostEntity</a><wbr>(<a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO,
@@ -201,6 +215,25 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="detail" id="toPostEntity(com.example.blogs.app.api.post.dto.PostCreateRequestDTO,java.lang.String,com.example.blogs.app.api.file.entity.FileEntity,com.example.blogs.app.api.user.entity.UserEntity)">
+<h3>toPostEntity</h3>
+<div class="member-signature"><span class="return-type"><a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></span>&nbsp;<span class="element-name">toPostEntity</span><wbr><span class="parameters">(<a href="../dto/PostCreateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug,
+ <a href="../../file/entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a>&nbsp;file,
+ <a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;author)</span></div>
+<div class="block">Converts a post creation request to a post entity with generated slug, file, and author.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>requestDTO</code> - the post creation request containing title, description, and content</dd>
+<dd><code>slug</code> - the generated unique slug for the post</dd>
+<dd><code>file</code> - the uploaded file entity for the preview image</dd>
+<dd><code>author</code> - the author entity creating the post</dd>
+<dt>Returns:</dt>
+<dd>post entity ready for persistence</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="toPostUpdateResponseDTO(com.example.blogs.app.api.post.entity.PostEntity)">
 <h3>toPostUpdateResponseDTO</h3>
 <div class="member-signature"><span class="return-type"><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></span>&nbsp;<span class="element-name">toPostUpdateResponseDTO</span><wbr><span class="parameters">(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</span></div>
@@ -210,6 +243,21 @@ loadScripts(document, 'script');</script>
 <dd><code>postEntity</code> - the post entity</dd>
 <dt>Returns:</dt>
 <dd>post update response DTO</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toPostCreateResponseDTO(com.example.blogs.app.api.post.entity.PostEntity,java.lang.String)">
+<h3>toPostCreateResponseDTO</h3>
+<div class="member-signature"><span class="return-type"><a href="../dto/PostCreateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCreateResponseDTO</a></span>&nbsp;<span class="element-name">toPostCreateResponseDTO</span><wbr><span class="parameters">(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;previewImageUrl)</span></div>
+<div class="block">Converts a post entity to a post creation response DTO with preview image URL.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>postEntity</code> - the created post entity</dd>
+<dd><code>previewImageUrl</code> - the generated URL for the preview image</dd>
+<dt>Returns:</dt>
+<dd>post creation response DTO with all post details</dd>
 </dl>
 </section>
 </li>

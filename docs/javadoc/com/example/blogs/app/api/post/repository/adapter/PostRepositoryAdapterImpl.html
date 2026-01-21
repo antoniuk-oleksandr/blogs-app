@@ -157,8 +157,13 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">update</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Saves a new post entity with exception translation.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">update</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates a post entity with exception translation.</div>
 </div>
 </div>
@@ -312,6 +317,24 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <dd>the updated post entity</dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/FailedToUpdatePostException.html" title="class in com.example.blogs.app.api.post.exception">FailedToUpdatePostException</a></code> - if the repository operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="save(com.example.blogs.app.api.post.entity.PostEntity)">
+<h3>save</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></span>&nbsp;<span class="element-name">save</span><wbr><span class="parameters">(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</span></div>
+<div class="block">Saves a new post entity with exception translation.
+ Wraps repository exceptions in domain-specific exceptions for consistent error handling.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PostRepositoryAdapter.html#save(com.example.blogs.app.api.post.entity.PostEntity)">save</a></code>&nbsp;in interface&nbsp;<code><a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>postEntity</code> - the post entity to save</dd>
+<dt>Returns:</dt>
+<dd>the saved post entity with generated ID</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToSavePostException.html" title="class in com.example.blogs.app.api.post.exception">FailedToSavePostException</a></code> - if the repository operation fails</dd>
 </dl>
 </section>
 </li>

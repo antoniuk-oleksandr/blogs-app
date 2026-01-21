@@ -5,6 +5,9 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
+/**
+ * Response data transfer object containing created post details with ID, slug, and preview image URL.
+ */
 @Builder
 @Schema(description = "Response DTO for created post")
 public record PostCreateResponseDTO(

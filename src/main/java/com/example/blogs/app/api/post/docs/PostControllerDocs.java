@@ -406,4 +406,186 @@ public class PostControllerDocs {
     })
     public @interface UpdatePostById {
     }
+
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the create post endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for creating a new post with preview image, including all request/response schemas and examples.
+     * </p>
+     */
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Create a new post with preview image",
+            description = """
+                    Creates a new blog post with a preview image uploaded to S3 storage.
+                                
+                    ## Requirements
+                    - **Authentication**: Valid JWT access token required
+                    - **Title**: Required, non-blank string
+                    - **Description**: Required, non-blank string for post summary
+                    - **Content**: Required, non-blank markdown or text content
+                    - **Preview Image**: Required multipart file (JPEG, PNG, GIF)
+                                
+                    ## Response
+                    Returns the created post details with generated slug and preview image URL upon success (201).
+                                
+                    ## Behavior
+                    - Preview image is uploaded to S3 storage
+                    - Unique slug is auto-generated from the title
+                    - Post is saved with current timestamp
+                    - Returns full post details including file URL
+                                
+                    ## Security
+                    - Requires valid JWT token in Authorization header
+                    - Author is automatically set from authenticated user
+                    - File upload validates content type and size
+                    """,
+            tags = {"Posts"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Post successfully created",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = com.example.blogs.app.api.post.dto.PostCreateResponseDTO.class),
+                            examples = @ExampleObject(
+                                    name = "Successful Post Creation",
+                                    summary = "New post created with preview image",
+                                    description = "Returns complete post details including generated slug and image URL",
+                                    value = """
+                                            {
+                                              "id": 1,
+                                              "title": "My First Blog Post",
+                                              "description": "An introduction to my blog",
+                                              "content": "This is the full content of my first blog post...",
+                                              "slug": "my-first-blog-post",
+                                              "previewImageUrl": "https://s3.amazonaws.com/bucket/posts/uuid-123.jpg",
+                                              "createdAt": "2026-01-21T23:00:00"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Validation failed - invalid or missing request data",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Missing Required Fields",
+                                            summary = "One or more required fields are missing or blank",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-21T23:00:00",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/posts",
+                                                      "errors": [
+                                                        "Title must not be blank",
+                                                        "Description must not be blank",
+                                                        "Content must not be blank"
+                                                      ]
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Missing Preview Image",
+                                            summary = "Preview image is required but not provided",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-21T23:00:00",
+                                                      "status": 400,
+                                                      "error": "Bad Request",
+                                                      "message": "Validation Failed",
+                                                      "path": "/posts",
+                                                      "errors": [
+                                                        "Preview image is required"
+                                                      ]
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - invalid or expired JWT token",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Invalid JWT Token",
+                                            summary = "JWT token is invalid or has expired",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-21T23:00:00",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Invalid or expired JWT token",
+                                                      "path": "/posts"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "Missing Authorization Header",
+                                            summary = "Authorization header with JWT token is required",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-21T23:00:00",
+                                                      "status": 401,
+                                                      "error": "Unauthorized",
+                                                      "message": "Unauthorized access",
+                                                      "path": "/posts"
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - failed to create post",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Post Creation Failed",
+                                            summary = "Post creation failed due to database or file upload error",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-21T23:00:00",
+                                                      "status": 500,
+                                                      "error": "Internal Server Error",
+                                                      "message": "Failed to create post",
+                                                      "path": "/posts"
+                                                    }
+                                                    """
+                                    ),
+                                    @ExampleObject(
+                                            name = "File Upload Failed",
+                                            summary = "Preview image upload to S3 storage failed",
+                                            value = """
+                                                    {
+                                                      "timestamp": "2026-01-21T23:00:00",
+                                                      "status": 500,
+                                                      "error": "Internal Server Error",
+                                                      "message": "Failed to upload file",
+                                                      "path": "/posts"
+                                                    }
+                                                    """
+                                    )
+                            }
+                    )
+            )
+    })
+    public @interface CreatePost {
+    }
 }

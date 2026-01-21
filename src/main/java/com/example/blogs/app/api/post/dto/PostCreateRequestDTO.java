@@ -3,6 +3,9 @@ package com.example.blogs.app.api.post.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * Request data transfer object for creating a new post with title, description, and content.
+ */
 @Schema(description = "Request DTO for creating a new post")
 public record PostCreateRequestDTO(
 
