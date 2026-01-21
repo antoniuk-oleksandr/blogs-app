@@ -40,7 +40,6 @@ class CommentRepositoryTest extends AbstractPostgresTest {
                 .description("description")
                 .content("content")
                 .slug("slug")
-                .previewImageUrl("previewImageUrl")
                 .author(createdUser)
                 .build();
         PostEntity createdPost = postRepository.save(post);
@@ -77,7 +76,6 @@ class CommentRepositoryTest extends AbstractPostgresTest {
                 .description("description")
                 .content("content")
                 .slug("slug")
-                .previewImageUrl("previewImageUrl")
                 .author(createdUser)
                 .build();
         PostEntity createdPost = postRepository.save(post);

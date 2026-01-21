@@ -3,6 +3,7 @@ package com.example.blogs.app.api.auth.controller;
 import com.example.blogs.app.api.auth.dto.*;
 import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
+import com.example.blogs.app.api.auth.fixture.AuthFixtures;
 import com.example.blogs.app.api.auth.service.AuthService;
 import com.example.blogs.app.exception.ErrorResponseWriter;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
@@ -185,25 +186,8 @@ class AuthControllerTest {
     @Test
     @SneakyThrows
     void me_shouldReturn200_whenSuccessful() {
-        Jwt jwt = Jwt.withTokenValue("mock-token")
-                .header("alg", "RS256")
-                .header("typ", "JWT")
-                .claim("sub", "1")
-                .claim("username", "test")
-                .claim("email", "test@gmail.com")
-                .claim("profilePictureUrl", "picture")
-                .issuedAt(java.time.Instant.now())
-                .expiresAt(java.time.Instant.now().plusSeconds(3600))
-                .build();
-
-
-        UserPrincipal userPrincipal = new UserPrincipal(
-                1L,
-                "test",
-                "test@gmail.com",
-                "picture"
-        );
-
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
         Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
         SecurityContextHolder.getContext().setAuthentication(auth);
 

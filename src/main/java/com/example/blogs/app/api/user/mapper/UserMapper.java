@@ -30,4 +30,6 @@ public interface UserMapper {
      * @return post summary DTO
      */
     UserPostSummaryDTO toUserPostSummaryDto(PostEntity postEntity);
+
+    UserEntity toUserEntity(Long id);
 }

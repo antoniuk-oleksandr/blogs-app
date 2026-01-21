@@ -106,7 +106,7 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
      *
      * @param postId the ID of the post
      * @return the post entity
-     * @throws PostNotFoundException             if the post does not exist
+     * @throws PostNotFoundException         if the post does not exist
      * @throws FailedToFindPostByIdException if the repository operation fails
      */
     @Override
@@ -135,6 +135,15 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
             return postRepository.save(postEntity);
         } catch (Exception e) {
             throw new FailedToUpdatePostException(e);
+        }
+    }
+
+    @Override
+    public PostEntity save(PostEntity postEntity) {
+        try {
+            return postRepository.save(postEntity);
+        } catch (Exception e) {
+            throw new FailedToSavePostException(e);
         }
     }
 }

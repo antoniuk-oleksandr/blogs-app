@@ -30,7 +30,6 @@ class PostMapperTest {
         assertThat(result.title()).isEqualTo(post.getTitle());
         assertThat(result.content()).isEqualTo(post.getContent());
         assertThat(result.slug()).isEqualTo(post.getSlug());
-        assertThat(result.previewImageUrl()).isEqualTo(post.getPreviewImageUrl());
         assertThat(result.createdAt()).isEqualTo(post.getCreatedAt());
     }
 
@@ -171,7 +170,6 @@ class PostMapperTest {
         assertThat(result.getTitle()).isEqualTo("Updated Title");
         assertThat(result.getDescription()).isEqualTo("Updated Description");
         assertThat(result.getContent()).isEqualTo("Updated Content");
-        assertThat(result.getPreviewImageUrl()).isEqualTo("UpdatedPreviewImageUrl");
     }
 
     @Test
@@ -192,7 +190,6 @@ class PostMapperTest {
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getDescription()).isEqualTo("Updated Description");
         assertThat(result.getContent()).isEqualTo("Updated Content");
-        assertThat(result.getPreviewImageUrl()).isEqualTo("UpdatedPreviewImageUrl");
     }
 
     @Test
@@ -213,7 +210,6 @@ class PostMapperTest {
         assertThat(result.getTitle()).isEqualTo("Updated Title");
         assertThat(result.getDescription()).isEqualTo("description");
         assertThat(result.getContent()).isEqualTo("Updated Content");
-        assertThat(result.getPreviewImageUrl()).isEqualTo("UpdatedPreviewImageUrl");
     }
 
     @Test
@@ -234,7 +230,6 @@ class PostMapperTest {
         assertThat(result.getTitle()).isEqualTo("Updated Title");
         assertThat(result.getDescription()).isEqualTo("Updated Description");
         assertThat(result.getContent()).isEqualTo("content");
-        assertThat(result.getPreviewImageUrl()).isEqualTo("UpdatedPreviewImageUrl");
     }
 
     @Test
@@ -255,7 +250,6 @@ class PostMapperTest {
         assertThat(result.getTitle()).isEqualTo("Updated Title");
         assertThat(result.getDescription()).isEqualTo("Updated Description");
         assertThat(result.getContent()).isEqualTo("Updated Content");
-        assertThat(result.getPreviewImageUrl()).isEqualTo("previewImageUrl");
     }
 
     @Test
@@ -271,7 +265,6 @@ class PostMapperTest {
         assertThat(result.description()).isEqualTo(post.getDescription());
         assertThat(result.slug()).isEqualTo(post.getSlug());
         assertThat(result.content()).isEqualTo(post.getContent());
-        assertThat(result.previewImageUrl()).isEqualTo(post.getPreviewImageUrl());
         assertThat(result.updatedAt()).isEqualTo(post.getUpdatedAt());
     }
 

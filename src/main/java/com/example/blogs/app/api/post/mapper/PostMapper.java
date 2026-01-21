@@ -1,13 +1,11 @@
 package com.example.blogs.app.api.post.mapper;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.entity.UserEntity;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -53,6 +51,13 @@ public interface PostMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     PostEntity toPostEntity(PostUpdateRequestDTO requestDTO, @MappingTarget PostEntity postEntity);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "slug", source = "slug")
+    @Mapping(target = "file", source = "file")
+    @Mapping(target = "author", source = "author")
+    PostEntity toPostEntity(PostCreateRequestDTO requestDTO, String slug, FileEntity file, UserEntity author);
+
     /**
      * Converts a post entity to a post update response DTO.
      *
@@ -60,4 +65,7 @@ public interface PostMapper {
      * @return post update response DTO
      */
     PostUpdateResponseDTO toPostUpdateResponseDTO(PostEntity postEntity);
+
+    @Mapping(target = "previewImageUrl", source = "previewImageUrl")
+    PostCreateResponseDTO toPostCreateResponseDTO(PostEntity postEntity, String previewImageUrl);
 }

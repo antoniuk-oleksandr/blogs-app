@@ -72,4 +72,6 @@ public interface PostRepositoryAdapter {
      * @throws FailedToUpdatePostException if the repository operation fails
      */
     PostEntity update(PostEntity postEntity);
+
+    PostEntity save(PostEntity postEntity);
 }

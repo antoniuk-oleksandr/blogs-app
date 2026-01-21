@@ -219,4 +219,30 @@ class PostRepositoryAdapterTest {
                 .hasMessage("Failed to update post");
         verify(postRepository, times(1)).save(mockPost);
     }
+
+    @Test
+    void save_shouldReturnSavedPost_whenRepositorySucceeds() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockAuthor = UserFixtures.user(1L);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
+        when(postRepository.save(any(PostEntity.class))).thenReturn(mockPost);
+
+        PostEntity result = postRepositoryAdapter.save(mockPost);
+
+        assertThat(result).isEqualTo(mockPost);
+        verify(postRepository, times(1)).save(mockPost);
+    }
+
+    @Test
+    void save_shouldThrowFailedToSavePostException_whenRepositoryFails() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockAuthor = UserFixtures.user(1L);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
+        when(postRepository.save(any(PostEntity.class))).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.save(mockPost))
+                .isInstanceOf(FailedToSavePostException.class)
+                .hasMessage("Failed to save post");
+        verify(postRepository, times(1)).save(mockPost);
+    }
 }

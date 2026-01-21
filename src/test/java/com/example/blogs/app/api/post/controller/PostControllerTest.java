@@ -1,23 +1,30 @@
 package com.example.blogs.app.api.post.controller;
 
+import com.example.blogs.app.api.auth.fixture.AuthFixtures;
 import com.example.blogs.app.api.post.dto.*;
-import com.example.blogs.app.api.post.exception.FailedToDeletePostException;
-import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
-import com.example.blogs.app.api.post.exception.FailedToUpdatePostException;
-import com.example.blogs.app.api.post.exception.PostNotFoundException;
+import com.example.blogs.app.api.post.exception.*;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.post.service.PostService;
 import com.example.blogs.app.exception.ErrorResponseWriter;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
 import com.example.blogs.app.exception.GlobalExceptionHandler;
+import com.example.blogs.app.security.UserPrincipal;
+import com.example.blogs.app.security.UserPrincipalAuthenticationToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpMethod;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -64,7 +71,7 @@ class PostControllerTest {
 
     @Test
     @SneakyThrows
-    void deletePostById_shouldReturn500_whenServiceThrowsFaildToDeletePostException() {
+    void deletePostById_shouldReturn500_whenServiceThrowsFailedToDeletePostException() {
         doThrow(new FailedToDeletePostException(null)).when(postService).deletePostById(1L);
 
         mockMvc.perform(delete("/posts/{postId}", 1L))
@@ -304,5 +311,95 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.errors[0]").value("At least one field must be provided"));
 
         verify(postService, never()).updatePostById(anyLong(), any());
+    }
+
+    @Test
+    @SneakyThrows
+    void createPost_shouldCreatePost() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        PostCreateResponseDTO responseDTO = PostFixtures.postCreateResponseDTO(1L, now);
+        when(postService.createPost(anyLong(), any(PostCreateRequestDTO.class), any(MultipartFile.class)))
+                .thenReturn(responseDTO);
+
+        MockMultipartFile previewImage = new MockMultipartFile(
+                "previewImage",
+                "preview.png",
+                "image/png",
+                "dummyImageContent".getBytes()
+        );
+
+        PostCreateRequestDTO requestDTO = PostFixtures.postCreateRequestDTO();
+        String postJson = new ObjectMapper().writeValueAsString(requestDTO);
+        MockMultipartFile postPart = new MockMultipartFile(
+                "post",
+                "",
+                "application/json",
+                postJson.getBytes()
+        );
+
+        try {
+            mockMvc.perform(
+                            multipart(HttpMethod.POST, "/posts")
+                                    .file(previewImage)
+                                    .file(postPart)
+                    )
+                    .andExpect(status().isCreated())
+                    .andExpect(jsonPath("$.id").value(1L))
+                    .andExpect(jsonPath("$.title").value(responseDTO.title()))
+                    .andExpect(jsonPath("$.description").value(responseDTO.description()))
+                    .andExpect(jsonPath("$.content").value(responseDTO.content()))
+                    .andExpect(jsonPath("$.slug").value(responseDTO.slug()))
+                    .andExpect(jsonPath("$.previewImageUrl").value(responseDTO.previewImageUrl()))
+                    .andExpect(jsonPath("$.createdAt").value(now.toString()));
+            verify(postService).createPost(1L, requestDTO, previewImage);
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void createPost_shouldReturn500_whenServiceThrowsFailedToCreatePostException() {
+        when(postService.createPost(anyLong(), any(PostCreateRequestDTO.class), any(MultipartFile.class)))
+                .thenThrow(new FailedToCreatePostException(null));
+
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        MockMultipartFile previewImage = new MockMultipartFile(
+                "previewImage",
+                "preview.png",
+                "image/png",
+                "dummyImageContent".getBytes()
+        );
+
+        PostCreateRequestDTO requestDTO = PostFixtures.postCreateRequestDTO();
+        String postJson = new ObjectMapper().writeValueAsString(requestDTO);
+        MockMultipartFile postPart = new MockMultipartFile(
+                "post",
+                "",
+                "application/json",
+                postJson.getBytes()
+        );
+
+        try {
+            mockMvc.perform(
+                            multipart(HttpMethod.POST, "/posts")
+                                    .file(previewImage)
+                                    .file(postPart)
+                    )
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(jsonPath("$.message").value("Failed to create post"));
+            verify(postService).createPost(1L, requestDTO, previewImage);
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
     }
 }

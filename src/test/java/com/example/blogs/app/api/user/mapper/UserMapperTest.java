@@ -27,7 +27,6 @@ class UserMapperTest {
         assertThat(postSummaryDto.description()).isEqualTo(postEntity.getDescription());
         assertThat(postSummaryDto.slug()).isEqualTo(postEntity.getSlug());
         assertThat(postSummaryDto.createdAt()).isEqualTo(postEntity.getCreatedAt());
-        assertThat(postSummaryDto.previewImageUrl()).isEqualTo(postEntity.getPreviewImageUrl());
     }
 
     @Test
@@ -43,7 +42,6 @@ class UserMapperTest {
                 .title(null)
                 .description(null)
                 .slug(null)
-                .previewImageUrl(null)
                 .createdAt(null)
                 .build();
 
@@ -108,7 +106,6 @@ class UserMapperTest {
                 .description("description")
                 .content("content")
                 .slug("slug")
-                .previewImageUrl("previewImageUrl")
                 .createdAt(time)
                 .updatedAt(time)
                 .author(author)

@@ -37,7 +37,6 @@ class PostRepositoryTest extends AbstractPostgresTest {
         assertThat(foundPosts.getFirst().getId()).isPositive();
         assertThat(foundPosts.getFirst().getTitle()).isEqualTo(post.getTitle());
         assertThat(foundPosts.getFirst().getSlug()).isEqualTo(post.getSlug());
-        assertThat(foundPosts.getFirst().getPreviewImageUrl()).isEqualTo(post.getPreviewImageUrl());
         assertThat(foundPosts.getFirst().getDescription()).isEqualTo(post.getDescription());
         assertThat(foundPosts.getFirst().getContent()).isEqualTo(post.getContent());
         assertThat(foundPosts.getFirst().getAuthor().getId()).isEqualTo(createdUser.getId());
@@ -76,7 +75,6 @@ class PostRepositoryTest extends AbstractPostgresTest {
         assertThat(foundPost.getId()).isEqualTo(createdPost.getId());
         assertThat(foundPost.getTitle()).isEqualTo(post.getTitle());
         assertThat(foundPost.getSlug()).isEqualTo(post.getSlug());
-        assertThat(foundPost.getPreviewImageUrl()).isEqualTo(post.getPreviewImageUrl());
         assertThat(foundPost.getDescription()).isEqualTo(post.getDescription());
         assertThat(foundPost.getContent()).isEqualTo(post.getContent());
         assertThat(foundPost.getAuthor().getId()).isEqualTo(createdUser.getId());
@@ -134,9 +132,24 @@ class PostRepositoryTest extends AbstractPostgresTest {
         assertThat(foundPost.getId()).isEqualTo(createdPost.getId());
         assertThat(foundPost.getTitle()).isEqualTo(post.getTitle());
         assertThat(foundPost.getSlug()).isEqualTo(post.getSlug());
-        assertThat(foundPost.getPreviewImageUrl()).isEqualTo(post.getPreviewImageUrl());
         assertThat(foundPost.getDescription()).isEqualTo(post.getDescription());
         assertThat(foundPost.getContent()).isEqualTo(post.getContent());
         assertThat(foundPost.getAuthor().getId()).isEqualTo(createdUser.getId());
+    }
+
+    @Test
+    void save_shouldPersistPost_whenPostIsValid() {
+        UserEntity user = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(user);
+        PostEntity post = PostFixtures.post(createdUser);
+
+        PostEntity savedPost = postRepository.save(post);
+
+        assertThat(savedPost.getId()).isPositive();
+        assertThat(savedPost.getTitle()).isEqualTo(post.getTitle());
+        assertThat(savedPost.getSlug()).isEqualTo(post.getSlug());
+        assertThat(savedPost.getDescription()).isEqualTo(post.getDescription());
+        assertThat(savedPost.getContent()).isEqualTo(post.getContent());
+        assertThat(savedPost.getAuthor().getId()).isEqualTo(createdUser.getId());
     }
 }
