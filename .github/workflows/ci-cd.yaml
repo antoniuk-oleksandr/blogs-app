@@ -160,7 +160,7 @@ jobs:
       - name: Download task definition
         run: |
           aws ecs describe-task-definition \
-            --task-definition blogs-app-dev \
+            --task-definition ${{ vars.AWS_ECS_TASK_NAME }} \
             --query taskDefinition > task-definition.json
 
       - name: Update task definition with new image
@@ -175,7 +175,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@cbf54ec46642b86ff78c2f5793da6746954cf8ff
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: blogs-app-dev-service
-          cluster: blogs-app-dev-cluster
+          service: ${{ env.AWS_ECS_SERVICE_NAME } }
+          cluster: ${ { env.AWS_ECS_CLUSTER_NAME } }
           wait-for-service-stability: true
           force-new-deployment: true
