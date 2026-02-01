@@ -6,7 +6,7 @@ services:
     ports:
       - "4566:4566"
     environment:
-      SERVICES: s3
+      SERVICES: s3,cloudwatch,logs
       LOCALSTACK_API_KEY: ${LOCALSTACK_API_KEY}
       DEBUG: 1
       PERSISTENCE: 1
