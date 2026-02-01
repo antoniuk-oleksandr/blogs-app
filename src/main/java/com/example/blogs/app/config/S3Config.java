@@ -3,6 +3,7 @@ package com.example.blogs.app.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -18,57 +19,59 @@ import java.net.URI;
 @Configuration
 public class S3Config {
 
-    private final String region;
-
-    private final String accessKey;
-
-    private final String secretKey;
-
-    private final String endpoint;
-
     /**
-     * Constructs S3 configuration with AWS credentials and endpoint settings.
+     * Creates an S3 client configured for local development with custom endpoint.
+     * Active only in the local profile for integration with LocalStack or similar services.
      *
-     * @param region    the AWS region for the S3 bucket
-     * @param accessKey the AWS access key for authentication
-     * @param secretKey the AWS secret key for authentication
-     * @param endpoint  optional custom endpoint URL for S3-compatible services
+     * @param region the AWS region
+     * @param accessKey the AWS access key
+     * @param secretKey the AWS secret key
+     * @param endpoint the custom S3 endpoint URL
+     * @return configured S3Client instance with path-style access enabled
      */
-    public S3Config(
+    @Bean
+    @Profile("local")
+    public S3Client localS3Client(
             @Value("${aws.region}") String region,
             @Value("${aws.accessKey}") String accessKey,
             @Value("${aws.secretKey}") String secretKey,
             @Value("${aws.endpoint}") String endpoint
     ) {
-        this.region = region;
-        this.accessKey = accessKey;
-        this.secretKey = secretKey;
-        this.endpoint = endpoint;
-    }
-
-    /**
-     * Creates and configures an S3 client bean with credentials and optional endpoint override.
-     * Enables path-style access when a custom endpoint is provided.
-     *
-     * @return configured S3 client ready for use
-     */
-    @Bean
-    public S3Client s3Client() {
-        S3ClientBuilder builder = S3Client.builder()
+        return S3Client.builder()
                 .region(Region.of(region))
                 .credentialsProvider(
                         StaticCredentialsProvider.create(
                                 AwsBasicCredentials.create(accessKey, secretKey)
                         )
-                );
+                )
+                .endpointOverride(URI.create(endpoint))
+                .serviceConfiguration(S3Configuration.builder()
+                        .pathStyleAccessEnabled(true)
+                        .build())
+                .build();
+    }
 
-        if (endpoint != null && !endpoint.isEmpty()) {
-            builder.endpointOverride(URI.create(endpoint))
-                    .serviceConfiguration(S3Configuration.builder()
-                            .pathStyleAccessEnabled(true)
-                            .build());
-        }
-
-        return builder.build();
+    /**
+     * Creates an S3 client configured for production with default AWS credentials.
+     * Active only in the production profile and uses IAM roles or default credential chain.
+     *
+     * @param region the AWS region
+     * @return configured S3Client instance with default credentials
+     */
+    @Bean
+    @Profile("prod")
+    public S3Client prodS3Client(
+            @Value("${aws.region}") String region
+//            @Value("${aws.accessKey}") String accessKey,
+//            @Value("${aws.secretKey}") String secretKey
+    ) {
+        return S3Client.builder()
+                .region(Region.of(region))
+//                .credentialsProvider(
+//                        StaticCredentialsProvider.create(
+//                                AwsBasicCredentials.create(accessKey, secretKey)
+//                        )
+//                )
+                .build();
     }
 }

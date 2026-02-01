@@ -8,6 +8,7 @@ import com.example.blogs.app.api.user.service.UserService;
 import com.example.blogs.app.exception.ErrorResponseWriter;
 import com.example.blogs.app.exception.ExceptionHttpStatusMapper;
 import com.example.blogs.app.exception.GlobalExceptionHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockitoBean
     private UserService userService;
 
@@ -43,6 +47,7 @@ class UserControllerTest {
     @SneakyThrows
     void getUserByUsername_shouldReturn200_whenUserExists() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
         List<UserPostSummaryDTO> mockPostSummaries = List.of(
                 createMockPostSummary(now),
                 createMockPostSummary(now)
@@ -66,7 +71,7 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.posts[0].description").value("description"))
                 .andExpect(jsonPath("$.posts[0].slug").value("slug"))
                 .andExpect(jsonPath("$.posts[0].previewImageUrl").value("previewImageUrl"))
-                .andExpect(jsonPath("$.posts[1].createdAt").value(now.toString()));
+                .andExpect(jsonPath("$.posts[1].createdAt").value(nowStr));
 
         verify(userService).getUserByUsername("username");
     }
