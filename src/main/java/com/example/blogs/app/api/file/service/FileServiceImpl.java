@@ -8,6 +8,9 @@ import com.example.blogs.app.util.FileNameParts;
 import com.example.blogs.app.util.FileUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +29,8 @@ public class FileServiceImpl implements FileService {
 
     private final FileUtils fileUtils;
 
+    private static final Logger log = LoggerFactory.getLogger(FileServiceImpl.class);
+
     /**
      * Uploads a file to S3 storage and saves its metadata to the repository.
      * Generates a unique identifier, normalizes the path, detects content type, and uploads to S3.
@@ -39,16 +44,57 @@ public class FileServiceImpl implements FileService {
     @SneakyThrows
     public FileEntity upload(MultipartFile file, String filePath) {
         FileNameParts parts = fileUtils.extractFileNameParts(file.getOriginalFilename());
-        String uuid = UUID.randomUUID().toString();
+
+        String fileId = UUID.randomUUID().toString();
         String normalizedPath = fileUtils.normalizePath(filePath);
         String contentType = fileUtils.detectContentType(parts.extension());
 
-        try {
-            s3BucketService.upload(normalizedPath, uuid, parts.extension(), contentType, file.getBytes());
-        } catch (Exception e) {
-            throw new FailedToUploadFileException(e);
-        }
+        MDC.put("fileId", fileId);
+        MDC.put("filePath", normalizedPath);
+        MDC.put("fileExt", parts.extension());
 
-        return fileRepositoryAdapter.save(normalizedPath, parts.name(), parts.extension(), uuid);
+        log.info(
+                "Starting file upload: name={}, size={}, contentType={}",
+                parts.name(),
+                file.getSize(),
+                contentType
+        );
+
+        try {
+            s3BucketService.upload(
+                    normalizedPath,
+                    fileId,
+                    parts.extension(),
+                    contentType,
+                    file.getBytes()
+            );
+
+            log.info("File successfully uploaded to S3");
+
+            FileEntity saved =
+                    fileRepositoryAdapter.save(
+                            normalizedPath,
+                            parts.name(),
+                            parts.extension(),
+                            fileId
+                    );
+
+            log.info(
+                    "File metadata persisted: fileEntityId={}", saved.getId()
+            );
+
+            return saved;
+
+        } catch (Exception e) {
+
+            log.error(
+                    "Failed to upload file to S3", e
+            );
+
+            throw new FailedToUploadFileException(e);
+
+        } finally {
+            MDC.clear();
+        }
     }
 }

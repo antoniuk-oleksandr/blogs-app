@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="APP_NAME">blogs-app</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <JsonLayout compact="true" eventEol="true" properties="true" includeStacktrace="true"/>
+        </Console>
+
+        <CloudWatch name="CloudWatch"
+                    logGroup="${env:CLOUDWATCH_LOG_GROUP}"
+                    logStream="${env:LOG_STREAM_NAME}"
+                    endpoint="${env:AWS_CLOUDWATCH_ENDPOINT:-}"
+                    region="${env:AWS_REGION}"
+                    createLogGroup="true"
+                    createLogStream="true">
+            <JsonLayout compact="true" eventEol="true" properties="true" includeStacktrace="true"/>
+        </CloudWatch>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="software.amazon.awssdk" level="WARN"/>
+        <Logger name="org.apache.catalina" level="INFO"/>
+        <Logger name="org.hibernate" level="INFO"/>
+        <Logger name="com.example.blogs.app" level="DEBUG"/>
+
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="CloudWatch"/>
+        </Root>
+    </Loggers>
+</Configuration>

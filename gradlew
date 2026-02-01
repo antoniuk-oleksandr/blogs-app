@@ -207,7 +207,7 @@ DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 # Collect all arguments for the java command:
 #   * DEFAULT_JVM_OPTS, JAVA_OPTS, and optsEnvironmentVar are not allowed to contain shell fragments,
 #     and any embedded shellness will be escaped.
-#   * For example: A user cannot expect ${Hostname} to be expanded, as it is an environment variable and will be
+#   * For example: A user cannot expect ${Hostname} to be expanded, as it is an environment variables.tf and will be
 #     treated as '${Hostname}' itself on the command line.
 
 set -- \
@@ -224,7 +224,7 @@ fi
 
 # Use "xargs" to parse quoted args.
 #
-# With -n1 it outputs one arg per line, with the quotes and backslashes removed.
+# With -n1 it outputs.tf.tf one arg per line, with the quotes and backslashes removed.
 #
 # In Bash we could simply go:
 #

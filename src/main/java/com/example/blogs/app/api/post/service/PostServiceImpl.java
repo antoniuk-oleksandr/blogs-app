@@ -14,6 +14,8 @@ import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,6 +42,8 @@ public class PostServiceImpl implements PostService {
     private final FileLinkBuilder fileLinkBuilder;
 
     private final UserMapper userMapper;
+
+    private final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
 
     /**
      * Retrieves all posts created by the specified user.
@@ -133,6 +137,7 @@ public class PostServiceImpl implements PostService {
 
             return postMapper.toPostCreateResponseDTO(post, previewImageUrl);
         } catch (Exception e) {
+            log.error("Failed to create post", e);
             throw new FailedToCreatePostException(e);
         }
     }

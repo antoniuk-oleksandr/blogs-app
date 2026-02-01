@@ -91,6 +91,7 @@ loadScripts(document, 'script');</script>
 <li><a href="com/example/blogs/app/api/user/service/package-tree.html">com.example.blogs.app.api.user.service</a>, </li>
 <li><a href="com/example/blogs/app/config/package-tree.html">com.example.blogs.app.config</a>, </li>
 <li><a href="com/example/blogs/app/exception/package-tree.html">com.example.blogs.app.exception</a>, </li>
+<li><a href="com/example/blogs/app/logging/package-tree.html">com.example.blogs.app.logging</a>, </li>
 <li><a href="com/example/blogs/app/security/package-tree.html">com.example.blogs.app.security</a>, </li>
 <li><a href="com/example/blogs/app/storage/package-tree.html">com.example.blogs.app.storage</a>, </li>
 <li><a href="com/example/blogs/app/storage/exception/package-tree.html">com.example.blogs.app.storage.exception</a>, </li>
@@ -105,6 +106,19 @@ loadScripts(document, 'script');</script>
 <li class="circle">org.springframework.security.authentication.AbstractAuthenticationToken (implements org.springframework.security.core.Authentication, org.springframework.security.core.CredentialsContainer)
 <ul>
 <li class="circle">com.example.blogs.app.security.<a href="com/example/blogs/app/security/UserPrincipalAuthenticationToken.html" class="type-name-link" title="class in com.example.blogs.app.security">UserPrincipalAuthenticationToken</a></li>
+</ul>
+</li>
+<li class="circle">org.apache.logging.log4j.core.AbstractLifeCycle (implements org.apache.logging.log4j.core.LifeCycle2)
+<ul>
+<li class="circle">org.apache.logging.log4j.core.filter.AbstractFilterable (implements org.apache.logging.log4j.core.filter.Filterable)
+<ul>
+<li class="circle">org.apache.logging.log4j.core.appender.AbstractAppender (implements org.apache.logging.log4j.core.Appender, org.apache.logging.log4j.core.impl.LocationAware)
+<ul>
+<li class="circle">com.example.blogs.app.logging.<a href="com/example/blogs/app/logging/CloudWatchAppender.html" class="type-name-link" title="class in com.example.blogs.app.logging">CloudWatchAppender</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="circle">com.example.blogs.app.<a href="com/example/blogs/app/Application.html" class="type-name-link" title="class in com.example.blogs.app">Application</a></li>
@@ -139,6 +153,7 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelperImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">JWTHelperImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTHelper.html" title="interface in com.example.blogs.app.api.auth.service">JWTHelper</a>)</li>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">JWTServiceImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/JWTService.html" title="interface in com.example.blogs.app.api.auth.service">JWTService</a>)</li>
 <li class="circle">com.example.blogs.app.security.<a href="com/example/blogs/app/security/JWTToUserPrincipalConverter.html" class="type-name-link" title="class in com.example.blogs.app.security">JWTToUserPrincipalConverter</a> (implements org.springframework.core.convert.converter.<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/convert/converter/Converter.html" title="class or interface in org.springframework.core.convert.converter" class="external-link">Converter</a>&lt;S,<wbr>T&gt;)</li>
+<li class="circle">com.example.blogs.app.config.<a href="com/example/blogs/app/config/ObjectMapperConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">ObjectMapperConfig</a></li>
 <li class="circle">com.example.blogs.app.config.<a href="com/example/blogs/app/config/PasswordConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">PasswordConfig</a></li>
 <li class="circle">com.example.blogs.app.api.post.controller.<a href="com/example/blogs/app/api/post/controller/PostController.html" class="type-name-link" title="class in com.example.blogs.app.api.post.controller">PostController</a></li>
 <li class="circle">com.example.blogs.app.api.post.docs.<a href="com/example/blogs/app/api/post/docs/PostControllerDocs.html" class="type-name-link" title="class in com.example.blogs.app.api.post.docs">PostControllerDocs</a></li>
@@ -149,7 +164,8 @@ loadScripts(document, 'script');</script>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleaner.html" title="interface in com.example.blogs.app.api.auth.service">RevokedTokenCleaner</a>, org.springframework.scheduling.annotation.<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/annotation/SchedulingConfigurer.html" title="class or interface in org.springframework.scheduling.annotation" class="external-link">SchedulingConfigurer</a>)</li>
 <li class="circle">com.example.blogs.app.api.auth.entity.<a href="com/example/blogs/app/api/auth/entity/RevokedTokenEntity.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.entity">RevokedTokenEntity</a></li>
 <li class="circle">com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapterImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapterImpl</a> (implements com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a>)</li>
-<li class="circle">com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/S3BucketLinkBuilder.html" class="type-name-link" title="class in com.example.blogs.app.storage">S3BucketLinkBuilder</a> (implements com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/FileLinkBuilder.html" title="interface in com.example.blogs.app.storage">FileLinkBuilder</a>)</li>
+<li class="circle">com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/S3BucketLinkBuilderLocal.html" class="type-name-link" title="class in com.example.blogs.app.storage">S3BucketLinkBuilderLocal</a> (implements com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/FileLinkBuilder.html" title="interface in com.example.blogs.app.storage">FileLinkBuilder</a>)</li>
+<li class="circle">com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/S3BucketLinkBuilderProd.html" class="type-name-link" title="class in com.example.blogs.app.storage">S3BucketLinkBuilderProd</a> (implements com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/FileLinkBuilder.html" title="interface in com.example.blogs.app.storage">FileLinkBuilder</a>)</li>
 <li class="circle">com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/S3BucketServiceImpl.html" class="type-name-link" title="class in com.example.blogs.app.storage">S3BucketServiceImpl</a> (implements com.example.blogs.app.storage.<a href="com/example/blogs/app/storage/S3BucketService.html" title="interface in com.example.blogs.app.storage">S3BucketService</a>)</li>
 <li class="circle">com.example.blogs.app.config.<a href="com/example/blogs/app/config/S3Config.html" class="type-name-link" title="class in com.example.blogs.app.config">S3Config</a></li>
 <li class="circle">com.example.blogs.app.config.<a href="com/example/blogs/app/config/SecurityConfig.html" class="type-name-link" title="class in com.example.blogs.app.config">SecurityConfig</a></li>
@@ -193,7 +209,6 @@ loadScripts(document, 'script');</script>
 </ul>
 </li>
 <li class="circle">com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/TokenPairGeneratorImpl.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.service">TokenPairGeneratorImpl</a> (implements com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/TokenPairGenerator.html" title="interface in com.example.blogs.app.api.auth.service">TokenPairGenerator</a>)</li>
-<li class="circle">com.example.blogs.app.util.<a href="com/example/blogs/app/util/UrlUtils.html" class="type-name-link" title="class in com.example.blogs.app.util">UrlUtils</a></li>
 <li class="circle">com.example.blogs.app.api.user.controller.<a href="com/example/blogs/app/api/user/controller/UserController.html" class="type-name-link" title="class in com.example.blogs.app.api.user.controller">UserController</a></li>
 <li class="circle">com.example.blogs.app.api.user.docs.<a href="com/example/blogs/app/api/user/docs/UserControllerDocs.html" class="type-name-link" title="class in com.example.blogs.app.api.user.docs">UserControllerDocs</a></li>
 <li class="circle">com.example.blogs.app.api.user.entity.<a href="com/example/blogs/app/api/user/entity/UserEntity.html" class="type-name-link" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></li>

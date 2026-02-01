@@ -45,6 +45,9 @@ class PostControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockitoBean
     PostService postService;
 
@@ -162,6 +165,7 @@ class PostControllerTest {
     @SneakyThrows
     void updatePostById_shouldUpdatePost_whenAllFieldsAreProvided() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
         Long postId = 1L;
         String requestBody = """
                 {
@@ -195,14 +199,16 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.content").value("content"))
                 .andExpect(jsonPath("$.slug").value("slug"))
                 .andExpect(jsonPath("$.previewImageUrl").value("previewImageUrl"))
-                .andExpect(jsonPath("$.updatedAt").value(now.toString()));
+                .andExpect(jsonPath("$.updatedAt").value(nowStr));
 
         verify(postService, times(1)).updatePostById(eq(postId), any());
     }
 
     @Test
+    @SneakyThrows
     void updatePostById_shouldUpdatePost_whenSomeFieldsAreProvided() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
         Long postId = 1L;
         String requestBody = """
                 {
@@ -228,7 +234,7 @@ class PostControllerTest {
                     .andExpect(jsonPath("$.id").value(postId))
                     .andExpect(jsonPath("$.title").value("title"))
                     .andExpect(jsonPath("$.content").value("content"))
-                    .andExpect(jsonPath("$.updatedAt").value(now.toString()));
+                    .andExpect(jsonPath("$.updatedAt").value(nowStr));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -322,6 +328,7 @@ class PostControllerTest {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         LocalDateTime now = LocalDateTime.now().withNano(0);
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
         PostCreateResponseDTO responseDTO = PostFixtures.postCreateResponseDTO(1L, now);
         when(postService.createPost(anyLong(), any(PostCreateRequestDTO.class), any(MultipartFile.class)))
                 .thenReturn(responseDTO);
@@ -355,7 +362,7 @@ class PostControllerTest {
                     .andExpect(jsonPath("$.content").value(responseDTO.content()))
                     .andExpect(jsonPath("$.slug").value(responseDTO.slug()))
                     .andExpect(jsonPath("$.previewImageUrl").value(responseDTO.previewImageUrl()))
-                    .andExpect(jsonPath("$.createdAt").value(now.toString()));
+                    .andExpect(jsonPath("$.createdAt").value(nowStr));
             verify(postService).createPost(1L, requestDTO, previewImage);
         } finally {
             SecurityContextHolder.clearContext();
