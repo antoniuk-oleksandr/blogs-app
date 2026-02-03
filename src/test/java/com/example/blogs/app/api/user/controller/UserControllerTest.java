@@ -79,7 +79,7 @@ class UserControllerTest {
     @Test
     @SneakyThrows
     void getUserByUsername_shouldReturn404_whenUserDoesNotExist() {
-        when(userService.getUserByUsername(anyString())).thenThrow(new UserNotFoundException());
+        when(userService.getUserByUsername(anyString())).thenThrow(new UserNotFoundException(null));
 
         mockMvc.perform(get("/users/{username}", "nonexistentuser"))
                 .andExpect(status().isNotFound())
@@ -91,7 +91,7 @@ class UserControllerTest {
     @Test
     @SneakyThrows
     void getUserByUsername_shouldReturn500_whenFailedToFindUserExceptionOccurs() {
-        when(userService.getUserByUsername(anyString())).thenThrow(new FailedToFindUserException());
+        when(userService.getUserByUsername(anyString())).thenThrow(new FailedToFindUserException(null));
 
         mockMvc.perform(get("/users/{username}", "someuser"))
                 .andExpect(status().isInternalServerError())

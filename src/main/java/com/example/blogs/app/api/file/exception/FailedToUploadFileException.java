@@ -8,9 +8,9 @@ public class FailedToUploadFileException extends RuntimeException {
     /**
      * Constructs a new exception with the cause of the failure.
      *
-     * @param e the underlying exception that caused the upload failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToUploadFileException(Exception e) {
-        super("Failed to upload file", e);
+    public FailedToUploadFileException(Exception cause) {
+        super("Failed to upload file", cause);
     }
 }

@@ -58,12 +58,12 @@ public class AuthServiceImpl implements AuthService {
         try {
             user = userService.getUserByUsernameOrEmail(loginRequest.usernameOrEmail());
         } catch (Exception e) {
-            throw new InvalidCredentialsException();
+            throw new InvalidCredentialsException(e);
         }
 
         boolean matches = passwordEncoder.matches(loginRequest.password(), user.getPasswordHash());
         if (!matches) {
-            throw new InvalidCredentialsException();
+            throw new InvalidCredentialsException(null);
         }
 
         return tokenPairGenerator.generateTokens(user);
@@ -81,20 +81,20 @@ public class AuthServiceImpl implements AuthService {
     public AccessTokenResponse refreshAccessToken(RefreshTokenRequest tokenRequest) {
         String tokenHash = hasher.hash(tokenRequest.refreshToken());
         if (revokedTokenRepositoryAdapter.isTokenRevoked(tokenHash)) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException(null);
         }
 
         Map<String, Object> claims;
         try {
             claims = jwtService.parseClaims(tokenRequest.refreshToken());
         } catch (Exception e) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException(e);
         }
 
         String subject = claims.get("sub").toString();
 
         if (!"refresh".equals(claims.get("type"))) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException(null);
         }
 
         Map<String, Object> accessTokenClaims = Map.ofEntries(
@@ -114,7 +114,7 @@ public class AuthServiceImpl implements AuthService {
         try {
             claims = jwtService.parseClaims(logoutRequest.refreshToken());
         } catch (Exception e) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException(e);
         }
 
         String exp = claims.get("exp").toString();

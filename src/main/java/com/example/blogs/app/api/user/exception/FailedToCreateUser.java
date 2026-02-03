@@ -7,8 +7,10 @@ package com.example.blogs.app.api.user.exception;
 public class FailedToCreateUser extends RuntimeException {
     /**
      * Constructs a new FailedToCreateUser exception with a default error message.
+     *
+     * @param cause the underlying cause of the exception
      */
-    public FailedToCreateUser() {
-        super("Failed to create user");
+    public FailedToCreateUser(Exception cause) {
+        super("Failed to create user", cause);
     }
 }

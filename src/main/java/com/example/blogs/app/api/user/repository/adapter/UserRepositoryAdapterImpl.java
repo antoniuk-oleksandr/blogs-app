@@ -34,14 +34,14 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
                 String constraint = cve.getConstraintName();
 
                 if ("users_username_key".equals(constraint)) {
-                    throw new UsernameTakenException();
+                    throw new UsernameTakenException(e);
                 }
                 if ("users_email_key".equals(constraint)) {
-                    throw new EmailTakenException();
+                    throw new EmailTakenException(e);
                 }
             }
 
-            throw new FailedToCreateUser();
+            throw new FailedToCreateUser(e);
         }
     }
 
@@ -49,11 +49,11 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
     public UserEntity findByUsernameOrEmail(String usernameOrEmail) {
         try {
             return userRepository.findUserByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-                    .orElseThrow(UserNotFoundException::new);
+                    .orElseThrow(() -> new UserNotFoundException(null));
         } catch (UserNotFoundException e) {
             throw e;
         } catch (Exception e) {
-            throw new FailedToFindUserException();
+            throw new FailedToFindUserException(e);
         }
     }
 
@@ -62,18 +62,18 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
      *
      * @param username the username to search for
      * @return the matching user entity
-     * @throws UserNotFoundException if no user is found
+     * @throws UserNotFoundException     if no user is found
      * @throws FailedToFindUserException for database errors
      */
     @Override
     public UserEntity findByUsername(String username) {
         try {
             return userRepository.findByUsername(username)
-                    .orElseThrow(UserNotFoundException::new);
+                    .orElseThrow(() -> new UserNotFoundException(null));
         } catch (UserNotFoundException e) {
             throw e;
         } catch (Exception e) {
-            throw new FailedToFindUserException();
+            throw new FailedToFindUserException(e);
         }
     }
 }

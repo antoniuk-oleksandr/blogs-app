@@ -6,8 +6,10 @@ package com.example.blogs.app.api.auth.exception;
 public class InvalidCredentialsException extends RuntimeException {
     /**
      * Constructs a new InvalidCredentialsException with a default message.
+     *
+     * @param cause the underlying cause of the exception
      */
-    public InvalidCredentialsException() {
-        super("Invalid username/email or password");
+    public InvalidCredentialsException(Exception cause) {
+        super("Invalid username/email or password", cause);
     }
 }

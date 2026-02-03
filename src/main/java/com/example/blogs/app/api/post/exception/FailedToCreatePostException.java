@@ -8,9 +8,9 @@ public class FailedToCreatePostException extends RuntimeException {
     /**
      * Constructs a new exception with the cause of the failure.
      *
-     * @param e the underlying exception that caused the post creation failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToCreatePostException(Exception e) {
-        super("Failed to create post", e);
+    public FailedToCreatePostException(Exception cause) {
+        super("Failed to create post", cause);
     }
 }

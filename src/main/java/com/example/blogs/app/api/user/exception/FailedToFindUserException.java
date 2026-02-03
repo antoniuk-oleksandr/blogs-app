@@ -6,8 +6,10 @@ package com.example.blogs.app.api.user.exception;
 public class FailedToFindUserException extends RuntimeException {
     /**
      * Constructs a new FailedToFindUserException with a default message.
+     *
+     * @param cause the underlying cause of the exception
      */
-    public FailedToFindUserException() {
-        super("Failed to find user");
+    public FailedToFindUserException(Exception cause) {
+        super("Failed to find user", cause);
     }
 }

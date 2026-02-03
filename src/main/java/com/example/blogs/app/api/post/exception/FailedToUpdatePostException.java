@@ -8,9 +8,9 @@ public class FailedToUpdatePostException extends RuntimeException {
     /**
      * Constructs a new exception wrapping the underlying repository error.
      *
-     * @param e the underlying exception that caused the update to fail
+     * @param cause the underlying cause of the exception
      */
-    public FailedToUpdatePostException(Exception e) {
-        super("Failed to update post", e);
+    public FailedToUpdatePostException(Exception cause) {
+        super("Failed to update post", cause);
     }
 }

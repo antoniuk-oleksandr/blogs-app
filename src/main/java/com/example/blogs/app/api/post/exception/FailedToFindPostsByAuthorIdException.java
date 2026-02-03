@@ -7,9 +7,9 @@ public class FailedToFindPostsByAuthorIdException extends RuntimeException {
     /**
      * Constructs a new exception with the specified cause.
      *
-     * @param e the underlying exception that caused the failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToFindPostsByAuthorIdException(Exception e) {
-        super("Failed to find posts by author ID", e);
+    public FailedToFindPostsByAuthorIdException(Exception cause) {
+        super("Failed to find posts by author ID", cause);
     }
 }

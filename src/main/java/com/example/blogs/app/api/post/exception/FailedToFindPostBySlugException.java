@@ -8,9 +8,9 @@ public class FailedToFindPostBySlugException extends RuntimeException {
     /**
      * Constructs a new FailedToFindPostBySlugException with a default message and underlying cause.
      *
-     * @param e the exception that caused this post retrieval failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToFindPostBySlugException(Exception e) {
-        super("Failed to find post by slug", e);
+    public FailedToFindPostBySlugException(Exception cause) {
+        super("Failed to find post by slug", cause);
     }
 }

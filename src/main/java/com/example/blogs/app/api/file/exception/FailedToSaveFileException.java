@@ -8,9 +8,9 @@ public class FailedToSaveFileException extends RuntimeException {
     /**
      * Constructs a new exception with the cause of the failure.
      *
-     * @param e the underlying exception that caused the save failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToSaveFileException(Exception e) {
-        super("Failed to save file", e);
+    public FailedToSaveFileException(Exception cause) {
+        super("Failed to save file", cause);
     }
 }

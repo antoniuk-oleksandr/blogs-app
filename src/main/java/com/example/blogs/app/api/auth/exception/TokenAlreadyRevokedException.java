@@ -7,8 +7,10 @@ package com.example.blogs.app.api.auth.exception;
 public class TokenAlreadyRevokedException extends RuntimeException {
     /**
      * Constructs a new TokenAlreadyRevokedException with a default message.
+     *
+     * @param cause the underlying cause of the exception
      */
-    public TokenAlreadyRevokedException() {
-        super("Token is already revoked.");
+    public TokenAlreadyRevokedException(Exception cause) {
+        super("Token is already revoked.", cause);
     }
 }

@@ -3,7 +3,7 @@ package com.example.blogs.app.api.auth.repository.adapter;
 import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
 import com.example.blogs.app.api.auth.exception.FailedToCheckTokenRevokedException;
 import com.example.blogs.app.api.auth.exception.FailedToCleanRevokedTokensException;
-import com.example.blogs.app.api.auth.exception.FailedToRevokeTokenExecption;
+import com.example.blogs.app.api.auth.exception.FailedToRevokeTokenException;
 import com.example.blogs.app.api.auth.exception.TokenAlreadyRevokedException;
 import com.example.blogs.app.api.auth.repository.RevokedTokenRepository;
 import com.example.blogs.app.util.SqlExceptionUtils;
@@ -36,10 +36,10 @@ public class RevokedTokenRepositoryAdapterImpl implements RevokedTokenRepository
             return revokedTokenJpaRepository.save(entity);
         } catch (Exception e) {
             if (sqlExceptionUtils.containsUniqueViolation(e, "token")) {
-                throw new TokenAlreadyRevokedException();
+                throw new TokenAlreadyRevokedException(e);
             }
 
-            throw new FailedToRevokeTokenExecption();
+            throw new FailedToRevokeTokenException(e);
         }
     }
 

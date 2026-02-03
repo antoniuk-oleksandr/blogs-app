@@ -7,8 +7,10 @@ package com.example.blogs.app.api.user.exception;
 public class UsernameTakenException extends RuntimeException {
     /**
      * Constructs a new UsernameTakenException with a default error message.
+     *
+     * @param cause the underlying cause of the exception
      */
-    public UsernameTakenException() {
-        super("Username is already taken");
+    public UsernameTakenException(Exception cause) {
+        super("Username is already taken", cause);
     }
 }
