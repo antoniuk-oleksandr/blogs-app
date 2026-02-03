@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class PostEntity {
     @Id()
     @GeneratedValue(strategy = GenerationType.IDENTITY)
