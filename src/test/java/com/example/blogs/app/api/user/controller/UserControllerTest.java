@@ -47,7 +47,7 @@ class UserControllerTest {
     @SneakyThrows
     void getUserByUsername_shouldReturn200_whenUserExists() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", "");
         List<UserPostSummaryDTO> mockPostSummaries = List.of(
                 createMockPostSummary(now),
                 createMockPostSummary(now)

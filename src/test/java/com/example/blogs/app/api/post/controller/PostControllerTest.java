@@ -165,7 +165,7 @@ class PostControllerTest {
     @SneakyThrows
     void updatePostById_shouldUpdatePost_whenAllFieldsAreProvided() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", "");
         Long postId = 1L;
         String requestBody = """
                 {
@@ -208,7 +208,7 @@ class PostControllerTest {
     @SneakyThrows
     void updatePostById_shouldUpdatePost_whenSomeFieldsAreProvided() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", "");
         Long postId = 1L;
         String requestBody = """
                 {
@@ -328,7 +328,7 @@ class PostControllerTest {
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        String nowStr = objectMapper.writeValueAsString(now).replace("\"", ""); ;
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", "");
         PostCreateResponseDTO responseDTO = PostFixtures.postCreateResponseDTO(1L, now);
         when(postService.createPost(anyLong(), any(PostCreateRequestDTO.class), any(MultipartFile.class)))
                 .thenReturn(responseDTO);

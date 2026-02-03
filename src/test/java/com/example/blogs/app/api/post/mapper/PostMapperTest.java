@@ -23,14 +23,16 @@ class PostMapperTest {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity author = UserFixtures.user(1L, now);
         PostEntity post = PostFixtures.post(1L, now, author);
+        String previewImageUrl = "previewImageUrl";
 
-        PostDTO result = postMapper.toPostDTO(post, List.of());
+        PostDTO result = postMapper.toPostDTO(post, List.of(), previewImageUrl);
 
         assertThat(result.id()).isEqualTo(post.getId());
         assertThat(result.title()).isEqualTo(post.getTitle());
         assertThat(result.content()).isEqualTo(post.getContent());
         assertThat(result.slug()).isEqualTo(post.getSlug());
         assertThat(result.createdAt()).isEqualTo(post.getCreatedAt());
+        assertThat(result.previewImageUrl()).isEqualTo(previewImageUrl);
     }
 
     @Test
@@ -40,8 +42,9 @@ class PostMapperTest {
         author.setUsername("username");
         author.setProfilePictureUrl("profilePictureUrl");
         PostEntity post = PostFixtures.post(1L, now, author);
+        String previewImageUrl = "previewImageUrl";
 
-        PostDTO result = postMapper.toPostDTO(post, List.of());
+        PostDTO result = postMapper.toPostDTO(post, List.of(), previewImageUrl);
 
         assertThat(result.author()).isNotNull();
         assertThat(result.author().id()).isEqualTo(author.getId());
@@ -54,13 +57,14 @@ class PostMapperTest {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity author = UserFixtures.user(1L, now);
         PostEntity post = PostFixtures.post(1L, now, author);
+        String previewImageUrl = "previewImageUrl";
 
         List<CommentEntity> comments = List.of(
                 CommentFixtures.comment(1L, now, author, post),
                 CommentFixtures.comment(2L, now.plusMinutes(5), author, post)
         );
 
-        PostDTO result = postMapper.toPostDTO(post, comments);
+        PostDTO result = postMapper.toPostDTO(post, comments, previewImageUrl);
 
         assertThat(result.comments()).hasSize(2);
         assertThat(result.comments().getFirst().id()).isEqualTo(comments.getFirst().getId());
@@ -76,8 +80,9 @@ class PostMapperTest {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity author = UserFixtures.user(1L, now);
         PostEntity post = PostFixtures.post(1L, now, author);
+        String previewImageUrl = "previewImageUrl";
 
-        PostDTO result = postMapper.toPostDTO(post, List.of());
+        PostDTO result = postMapper.toPostDTO(post, List.of(), previewImageUrl);
 
         assertThat(result.comments()).isEmpty();
     }

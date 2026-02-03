@@ -47,7 +47,7 @@ public interface PostService {
     /**
      * Creates a new post with a preview image and generates a unique slug.
      *
-     * @param authorId     the ID of the user creating the post
+ * @param authorId     the ID of the user creating the post
      * @param requestDTO   the post creation request containing title, description, and content
      * @param previewImage the preview image file to upload
      * @return created post details with generated slug and preview image URL
