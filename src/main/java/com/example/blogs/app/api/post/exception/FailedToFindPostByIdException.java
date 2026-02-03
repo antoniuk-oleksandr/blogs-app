@@ -8,9 +8,9 @@ public class FailedToFindPostByIdException extends RuntimeException {
     /**
      * Constructs a new exception wrapping the underlying repository error.
      *
-     * @param e the underlying exception that caused the lookup to fail
+     * @param cause the underlying cause of the exception
      */
-    public FailedToFindPostByIdException(Throwable e) {
-        super("Failed to find post by ID", e);
+    public FailedToFindPostByIdException(Exception cause) {
+        super("Failed to find post by ID", cause);
     }
 }

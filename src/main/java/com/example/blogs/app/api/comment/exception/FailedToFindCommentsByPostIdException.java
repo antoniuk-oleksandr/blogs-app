@@ -8,9 +8,9 @@ public class FailedToFindCommentsByPostIdException extends RuntimeException {
     /**
      * Constructs a new FailedToFindCommentsByPostIdException with a default message and underlying cause.
      *
-     * @param e the exception that caused this comment retrieval failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToFindCommentsByPostIdException(Exception e) {
-        super("Failed to find comments by post ID", e);
+    public FailedToFindCommentsByPostIdException(Exception cause) {
+        super("Failed to find comments by post ID", cause);
     }
 }

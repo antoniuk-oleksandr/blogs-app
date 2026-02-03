@@ -245,7 +245,7 @@ class AuthControllerTest {
     @SneakyThrows
     void refreshToken_shouldReturn401_whenRefreshTokenIsInvalid() {
         when(authService.refreshAccessToken(any()))
-                .thenThrow(new UnauthorizedException());
+                .thenThrow(new UnauthorizedException(null));
 
         mockMvc.perform(post("/auth/refresh")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -292,7 +292,7 @@ class AuthControllerTest {
     @SneakyThrows
     void logout_shouldReturn401_whenRefreshTokenIsInvalid() {
         when(authService.logout(any()))
-                .thenThrow(new UnauthorizedException());
+                .thenThrow(new UnauthorizedException(null));
 
         mockMvc.perform(post("/auth/logout")
                         .contentType(MediaType.APPLICATION_JSON)

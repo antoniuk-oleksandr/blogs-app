@@ -3,7 +3,7 @@ package com.example.blogs.app.api.auth.repository.adapter;
 import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
 import com.example.blogs.app.api.auth.exception.FailedToCheckTokenRevokedException;
 import com.example.blogs.app.api.auth.exception.FailedToCleanRevokedTokensException;
-import com.example.blogs.app.api.auth.exception.FailedToRevokeTokenExecption;
+import com.example.blogs.app.api.auth.exception.FailedToRevokeTokenException;
 import com.example.blogs.app.api.auth.exception.TokenAlreadyRevokedException;
 import com.example.blogs.app.api.auth.repository.RevokedTokenRepository;
 import com.example.blogs.app.util.SqlExceptionUtils;
@@ -84,7 +84,7 @@ class RevokedTokenRepositoryAdapterImplTest {
         assertThatThrownBy(() -> revokedTokenRepositoryAdapter.saveRevokedToken(
                 "sampleToken",
                 expiresAt
-        )).isInstanceOf(FailedToRevokeTokenExecption.class);
+        )).isInstanceOf(FailedToRevokeTokenException.class);
 
         verify(revokedTokenJpaRepository).save(any(RevokedTokenEntity.class));
         verify(sqlExceptionUtils).containsUniqueViolation(any(Exception.class), eq("token"));

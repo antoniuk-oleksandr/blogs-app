@@ -6,8 +6,10 @@ package com.example.blogs.app.api.user.exception;
 public class UserNotFoundException extends RuntimeException {
     /**
      * Constructs a new UserNotFoundException with a default message.
+     *
+     * @param cause the underlying cause of the exception
      */
-    public UserNotFoundException() {
-        super("User not found");
+    public UserNotFoundException(Exception cause) {
+        super("User not found", cause);
     }
 }

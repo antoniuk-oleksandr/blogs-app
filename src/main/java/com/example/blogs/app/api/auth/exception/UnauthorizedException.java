@@ -7,8 +7,10 @@ package com.example.blogs.app.api.auth.exception;
 public class UnauthorizedException extends RuntimeException {
     /**
      * Constructs a new UnauthorizedException with a default message.
+     *
+     * @param cause the underlying cause of the exception
      */
-    public UnauthorizedException() {
-        super("Unauthorized access");
+    public UnauthorizedException(Exception cause) {
+        super("Unauthorized access", cause);
     }
 }

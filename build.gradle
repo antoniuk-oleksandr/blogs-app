@@ -106,6 +106,9 @@ dependencies {
     // AWS CloudWatch - for custom appender
     implementation 'software.amazon.awssdk:cloudwatchlogs:2.41.13'
 
+    // Spring Boot Actuator
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     // Testing
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'

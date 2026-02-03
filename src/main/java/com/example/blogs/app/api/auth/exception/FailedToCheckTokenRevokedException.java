@@ -8,9 +8,9 @@ public class FailedToCheckTokenRevokedException extends RuntimeException {
     /**
      * Constructs a new FailedToCheckTokenRevokedException with the underlying cause.
      *
-     * @param cause the database exception that prevented the revocation check
+     * @param cause the underlying cause of the exception
      */
-    public FailedToCheckTokenRevokedException(Throwable cause) {
+    public FailedToCheckTokenRevokedException(Exception cause) {
         super("Failed to check if token is revoked", cause);
     }
 }

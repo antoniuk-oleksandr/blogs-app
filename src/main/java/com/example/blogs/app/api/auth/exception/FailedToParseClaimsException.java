@@ -7,8 +7,10 @@ package com.example.blogs.app.api.auth.exception;
 public class FailedToParseClaimsException extends RuntimeException {
     /**
      * Constructs a new FailedToParseClaims exception with a default message.
+     *
+     * @param cause the underlying exception that caused the parsing failure
      */
-    public FailedToParseClaimsException() {
-        super("Failed to parse claims from JWT token");
+    public FailedToParseClaimsException(Exception cause) {
+        super("Failed to parse claims from JWT token", cause);
     }
 }

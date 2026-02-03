@@ -7,9 +7,9 @@ public class FailedToDeletePostException extends RuntimeException {
     /**
      * Constructs a new FailedToDeletePostException with a default message and underlying cause.
      *
-     * @param e the exception that caused this post deletion failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToDeletePostException(Exception e) {
-        super("Failed to delete post", e);
+    public FailedToDeletePostException(Exception cause) {
+        super("Failed to delete post", cause);
     }
 }

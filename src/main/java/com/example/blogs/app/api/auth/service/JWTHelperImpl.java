@@ -86,7 +86,7 @@ public class JWTHelperImpl implements JWTHelper {
             Jws<Claims> claimsJws = jwtParser.parseSignedClaims(token);
             return claimsJws.getPayload();
         } catch (Exception e) {
-            throw new FailedToParseClaimsException();
+            throw new FailedToParseClaimsException(e);
         }
     }
 }

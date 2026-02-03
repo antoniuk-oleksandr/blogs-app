@@ -8,9 +8,9 @@ public class FailedToCleanRevokedTokensException extends RuntimeException {
     /**
      * Constructs a new FailedToCleanRevokedTokensException with the underlying cause.
      *
-     * @param cause the database exception that prevented cleanup
+     * @param cause the underlying cause of the exception
      */
-    public FailedToCleanRevokedTokensException(Throwable cause) {
+    public FailedToCleanRevokedTokensException(Exception cause) {
         super("Failed to clean expired revoked tokens", cause);
     }
 }

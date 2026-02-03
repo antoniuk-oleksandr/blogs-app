@@ -8,9 +8,9 @@ public class PostNotFoundException extends RuntimeException {
     /**
      * Constructs a new PostNotFound with a default message and underlying cause.
      *
-     * @param e the exception that caused this post not found error
+     * @param cause the underlying cause of the exception
      */
-    public PostNotFoundException(Exception e) {
-        super("Post not found", e);
+    public PostNotFoundException(Exception cause) {
+        super("Post not found", cause);
     }
 }

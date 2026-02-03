@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.auth.repository.adapter;
 
 import com.example.blogs.app.api.auth.entity.RevokedTokenEntity;
+import com.example.blogs.app.api.auth.exception.FailedToRevokeTokenException;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ public interface RevokedTokenRepositoryAdapter {
      * @param expiresAt token expiration timestamp
      * @return persisted revoked token entity
      * @throws com.example.blogs.app.api.auth.exception.TokenAlreadyRevokedException if token was already revoked
-     * @throws com.example.blogs.app.api.auth.exception.FailedToRevokeTokenExecption if persistence fails
+     * @throws FailedToRevokeTokenException if persistence fails
      */
     RevokedTokenEntity saveRevokedToken(String token, LocalDateTime expiresAt);
 

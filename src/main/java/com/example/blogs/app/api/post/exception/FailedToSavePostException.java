@@ -7,9 +7,9 @@ public class FailedToSavePostException extends RuntimeException {
     /**
      * Constructs a new exception with the cause of the failure.
      *
-     * @param cause the underlying cause that resulted in the save failure
+     * @param cause the underlying cause of the exception
      */
-    public FailedToSavePostException(Throwable cause) {
+    public FailedToSavePostException(Exception cause) {
         super("Failed to save post", cause);
     }
 }
