@@ -18,11 +18,12 @@ public interface PostMapper {
     /**
      * Converts a post entity and its comments to a post DTO.
      *
-     * @param post     the post entity
-     * @param comments the list of comments associated with the post
+     * @param post            the post entity
+     * @param comments        the list of comments associated with the post
+     * @param previewImageUrl the URL of the preview image
      * @return post DTO with comment summaries
      */
-    PostDTO toPostDTO(PostEntity post, List<CommentEntity> comments);
+    PostDTO toPostDTO(PostEntity post, List<CommentEntity> comments, String previewImageUrl);
 
     /**
      * Converts a user entity to a post user summary DTO.

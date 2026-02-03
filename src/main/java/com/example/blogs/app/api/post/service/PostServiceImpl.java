@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Orchestrates post retrieval operations by coordinating with the post repository adapter.
@@ -81,7 +82,15 @@ public class PostServiceImpl implements PostService {
         PostEntity post = postRepositoryAdapter.findBySlug(slug);
         List<CommentEntity> comments = commentService.getCommentsByPostId(post.getId());
 
-        return postMapper.toPostDTO(post, comments);
+        String previewImageUrl = Optional.ofNullable(post.getFile())
+                .map(file -> fileLinkBuilder.buildLink(
+                        file.getFilePath(),
+                        file.getUuid(),
+                        file.getFileExtension()
+                ))
+                .orElse(null);
+
+        return postMapper.toPostDTO(post, comments, previewImageUrl);
     }
 
     /**

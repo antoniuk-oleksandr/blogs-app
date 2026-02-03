@@ -477,7 +477,7 @@ public class CloudWatchAppender extends AbstractAppender {
                     AwsBasicCredentials.create(accessKeyId, secretAccessKey)
             );
         } else {
-            credentialsProvider = DefaultCredentialsProvider.create();
+            credentialsProvider = DefaultCredentialsProvider.builder().build();
         }
         builder.credentialsProvider(credentialsProvider);
 

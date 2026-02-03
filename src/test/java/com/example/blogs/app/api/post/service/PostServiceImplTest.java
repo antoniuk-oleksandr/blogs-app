@@ -98,7 +98,8 @@ class PostServiceImplTest {
     void getPostBySlug_shouldReturnPostDTO() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file();
+        PostEntity post = PostFixtures.post(1L, now, author, file);
         List<CommentEntity> comments = List.of(
                 CommentFixtures.comment(1L, now, author, post),
                 CommentFixtures.comment(2L, now, author, post)
@@ -109,9 +110,12 @@ class PostServiceImplTest {
                 PostFixtures.postCommentSummaryDTO(2L, now, authorDTO)
         );
         PostDTO expectedDTO = PostFixtures.postDTO(1L, now, authorDTO, commentDTOs);
+        String previewImageUrl = "previewImageUrl";
         when(postRepositoryAdapter.findBySlug(anyString())).thenReturn(post);
+        when(fileLinkBuilder.buildLink(anyString(), anyString(), anyString()))
+                .thenReturn(previewImageUrl);
         when(commentService.getCommentsByPostId(post.getId())).thenReturn(comments);
-        when(postMapper.toPostDTO(post, comments)).thenReturn(expectedDTO);
+        when(postMapper.toPostDTO(post, comments, previewImageUrl)).thenReturn(expectedDTO);
 
         PostDTO result = postService.getPostBySlug(post.getSlug());
 
@@ -124,7 +128,12 @@ class PostServiceImplTest {
                 });
         verify(postRepositoryAdapter).findBySlug(post.getSlug());
         verify(commentService).getCommentsByPostId(1L);
-        verify(postMapper).toPostDTO(post, comments);
+        verify(postMapper).toPostDTO(post, comments, previewImageUrl);
+        verify(fileLinkBuilder).buildLink(
+                post.getFile().getFilePath(),
+                post.getFile().getUuid(),
+                post.getFile().getFileExtension()
+        );
         verifyNoMoreInteractions(postRepositoryAdapter, commentService, postMapper);
     }
 

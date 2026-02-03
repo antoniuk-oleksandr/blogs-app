@@ -1,5 +1,6 @@
 package com.example.blogs.app.api.post.fixture;
 
+import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.entity.UserEntity;
@@ -38,6 +39,20 @@ public class PostFixtures {
                 .description("description")
                 .slug("slug")
                 .content("content")
+                .createdAt(time)
+                .updatedAt(time)
+                .author(author)
+                .build();
+    }
+
+    public static PostEntity post(Long id, LocalDateTime time, UserEntity author, FileEntity file) {
+        return PostEntity.builder()
+                .id(id)
+                .title("title")
+                .description("description")
+                .slug("slug")
+                .content("content")
+                .file(file)
                 .createdAt(time)
                 .updatedAt(time)
                 .author(author)
