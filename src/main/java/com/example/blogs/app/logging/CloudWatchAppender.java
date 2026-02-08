@@ -41,6 +41,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * - LocalStack support
  * - Proper error handling
  */
+@SuppressWarnings({"squid:S107", "squid:MethodCyclomaticComplexity"})
 @Plugin(name = "CloudWatch", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
 public class CloudWatchAppender extends AbstractAppender {
 
@@ -279,74 +280,95 @@ public class CloudWatchAppender extends AbstractAppender {
         return totalBytes >= MAX_BATCH_BYTES;
     }
 
-    /**
-     * Sends a batch of log events to CloudWatch with automatic retry and error handling.
-     *
-     * @param events the log events to send
-     */
     private void sendBatchToCloudWatch(List<InputLogEvent> events) {
         if (events.isEmpty()) {
             return;
         }
 
-        // Sort by timestamp (CloudWatch requirement)
-        events.sort(Comparator.comparing(InputLogEvent::timestamp));
+        sortEvents(events);
+        sendWithRetries(events);
+    }
 
+    private void sortEvents(List<InputLogEvent> events) {
+        events.sort(Comparator.comparing(InputLogEvent::timestamp));
+    }
+
+    private void sendWithRetries(List<InputLogEvent> events) {
         int retries = 0;
         int maxRetries = 3;
         long backoffMs = 100;
 
         while (retries < maxRetries) {
             try {
-                PutLogEventsRequest.Builder requestBuilder = PutLogEventsRequest.builder()
-                        .logGroupName(logGroupName)
-                        .logStreamName(logStreamName)
-                        .logEvents(events);
-
-                String currentToken = sequenceToken.get();
-                if (currentToken != null) {
-                    requestBuilder.sequenceToken(currentToken);
-                }
-
-                PutLogEventsResponse response = cloudWatchClient.putLogEvents(requestBuilder.build());
-                sequenceToken.set(response.nextSequenceToken());
-
-                LOGGER.debug("Sent {} events to CloudWatch", events.size());
+                sendOnce(events);
                 return;
 
             } catch (InvalidSequenceTokenException e) {
-                LOGGER.debug("Invalid sequence token, retrying with correct token");
-                sequenceToken.set(e.expectedSequenceToken());
+                handleInvalidSequenceToken(e);
                 retries++;
 
             } catch (DataAlreadyAcceptedException e) {
-                LOGGER.debug("Data already accepted, updating sequence token");
-                sequenceToken.set(e.expectedSequenceToken());
+                handleDataAlreadyAccepted(e);
                 return;
 
             } catch (ResourceNotFoundException e) {
-                LOGGER.error("Log group or stream not found: {}/{}", logGroupName, logStreamName);
-                initializeCloudWatchResources();
+                handleResourceNotFound();
                 retries++;
 
             } catch (SdkException e) {
-                LOGGER.error("Error sending logs to CloudWatch (attempt {}/{})", retries + 1, maxRetries, e);
-                retries++;
-
-                if (retries < maxRetries) {
-                    try {
-                        Thread.sleep(backoffMs);
-                        backoffMs *= 2; // Exponential backoff
-                    } catch (InterruptedException ie) {
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
-                }
+                retries = handleSdkException(e, retries, maxRetries, backoffMs);
+                backoffMs *= 2;
             }
         }
 
         LOGGER.error("Failed to send {} events to CloudWatch after {} retries", events.size(), maxRetries);
     }
+
+    private void sendOnce(List<InputLogEvent> events) {
+        PutLogEventsRequest.Builder requestBuilder = PutLogEventsRequest.builder()
+                .logGroupName(logGroupName)
+                .logStreamName(logStreamName)
+                .logEvents(events);
+
+        String currentToken = sequenceToken.get();
+        if (currentToken != null) {
+            requestBuilder.sequenceToken(currentToken);
+        }
+
+        PutLogEventsResponse response = cloudWatchClient.putLogEvents(requestBuilder.build());
+        sequenceToken.set(response.nextSequenceToken());
+
+        LOGGER.debug("Sent {} events to CloudWatch", events.size());
+    }
+
+    private void handleInvalidSequenceToken(InvalidSequenceTokenException e) {
+        LOGGER.debug("Invalid sequence token, retrying with correct token");
+        sequenceToken.set(e.expectedSequenceToken());
+    }
+
+    private void handleDataAlreadyAccepted(DataAlreadyAcceptedException e) {
+        LOGGER.debug("Data already accepted, updating sequence token");
+        sequenceToken.set(e.expectedSequenceToken());
+    }
+
+    private void handleResourceNotFound() {
+        LOGGER.error("Log group or stream not found: {}/{}", logGroupName, logStreamName);
+        initializeCloudWatchResources();
+    }
+
+    private int handleSdkException(SdkException e, int retries, int maxRetries, long backoffMs) {
+        LOGGER.error("Error sending logs to CloudWatch (attempt {}/{})", retries + 1, maxRetries, e);
+        retries++;
+        if (retries < maxRetries) {
+            try {
+                Thread.sleep(backoffMs);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        return retries;
+    }
+
 
     /**
      * Stops the appender and gracefully shuts down background processing.
