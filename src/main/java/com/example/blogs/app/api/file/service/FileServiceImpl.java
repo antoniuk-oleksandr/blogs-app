@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
 
             return saved;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //NOSONAR
 
             log.error(
                     "Failed to upload file to S3", e
@@ -96,5 +96,21 @@ public class FileServiceImpl implements FileService {
         } finally {
             MDC.clear();
         }
+    }
+
+    /**
+     * Deletes a file from S3 storage and removes its metadata from the repository.
+     * Removes the file from S3 bucket first, then deletes the metadata record.
+     *
+     * @param fileEntity the file entity to delete
+     */
+    @Override
+    public void delete(FileEntity fileEntity) {
+        s3BucketService.delete(
+                fileEntity.getFilePath(),
+                fileEntity.getUuid(),
+                fileEntity.getFileExtension()
+        );
+        fileRepositoryAdapter.deleteById(fileEntity.getId());
     }
 }

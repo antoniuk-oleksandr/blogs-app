@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.file.repository.adapter;
 
 import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.exception.FailedToDeleteFileByIdException;
 import com.example.blogs.app.api.file.exception.FailedToSaveFileException;
 import com.example.blogs.app.api.file.repository.FileRepository;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,21 @@ public class FileRepositoryAdapterImpl implements FileRepositoryAdapter {
             return fileRepository.save(file);
         } catch (Exception e) {
             throw new FailedToSaveFileException(e);
+        }
+    }
+
+    /**
+     * Deletes file metadata by its ID with exception translation.
+     *
+     * @param fileId the ID of the file entity to delete
+     * @throws FailedToDeleteFileByIdException if the repository operation fails
+     */
+    @Override
+    public void deleteById(Long fileId) {
+        try {
+            fileRepository.deleteById(fileId);
+        } catch (Exception e) {
+            throw new FailedToDeleteFileByIdException(e);
         }
     }
 }

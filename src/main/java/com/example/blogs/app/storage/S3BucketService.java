@@ -20,4 +20,13 @@ public interface S3BucketService {
             String contentType,
             byte[] fileData
     );
+
+    /**
+     * Deletes a file from the S3 bucket.
+     *
+     * @param filePath  the storage path within the bucket
+     * @param fileName  the file name without extension
+     * @param extension the file extension including the dot (e.g., ".png")
+     */
+    void delete(String filePath, String fileName, String extension);
 }

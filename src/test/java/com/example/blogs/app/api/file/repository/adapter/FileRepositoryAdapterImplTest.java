@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.file.repository.adapter;
 
 import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.exception.FailedToDeleteFileByIdException;
 import com.example.blogs.app.api.file.exception.FailedToSaveFileException;
 import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.file.repository.FileRepository;
@@ -65,5 +66,27 @@ class FileRepositoryAdapterImplTest {
                 .hasMessage("Failed to save file");
 
         verify(fileRepository, times(1)).save(any(FileEntity.class));
+    }
+
+    @Test
+    void deleteById_shouldInvokeRepositoryDeleteById() {
+        Long fileId = 1L;
+
+        fileRepositoryAdapter.deleteById(fileId);
+
+        verify(fileRepository, times(1)).deleteById(fileId);
+    }
+
+    @Test
+    void deleteBydId_shouldThrowFailedToDeleteFileByIdException_whenRepositoryThrowsException() {
+        Long fileId = 1L;
+        doThrow(new RuntimeException("DB error"))
+                .when(fileRepository).deleteById(fileId);
+
+        assertThatThrownBy(() -> fileRepositoryAdapter.deleteById(fileId))
+                .isInstanceOf(FailedToDeleteFileByIdException.class)
+                .hasMessage("Failed to delete file by ID");
+
+        verify(fileRepository, times(1)).deleteById(fileId);
     }
 }

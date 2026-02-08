@@ -139,8 +139,9 @@ loadScripts(document, 'script');</script>
 <div class="block">Retrieves a post by its unique slug identifier.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePostById(java.lang.Long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)" class="member-name-link">updatePostById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
- @NotNull @Valid <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePostById(java.lang.Long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,org.springframework.web.multipart.MultipartFile)" class="member-name-link">updatePostById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
+ @NotNull @Valid <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;previewImage)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates a post by its ID with partial field updates.</div>
 </div>
@@ -207,20 +208,24 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="updatePostById(java.lang.Long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)">
+<section class="detail" id="updatePostById(java.lang.Long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,org.springframework.web.multipart.MultipartFile)">
 <h3>updatePostById</h3>
-<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PatchMapping</a>("/{postId}")
-@PreAuthorize("@postSecurity.isOwner(#postId)")
+<div class="member-signature"><span class="annotations">@PreAuthorize("@postSecurity.isOwner(#postId)")
+<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PatchMapping</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html#path()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">path</a>="/{postId}",
+              <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html#consumes()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">consumes</a>="multipart/form-data")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a>&gt;</span>&nbsp;<span class="element-name">updatePostById</span><wbr><span class="parameters">(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PathVariable.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PathVariable</a>
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
- @NotNull @Valid <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestBody.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestBody</a>
- @NotNull @Valid <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</span></div>
+ @NotNull @Valid <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestPart</a>("post")
+ @NotNull @Valid <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestPart</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html#value()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">value</a>="previewImage",<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html#required()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">required</a>=false)
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;previewImage)</span></div>
 <div class="block">Updates a post by its ID with partial field updates.
  At least one field must be provided in the request.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>postId</code> - the ID of the post to update</dd>
 <dd><code>requestDTO</code> - the update request containing fields to update</dd>
+<dd><code>previewImage</code> - the new preview image file to upload (optional)</dd>
 <dt>Returns:</dt>
 <dd>updated post details</dd>
 </dl>

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Schema(description = "Response DTO for created post")
 public record PostCreateResponseDTO(
         @Schema(description = "Unique identifier of the post", example = "1")
-        long id,
+        Long id,
 
         @Schema(description = "Title of the post", example = "My First Blog Post")
         String title,
