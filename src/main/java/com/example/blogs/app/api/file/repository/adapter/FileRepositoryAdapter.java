@@ -16,4 +16,6 @@ public interface FileRepositoryAdapter {
      * @return the saved file entity with generated ID
      */
     FileEntity save(String filePath, String fileName, String extension, String uuid);
+
+    void deleteById(Long fileId);
 }

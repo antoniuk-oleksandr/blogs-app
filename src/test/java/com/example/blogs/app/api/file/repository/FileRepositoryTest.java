@@ -33,4 +33,14 @@ class FileRepositoryTest extends AbstractPostgresTest {
         assertThat(savedFile.getCreatedAt().withNano(0))
                 .isCloseTo(beforeSave, within(5, ChronoUnit.SECONDS));
     }
+
+    @Test
+    void delete_shouldDeleteFileEntity() {
+        FileEntity fileToSave = FileFixtures.file();
+        FileEntity savedFile = fileRepository.save(fileToSave);
+
+        fileRepository.delete(savedFile);
+
+        assertThat(fileRepository.findById(savedFile.getId())).isEmpty();
+    }
 }
