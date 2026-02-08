@@ -85,7 +85,7 @@ public class FileServiceImpl implements FileService {
 
             return saved;
 
-        } catch (Exception e) {
+        } catch (Exception e) { //NOSONAR
 
             log.error(
                     "Failed to upload file to S3", e
@@ -96,5 +96,15 @@ public class FileServiceImpl implements FileService {
         } finally {
             MDC.clear();
         }
+    }
+
+    @Override
+    public void delete(FileEntity fileEntity) {
+        s3BucketService.delete(
+                fileEntity.getFilePath(),
+                fileEntity.getUuid(),
+                fileEntity.getFileExtension()
+        );
+        fileRepositoryAdapter.deleteById(fileEntity.getId());
     }
 }

@@ -130,4 +130,19 @@ class FileServiceImplTest {
         verify(fileRepositoryAdapter, never())
                 .save(eq("path"), eq("image"), eq(".jpg"), anyString());
     }
+
+    @Test
+    void delete_shouldInvokeS3ServiceAndFileRepositoryAdapterToDeleteFile() {
+        Long fileId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        FileEntity fileEntity = FileFixtures.file(fileId, now);
+
+        fileService.delete(fileEntity);
+
+        verify(s3BucketService, times(1))
+                .delete(fileEntity.getFilePath(),
+                        fileEntity.getUuid(),
+                        fileEntity.getFileExtension());
+        verify(fileRepositoryAdapter, times(1)).deleteById(fileId);
+    }
 }

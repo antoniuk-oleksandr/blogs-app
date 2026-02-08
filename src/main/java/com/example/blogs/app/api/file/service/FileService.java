@@ -15,4 +15,6 @@ public interface FileService {
      * @return the saved file entity with metadata
      */
     FileEntity upload(MultipartFile file, String filePath);
+
+    void delete(FileEntity fileEntity);
 }
