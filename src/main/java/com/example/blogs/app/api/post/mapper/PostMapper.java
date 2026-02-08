@@ -71,7 +71,8 @@ public interface PostMapper {
     /**
      * Converts a post entity to a post update response DTO.
      *
-     * @param postEntity the post entity
+     * @param postEntity      the post entity
+     * @param previewImageUrl the URL of the preview image
      * @return post update response DTO
      */
     PostUpdateResponseDTO toPostUpdateResponseDTO(PostEntity postEntity, String previewImageUrl);

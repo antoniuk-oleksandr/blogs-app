@@ -98,6 +98,12 @@ public class FileServiceImpl implements FileService {
         }
     }
 
+    /**
+     * Deletes a file from S3 storage and removes its metadata from the repository.
+     * Removes the file from S3 bucket first, then deletes the metadata record.
+     *
+     * @param fileEntity the file entity to delete
+     */
     @Override
     public void delete(FileEntity fileEntity) {
         s3BucketService.delete(

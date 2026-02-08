@@ -45,6 +45,16 @@ public class PostFixtures {
                 .build();
     }
 
+
+    /**
+     * Creates a post entity with the specified attributes including a file attachment.
+     *
+     * @param id     the post ID
+     * @param time   the creation and update timestamp
+     * @param author the post author
+     * @param file   the attached file entity
+     * @return configured post entity with file
+     */
     public static PostEntity post(Long id, LocalDateTime time, UserEntity author, FileEntity file) {
         return PostEntity.builder()
                 .id(id)
@@ -176,6 +186,11 @@ public class PostFixtures {
         );
     }
 
+    /**
+     * Creates a post update request DTO with new values for all fields.
+     *
+     * @return configured post update request DTO
+     */
     public static PostUpdateRequestDTO postUpdateRequestDTO() {
         return new PostUpdateRequestDTO(
                 "newTitle",

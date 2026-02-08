@@ -43,6 +43,12 @@ public class FileRepositoryAdapterImpl implements FileRepositoryAdapter {
         }
     }
 
+    /**
+     * Deletes file metadata by its ID with exception translation.
+     *
+     * @param fileId the ID of the file entity to delete
+     * @throws FailedToDeleteFileByIdException if the repository operation fails
+     */
     @Override
     public void deleteById(Long fileId) {
         try {

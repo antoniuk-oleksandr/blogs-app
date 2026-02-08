@@ -125,12 +125,17 @@ implements <a href="FileRepositoryAdapter.html" title="interface in com.example.
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">save</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filePath,
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteById(java.lang.Long)" class="member-name-link">deleteById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;fileId)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Deletes file metadata by its ID with exception translation.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(java.lang.String,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">save</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filePath,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;fileName,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;extension,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;uuid)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Saves file metadata to the repository with exception translation.</div>
 </div>
 </div>
@@ -185,6 +190,21 @@ implements <a href="FileRepositoryAdapter.html" title="interface in com.example.
 <dd>the saved file entity with generated ID</dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/FailedToSaveFileException.html" title="class in com.example.blogs.app.api.file.exception">FailedToSaveFileException</a></code> - if the repository operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="deleteById(java.lang.Long)">
+<h3>deleteById</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;fileId)</span></div>
+<div class="block">Deletes file metadata by its ID with exception translation.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="FileRepositoryAdapter.html#deleteById(java.lang.Long)">deleteById</a></code>&nbsp;in interface&nbsp;<code><a href="FileRepositoryAdapter.html" title="interface in com.example.blogs.app.api.file.repository.adapter">FileRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>fileId</code> - the ID of the file entity to delete</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToDeleteFileByIdException.html" title="class in com.example.blogs.app.api.file.exception">FailedToDeleteFileByIdException</a></code> - if the repository operation fails</dd>
 </dl>
 </section>
 </li>

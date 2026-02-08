@@ -16,5 +16,10 @@ public interface FileService {
      */
     FileEntity upload(MultipartFile file, String filePath);
 
+    /**
+     * Deletes a file from storage and removes its metadata.
+     *
+     * @param fileEntity the file entity to delete
+     */
     void delete(FileEntity fileEntity);
 }

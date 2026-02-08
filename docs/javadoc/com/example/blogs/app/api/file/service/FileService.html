@@ -106,10 +106,15 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#upload(org.springframework.web.multipart.MultipartFile,java.lang.String)" class="member-name-link">upload</a><wbr>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;file,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filePath)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#delete(com.example.blogs.app.api.file.entity.FileEntity)" class="member-name-link">delete</a><wbr>(<a href="../entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a>&nbsp;fileEntity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Deletes a file from storage and removes its metadata.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#upload(org.springframework.web.multipart.MultipartFile,java.lang.String)" class="member-name-link">upload</a><wbr>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;file,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filePath)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Uploads a file to storage and saves its metadata.</div>
 </div>
 </div>
@@ -138,6 +143,17 @@ loadScripts(document, 'script');</script>
 <dd><code>filePath</code> - the storage path where the file should be uploaded</dd>
 <dt>Returns:</dt>
 <dd>the saved file entity with metadata</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="delete(com.example.blogs.app.api.file.entity.FileEntity)">
+<h3>delete</h3>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">delete</span><wbr><span class="parameters">(<a href="../entity/FileEntity.html" title="class in com.example.blogs.app.api.file.entity">FileEntity</a>&nbsp;fileEntity)</span></div>
+<div class="block">Deletes a file from storage and removes its metadata.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>fileEntity</code> - the file entity to delete</dd>
 </dl>
 </section>
 </li>

@@ -226,19 +226,24 @@ public class PostControllerDocs {
      * Meta-annotation combining all OpenAPI documentation for the update post by ID endpoint.
      * <p>
      * Apply this annotation to controller methods to include complete API documentation
-     * for updating a post, including all request/response schemas and examples.
+     * for updating a post with optional preview image, including all request/response schemas and examples.
      * </p>
      */
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     @Operation(
-            summary = "Update a post by ID",
+            summary = "Update a post by ID with optional preview image",
             description = """
                     Updates a specific post with partial field updates by its unique identifier.
+                    Accepts multipart/form-data with JSON post data and optional preview image.
                                 
                     ## Requirements
+                    - **Authentication**: Valid JWT access token required
                     - **Post ID**: Must be a valid post identifier that exists in the system
                     - **At least one field**: Must provide at least one field to update (title, description, or content)
+                    - **Form Data Parts**:
+                      - `post` (required): JSON object with PostUpdateRequestDTO
+                      - `previewImage` (optional): Multipart file (JPEG, PNG, GIF)
                                 
                     ## Response
                     Returns the updated post details (200) upon success.
@@ -246,9 +251,15 @@ public class PostControllerDocs {
                     ## Behavior
                     - Only provided fields are updated; null fields are ignored
                     - Slug is automatically regenerated if title is updated
+                    - Preview image replaces existing image if provided
+                    - Old preview image is deleted when new one is uploaded
                     - If post doesn't exist, returns 404 Not Found
                     - If no fields provided, returns 400 Bad Request
                     - If update fails due to database errors, returns 500 Internal Server Error
+                                
+                    ## Security
+                    - Requires valid JWT token in Authorization header
+                    - Only post owner can update the post (verified via @PostSecurity)
                     """,
             tags = {"Posts"}
     )
@@ -261,8 +272,8 @@ public class PostControllerDocs {
                             schema = @Schema(implementation = com.example.blogs.app.api.post.dto.PostUpdateResponseDTO.class),
                             examples = @ExampleObject(
                                     name = "Successful Update",
-                                    summary = "Post successfully updated with new values",
-                                    description = "Returns updated post with all current field values",
+                                    summary = "Post successfully updated with new values and preview image",
+                                    description = "Returns updated post with all current field values and new preview image URL",
                                     value = """
                                             {
                                               "id": 1,
@@ -270,7 +281,7 @@ public class PostControllerDocs {
                                               "description": "Updated description",
                                               "content": "Updated content with more details",
                                               "slug": "updated-title",
-                                              "previewImageUrl": "https://example.com/image.jpg",
+                                              "previewImageUrl": "https://s3.amazonaws.com/bucket/posts/uuid-456.jpg",
                                               "updatedAt": "2026-01-17T00:45:00"
                                             }
                                             """
@@ -301,18 +312,15 @@ public class PostControllerDocs {
                                                     """
                                     ),
                                     @ExampleObject(
-                                            name = "Missing Request Body",
-                                            summary = "Request body is required but not provided",
+                                            name = "Missing Request Part",
+                                            summary = "Post data part is required but not provided",
                                             value = """
                                                     {
                                                       "timestamp": "2026-01-17T00:45:00",
                                                       "status": 400,
                                                       "error": "Bad Request",
-                                                      "message": "Validation Failed",
-                                                      "path": "/posts/1",
-                                                      "errors": [
-                                                        "Request body is required"
-                                                      ]
+                                                      "message": "Required request part 'post' is not present",
+                                                      "path": "/posts/1"
                                                     }
                                                     """
                                     )

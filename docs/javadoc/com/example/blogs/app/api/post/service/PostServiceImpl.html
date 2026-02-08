@@ -148,8 +148,9 @@ implements <a href="PostService.html" title="interface in com.example.blogs.app.
 <div class="block">Retrieves all posts created by the specified user.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)" class="member-name-link">updatePostById</a><wbr>(long&nbsp;postId,
- <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,org.springframework.web.multipart.MultipartFile)" class="member-name-link">updatePostById</a><wbr>(long&nbsp;postId,
+ <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;previewImage)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates a post by its ID with partial field updates.</div>
 </div>
@@ -232,18 +233,21 @@ implements <a href="PostService.html" title="interface in com.example.blogs.app.
 </section>
 </li>
 <li>
-<section class="detail" id="updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)">
+<section class="detail" id="updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,org.springframework.web.multipart.MultipartFile)">
 <h3>updatePostById</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></span>&nbsp;<span class="element-name">updatePostById</span><wbr><span class="parameters">(long&nbsp;postId,
- <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO)</span></div>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html" title="class or interface in org.springframework.transaction.annotation" class="external-link">@Transactional</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/PostUpdateResponseDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateResponseDTO</a></span>&nbsp;<span class="element-name">updatePostById</span><wbr><span class="parameters">(long&nbsp;postId,
+ <a href="../dto/PostUpdateRequestDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUpdateRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;previewImage)</span></div>
 <div class="block">Updates a post by its ID with partial field updates.
  Regenerates slug when title is updated to maintain URL consistency.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="PostService.html#updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO)">updatePostById</a></code>&nbsp;in interface&nbsp;<code><a href="PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></code></dd>
+<dd><code><a href="PostService.html#updatePostById(long,com.example.blogs.app.api.post.dto.PostUpdateRequestDTO,org.springframework.web.multipart.MultipartFile)">updatePostById</a></code>&nbsp;in interface&nbsp;<code><a href="PostService.html" title="interface in com.example.blogs.app.api.post.service">PostService</a></code></dd>
 <dt>Parameters:</dt>
 <dd><code>postId</code> - the ID of the post to update</dd>
 <dd><code>requestDTO</code> - the update request containing fields to update</dd>
+<dd><code>previewImage</code> - the new preview image file to upload (optional)</dd>
 <dt>Returns:</dt>
 <dd>updated post details with new timestamp</dd>
 </dl>

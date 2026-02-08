@@ -72,6 +72,14 @@ public class S3BucketServiceImpl implements S3BucketService {
         }
     }
 
+    /**
+     * Deletes a file from the S3 bucket by constructing its key and sending a delete request.
+     *
+     * @param filePath  the storage path within the bucket
+     * @param fileName  the file name without extension
+     * @param extension the file extension including the dot (e.g., ".png")
+     * @throws FailedToDeleteFileException if the S3 delete operation fails
+     */
     @Override
     public void delete(String filePath, String fileName, String extension) {
         String s3Key = s3KeyGenerator.generateKey(filePath, fileName, extension);
