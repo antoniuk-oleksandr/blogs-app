@@ -1,9 +1,11 @@
 package com.example.blogs.app.storage;
 
+import com.example.blogs.app.api.file.exception.FailedToDeleteFileException;
 import com.example.blogs.app.storage.exception.FailedToStoreFileException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.core.sync.RequestBody;
 
@@ -17,18 +19,23 @@ public class S3BucketServiceImpl implements S3BucketService {
 
     private final String bucketName;
 
+    private final S3KeyGenerator s3KeyGenerator;
+
     /**
      * Constructs S3 bucket service with configured client and bucket name.
      *
-     * @param s3Client   the configured S3 client
-     * @param bucketName the name of the S3 bucket to use
+     * @param s3Client       the configured S3 client
+     * @param bucketName     the name of the S3 bucket to use
+     * @param s3KeyGenerator the S3 key generator for constructing object keys
      */
     public S3BucketServiceImpl(
             S3Client s3Client,
-            @Value("${aws.s3.bucketName}") String bucketName
+            @Value("${aws.s3.bucketName}") String bucketName,
+            S3KeyGenerator s3KeyGenerator
     ) {
         this.s3Client = s3Client;
         this.bucketName = bucketName;
+        this.s3KeyGenerator = s3KeyGenerator;
     }
 
     /**
@@ -50,7 +57,7 @@ public class S3BucketServiceImpl implements S3BucketService {
             String contentType,
             byte[] fileData
     ) {
-        String s3Key = (filePath.endsWith("/") ? filePath + fileName : filePath + "/" + fileName) + extension;
+        String s3Key = s3KeyGenerator.generateKey(filePath, fileName, extension);
 
         PutObjectRequest putRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -62,6 +69,22 @@ public class S3BucketServiceImpl implements S3BucketService {
             s3Client.putObject(putRequest, RequestBody.fromBytes(fileData));
         } catch (Exception e) {
             throw new FailedToStoreFileException(e);
+        }
+    }
+
+    @Override
+    public void delete(String filePath, String fileName, String extension) {
+        String s3Key = s3KeyGenerator.generateKey(filePath, fileName, extension);
+
+        DeleteObjectRequest deleteRequest = DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(s3Key)
+                .build();
+
+        try {
+            s3Client.deleteObject(deleteRequest);
+        } catch (Exception e) {
+            throw new FailedToDeleteFileException(e);
         }
     }
 }

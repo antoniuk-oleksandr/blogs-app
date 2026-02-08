@@ -20,4 +20,6 @@ public interface S3BucketService {
             String contentType,
             byte[] fileData
     );
+
+    void delete(String filePath, String fileName, String extension);
 }
