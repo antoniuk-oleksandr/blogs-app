@@ -59,17 +59,19 @@ public class PostController {
      *
      * @param postId     the ID of the post to update
      * @param requestDTO the update request containing fields to update
+     * @param previewImage the new preview image file to upload (optional)
      * @return updated post details
      */
-    @PatchMapping("/{postId}")
     @PostControllerDocs.UpdatePostById
     @PreAuthorize("@postSecurity.isOwner(#postId)")
+    @PatchMapping(path = "/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<PostUpdateResponseDTO> updatePostById(
             @PathVariable Long postId,
-            @NotNull @Valid @RequestBody PostUpdateRequestDTO requestDTO
+            @NotNull @Valid @RequestPart(value = "post") PostUpdateRequestDTO requestDTO,
+            @RequestPart(value = "previewImage", required = false) MultipartFile previewImage
     ) {
         return ResponseEntity
-                .ok(postService.updatePostById(postId, requestDTO));
+                .ok(postService.updatePostById(postId, requestDTO, previewImage));
     }
 
     /**
