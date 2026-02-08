@@ -3,6 +3,7 @@ package com.example.blogs.app.api.post.service;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.service.CommentService;
 import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.service.FileUrlBuilder;
 import com.example.blogs.app.api.post.exception.FailedToCreatePostException;
 import com.example.blogs.app.storage.FileLinkBuilder;
 import com.example.blogs.app.api.file.service.FileService;
@@ -13,7 +14,6 @@ import com.example.blogs.app.api.post.repository.adapter.PostRepositoryAdapter;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.mapper.UserMapper;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,11 +38,17 @@ public class PostServiceImpl implements PostService {
 
     private final SlugService slugService;
 
+    private final TransactionalFileUploader transactionalFileUploader;
+
     private final FileService fileService;
 
     private final FileLinkBuilder fileLinkBuilder;
 
     private final UserMapper userMapper;
+
+    private final PostSlugUpdater postSlugUpdater;
+
+    private final FileUrlBuilder fileUrlBuilder;
 
     private final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
 
@@ -97,22 +103,40 @@ public class PostServiceImpl implements PostService {
      * Updates a post by its ID with partial field updates.
      * Regenerates slug when title is updated to maintain URL consistency.
      *
-     * @param postId     the ID of the post to update
-     * @param requestDTO the update request containing fields to update
+     * @param postId       the ID of the post to update
+     * @param requestDTO   the update request containing fields to update
+     * @param previewImage the new preview image file to upload (optional)
      * @return updated post details with new timestamp
      */
     @Override
-    public PostUpdateResponseDTO updatePostById(long postId, PostUpdateRequestDTO requestDTO) {
+    @Transactional
+    public PostUpdateResponseDTO updatePostById(
+            long postId, PostUpdateRequestDTO requestDTO, MultipartFile previewImage
+    ) {
         PostEntity post = postRepositoryAdapter.findById(postId);
+        FileEntity oldFile = post.getFile();
 
-        if (requestDTO.title() != null && !requestDTO.title().isBlank()) {
-            post.setSlug(slugService.generate(requestDTO.title()));
-        }
+        postSlugUpdater.apply(post, requestDTO);
+
+        Optional<FileEntity> newFile = Optional.ofNullable(previewImage)
+                .map(image -> transactionalFileUploader
+                        .uploadWithTransactionRollback(image, "posts"));
+        newFile.ifPresent(post::setFile);
+
+        String previewImageUrl = newFile
+                .map(f -> fileLinkBuilder.buildLink(
+                        f.getFilePath(),
+                        f.getUuid(),
+                        f.getFileExtension()
+                ))
+                .orElseGet(() -> fileUrlBuilder.build(post.getFile()));
 
         PostEntity updatedPost = postMapper.toPostEntity(requestDTO, post);
         PostEntity savedPost = postRepositoryAdapter.update(updatedPost);
 
-        return postMapper.toPostUpdateResponseDTO(savedPost);
+        newFile.ifPresent(file -> fileService.delete(oldFile));
+
+        return postMapper.toPostUpdateResponseDTO(savedPost, previewImageUrl);
     }
 
     /**
@@ -126,7 +150,6 @@ public class PostServiceImpl implements PostService {
      * @throws FailedToCreatePostException if file upload or post creation fails
      */
     @Override
-    @SneakyThrows
     @Transactional
     public PostCreateResponseDTO createPost(
             long authorId, PostCreateRequestDTO requestDTO, MultipartFile previewImage
@@ -145,7 +168,7 @@ public class PostServiceImpl implements PostService {
             PostEntity post = postRepositoryAdapter.save(createPostEntity);
 
             return postMapper.toPostCreateResponseDTO(post, previewImageUrl);
-        } catch (Exception e) {
+        } catch (Exception e) { // NOSONAR
             log.error("Failed to create post", e);
             throw new FailedToCreatePostException(e);
         }

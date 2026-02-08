@@ -175,4 +175,12 @@ public class PostFixtures {
                 "content"
         );
     }
+
+    public static PostUpdateRequestDTO postUpdateRequestDTO() {
+        return new PostUpdateRequestDTO(
+                "newTitle",
+                "newDescription",
+                "newContent"
+        );
+    }
 }

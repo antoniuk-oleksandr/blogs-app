@@ -18,9 +18,6 @@ public record PostUpdateRequestDTO(
         String description,
 
         @Schema(description = "Content of the post", example = "This is the updated content of the post.")
-        String content,
-
-        @Schema(description = "Preview image URL of the post", example = "http://example.com/updated-image.jpg")
-        String previewImageUrl
+        String content
 ) {
 }

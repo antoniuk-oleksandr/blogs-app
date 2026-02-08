@@ -2,6 +2,8 @@ package com.example.blogs.app.api.post.mapper;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
@@ -88,6 +90,60 @@ class PostMapperTest {
     }
 
     @Test
+    void toPostDTO_shouldReturnNull_whenAllParametersAreNull() {
+        PostDTO result = postMapper.toPostDTO(null, null, null);
+
+        assertThat(result).isNull();
+    }
+
+    @Test
+    void toPostDTO_shouldReturnPostWithNullComments_whenCommentsAreNull() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity author = UserFixtures.user(1L, now);
+        PostEntity post = PostFixtures.post(1L, now, author);
+        String previewImageUrl = "previewImageUrl";
+
+        PostDTO result = postMapper.toPostDTO(post, null, previewImageUrl);
+
+        assertThat(result).isNotNull();
+        assertThat(result.comments()).isNull();
+    }
+
+    @Test
+    void toPostDTO_shouldReturnNullFields_whenPostEntityIsNull() {
+        String previewImageUrl = "previewImageUrl";
+
+        PostDTO result = postMapper.toPostDTO(null, List.of(), previewImageUrl);
+
+        assertThat(result).isNotNull();
+        assertThat(result.id()).isNull();
+        assertThat(result.title()).isNull();
+        assertThat(result.content()).isNull();
+        assertThat(result.slug()).isNull();
+        assertThat(result.createdAt()).isNull();
+        assertThat(result.author()).isNull();
+        assertThat(result.comments()).isEmpty();
+        assertThat(result.previewImageUrl()).isEqualTo(previewImageUrl);
+    }
+
+    @Test
+    void toPostDTO_shouldReturnPostDTO_whenPreviewImageUrlIsNull() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity author = UserFixtures.user(1L, now);
+        PostEntity post = PostFixtures.post(1L, now, author);
+
+        PostDTO result = postMapper.toPostDTO(post, List.of(), null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.id()).isEqualTo(post.getId());
+        assertThat(result.title()).isEqualTo(post.getTitle());
+        assertThat(result.content()).isEqualTo(post.getContent());
+        assertThat(result.slug()).isEqualTo(post.getSlug());
+        assertThat(result.createdAt()).isEqualTo(post.getCreatedAt());
+        assertThat(result.previewImageUrl()).isNull();
+    }
+
+    @Test
     void toPostUserSummaryDTO_shouldMapUserFieldsCorrectly() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity user = UserFixtures.user(1L, now);
@@ -110,6 +166,13 @@ class PostMapperTest {
         PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(user);
 
         assertThat(result.profilePictureUrl()).isNull();
+    }
+
+    @Test
+    void toPostUserSummaryDTO_shouldReturnNull_whenPostIsNull() {
+        PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(null);
+
+        assertThat(result).isNull();
     }
 
     @Test
@@ -158,23 +221,10 @@ class PostMapperTest {
     }
 
     @Test
-    void toPostEntity_shouldUpdatePostEntity_whenAllFieldsAreNonNull() {
-        LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity postEntity = PostFixtures.post(1L, now, author);
+    void toPostCommentSummaryDTO_shouldReturnNull_whenCommentIsNull() {
+        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(null);
 
-        PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
-                "Updated Title",
-                "Updated Description",
-                "Updated Content",
-                "UpdatedPreviewImageUrl"
-        );
-
-        PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
-
-        assertThat(result.getTitle()).isEqualTo("Updated Title");
-        assertThat(result.getDescription()).isEqualTo("Updated Description");
-        assertThat(result.getContent()).isEqualTo("Updated Content");
+        assertThat(result).isNull();
     }
 
     @Test
@@ -186,8 +236,7 @@ class PostMapperTest {
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 null,
                 "Updated Description",
-                "Updated Content",
-                "UpdatedPreviewImageUrl"
+                "Updated Content"
         );
 
         PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
@@ -206,8 +255,7 @@ class PostMapperTest {
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 "Updated Title",
                 null,
-                "Updated Content",
-                "UpdatedPreviewImageUrl"
+                "Updated Content"
         );
 
         PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
@@ -226,8 +274,7 @@ class PostMapperTest {
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 "Updated Title",
                 "Updated Description",
-                null,
-                "UpdatedPreviewImageUrl"
+                null
         );
 
         PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
@@ -246,8 +293,7 @@ class PostMapperTest {
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 "Updated Title",
                 "Updated Description",
-                "Updated Content",
-                null
+                "Updated Content"
         );
 
         PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
@@ -258,12 +304,58 @@ class PostMapperTest {
     }
 
     @Test
+    void toPostEntity_shouldReturnPostEntity_whenRequestDTOIsNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity author = UserFixtures.user(userId, now);
+        PostEntity postEntity = PostFixtures.post(postId, now, author);
+
+        PostEntity result = postMapper.toPostEntity(null, postEntity);
+
+        assertThat(result).isEqualTo(postEntity);
+    }
+
+    @Test
+    void toPostEntity_shouldReturnNull_whenAllParametersAreNull() {
+        PostEntity result = postMapper.toPostEntity(null, null, null, null);
+
+        assertThat(result).isNull();
+    }
+
+    @Test
+    void toPostEntity_shouldMapAllFieldsCorrectly() {
+        Long userId = 1L;
+        Long fileId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity author = UserFixtures.user(userId, now);
+        String slug = "unique-slug";
+        PostCreateRequestDTO createRequestDTO = new PostCreateRequestDTO(
+                "New Title",
+                "New Description",
+                "New Content"
+        );
+        FileEntity file = FileFixtures.file(fileId, now);
+
+        PostEntity result = postMapper.toPostEntity(createRequestDTO, slug, file, author);
+
+        assertThat(result.getTitle()).isEqualTo("New Title");
+        assertThat(result.getDescription()).isEqualTo("New Description");
+        assertThat(result.getContent()).isEqualTo("New Content");
+        assertThat(result.getSlug()).isEqualTo(slug);
+        assertThat(result.getAuthor()).isEqualTo(author);
+        assertThat(result.getUpdatedAt()).isEqualTo(author.getUpdatedAt());
+        assertThat(result.getFile()).isEqualTo(file);
+    }
+
+    @Test
     void toPostUpdateResponseDTO_shouldMapPostFieldsCorrectly() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity author = UserFixtures.user(1L, now);
         PostEntity post = PostFixtures.post(1L, now, author);
+        String previewImageUrl = "previewImageUrl";
 
-        PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(post);
+        PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(post, previewImageUrl);
 
         assertThat(result.id()).isEqualTo(post.getId());
         assertThat(result.title()).isEqualTo(post.getTitle());
@@ -271,12 +363,88 @@ class PostMapperTest {
         assertThat(result.slug()).isEqualTo(post.getSlug());
         assertThat(result.content()).isEqualTo(post.getContent());
         assertThat(result.updatedAt()).isEqualTo(post.getUpdatedAt());
+        assertThat(result.previewImageUrl()).isEqualTo(previewImageUrl);
     }
 
     @Test
-    void toPostUpdateResponseDTO_shouldReturnNull_whenPostEntityIsNull() {
-        PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(null);
+    void toPostUpdateResponseDTO_shouldReturnNull_whenAllParametersAreNull() {
+        PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(null, null);
 
         assertThat(result).isNull();
+    }
+
+    @Test
+    void toPostUpdateResponseDTO_shouldReturnNullPreviewImageUrl_whenPreviewImageUrlIsNull() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity author = UserFixtures.user(1L, now);
+        PostEntity post = PostFixtures.post(1L, now, author);
+
+        PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(post, null);
+
+        assertThat(result).isNotNull();
+        assertThat(result.id()).isEqualTo(post.getId());
+        assertThat(result.title()).isEqualTo(post.getTitle());
+        assertThat(result.description()).isEqualTo(post.getDescription());
+        assertThat(result.slug()).isEqualTo(post.getSlug());
+        assertThat(result.content()).isEqualTo(post.getContent());
+        assertThat(result.updatedAt()).isEqualTo(post.getUpdatedAt());
+        assertThat(result.previewImageUrl()).isNull();
+    }
+
+    @Test
+    void toPostUpdateResponseDTO_shouldReturnNullFields_whenPostEntityIsNull() {
+        String previewImageUrl = "previewImageUrl";
+
+        PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(null, previewImageUrl);
+
+        assertThat(result).isNotNull();
+        assertThat(result.id()).isNull();
+        assertThat(result.title()).isNull();
+        assertThat(result.description()).isNull();
+        assertThat(result.slug()).isNull();
+        assertThat(result.content()).isNull();
+        assertThat(result.updatedAt()).isNull();
+        assertThat(result.previewImageUrl()).isEqualTo(previewImageUrl);
+    }
+
+    @Test
+    void toPostCreateResponseDTO_shouldReturnMappedFieldsCorrectly() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity author = UserFixtures.user(1L, now);
+        PostEntity post = PostFixtures.post(1L, now, author);
+        String previewImageUrl = "previewImageUrl";
+
+        PostCreateResponseDTO result = postMapper.toPostCreateResponseDTO(post, previewImageUrl);
+
+        assertThat(result.id()).isEqualTo(post.getId());
+        assertThat(result.title()).isEqualTo(post.getTitle());
+        assertThat(result.description()).isEqualTo(post.getDescription());
+        assertThat(result.slug()).isEqualTo(post.getSlug());
+        assertThat(result.content()).isEqualTo(post.getContent());
+        assertThat(result.createdAt()).isEqualTo(post.getCreatedAt());
+        assertThat(result.previewImageUrl()).isEqualTo(previewImageUrl);
+    }
+
+    @Test
+    void toPostCreateResponseDTO_shouldReturnNull_whenAllParametersAreNull() {
+        PostCreateResponseDTO result = postMapper.toPostCreateResponseDTO(null, null);
+
+        assertThat(result).isNull();
+    }
+
+    @Test
+    void toPostCreateResponseDTO_shouldReturnNullFields_whenPostEntityIsNull() {
+        String previewImageUrl = "previewImageUrl";
+
+        PostCreateResponseDTO result = postMapper.toPostCreateResponseDTO(null, previewImageUrl);
+
+        assertThat(result).isNotNull();
+        assertThat(result.id()).isNull();
+        assertThat(result.title()).isNull();
+        assertThat(result.description()).isNull();
+        assertThat(result.slug()).isNull();
+        assertThat(result.content()).isNull();
+        assertThat(result.createdAt()).isNull();
+        assertThat(result.previewImageUrl()).isEqualTo(previewImageUrl);
     }
 }
