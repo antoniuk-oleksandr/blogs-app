@@ -49,7 +49,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="constant-values.html">Constant&nbsp;Field&nbsp;Values</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html#accessToken()" class="member-name-link">accessToken()</a> - Method in record class com.example.blogs.app.api.auth.dto.<a href="com/example/blogs/app/api/auth/dto/AccessTokenResponse.html" title="class in com.example.blogs.app.api.auth.dto">AccessTokenResponse</a></dt>
@@ -490,6 +490,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/util/FileUtils.html#detectContentType(java.lang.String)" class="member-name-link">detectContentType(String)</a> - Method in class com.example.blogs.app.util.<a href="com/example/blogs/app/util/FileUtils.html" title="class in com.example.blogs.app.util">FileUtils</a></dt>
 <dd>
 <div class="block">Detects the MIME content type based on file extension.</div>
+</dd>
+<dt><a href="com/example/blogs/app/logging/MdcPopulatingFilter.html#doFilterInternal(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,jakarta.servlet.FilterChain)" class="member-name-link">doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)</a> - Method in class com.example.blogs.app.logging.<a href="com/example/blogs/app/logging/MdcPopulatingFilter.html" title="class in com.example.blogs.app.logging">MdcPopulatingFilter</a></dt>
+<dd>
+<div class="block">Extracts authenticated user ID from security context and populates MDC for use in log messages.</div>
+</dd>
+<dt><a href="com/example/blogs/app/logging/RequestLoggingFilter.html#doFilterInternal(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,jakarta.servlet.FilterChain)" class="member-name-link">doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)</a> - Method in class com.example.blogs.app.logging.<a href="com/example/blogs/app/logging/RequestLoggingFilter.html" title="class in com.example.blogs.app.logging">RequestLoggingFilter</a></dt>
+<dd>
+<div class="block">Wraps each request with a unique request ID, measures execution time, and logs completion details.</div>
 </dd>
 <dt><a href="com/example/blogs/app/security/JwtExceptionFilter.html#doFilterInternal(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse,jakarta.servlet.FilterChain)" class="member-name-link">doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)</a> - Method in class com.example.blogs.app.security.<a href="com/example/blogs/app/security/JwtExceptionFilter.html" title="class in com.example.blogs.app.security">JwtExceptionFilter</a></dt>
 <dd>
@@ -1387,6 +1395,16 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Main method that bootstraps the Spring Boot application.</div>
 </dd>
+<dt><a href="com/example/blogs/app/logging/MDCKeys.html" class="type-name-link" title="class in com.example.blogs.app.logging">MDCKeys</a> - Class in <a href="com/example/blogs/app/logging/package-summary.html">com.example.blogs.app.logging</a></dt>
+<dd>
+<div class="block">Defines standard MDC (Mapped Diagnostic Context) keys for consistent structured logging across the application.</div>
+</dd>
+<dt><a href="com/example/blogs/app/logging/MdcPopulatingFilter.html" class="type-name-link" title="class in com.example.blogs.app.logging">MdcPopulatingFilter</a> - Class in <a href="com/example/blogs/app/logging/package-summary.html">com.example.blogs.app.logging</a></dt>
+<dd>
+<div class="block">Populates MDC with authenticated user information for request-scoped logging context.</div>
+</dd>
+<dt><a href="com/example/blogs/app/logging/MdcPopulatingFilter.html#%3Cinit%3E()" class="member-name-link">MdcPopulatingFilter()</a> - Constructor for class com.example.blogs.app.logging.<a href="com/example/blogs/app/logging/MdcPopulatingFilter.html" title="class in com.example.blogs.app.logging">MdcPopulatingFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/auth/controller/AuthController.html#me(com.example.blogs.app.security.UserPrincipal)" class="member-name-link">me(UserPrincipal)</a> - Method in class com.example.blogs.app.api.auth.controller.<a href="com/example/blogs/app/api/auth/controller/AuthController.html" title="class in com.example.blogs.app.api.auth.controller">AuthController</a></dt>
 <dd>
 <div class="block">Returns the authenticated user's principal information.</div>
@@ -1705,6 +1723,16 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>RegisterRequest</code> record class.</div>
 </dd>
+<dt><a href="com/example/blogs/app/logging/MDCKeys.html#REQUEST_ID" class="member-name-link">REQUEST_ID</a> - Static variable in class com.example.blogs.app.logging.<a href="com/example/blogs/app/logging/MDCKeys.html" title="class in com.example.blogs.app.logging">MDCKeys</a></dt>
+<dd>
+<div class="block">The key for the unique identifier of the request, used to trace logs related to a specific request across different components and services.</div>
+</dd>
+<dt><a href="com/example/blogs/app/logging/RequestLoggingFilter.html" class="type-name-link" title="class in com.example.blogs.app.logging">RequestLoggingFilter</a> - Class in <a href="com/example/blogs/app/logging/package-summary.html">com.example.blogs.app.logging</a></dt>
+<dd>
+<div class="block">Generates unique request IDs and logs HTTP request completion metrics including duration and status.</div>
+</dd>
+<dt><a href="com/example/blogs/app/logging/RequestLoggingFilter.html#%3Cinit%3E()" class="member-name-link">RequestLoggingFilter()</a> - Constructor for class com.example.blogs.app.logging.<a href="com/example/blogs/app/logging/RequestLoggingFilter.html" title="class in com.example.blogs.app.logging">RequestLoggingFilter</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/exception/ExceptionHttpStatusMapper.html#resolve(java.lang.Throwable)" class="member-name-link">resolve(Throwable)</a> - Method in class com.example.blogs.app.exception.<a href="com/example/blogs/app/exception/ExceptionHttpStatusMapper.html" title="class in com.example.blogs.app.exception">ExceptionHttpStatusMapper</a></dt>
 <dd>
 <div class="block">Resolves the HTTP status for a given exception.</div>
@@ -2103,6 +2131,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Uploads a file and registers a transaction synchronization callback to delete it if the transaction rolls back.</div>
 </dd>
+<dt><a href="com/example/blogs/app/logging/MDCKeys.html#USER_ID" class="member-name-link">USER_ID</a> - Static variable in class com.example.blogs.app.logging.<a href="com/example/blogs/app/logging/MDCKeys.html" title="class in com.example.blogs.app.logging">MDCKeys</a></dt>
+<dd>
+<div class="block">The key for the user identifier, used to associate logs with a specific user, which can be helpful for debugging and monitoring user-related activities.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/user/controller/UserController.html" class="type-name-link" title="class in com.example.blogs.app.api.user.controller">UserController</a> - Class in <a href="com/example/blogs/app/api/user/controller/package-summary.html">com.example.blogs.app.api.user.controller</a></dt>
 <dd>
 <div class="block">REST API endpoints for user profile operations.</div>
@@ -2233,7 +2265,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Writes a formatted error response to the HTTP response output stream.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:J">J</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:U">U</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="constant-values.html">Constant&nbsp;Field&nbsp;Values</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>

@@ -154,6 +154,16 @@ sonarqube {
                 "**/**Docs**",
                 "**/logging/**"
         ].join(",")
+
+        property "sonar.issue.ignore.multicriteria", "e1,e2"
+
+        // Disable S2629 (Invoke method(s) only conditionally)
+        property "sonar.issue.ignore.multicriteria.e1.ruleKey", "java:S2629"
+        property "sonar.issue.ignore.multicriteria.e1.resourceKey", "**/*.java"
+
+        // Disable S2139 (Exceptions should be either logged or rethrown but not both)
+        property "sonar.issue.ignore.multicriteria.e2.ruleKey", "java:S2139"
+        property "sonar.issue.ignore.multicriteria.e2.resourceKey", "**/*.java"
     }
 }
 

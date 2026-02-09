@@ -5,6 +5,7 @@ import com.example.blogs.app.api.comment.service.CommentService;
 import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.file.service.FileUrlBuilder;
 import com.example.blogs.app.api.post.exception.FailedToCreatePostException;
+import com.example.blogs.app.logging.MDCKeys;
 import com.example.blogs.app.storage.FileLinkBuilder;
 import com.example.blogs.app.api.file.service.FileService;
 import com.example.blogs.app.api.post.dto.*;
@@ -16,6 +17,7 @@ import com.example.blogs.app.api.user.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,7 +52,7 @@ public class PostServiceImpl implements PostService {
 
     private final FileUrlBuilder fileUrlBuilder;
 
-    private final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
 
     /**
      * Retrieves all posts created by the specified user.
@@ -73,6 +75,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePostById(Long postId) {
         postRepositoryAdapter.deleteById(postId);
+        log.info("post_deleted postId={} userId={} requestId={}",
+                postId, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
     }
 
     /**
@@ -95,6 +99,9 @@ public class PostServiceImpl implements PostService {
                         file.getFileExtension()
                 ))
                 .orElse(null);
+
+        log.info("post_viewed postId={} commentCount={} requestId={}",
+                post.getId(), comments.size(), MDC.get(MDCKeys.REQUEST_ID));
 
         return postMapper.toPostDTO(post, comments, previewImageUrl);
     }
@@ -134,7 +141,15 @@ public class PostServiceImpl implements PostService {
         PostEntity updatedPost = postMapper.toPostEntity(requestDTO, post);
         PostEntity savedPost = postRepositoryAdapter.update(updatedPost);
 
-        newFile.ifPresent(file -> fileService.delete(oldFile));
+        newFile.ifPresent(file -> {
+            fileService.delete(oldFile);
+            log.info("preview_image_updated postId={} oldFileId={} newFileId={} userId={} requestId={}",
+                    postId, oldFile.getId(), file.getId(),
+                    MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
+        });
+
+        log.info("post_updated postId={} userId={} requestId={}",
+                postId, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
 
         return postMapper.toPostUpdateResponseDTO(savedPost, previewImageUrl);
     }
@@ -167,9 +182,15 @@ public class PostServiceImpl implements PostService {
             PostEntity createPostEntity = postMapper.toPostEntity(requestDTO, slug, fileEntity, author);
             PostEntity post = postRepositoryAdapter.save(createPostEntity);
 
+            log.info("preview_image_uploaded postId={} fileId={} userId={} requestId={}",
+                    post.getId(), fileEntity.getId(), authorId, MDC.get(MDCKeys.REQUEST_ID));
+            log.info("post_created postId={} userId={} slug={} requestId={}",
+                    post.getId(), authorId, slug, MDC.get(MDCKeys.REQUEST_ID));
+
             return postMapper.toPostCreateResponseDTO(post, previewImageUrl);
-        } catch (Exception e) { // NOSONAR
-            log.error("Failed to create post", e);
+        } catch (Exception e) {
+            log.error("post_creation_failed authorId={} title={} error={} requestId={}",
+                    authorId, requestDTO.title(), e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToCreatePostException(e);
         }
     }

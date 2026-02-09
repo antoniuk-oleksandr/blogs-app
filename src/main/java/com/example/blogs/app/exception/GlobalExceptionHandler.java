@@ -1,7 +1,11 @@
 package com.example.blogs.app.exception;
 
+import com.example.blogs.app.logging.MDCKeys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -22,6 +26,8 @@ import java.util.List;
 @AllArgsConstructor
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     private final ExceptionHttpStatusMapper statusMapper;
 
@@ -105,6 +111,12 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         HttpStatus status = this.statusMapper.resolve(exception);
+
+        if (status.is5xxServerError()) {
+            log.error("unhandled_exception exception={} message={} path={} requestId={} userId={}",
+                    exception.getClass().getSimpleName(), exception.getMessage(), request.getRequestURI(),
+                    MDC.get(MDCKeys.REQUEST_ID), MDC.get(MDCKeys.USER_ID), exception);
+        }
 
         ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now().withNano(0),

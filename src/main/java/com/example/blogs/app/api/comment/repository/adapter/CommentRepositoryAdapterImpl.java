@@ -3,7 +3,11 @@ package com.example.blogs.app.api.comment.repository.adapter;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.exception.FailedToFindCommentsByPostIdException;
 import com.example.blogs.app.api.comment.repository.CommentRepository;
+import com.example.blogs.app.logging.MDCKeys;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +18,8 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
+
+    private static final Logger log = LoggerFactory.getLogger(CommentRepositoryAdapterImpl.class);
 
     private final CommentRepository commentRepository;
 
@@ -29,7 +35,9 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
     public List<CommentEntity> findAllByPostId(Long postId) {
         try {
             return commentRepository.findAllByPostId(postId);
-        } catch (Exception e) {
+        } catch (Exception e) { 
+            log.error("database_operation_failed operation=findAllByPostId postId={} error={} requestId={}",
+                    postId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToFindCommentsByPostIdException(e);
         }
     }

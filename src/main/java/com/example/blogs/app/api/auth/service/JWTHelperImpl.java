@@ -1,11 +1,15 @@
 package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.exception.FailedToParseClaimsException;
+import com.example.blogs.app.logging.MDCKeys;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +27,8 @@ import java.util.Map;
 @Getter
 @Component
 public class JWTHelperImpl implements JWTHelper {
+
+    private static final Logger log = LoggerFactory.getLogger(JWTHelperImpl.class);
 
     private final SecretKey signingKey;
 
@@ -86,6 +92,7 @@ public class JWTHelperImpl implements JWTHelper {
             Jws<Claims> claimsJws = jwtParser.parseSignedClaims(token);
             return claimsJws.getPayload();
         } catch (Exception e) {
+            log.warn("jwt_parse_failed error={} requestId={}", e.getMessage(), MDC.get(MDCKeys.REQUEST_ID));
             throw new FailedToParseClaimsException(e);
         }
     }
