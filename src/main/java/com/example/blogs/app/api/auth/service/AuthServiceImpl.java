@@ -8,8 +8,12 @@ import com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryA
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.service.UserService;
+import com.example.blogs.app.logging.MDCKeys;
 import com.example.blogs.app.security.Hasher;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,8 @@ import java.util.Map;
 @Service
 @AllArgsConstructor
 public class AuthServiceImpl implements AuthService {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     private final UserService userService;
 
@@ -48,6 +54,9 @@ public class AuthServiceImpl implements AuthService {
 
         UserEntity user = userService.createUser(command);
 
+        log.info("user_registered userId={} username={} requestId={}",
+                user.getId(), user.getUsername(), MDC.get(MDCKeys.REQUEST_ID));
+
         return tokenPairGenerator.generateTokens(user);
     }
 
@@ -58,13 +67,20 @@ public class AuthServiceImpl implements AuthService {
         try {
             user = userService.getUserByUsernameOrEmail(loginRequest.usernameOrEmail());
         } catch (Exception e) {
+            log.warn("authentication_failed reason=user_not_found usernameOrEmail={} requestId={}",
+                    loginRequest.usernameOrEmail(), MDC.get(MDCKeys.REQUEST_ID));
             throw new InvalidCredentialsException(e);
         }
 
         boolean matches = passwordEncoder.matches(loginRequest.password(), user.getPasswordHash());
         if (!matches) {
+            log.warn("authentication_failed reason=invalid_password userId={} requestId={}",
+                    user.getId(), MDC.get(MDCKeys.REQUEST_ID));
             throw new InvalidCredentialsException(null);
         }
+
+        log.info("user_logged_in userId={} username={} requestId={}",
+                user.getId(), user.getUsername(), MDC.get(MDCKeys.REQUEST_ID));
 
         return tokenPairGenerator.generateTokens(user);
     }
@@ -81,6 +97,7 @@ public class AuthServiceImpl implements AuthService {
     public AccessTokenResponse refreshAccessToken(RefreshTokenRequest tokenRequest) {
         String tokenHash = hasher.hash(tokenRequest.refreshToken());
         if (revokedTokenRepositoryAdapter.isTokenRevoked(tokenHash)) {
+            log.warn("token_refresh_failed reason=token_revoked requestId={}", MDC.get(MDCKeys.REQUEST_ID));
             throw new UnauthorizedException(null);
         }
 
@@ -88,12 +105,16 @@ public class AuthServiceImpl implements AuthService {
         try {
             claims = jwtService.parseClaims(tokenRequest.refreshToken());
         } catch (Exception e) {
+            log.warn("token_refresh_failed reason=invalid_token error={} requestId={}",
+                    e.getMessage(), MDC.get(MDCKeys.REQUEST_ID));
             throw new UnauthorizedException(e);
         }
 
         String subject = claims.get("sub").toString();
 
         if (!"refresh".equals(claims.get("type"))) {
+            log.warn("token_refresh_failed reason=wrong_token_type userId={} requestId={}",
+                    subject, MDC.get(MDCKeys.REQUEST_ID));
             throw new UnauthorizedException(null);
         }
 
@@ -105,6 +126,9 @@ public class AuthServiceImpl implements AuthService {
 
         String accessToken = jwtService.generateAccessToken(subject, accessTokenClaims);
 
+        log.info("access_token_refreshed userId={} requestId={}",
+                claims.get("id"), MDC.get(MDCKeys.REQUEST_ID));
+
         return new AccessTokenResponse(accessToken);
     }
 
@@ -114,6 +138,8 @@ public class AuthServiceImpl implements AuthService {
         try {
             claims = jwtService.parseClaims(logoutRequest.refreshToken());
         } catch (Exception e) {
+            log.warn("logout_failed reason=invalid_token error={} requestId={}",
+                    e.getMessage(), MDC.get(MDCKeys.REQUEST_ID));
             throw new UnauthorizedException(e);
         }
 
@@ -123,7 +149,11 @@ public class AuthServiceImpl implements AuthService {
         );
 
         String tokenHash = hasher.hash(logoutRequest.refreshToken());
+        RevokedTokenEntity revokedToken = revokedTokenRepositoryAdapter.saveRevokedToken(tokenHash, expiresAt);
 
-        return revokedTokenRepositoryAdapter.saveRevokedToken(tokenHash, expiresAt);
+        log.info("user_logged_out userId={} requestId={}",
+                claims.get("id"), MDC.get(MDCKeys.REQUEST_ID));
+
+        return revokedToken;
     }
 }

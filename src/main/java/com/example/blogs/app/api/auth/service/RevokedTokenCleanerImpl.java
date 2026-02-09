@@ -1,6 +1,8 @@
 package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
 @Component
 public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingConfigurer {
 
+    private static final Logger log = LoggerFactory.getLogger(RevokedTokenCleanerImpl.class);
+
     private final RevokedTokenRepositoryAdapter revokedTokenRepositoryAdapter;
 
     private final String cron;
@@ -24,7 +28,7 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
      * Constructs a new revoked token cleaner with repository adapter and cron schedule.
      *
      * @param revokedTokenRepositoryAdapter adapter for accessing revoked token data
-     * @param cron cron expression defining cleanup schedule (e.g., "0 0 2 * * *" for 2 AM daily)
+     * @param cron                          cron expression defining cleanup schedule (e.g., "0 0 2 * * *" for 2 AM daily)
      */
     public RevokedTokenCleanerImpl(
             RevokedTokenRepositoryAdapter revokedTokenRepositoryAdapter,
@@ -56,5 +60,6 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
     public void cleanUpExpiredTokens() {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         revokedTokenRepositoryAdapter.deleteExpiredTokens(now);
+        log.info("token_cleanup_completed timestamp={}", now);
     }
 }
