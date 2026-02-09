@@ -3,13 +3,14 @@ package com.example.blogs.app.api.file.service;
 import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.file.exception.FailedToUploadFileException;
 import com.example.blogs.app.api.file.repository.adapter.FileRepositoryAdapter;
+import com.example.blogs.app.logging.MDCKeys;
 import com.example.blogs.app.storage.S3BucketService;
 import com.example.blogs.app.util.FileNameParts;
 import com.example.blogs.app.util.FileUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,17 +50,6 @@ public class FileServiceImpl implements FileService {
         String normalizedPath = fileUtils.normalizePath(filePath);
         String contentType = fileUtils.detectContentType(parts.extension());
 
-        MDC.put("fileId", fileId);
-        MDC.put("filePath", normalizedPath);
-        MDC.put("fileExt", parts.extension());
-
-        log.info(
-                "Starting file upload: name={}, size={}, contentType={}",
-                parts.name(),
-                file.getSize(),
-                contentType
-        );
-
         try {
             s3BucketService.upload(
                     normalizedPath,
@@ -69,32 +59,23 @@ public class FileServiceImpl implements FileService {
                     file.getBytes()
             );
 
-            log.info("File successfully uploaded to S3");
-
-            FileEntity saved =
-                    fileRepositoryAdapter.save(
-                            normalizedPath,
-                            parts.name(),
-                            parts.extension(),
-                            fileId
-                    );
-
-            log.info(
-                    "File metadata persisted: fileEntityId={}", saved.getId()
+            FileEntity saved = fileRepositoryAdapter.save(
+                    normalizedPath,
+                    parts.name(),
+                    parts.extension(),
+                    fileId
             );
+
+            log.info("file_uploaded fileId={} fileName={} size={} userId={} requestId={}",
+                    saved.getId(), parts.name(), file.getSize(),
+                    MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
 
             return saved;
 
-        } catch (Exception e) { //NOSONAR
-
-            log.error(
-                    "Failed to upload file to S3", e
-            );
-
+        } catch (Exception e) { 
+            log.error("file_upload_failed fileName={} fileId={} filePath={} error={} requestId={}",
+                    parts.name(), fileId, normalizedPath, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToUploadFileException(e);
-
-        } finally {
-            MDC.clear();
         }
     }
 
@@ -112,5 +93,7 @@ public class FileServiceImpl implements FileService {
                 fileEntity.getFileExtension()
         );
         fileRepositoryAdapter.deleteById(fileEntity.getId());
+        log.info("file_deleted fileId={} userId={} requestId={}",
+                fileEntity.getId(), MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
     }
 }

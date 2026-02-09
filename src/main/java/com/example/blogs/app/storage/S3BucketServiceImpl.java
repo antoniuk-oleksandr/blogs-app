@@ -1,7 +1,11 @@
 package com.example.blogs.app.storage;
 
 import com.example.blogs.app.api.file.exception.FailedToDeleteFileException;
+import com.example.blogs.app.logging.MDCKeys;
 import com.example.blogs.app.storage.exception.FailedToStoreFileException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -14,6 +18,8 @@ import software.amazon.awssdk.core.sync.RequestBody;
  */
 @Service
 public class S3BucketServiceImpl implements S3BucketService {
+
+    private static final Logger log = LoggerFactory.getLogger(S3BucketServiceImpl.class);
 
     private final S3Client s3Client;
 
@@ -67,7 +73,11 @@ public class S3BucketServiceImpl implements S3BucketService {
 
         try {
             s3Client.putObject(putRequest, RequestBody.fromBytes(fileData));
-        } catch (Exception e) {
+            log.info("s3_upload_success s3Key={} size={} userId={} requestId={}",
+                    s3Key, fileData.length, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
+        } catch (Exception e) { 
+            log.error("s3_upload_failed s3Key={} error={} userId={} requestId={}",
+                    s3Key, e.getMessage(), MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToStoreFileException(e);
         }
     }
@@ -91,7 +101,11 @@ public class S3BucketServiceImpl implements S3BucketService {
 
         try {
             s3Client.deleteObject(deleteRequest);
-        } catch (Exception e) {
+            log.info("s3_delete_success s3Key={} userId={} requestId={}",
+                    s3Key, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
+        } catch (Exception e) { 
+            log.error("s3_delete_failed s3Key={} error={} userId={} requestId={}",
+                    s3Key, e.getMessage(), MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToDeleteFileException(e);
         }
     }

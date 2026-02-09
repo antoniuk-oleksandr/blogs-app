@@ -4,7 +4,11 @@ import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.file.exception.FailedToDeleteFileByIdException;
 import com.example.blogs.app.api.file.exception.FailedToSaveFileException;
 import com.example.blogs.app.api.file.repository.FileRepository;
+import com.example.blogs.app.logging.MDCKeys;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +17,8 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class FileRepositoryAdapterImpl implements FileRepositoryAdapter {
+
+    private static final Logger log = LoggerFactory.getLogger(FileRepositoryAdapterImpl.class);
 
     private final FileRepository fileRepository;
 
@@ -38,7 +44,9 @@ public class FileRepositoryAdapterImpl implements FileRepositoryAdapter {
 
         try {
             return fileRepository.save(file);
-        } catch (Exception e) {
+        } catch (Exception e) { 
+            log.error("database_operation_failed operation=save fileName={} fileId={} error={} requestId={}",
+                    fileName, uuid, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToSaveFileException(e);
         }
     }
@@ -53,7 +61,9 @@ public class FileRepositoryAdapterImpl implements FileRepositoryAdapter {
     public void deleteById(Long fileId) {
         try {
             fileRepository.deleteById(fileId);
-        } catch (Exception e) {
+        } catch (Exception e) { 
+            log.error("database_operation_failed operation=deleteById fileId={} error={} requestId={}",
+                    fileId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToDeleteFileByIdException(e);
         }
     }
