@@ -3,7 +3,11 @@ package com.example.blogs.app.api.post.repository.adapter;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.exception.*;
 import com.example.blogs.app.api.post.repository.PostRepository;
+import com.example.blogs.app.logging.MDCKeys;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +18,8 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
+
+    private static final Logger log = LoggerFactory.getLogger(PostRepositoryAdapterImpl.class);
 
     private final PostRepository postRepository;
 
@@ -30,6 +36,8 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         try {
             return postRepository.findByAuthorId(userId);
         } catch (Exception e) {
+            log.error("database_operation_failed operation=findByAuthorId authorId={} error={} requestId={}",
+                    userId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToFindPostsByAuthorIdException(e);
         }
     }
@@ -52,6 +60,8 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         } catch (PostNotFoundException e) {
             throw e;
         } catch (Exception e) {
+            log.error("database_operation_failed operation=deleteById postId={} error={} requestId={}",
+                    postId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToDeletePostException(e);
         }
     }
@@ -72,7 +82,9 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
                     .orElseThrow(() -> new PostNotFoundException(null));
         } catch (PostNotFoundException e) {
             throw e;
-        } catch (Exception e) {
+        } catch (Exception e) { 
+            log.error("database_operation_failed operation=findBySlug slug={} error={} requestId={}",
+                    slug, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToFindPostBySlugException(e);
         }
     }
@@ -116,7 +128,9 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
                     .orElseThrow(() -> new PostNotFoundException(null));
         } catch (PostNotFoundException e) {
             throw e;
-        } catch (Exception e) {
+        } catch (Exception e) { 
+            log.error("database_operation_failed operation=findById postId={} error={} requestId={}",
+                    postId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToFindPostByIdException(e);
         }
     }
@@ -133,7 +147,9 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
     public PostEntity update(PostEntity postEntity) {
         try {
             return postRepository.save(postEntity);
-        } catch (Exception e) {
+        } catch (Exception e) { 
+            log.error("database_operation_failed operation=update postId={} error={} requestId={}",
+                    postEntity.getId(), e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToUpdatePostException(e);
         }
     }
@@ -150,7 +166,9 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
     public PostEntity save(PostEntity postEntity) {
         try {
             return postRepository.save(postEntity);
-        } catch (Exception e) {
+        } catch (Exception e) { 
+            log.error("database_operation_failed operation=save title={} authorId={} error={} requestId={}",
+                    postEntity.getTitle(), postEntity.getAuthor().getId(), e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToSavePostException(e);
         }
     }

@@ -3,8 +3,12 @@ package com.example.blogs.app.api.post.service;
 import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.file.service.FileService;
 import com.example.blogs.app.api.post.exception.FailedToRollbackS3FileException;
+import com.example.blogs.app.logging.MDCKeys;
 import com.example.blogs.app.storage.S3BucketService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -16,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @AllArgsConstructor
 public class TransactionalFileUploader {
+
+    private static final Logger log = LoggerFactory.getLogger(TransactionalFileUploader.class);
 
     private final FileService fileService;
 
@@ -45,7 +51,10 @@ public class TransactionalFileUploader {
                                         uploadedFile.getUuid(),
                                         uploadedFile.getFileExtension()
                                 );
-                            } catch (Exception e) {
+                            } catch (Exception e) { 
+                                log.error("s3_rollback_failed fileId={} filePath={} error={} requestId={}",
+                                        uploadedFile.getId(), uploadedFile.getFilePath(),
+                                        e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
                                 throw new FailedToRollbackS3FileException(e);
                             }
                         }
