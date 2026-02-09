@@ -16,12 +16,25 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * Generates unique request IDs and logs HTTP request completion metrics including duration and status.
+ */
 @Component
 @Order(1)
 public class RequestLoggingFilter extends OncePerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(RequestLoggingFilter.class);
 
+    /**
+     * Wraps each request with a unique request ID, measures execution time, and logs completion details.
+     * Ensures MDC is properly cleaned up after request processing regardless of success or failure.
+     *
+     * @param request     the HTTP request
+     * @param response    the HTTP response
+     * @param filterChain the filter chain to continue processing
+     * @throws ServletException if request processing fails
+     * @throws IOException      if an I/O error occurs during filtering
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
