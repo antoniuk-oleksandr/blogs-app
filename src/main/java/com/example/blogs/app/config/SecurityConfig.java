@@ -1,6 +1,8 @@
 package com.example.blogs.app.config;
 
 import com.example.blogs.app.exception.JwtAuthenticationEntryPoint;
+import com.example.blogs.app.logging.MdcPopulatingFilter;
+import com.example.blogs.app.logging.RequestLoggingFilter;
 import com.example.blogs.app.security.JWTToUserPrincipalConverter;
 import com.example.blogs.app.security.JwtExceptionFilter;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,6 +33,10 @@ public class SecurityConfig {
 
     private final JwtExceptionFilter jwtExceptionFilter;
 
+    private final RequestLoggingFilter requestLoggingFilter;
+
+    private final MdcPopulatingFilter mdcPopulatingFilter;
+
     /**
      * Configures the security filter chain with JWT-based stateless authentication.
      * Protects /auth/me endpoint and permits all other requests.
@@ -41,7 +48,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .addFilterBefore(requestLoggingFilter, SecurityContextHolderFilter.class)
                 .addFilterBefore(jwtExceptionFilter, BearerTokenAuthenticationFilter.class)
+                .addFilterAfter(mdcPopulatingFilter, BearerTokenAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/auth/me").authenticated()

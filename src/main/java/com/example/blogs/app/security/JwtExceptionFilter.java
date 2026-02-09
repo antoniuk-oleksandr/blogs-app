@@ -1,6 +1,7 @@
 package com.example.blogs.app.security;
 
 import com.example.blogs.app.exception.ErrorResponseWriter;
+import com.example.blogs.app.logging.MDCKeys;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -8,6 +9,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,6 +24,8 @@ import java.io.IOException;
 @Component
 @AllArgsConstructor
 public class JwtExceptionFilter extends OncePerRequestFilter {
+
+    private static final Logger log = LoggerFactory.getLogger(JwtExceptionFilter.class);
 
     private final ObjectMapper objectMapper;
 
@@ -45,6 +51,8 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (JwtException ex) {
+            log.warn("jwt_validation_failed error={} path={} requestId={}",
+                    ex.getMessage(), request.getRequestURI(), MDC.get(MDCKeys.REQUEST_ID));
             errorResponseWriter.writeErrorResponse(
                     response,
                     request,

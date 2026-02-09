@@ -1,11 +1,15 @@
 package com.example.blogs.app.exception;
 
+import com.example.blogs.app.logging.MDCKeys;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -19,6 +23,8 @@ import java.io.IOException;
 @Component
 @AllArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+    private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
 
     private final ObjectMapper objectMapper;
 
@@ -40,11 +46,16 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
             AuthenticationException authException
     ) throws IOException {
         String message = "Invalid or expired JWT token";
+        String reason = "invalid_token";
 
         Throwable cause = authException.getCause();
         if (cause instanceof JwtException && cause.getCause() instanceof ExpiredJwtException) {
             message = "JWT token has expired";
+            reason = "token_expired";
         }
+
+        log.warn("authentication_failed reason={} path={} requestId={}",
+                reason, request.getRequestURI(), MDC.get(MDCKeys.REQUEST_ID));
 
         errorResponseWriter.writeErrorResponse(
                 response,
