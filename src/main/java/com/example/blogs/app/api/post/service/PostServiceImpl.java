@@ -100,8 +100,8 @@ public class PostServiceImpl implements PostService {
                 ))
                 .orElse(null);
 
-        log.info("post_viewed postId={} slug={} commentCount={} requestId={}",
-                post.getId(), slug, comments.size(), MDC.get(MDCKeys.REQUEST_ID));
+        log.info("post_viewed postId={} commentCount={} requestId={}",
+                post.getId(), comments.size(), MDC.get(MDCKeys.REQUEST_ID));
 
         return postMapper.toPostDTO(post, comments, previewImageUrl);
     }

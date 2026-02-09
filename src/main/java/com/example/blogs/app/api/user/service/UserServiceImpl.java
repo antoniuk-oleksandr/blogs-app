@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepositoryAdapter.findByUsername(username);
         List<PostEntity> postEntities = postService.getPostsByUserId(userEntity.getId());
 
-        log.info("user_profile_viewed userId={} username={} postCount={} requestId={}",
-                userEntity.getId(), username, postEntities.size(), MDC.get(MDCKeys.REQUEST_ID));
+        log.info("user_profile_viewed userId={} postCount={} requestId={}",
+                userEntity.getId(), postEntities.size(), MDC.get(MDCKeys.REQUEST_ID));
 
         return userMapper.toUserDTO(userEntity, postEntities);
     }
