@@ -7,7 +7,11 @@ import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.mapper.UserMapper;
 import com.example.blogs.app.api.user.repository.adapter.UserRepositoryAdapter;
+import com.example.blogs.app.logging.MDCKeys;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +22,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
+
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserRepositoryAdapter userRepositoryAdapter;
 
@@ -48,6 +54,9 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserByUsername(String username) {
         UserEntity userEntity = userRepositoryAdapter.findByUsername(username);
         List<PostEntity> postEntities = postService.getPostsByUserId(userEntity.getId());
+
+        log.info("user_profile_viewed userId={} username={} postCount={} requestId={}",
+                userEntity.getId(), username, postEntities.size(), MDC.get(MDCKeys.REQUEST_ID));
 
         return userMapper.toUserDTO(userEntity, postEntities);
     }
