@@ -1,6 +1,6 @@
 package com.example.blogs.app.api.comment.service;
 
-import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
+import com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO;
 import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 
@@ -28,7 +28,7 @@ public interface CommentService {
      * @param requestDTO request containing the comment content
      * @return newly created comment as DTO
      */
-    CommentDTO createComment(Long postId, Long userId, CommentCreateRequestDTO requestDTO);
+    CommentDTO createComment(Long postId, Long userId, CommentWriteRequestDTO requestDTO);
 
     /**
      * Deletes a comment by its ID.
@@ -37,4 +37,14 @@ public interface CommentService {
      * @param commentId the ID of the comment to delete
      */
     void deleteCommentById(Long commentId);
+
+    /**
+     * Updates a comment by its ID with new content.
+     * Marks the comment as edited and persists the changes.
+     *
+     * @param commentId the ID of the comment to update
+     * @param requestDTO request containing the updated comment content
+     * @return updated comment as DTO
+     */
+    CommentDTO updateCommentById(Long commentId, CommentWriteRequestDTO requestDTO);
 }

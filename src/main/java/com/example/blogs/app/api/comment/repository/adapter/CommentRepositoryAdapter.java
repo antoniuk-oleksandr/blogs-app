@@ -1,9 +1,7 @@
 package com.example.blogs.app.api.comment.repository.adapter;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
-import com.example.blogs.app.api.comment.exception.FailedToCheckCommentExistenceException;
-import com.example.blogs.app.api.comment.exception.FailedToCreateCommentException;
-import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
+import com.example.blogs.app.api.comment.exception.*;
 
 import java.util.List;
 
@@ -42,7 +40,7 @@ public interface CommentRepositoryAdapter {
      * Checks if a comment exists with the specified ID and author ID.
      *
      * @param commentId the ID of the comment
-     * @param authorId the ID of the author
+     * @param authorId  the ID of the author
      * @return true if a comment with the given ID and author exists, false otherwise
      * @throws FailedToCheckCommentExistenceException if the check operation fails
      */
@@ -55,4 +53,14 @@ public interface CommentRepositoryAdapter {
      * @throws FailedToDeleteCommentException if the delete operation fails
      */
     void deleteById(Long commentId);
+
+    /**
+     * Retrieves a comment by its ID with exception translation.
+     *
+     * @param commentId the ID of the comment to retrieve
+     * @return the comment entity if found
+     * @throws CommentNotFoundException if the comment does not exist
+     * @throws FailedToFindCommentByIdException if the retrieval operation fails
+     */
+    CommentEntity findById(Long commentId);
 }

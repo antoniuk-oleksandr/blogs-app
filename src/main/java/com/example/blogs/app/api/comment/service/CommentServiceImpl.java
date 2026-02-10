@@ -1,8 +1,9 @@
 package com.example.blogs.app.api.comment.service;
 
-import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
+import com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO;
 import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.comment.exception.FailedToUpdateCommentException;
 import com.example.blogs.app.api.comment.mapper.CommentMapper;
 import com.example.blogs.app.api.comment.repository.adapter.CommentRepositoryAdapter;
 import com.example.blogs.app.api.post.entity.PostEntity;
@@ -51,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
      * @return newly created comment as DTO
      */
     @Override
-    public CommentDTO createComment(Long postId, Long userId, CommentCreateRequestDTO requestDTO) {
+    public CommentDTO createComment(Long postId, Long userId, CommentWriteRequestDTO requestDTO) {
         PostEntity post = PostEntity.builder()
                 .id(postId)
                 .build();
@@ -82,5 +83,39 @@ public class CommentServiceImpl implements CommentService {
     public void deleteCommentById(Long commentId) {
         commentRepositoryAdapter.deleteById(commentId);
         log.info("comment_deleted commentId={} requestId={}", commentId, MDC.get(MDCKeys.REQUEST_ID));
+    }
+
+    /**
+     * Updates a comment by its ID with new content.
+     * Retrieves the comment, updates its content, marks it as edited, and persists the changes.
+     *
+     * @param commentId the ID of the comment to update
+     * @param requestDTO request containing the updated comment content
+     * @return updated comment as DTO
+     * @throws FailedToUpdateCommentException if the update operation fails
+     */
+    @Override
+    public CommentDTO updateCommentById(Long commentId, CommentWriteRequestDTO requestDTO) {
+        CommentEntity comment = commentRepositoryAdapter.findById(commentId);
+
+        comment.setContent(requestDTO.content());
+        comment.setEdited(true);
+
+        CommentEntity savedComment;
+        try {
+            savedComment = commentRepositoryAdapter.save(comment);
+        } catch (Exception e) {
+            log.error("Failed to update comment with id commentId={}: exception={}", commentId, e.getMessage());
+            throw new FailedToUpdateCommentException(e);
+        }
+
+        log.info("comment_updated commentId={} userId={} requestId={}",
+                commentId, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
+
+        return commentMapper.toCommentDTO(
+                savedComment,
+                savedComment.getPost().getId(),
+                savedComment.getAuthor().getId()
+        );
     }
 }

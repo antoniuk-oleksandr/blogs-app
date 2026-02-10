@@ -1,10 +1,7 @@
 package com.example.blogs.app.api.comment.repository.adapter;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
-import com.example.blogs.app.api.comment.exception.FailedToCheckCommentExistenceException;
-import com.example.blogs.app.api.comment.exception.FailedToCreateCommentException;
-import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
-import com.example.blogs.app.api.comment.exception.FailedToFindCommentsByPostIdException;
+import com.example.blogs.app.api.comment.exception.*;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.repository.CommentRepository;
 import com.example.blogs.app.api.post.entity.PostEntity;
@@ -184,5 +181,46 @@ class CommentRepositoryAdapterTest {
                 .isInstanceOf(FailedToCheckCommentExistenceException.class)
                 .hasMessageContaining("Failed to check comment existence");
         verify(commentRepository).existsByIdAndAuthorId(commentId, authorId);
+    }
+
+    @Test
+    void findBydId_shouldReturnComment_whenCommentExists() {
+        Long commentId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockUser = UserFixtures.user(1L, now);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
+        CommentEntity mockComment = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
+
+        when(commentRepository.findById(anyLong())).thenReturn(java.util.Optional.of(mockComment));
+
+        CommentEntity actualComment = commentRepositoryAdapter.findById(commentId);
+
+        assertThat(actualComment).isEqualTo(mockComment);
+        verify(commentRepository).findById(commentId);
+    }
+
+    @Test
+    void findById_shouldThrowCommentNotFoundException_whenCommentDoesNotExist() {
+        Long commentId = 1L;
+
+        when(commentRepository.findById(anyLong())).thenReturn(java.util.Optional.empty());
+
+        assertThatThrownBy(() -> commentRepositoryAdapter.findById(commentId))
+                .isInstanceOf(CommentNotFoundException.class)
+                .hasMessage("Comment not found");
+        verify(commentRepository).findById(commentId);
+    }
+
+    @Test
+    void findBydId_shouldThrowFailedToFindCommentByIdException_whenDBExceptionOccurs() {
+        Long commentId = 1L;
+
+        when(commentRepository.findById(anyLong()))
+                .thenThrow(new RuntimeException("Db exception"));
+
+        assertThatThrownBy(() -> commentRepositoryAdapter.findById(commentId))
+                .isInstanceOf(FailedToFindCommentByIdException.class)
+                .hasMessage("Failed to find comment by ID");
+        verify(commentRepository).findById(commentId);
     }
 }

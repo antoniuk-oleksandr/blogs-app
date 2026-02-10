@@ -315,13 +315,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Meta-annotation combining all OpenAPI documentation for the delete comment endpoint.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.dto">CommentCreateRequestDTO</a> - Record Class in <a href="com/example/blogs/app/api/comment/dto/package-summary.html">com.example.blogs.app.api.comment.dto</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/docs/CommentControllerDocs.UpdateCommentById.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.comment.docs">CommentControllerDocs.UpdateCommentById</a> - Annotation Interface in <a href="com/example/blogs/app/api/comment/docs/package-summary.html">com.example.blogs.app.api.comment.docs</a></dt>
 <dd>
-<div class="block">Data transfer object for creating a new comment.</div>
-</dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html#%3Cinit%3E(java.lang.String)" class="member-name-link">CommentCreateRequestDTO(String)</a> - Constructor for record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentCreateRequestDTO</a></dt>
-<dd>
-<div class="block">Creates an instance of a <code>CommentCreateRequestDTO</code> record class.</div>
+<div class="block">Meta-annotation combining all OpenAPI documentation for the update comment endpoint.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a> - Record Class in <a href="com/example/blogs/app/api/comment/dto/package-summary.html">com.example.blogs.app.api.comment.dto</a></dt>
 <dd>
@@ -383,6 +379,14 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html#%3Cinit%3E()" class="member-name-link">CommentServiceImpl()</a> - Constructor for class com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.dto">CommentWriteRequestDTO</a> - Record Class in <a href="com/example/blogs/app/api/comment/dto/package-summary.html">com.example.blogs.app.api.comment.dto</a></dt>
+<dd>
+<div class="block">Data transfer object for creating or updating a comment.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html#%3Cinit%3E(java.lang.String)" class="member-name-link">CommentWriteRequestDTO(String)</a> - Constructor for record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentWriteRequestDTO</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>CommentWriteRequestDTO</code> record class.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html#configureTasks(org.springframework.scheduling.config.ScheduledTaskRegistrar)" class="member-name-link">configureTasks(ScheduledTaskRegistrar)</a> - Method in class com.example.blogs.app.api.auth.service.<a href="com/example/blogs/app/api/auth/service/RevokedTokenCleanerImpl.html" title="class in com.example.blogs.app.api.auth.service">RevokedTokenCleanerImpl</a></dt>
 <dd>
 <div class="block">Configures the scheduled task with a dynamic cron trigger.</div>
@@ -392,11 +396,11 @@ loadScripts(document, 'script');</script>
 <div class="block">Checks if an exception chain contains a PostgreSQL unique constraint violation
  for a specific column.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html#content()" class="member-name-link">content()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentCreateRequestDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#content()" class="member-name-link">content()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>content</code> record component.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#content()" class="member-name-link">content()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html#content()" class="member-name-link">content()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentWriteRequestDTO</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>content</code> record component.</div>
 </dd>
@@ -440,15 +444,15 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates JWT claims map from user entity data with token type.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/controller/CommentController.html#createComment(com.example.blogs.app.security.UserPrincipal,java.lang.Long,com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO)" class="member-name-link">createComment(UserPrincipal, Long, CommentCreateRequestDTO)</a> - Method in class com.example.blogs.app.api.comment.controller.<a href="com/example/blogs/app/api/comment/controller/CommentController.html" title="class in com.example.blogs.app.api.comment.controller">CommentController</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/controller/CommentController.html#createComment(com.example.blogs.app.security.UserPrincipal,java.lang.Long,com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO)" class="member-name-link">createComment(UserPrincipal, Long, CommentWriteRequestDTO)</a> - Method in class com.example.blogs.app.api.comment.controller.<a href="com/example/blogs/app/api/comment/controller/CommentController.html" title="class in com.example.blogs.app.api.comment.controller">CommentController</a></dt>
 <dd>
 <div class="block">Creates a new comment on a specific post.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/service/CommentService.html#createComment(java.lang.Long,java.lang.Long,com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO)" class="member-name-link">createComment(Long, Long, CommentCreateRequestDTO)</a> - Method in interface com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentService.html" title="interface in com.example.blogs.app.api.comment.service">CommentService</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentService.html#createComment(java.lang.Long,java.lang.Long,com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO)" class="member-name-link">createComment(Long, Long, CommentWriteRequestDTO)</a> - Method in interface com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentService.html" title="interface in com.example.blogs.app.api.comment.service">CommentService</a></dt>
 <dd>
 <div class="block">Creates a new comment on a specific post.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html#createComment(java.lang.Long,java.lang.Long,com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO)" class="member-name-link">createComment(Long, Long, CommentCreateRequestDTO)</a> - Method in class com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html#createComment(java.lang.Long,java.lang.Long,com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO)" class="member-name-link">createComment(Long, Long, CommentWriteRequestDTO)</a> - Method in class com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></dt>
 <dd>
 <div class="block">Creates a new comment on a specific post.</div>
 </dd>
@@ -670,11 +674,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentCreateRequestDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentWriteRequestDTO</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </dd>
@@ -899,6 +903,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Constructs a new FailedToDeletePostException with a default message and underlying cause.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentByIdException.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.exception">FailedToFindCommentByIdException</a> - Exception Class in <a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when a comment lookup by ID operation fails.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentByIdException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">FailedToFindCommentByIdException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.comment.exception.<a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentByIdException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToFindCommentByIdException</a></dt>
+<dd>
+<div class="block">Constructs a new exception with a default message and cause.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/comment/exception/FailedToFindCommentsByPostIdException.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.exception">FailedToFindCommentsByPostIdException</a> - Exception Class in <a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a></dt>
 <dd>
 <div class="block">Exception thrown when comment retrieval by post ID fails due to a system error.</div>
@@ -986,6 +998,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/storage/exception/FailedToStoreFileException.html#%3Cinit%3E(java.lang.Throwable)" class="member-name-link">FailedToStoreFileException(Throwable)</a> - Constructor for exception class com.example.blogs.app.storage.exception.<a href="com/example/blogs/app/storage/exception/FailedToStoreFileException.html" title="class in com.example.blogs.app.storage.exception">FailedToStoreFileException</a></dt>
 <dd>
 <div class="block">Constructs a new exception with the cause of the failure.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToUpdateCommentException.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.exception">FailedToUpdateCommentException</a> - Exception Class in <a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when a comment update operation fails.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToUpdateCommentException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">FailedToUpdateCommentException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.comment.exception.<a href="com/example/blogs/app/api/comment/exception/FailedToUpdateCommentException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToUpdateCommentException</a></dt>
+<dd>
+<div class="block">Constructs a new exception with a default message and cause.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/post/exception/FailedToUpdatePostException.html" class="type-name-link" title="class in com.example.blogs.app.api.post.exception">FailedToUpdatePostException</a> - Exception Class in <a href="com/example/blogs/app/api/post/exception/package-summary.html">com.example.blogs.app.api.post.exception</a></dt>
 <dd>
@@ -1101,6 +1121,16 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Retrieves a post by its ID.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html#findById(java.lang.Long)" class="member-name-link">findById(Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Retrieves a comment by its ID with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html#findById(java.lang.Long)" class="member-name-link">findById(Long)</a> - Method in class com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a></dt>
+<dd>
+<div class="block">Retrieves a comment by its ID with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/CommentRepository.html#findById(java.lang.Long)" class="member-name-link">findById(Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.<a href="com/example/blogs/app/api/comment/repository/CommentRepository.html" title="interface in com.example.blogs.app.api.comment.repository">CommentRepository</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html#findBySlug(java.lang.String)" class="member-name-link">findBySlug(String)</a> - Method in interface com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></dt>
 <dd>
 <div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
@@ -1317,11 +1347,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentCreateRequestDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentWriteRequestDTO</a></dt>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
@@ -2206,11 +2236,11 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentCreateRequestDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
-<dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
+<dt><a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html#toString()" class="member-name-link">toString()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentWriteRequestDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentWriteRequestDTO</a></dt>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
@@ -2302,6 +2332,18 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html#update(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">update(PostEntity)</a> - Method in class com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapterImpl</a></dt>
 <dd>
 <div class="block">Updates a post entity with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/controller/CommentController.html#updateCommentById(java.lang.Long,com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO)" class="member-name-link">updateCommentById(Long, CommentWriteRequestDTO)</a> - Method in class com.example.blogs.app.api.comment.controller.<a href="com/example/blogs/app/api/comment/controller/CommentController.html" title="class in com.example.blogs.app.api.comment.controller">CommentController</a></dt>
+<dd>
+<div class="block">Updates a comment by its ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentService.html#updateCommentById(java.lang.Long,com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO)" class="member-name-link">updateCommentById(Long, CommentWriteRequestDTO)</a> - Method in interface com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentService.html" title="interface in com.example.blogs.app.api.comment.service">CommentService</a></dt>
+<dd>
+<div class="block">Updates a comment by its ID with new content.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html#updateCommentById(java.lang.Long,com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO)" class="member-name-link">updateCommentById(Long, CommentWriteRequestDTO)</a> - Method in class com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></dt>
+<dd>
+<div class="block">Updates a comment by its ID with new content.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/comment/dto/CommentDTO.html#updatedAt()" class="member-name-link">updatedAt()</a> - Method in record class com.example.blogs.app.api.comment.dto.<a href="com/example/blogs/app/api/comment/dto/CommentDTO.html" title="class in com.example.blogs.app.api.comment.dto">CommentDTO</a></dt>
 <dd>

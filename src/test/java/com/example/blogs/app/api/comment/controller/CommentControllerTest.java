@@ -1,9 +1,10 @@
 package com.example.blogs.app.api.comment.controller;
 
 import com.example.blogs.app.api.auth.fixture.AuthFixtures;
-import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
+import com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO;
 import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
+import com.example.blogs.app.api.comment.exception.FailedToUpdateCommentException;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.service.CommentService;
 import com.example.blogs.app.exception.ErrorResponseWriter;
@@ -67,7 +68,7 @@ class CommentControllerTest {
         LocalDateTime now = LocalDateTime.now();
         String nowStr = objectMapper.writeValueAsString(now).replace("\"", "");
         CommentDTO mockCommentDTO = CommentFixtures.commentDTO(commentId, postId, authorId, now);
-        when(commentService.createComment(anyLong(), anyLong(), any(CommentCreateRequestDTO.class)))
+        when(commentService.createComment(anyLong(), anyLong(), any(CommentWriteRequestDTO.class)))
                 .thenReturn(mockCommentDTO);
 
         try {
@@ -87,7 +88,7 @@ class CommentControllerTest {
                     .andExpect(jsonPath("$.updatedAt").value(nowStr))
                     .andExpect(jsonPath("$.edited").value(edited));
 
-            verify(commentService).createComment(eq(authorId), eq(postId), any(CommentCreateRequestDTO.class));
+            verify(commentService).createComment(eq(authorId), eq(postId), any(CommentWriteRequestDTO.class));
         } finally {
             SecurityContextHolder.clearContext();
         }
@@ -161,7 +162,7 @@ class CommentControllerTest {
         Long postId = 1L;
         Long authorId = 1L;
 
-        when(commentService.createComment(anyLong(), anyLong(), any(CommentCreateRequestDTO.class)))
+        when(commentService.createComment(anyLong(), anyLong(), any(CommentWriteRequestDTO.class)))
                 .thenThrow(new RuntimeException("Database error"));
 
         try {
@@ -175,7 +176,7 @@ class CommentControllerTest {
                     .andExpect(status().isInternalServerError())
                     .andExpect(jsonPath("$.message").value("Database error"));
 
-            verify(commentService).createComment(eq(authorId), eq(postId), any(CommentCreateRequestDTO.class));
+            verify(commentService).createComment(eq(authorId), eq(postId), any(CommentWriteRequestDTO.class));
         } finally {
             SecurityContextHolder.clearContext();
         }
@@ -244,6 +245,173 @@ class CommentControllerTest {
                     .andExpect(jsonPath("$.message").value("Unexpected error"));
 
             verify(commentService).deleteCommentById(commentId);
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void updateCommentById_shouldUpdateCommentSuccessfully() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+        Long postId = 1L;
+        Long authorId = 1L;
+        String updatedContent = "Updated content";
+        LocalDateTime now = LocalDateTime.now();
+        String nowStr = objectMapper.writeValueAsString(now).replace("\"", "");
+
+        CommentDTO mockCommentDTO = CommentDTO.builder()
+                .id(commentId)
+                .postId(postId)
+                .authorId(authorId)
+                .content(updatedContent)
+                .createdAt(now)
+                .updatedAt(now)
+                .edited(true)
+                .build();
+
+        when(commentService.updateCommentById(eq(commentId), any(CommentWriteRequestDTO.class)))
+                .thenReturn(mockCommentDTO);
+
+        try {
+            mockMvc.perform(patch("/comments/{commentId}", commentId)
+                            .contentType("application/json")
+                            .content("""
+                                    {
+                                        "content": "Updated content"
+                                    }
+                                    """))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.id").value(commentId))
+                    .andExpect(jsonPath("$.postId").value(postId))
+                    .andExpect(jsonPath("$.authorId").value(authorId))
+                    .andExpect(jsonPath("$.content").value(updatedContent))
+                    .andExpect(jsonPath("$.createdAt").value(nowStr))
+                    .andExpect(jsonPath("$.updatedAt").value(nowStr))
+                    .andExpect(jsonPath("$.edited").value(true));
+
+            verify(commentService).updateCommentById(eq(commentId), any(CommentWriteRequestDTO.class));
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void updateCommentById_shouldReturn400_whenRequestBodyIsNull() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+
+        try {
+            mockMvc.perform(patch("/comments/{commentId}", commentId)
+                            .contentType("application/json"))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.message").value("Validation Failed"))
+                    .andExpect(jsonPath("$.errors[0]").value("Request body is required"));
+
+            verify(commentService, never()).updateCommentById(anyLong(), any());
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "null, null content",
+            ", empty content",
+            "\"   \", blank content"
+    })
+    @SneakyThrows
+    void updateCommentById_shouldReturn400_whenContentIsInvalid(String content, String testName) {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+
+        try {
+            mockMvc.perform(patch("/comments/{commentId}", commentId)
+                            .contentType("application/json")
+                            .content(String.format("""
+                                    {
+                                        "content": %s
+                                    }
+                                    """, content)))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(jsonPath("$.message").value("Validation Failed"))
+                    .andExpect(jsonPath("$.errors[0]").value("Content must not be blank"));
+
+            verify(commentService, never()).updateCommentById(anyLong(), any());
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void updateCommentById_shouldReturn500_whenServiceThrowsFailedToUpdateCommentException() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+
+        when(commentService.updateCommentById(eq(commentId), any(CommentWriteRequestDTO.class)))
+                .thenThrow(new FailedToUpdateCommentException(null));
+
+        try {
+            mockMvc.perform(patch("/comments/{commentId}", commentId)
+                            .contentType("application/json")
+                            .content("""
+                                    {
+                                        "content": "Updated content"
+                                    }
+                                    """))
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(jsonPath("$.message").value("Failed to update comment"));
+
+            verify(commentService).updateCommentById(eq(commentId), any(CommentWriteRequestDTO.class));
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void updateCommentById_shouldReturn500_whenServiceThrowsUnexpectedException() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+
+        when(commentService.updateCommentById(eq(commentId), any(CommentWriteRequestDTO.class)))
+                .thenThrow(new RuntimeException("Unexpected error"));
+
+        try {
+            mockMvc.perform(patch("/comments/{commentId}", commentId)
+                            .contentType("application/json")
+                            .content("""
+                                    {
+                                        "content": "Updated content"
+                                    }
+                                    """))
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(jsonPath("$.message").value("Unexpected error"));
+
+            verify(commentService).updateCommentById(eq(commentId), any(CommentWriteRequestDTO.class));
         } finally {
             SecurityContextHolder.clearContext();
         }
