@@ -3,6 +3,9 @@ package com.example.blogs.app.exception;
 import com.example.blogs.app.api.auth.exception.InvalidCredentialsException;
 import com.example.blogs.app.api.auth.exception.TokenAlreadyRevokedException;
 import com.example.blogs.app.api.auth.exception.UnauthorizedException;
+import com.example.blogs.app.api.comment.exception.CommentNotFoundException;
+import com.example.blogs.app.api.comment.exception.FailedToCreateCommentException;
+import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
 import com.example.blogs.app.api.post.exception.PostNotFoundException;
 import com.example.blogs.app.api.user.exception.EmailTakenException;
@@ -34,7 +37,10 @@ public class ExceptionHttpStatusMapper {
             Map.entry(PostNotFoundException.class, HttpStatus.NOT_FOUND),
             Map.entry(FailedToFindPostBySlugException.class, HttpStatus.INTERNAL_SERVER_ERROR),
             Map.entry(AuthorizationDeniedException.class, HttpStatus.FORBIDDEN),
-            Map.entry(MissingServletRequestPartException.class, HttpStatus.BAD_REQUEST)
+            Map.entry(MissingServletRequestPartException.class, HttpStatus.BAD_REQUEST),
+            Map.entry(CommentNotFoundException.class, HttpStatus.NOT_FOUND),
+            Map.entry(FailedToCreateCommentException.class, HttpStatus.INTERNAL_SERVER_ERROR),
+            Map.entry(FailedToDeleteCommentException.class, HttpStatus.INTERNAL_SERVER_ERROR)
     );
 
     /**
