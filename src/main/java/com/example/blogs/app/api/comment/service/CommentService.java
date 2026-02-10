@@ -1,5 +1,7 @@
 package com.example.blogs.app.api.comment.service;
 
+import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
+import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 
 import java.util.List;
@@ -16,4 +18,6 @@ public interface CommentService {
      * @return list of comments for the post
      */
     List<CommentEntity> getCommentsByPostId(Long postId);
+
+    CommentDTO createComment(Long postId, Long userId, CommentCreateRequestDTO requestDTO);
 }
