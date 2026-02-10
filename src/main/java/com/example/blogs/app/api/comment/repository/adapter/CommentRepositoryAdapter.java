@@ -26,4 +26,10 @@ public interface CommentRepositoryAdapter {
      * @throws FailedToCreateCommentException if the save operation fails
      */
     CommentEntity save(CommentEntity commentEntity);
+
+    boolean existsById(Long commentId);
+
+    boolean existsByIdAndAuthorId(Long commentId, Long authorId);
+
+    void deleteById(Long commentId);
 }

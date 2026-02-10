@@ -57,4 +57,12 @@ public class CommentFixtures {
                 false
         );
     }
+
+    public static CommentEntity commentEntity(UserEntity author, PostEntity post) {
+        return CommentEntity.builder()
+                .content("content")
+                .post(post)
+                .author(author)
+                .build();
+    }
 }

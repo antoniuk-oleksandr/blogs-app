@@ -1,7 +1,9 @@
 package com.example.blogs.app.api.comment.repository.adapter;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.comment.exception.FailedToCheckCommentExistenceException;
 import com.example.blogs.app.api.comment.exception.FailedToCreateCommentException;
+import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
 import com.example.blogs.app.api.comment.exception.FailedToFindCommentsByPostIdException;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.repository.CommentRepository;
@@ -36,38 +38,47 @@ class CommentRepositoryAdapterTest {
 
     @Test
     void findAllByPostId_shouldReturnAllPosts() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long firstCommentId = 1L;
+        Long secondCommentId = 2L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockUser = UserFixtures.user(1L, now);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
+        UserEntity mockUser = UserFixtures.user(userId, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         List<CommentEntity> mockComments = List.of(
-                CommentFixtures.commentEntity(1L, now, mockUser, mockPost),
-                CommentFixtures.commentEntity(2L, now, mockUser, mockPost)
+                CommentFixtures.commentEntity(firstCommentId, now, mockUser, mockPost),
+                CommentFixtures.commentEntity(secondCommentId, now, mockUser, mockPost)
         );
         when(commentRepository.findAllByPostId(anyLong())).thenReturn(mockComments);
 
-        List<CommentEntity> actualComments = commentRepositoryAdapter.findAllByPostId(1L);
+        List<CommentEntity> actualComments = commentRepositoryAdapter.findAllByPostId(postId);
 
         assertThat(actualComments).isEqualTo(mockComments);
-        verify(commentRepository).findAllByPostId(1L);
+        verify(commentRepository).findAllByPostId(postId);
     }
 
     @Test
     void findAllByPostId_shouldReturnEmptyList_whenNoCommentsExist() {
-        when(commentRepository.findAllByPostId(anyLong())).thenReturn(List.of());
+        Long postId = 1L;
+        when(commentRepository.findAllByPostId(anyLong()))
+                .thenReturn(List.of());
 
-        List<CommentEntity> actualComments = commentRepositoryAdapter.findAllByPostId(1L);
+        List<CommentEntity> actualComments = commentRepositoryAdapter.findAllByPostId(postId);
 
         assertThat(actualComments).isEqualTo(List.of());
-        verify(commentRepository).findAllByPostId(1L);
+        verify(commentRepository).findAllByPostId(postId);
     }
 
     @Test
     void findAllByPostId_shouldThrowFailedToFindCommentsByPostIdException_whenDBExceptionOccurs() {
+        Long postId = 1L;
+
         when(commentRepository.findAllByPostId(anyLong()))
                 .thenThrow(new RuntimeException("Db exception"));
 
-        assertThatThrownBy(() -> commentRepositoryAdapter.findAllByPostId(1L))
+        assertThatThrownBy(() -> commentRepositoryAdapter.findAllByPostId(postId))
                 .isInstanceOf(FailedToFindCommentsByPostIdException.class);
+        verify(commentRepository).findAllByPostId(postId);
     }
 
     @Test
@@ -98,5 +109,80 @@ class CommentRepositoryAdapterTest {
         assertThatThrownBy(() -> commentRepositoryAdapter.save(mockComment))
                 .isInstanceOf(FailedToCreateCommentException.class)
                 .hasMessageContaining("Failed to create comment");
+        verify(commentRepository).save(mockComment);
+    }
+
+    @Test
+    void deleteById_shouldDeleteComment() {
+        commentRepositoryAdapter.deleteById(1L);
+
+        verify(commentRepository).deleteById(1L);
+    }
+
+    @Test
+    void deleteById_shouldThrowFailedToDeleteCommentException_whenDBExceptionOccurs() {
+        Long commentId = 1L;
+
+        doThrow(new RuntimeException("Db exception"))
+                .when(commentRepository).deleteById(anyLong());
+
+        assertThatThrownBy(() -> commentRepositoryAdapter.deleteById(commentId))
+                .isInstanceOf(FailedToDeleteCommentException.class)
+                .hasMessageContaining("Failed to delete comment");
+        verify(commentRepository).deleteById(commentId);
+    }
+
+    @Test
+    void existsById_shouldReturnTrue_whenCommentExists() {
+        Long commentId = 1L;
+
+        when(commentRepository.existsById(anyLong()))
+                .thenReturn(true);
+
+        boolean exists = commentRepositoryAdapter.existsById(commentId);
+
+        assertThat(exists).isTrue();
+        verify(commentRepository).existsById(commentId);
+    }
+
+    @Test
+    void existsById_shouldThrowFailedToCheckCommentExistenceException_whenDBExceptionOccurs() {
+        Long commentId = 1L;
+
+        when(commentRepository.existsById(anyLong()))
+                .thenThrow(new RuntimeException("Db exception"));
+
+        assertThatThrownBy(() -> commentRepositoryAdapter.existsById(commentId))
+                .isInstanceOf(FailedToCheckCommentExistenceException.class)
+                .hasMessageContaining("Failed to check comment existence");
+        verify(commentRepository).existsById(commentId);
+    }
+
+    @Test
+    void existsByIdAndAuthorId_shouldReturnTrue_whenCommentExists() {
+        Long commentId = 1L;
+        Long authorId = 1L;
+
+        when(commentRepository.existsByIdAndAuthorId(anyLong(), anyLong()))
+                .thenReturn(true);
+
+        boolean exists = commentRepositoryAdapter.existsByIdAndAuthorId(commentId, authorId);
+
+        assertThat(exists).isTrue();
+        verify(commentRepository).existsByIdAndAuthorId(commentId, authorId);
+    }
+
+    @Test
+    void existsByIdAndAuthorId_shouldThrowFailedToCheckCommentExistenceException_whenDBExceptionOccurs() {
+        Long commentId = 1L;
+        Long authorId = 1L;
+
+        when(commentRepository.existsByIdAndAuthorId(anyLong(), anyLong()))
+                .thenThrow(new RuntimeException("Db exception"));
+
+        assertThatThrownBy(() -> commentRepositoryAdapter.existsByIdAndAuthorId(commentId, authorId))
+                .isInstanceOf(FailedToCheckCommentExistenceException.class)
+                .hasMessageContaining("Failed to check comment existence");
+        verify(commentRepository).existsByIdAndAuthorId(commentId, authorId);
     }
 }
