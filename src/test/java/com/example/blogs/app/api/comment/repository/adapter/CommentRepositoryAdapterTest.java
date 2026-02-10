@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.comment.repository.adapter;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.comment.exception.FailedToCreateCommentException;
 import com.example.blogs.app.api.comment.exception.FailedToFindCommentsByPostIdException;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.repository.CommentRepository;
@@ -39,8 +40,8 @@ class CommentRepositoryAdapterTest {
         UserEntity mockUser = UserFixtures.user(1L, now);
         PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
         List<CommentEntity> mockComments = List.of(
-                CommentFixtures.comment(1L, now, mockUser, mockPost),
-                CommentFixtures.comment(2L, now, mockUser, mockPost)
+                CommentFixtures.commentEntity(1L, now, mockUser, mockPost),
+                CommentFixtures.commentEntity(2L, now, mockUser, mockPost)
         );
         when(commentRepository.findAllByPostId(anyLong())).thenReturn(mockComments);
 
@@ -67,5 +68,35 @@ class CommentRepositoryAdapterTest {
 
         assertThatThrownBy(() -> commentRepositoryAdapter.findAllByPostId(1L))
                 .isInstanceOf(FailedToFindCommentsByPostIdException.class);
+    }
+
+    @Test
+    void save_shouldReturnSavedComment() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockUser = UserFixtures.user(1L, now);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
+        CommentEntity mockComment = CommentFixtures.commentEntity(1L, now, mockUser, mockPost);
+
+        when(commentRepository.save(any(CommentEntity.class))).thenReturn(mockComment);
+
+        CommentEntity actualComment = commentRepositoryAdapter.save(mockComment);
+
+        assertThat(actualComment).isEqualTo(mockComment);
+        verify(commentRepository).save(mockComment);
+    }
+
+    @Test
+    void save_shouldThrowException_whenDBExceptionOccurs() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockUser = UserFixtures.user(1L, now);
+        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
+        CommentEntity mockComment = CommentFixtures.commentEntity(1L, now, mockUser, mockPost);
+
+        when(commentRepository.save(any(CommentEntity.class)))
+                .thenThrow(new RuntimeException("Db exception"));
+
+        assertThatThrownBy(() -> commentRepositoryAdapter.save(mockComment))
+                .isInstanceOf(FailedToCreateCommentException.class)
+                .hasMessageContaining("Failed to create comment");
     }
 }

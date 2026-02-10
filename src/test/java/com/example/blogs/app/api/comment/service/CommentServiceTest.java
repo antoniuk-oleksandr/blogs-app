@@ -1,7 +1,10 @@
 package com.example.blogs.app.api.comment.service;
 
+import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
+import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
+import com.example.blogs.app.api.comment.mapper.CommentMapper;
 import com.example.blogs.app.api.comment.repository.adapter.CommentRepositoryAdapter;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
@@ -25,12 +28,15 @@ class CommentServiceTest {
     @Mock
     private CommentRepositoryAdapter commentRepositoryAdapter;
 
+    @Mock
+    private CommentMapper commentMapper;
+
     private CommentService commentService;
 
 
     @BeforeEach
     void setUp() {
-        commentService = new CommentServiceImpl(commentRepositoryAdapter);
+        commentService = new CommentServiceImpl(commentRepositoryAdapter, commentMapper);
     }
 
     @Test
@@ -39,8 +45,8 @@ class CommentServiceTest {
         UserEntity mockUser = UserFixtures.user(1L, now);
         PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
         List<CommentEntity> mockComments = List.of(
-                CommentFixtures.comment(1L, now, mockUser, mockPost),
-                CommentFixtures.comment(2L, now, mockUser, mockPost)
+                CommentFixtures.commentEntity(1L, now, mockUser, mockPost),
+                CommentFixtures.commentEntity(2L, now, mockUser, mockPost)
         );
         when(commentRepositoryAdapter.findAllByPostId(1L)).thenReturn(mockComments);
 
@@ -58,5 +64,30 @@ class CommentServiceTest {
 
         assertThat(actualComments).isEmpty();
         verify(commentRepositoryAdapter).findAllByPostId(2L);
+    }
+
+    @Test
+    void createComment_shouldCreateAndReturnCommentDTO() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        Long commentId = 1L;
+        Long postId = 1L;
+        Long userId = 1L;
+        String content = "content";
+        UserEntity mockUser = UserFixtures.user(userId, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
+        CommentEntity mockCommentEntity = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
+        CommentCreateRequestDTO requestDTO = new CommentCreateRequestDTO(content);
+        CommentDTO mockCommentDTO = CommentFixtures.commentDTO(commentId, userId, postId, now);
+
+        when(commentRepositoryAdapter.save(any(CommentEntity.class)))
+                .thenReturn(mockCommentEntity);
+        when(commentMapper.toCommentDTO(any(CommentEntity.class), anyLong(), anyLong()))
+                .thenReturn(mockCommentDTO);
+
+        CommentDTO actualDTO = commentService.createComment(postId, userId, requestDTO);
+
+        assertThat(actualDTO).isEqualTo(mockCommentDTO);
+        verify(commentRepositoryAdapter).save(any(CommentEntity.class));
+        verify(commentMapper).toCommentDTO(mockCommentEntity, postId, userId);
     }
 }

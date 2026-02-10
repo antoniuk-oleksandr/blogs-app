@@ -62,8 +62,8 @@ class PostMapperTest {
         String previewImageUrl = "previewImageUrl";
 
         List<CommentEntity> comments = List.of(
-                CommentFixtures.comment(1L, now, author, post),
-                CommentFixtures.comment(2L, now.plusMinutes(5), author, post)
+                CommentFixtures.commentEntity(1L, now, author, post),
+                CommentFixtures.commentEntity(2L, now.plusMinutes(5), author, post)
         );
 
         PostDTO result = postMapper.toPostDTO(post, comments, previewImageUrl);
@@ -180,7 +180,7 @@ class PostMapperTest {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity author = UserFixtures.user(1L, now);
         PostEntity post = PostFixtures.post(1L, now, author);
-        CommentEntity comment = CommentFixtures.comment(5L, now, author, post);
+        CommentEntity comment = CommentFixtures.commentEntity(5L, now, author, post);
         comment.setContent("content");
 
         PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment);
@@ -197,7 +197,7 @@ class PostMapperTest {
         author.setUsername("username");
         author.setProfilePictureUrl("profilePictureUrl");
         PostEntity post = PostFixtures.post(1L, now, author);
-        CommentEntity comment = CommentFixtures.comment(10L, now, author, post);
+        CommentEntity comment = CommentFixtures.commentEntity(10L, now, author, post);
 
         PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment);
 
@@ -212,7 +212,7 @@ class PostMapperTest {
         LocalDateTime now = LocalDateTime.now().withNano(0);
         UserEntity author = UserFixtures.user(1L, now);
         PostEntity post = PostFixtures.post(1L, now, author);
-        CommentEntity comment = CommentFixtures.comment(1L, now, author, post);
+        CommentEntity comment = CommentFixtures.commentEntity(1L, now, author, post);
         comment.setUpdatedAt(now);
 
         PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment);
