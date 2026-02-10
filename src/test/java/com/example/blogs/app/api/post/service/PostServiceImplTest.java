@@ -118,8 +118,8 @@ class PostServiceImplTest {
         FileEntity file = FileFixtures.file();
         PostEntity post = PostFixtures.post(1L, now, author, file);
         List<CommentEntity> comments = List.of(
-                CommentFixtures.comment(1L, now, author, post),
-                CommentFixtures.comment(2L, now, author, post)
+                CommentFixtures.commentEntity(1L, now, author, post),
+                CommentFixtures.commentEntity(2L, now, author, post)
         );
         PostUserSummaryDTO authorDTO = PostFixtures.postUserSummaryDTO(author.getId());
         List<PostCommentSummaryDTO> commentDTOs = List.of(

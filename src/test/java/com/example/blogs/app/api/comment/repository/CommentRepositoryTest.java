@@ -85,4 +85,36 @@ class CommentRepositoryTest extends AbstractPostgresTest {
                 .isNotNull()
                 .isEmpty();
     }
+
+    @Test
+    void save_shouldReturnSavedComment() {
+        UserEntity user = UserEntity.builder()
+                .username("username")
+                .passwordHash("passwordHash")
+                .email("email")
+                .build();
+        UserEntity createdUser = userRepository.save(user);
+        PostEntity post = PostEntity.builder()
+                .title("title")
+                .description("description")
+                .content("content")
+                .slug("slug")
+                .author(createdUser)
+                .build();
+        PostEntity createdPost = postRepository.save(post);
+        CommentEntity comment = CommentEntity.builder()
+                .content("content")
+                .post(createdPost)
+                .author(createdUser)
+                .build();
+
+        CommentEntity savedComment = commentRepository.save(comment);
+
+        assertThat(savedComment)
+                .isNotNull();
+        assertThat(savedComment.getId()).isNotNull();
+        assertThat(savedComment.getContent()).isEqualTo(comment.getContent());
+        assertThat(savedComment.getPost()).isEqualTo(comment.getPost());
+        assertThat(savedComment.getAuthor()).isEqualTo(comment.getAuthor());
+    }
 }

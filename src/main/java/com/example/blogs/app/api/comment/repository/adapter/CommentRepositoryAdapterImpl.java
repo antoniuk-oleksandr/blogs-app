@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.comment.repository.adapter;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.comment.exception.FailedToCreateCommentException;
 import com.example.blogs.app.api.comment.exception.FailedToFindCommentsByPostIdException;
 import com.example.blogs.app.api.comment.repository.CommentRepository;
 import com.example.blogs.app.logging.MDCKeys;
@@ -39,6 +40,17 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
             log.error("database_operation_failed operation=findAllByPostId postId={} error={} requestId={}",
                     postId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToFindCommentsByPostIdException(e);
+        }
+    }
+
+    @Override
+    public CommentEntity save(CommentEntity commentEntity) {
+        try {
+            return commentRepository.save(commentEntity);
+        } catch (Exception e) {
+            log.error("database_operation_failed operation=save commentEntity={} error={} requestId={}",
+                    commentEntity, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
+            throw new FailedToCreateCommentException(e);
         }
     }
 }

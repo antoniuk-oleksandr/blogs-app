@@ -12,6 +12,7 @@ public record PostCommentSummaryDTO(
         Long id,
         String content,
         PostUserSummaryDTO author,
+        LocalDateTime updatedAt,
         LocalDateTime createdAt,
         boolean edited
 ) {

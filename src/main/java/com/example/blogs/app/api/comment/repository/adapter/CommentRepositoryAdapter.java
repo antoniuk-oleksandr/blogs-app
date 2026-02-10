@@ -16,4 +16,6 @@ public interface CommentRepositoryAdapter {
      * @return list of comments for the post
      */
     List<CommentEntity> findAllByPostId(Long postId);
+
+    CommentEntity save(CommentEntity commentEntity);
 }
