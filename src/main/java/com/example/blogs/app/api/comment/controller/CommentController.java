@@ -1,7 +1,7 @@
 package com.example.blogs.app.api.comment.controller;
 
 import com.example.blogs.app.api.comment.docs.CommentControllerDocs;
-import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
+import com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO;
 import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.service.CommentService;
 import com.example.blogs.app.security.UserPrincipal;
@@ -37,7 +37,7 @@ public class CommentController {
     public ResponseEntity<CommentDTO> createComment(
             @AuthenticationPrincipal UserPrincipal userPrincipal,
             @PathVariable Long postId,
-            @NotNull @Valid @RequestBody CommentCreateRequestDTO requestDTO
+            @NotNull @Valid @RequestBody CommentWriteRequestDTO requestDTO
     ) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -58,5 +58,15 @@ public class CommentController {
         commentService.deleteCommentById(commentId);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/comments/{commentId}")
+    @PreAuthorize("@commentSecurity.isOwner(#commentId)")
+    public ResponseEntity<CommentDTO> updateCommentById(
+            @PathVariable Long commentId,
+            @NotNull @Valid @RequestBody CommentWriteRequestDTO requestDTO
+    ) {
+        return ResponseEntity
+                .ok(commentService.updateCommentById(commentId, requestDTO));
     }
 }
