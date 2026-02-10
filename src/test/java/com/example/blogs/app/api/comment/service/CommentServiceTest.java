@@ -1,8 +1,9 @@
 package com.example.blogs.app.api.comment.service;
 
-import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
+import com.example.blogs.app.api.comment.dto.CommentWriteRequestDTO;
 import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.comment.exception.FailedToUpdateCommentException;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.mapper.CommentMapper;
 import com.example.blogs.app.api.comment.repository.adapter.CommentRepositoryAdapter;
@@ -76,7 +77,7 @@ class CommentServiceTest {
         UserEntity mockUser = UserFixtures.user(userId, now);
         PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         CommentEntity mockCommentEntity = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
-        CommentCreateRequestDTO requestDTO = new CommentCreateRequestDTO(content);
+        CommentWriteRequestDTO requestDTO = new CommentWriteRequestDTO(content);
         CommentDTO mockCommentDTO = CommentFixtures.commentDTO(commentId, userId, postId, now);
 
         when(commentRepositoryAdapter.save(any(CommentEntity.class)))
@@ -98,5 +99,55 @@ class CommentServiceTest {
         commentService.deleteCommentById(commentId);
 
         verify(commentRepositoryAdapter).deleteById(commentId);
+    }
+
+    @Test
+    void updateCommentById_shouldUpdateAndReturnCommentDTO() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        Long commentId = 1L;
+        Long postId = 1L;
+        Long userId = 1L;
+        String updatedContent = "updated content";
+        UserEntity mockUser = UserFixtures.user(userId, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
+        CommentEntity mockCommentEntity = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
+        CommentWriteRequestDTO requestDTO = new CommentWriteRequestDTO(updatedContent);
+        CommentDTO mockCommentDTO = CommentFixtures.commentDTO(commentId, userId, postId, now);
+
+        when(commentRepositoryAdapter.findById(commentId)).thenReturn(mockCommentEntity);
+        when(commentRepositoryAdapter.save(any(CommentEntity.class))).thenReturn(mockCommentEntity);
+        when(commentMapper.toCommentDTO(any(CommentEntity.class), anyLong(), anyLong())).thenReturn(mockCommentDTO);
+
+        CommentDTO actualDTO = commentService.updateCommentById(commentId, requestDTO);
+
+        assertThat(actualDTO).isEqualTo(mockCommentDTO);
+        verify(commentRepositoryAdapter).findById(commentId);
+        verify(commentRepositoryAdapter).save(mockCommentEntity);
+        verify(commentMapper).toCommentDTO(mockCommentEntity, postId, userId);
+    }
+
+    @Test
+    void updateCommentById_shouldThrowFailedToUpdateCommentException_whenRepositoryFails() {
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        Long commentId = 1L;
+        Long postId = 1L;
+        Long userId = 1L;
+        String updatedContent = "updated content";
+        UserEntity mockUser = UserFixtures.user(userId, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
+        CommentEntity mockCommentEntity = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
+        CommentWriteRequestDTO requestDTO = new CommentWriteRequestDTO(updatedContent);
+
+        when(commentRepositoryAdapter.findById(commentId)).thenReturn(mockCommentEntity);
+        when(commentRepositoryAdapter.save(any(CommentEntity.class)))
+                .thenThrow(new RuntimeException("Database error"));
+
+        assertThatThrownBy(() -> commentService.updateCommentById(commentId, requestDTO))
+                .isInstanceOf(FailedToUpdateCommentException.class)
+                .hasMessage("Failed to update comment");
+
+        verify(commentRepositoryAdapter).findById(commentId);
+        verify(commentRepositoryAdapter).save(mockCommentEntity);
+        verify(commentMapper, never()).toCommentDTO(mockCommentEntity, postId, userId);
     }
 }

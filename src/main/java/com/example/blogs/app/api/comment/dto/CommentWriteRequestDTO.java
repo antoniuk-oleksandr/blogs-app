@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 /**
  * Data transfer object for creating a new comment.
  */
-public record CommentCreateRequestDTO(
+public record CommentWriteRequestDTO(
 
         @NotBlank(message = "Content must not be blank")
         @Schema(description = "The content of the comment", example = "This is a comment.")

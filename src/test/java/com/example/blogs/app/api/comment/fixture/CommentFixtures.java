@@ -47,29 +47,14 @@ public class CommentFixtures {
     public static CommentDTO commentDTO(
             Long id, Long postId, Long authorId, LocalDateTime time
     ) {
-        return new CommentDTO(
-                id,
-                "content",
-                postId,
-                authorId,
-                time,
-                time,
-                false
-        );
-    }
-
-    /**
-     * Creates a comment entity with the specified author and post.
-     *
-     * @param author the comment author
-     * @param post   the post the comment belongs to
-     * @return configured comment entity
-     */
-    public static CommentEntity commentEntity(UserEntity author, PostEntity post) {
-        return CommentEntity.builder()
+        return CommentDTO.builder()
+                .id(id)
                 .content("content")
-                .post(post)
-                .author(author)
+                .postId(postId)
+                .authorId(authorId)
+                .createdAt(time)
+                .updatedAt(time)
+                .edited(false)
                 .build();
     }
 }
