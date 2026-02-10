@@ -1,10 +1,7 @@
 package com.example.blogs.app.api.comment.repository.adapter;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
-import com.example.blogs.app.api.comment.exception.FailedToCheckCommentExistenceException;
-import com.example.blogs.app.api.comment.exception.FailedToCreateCommentException;
-import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
-import com.example.blogs.app.api.comment.exception.FailedToFindCommentsByPostIdException;
+import com.example.blogs.app.api.comment.exception.*;
 import com.example.blogs.app.api.comment.repository.CommentRepository;
 import com.example.blogs.app.logging.MDCKeys;
 import lombok.AllArgsConstructor;
@@ -38,7 +35,7 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
     public List<CommentEntity> findAllByPostId(Long postId) {
         try {
             return commentRepository.findAllByPostId(postId);
-        } catch (Exception e) { 
+        } catch (Exception e) {
             log.error("database_operation_failed operation=findAllByPostId postId={} error={} requestId={}",
                     postId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToFindCommentsByPostIdException(e);
@@ -88,7 +85,7 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
      * Wraps repository exceptions in a domain-specific exception for consistent error handling.
      *
      * @param commentId the ID of the comment
-     * @param authorId the ID of the author
+     * @param authorId  the ID of the author
      * @return true if a comment with the given ID and author exists, false otherwise
      * @throws FailedToCheckCommentExistenceException if the check operation fails
      */
@@ -118,6 +115,22 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
             log.error("database_operation_failed operation=deleteById commentId={} error={} requestId={}",
                     commentId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToDeleteCommentException(e);
+        }
+    }
+
+    @Override
+    public CommentEntity findById(Long commentId) {
+        try {
+            return commentRepository.findById(commentId)
+                    .orElseThrow(() -> new CommentNotFoundException(null));
+        } catch (CommentNotFoundException e) {
+            log.warn("comment_not_found operation=findById commentId={} error={} requestId={}",
+                    commentId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
+            throw e;
+        } catch (Exception e) {
+            log.error("database_operation_failed operation=findById commentId={} error={} requestId={}",
+                    commentId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
+            throw new FailedToFindCommentByIdException(e);
         }
     }
 }

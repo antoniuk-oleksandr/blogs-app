@@ -42,7 +42,7 @@ public interface CommentRepositoryAdapter {
      * Checks if a comment exists with the specified ID and author ID.
      *
      * @param commentId the ID of the comment
-     * @param authorId the ID of the author
+     * @param authorId  the ID of the author
      * @return true if a comment with the given ID and author exists, false otherwise
      * @throws FailedToCheckCommentExistenceException if the check operation fails
      */
@@ -55,4 +55,6 @@ public interface CommentRepositoryAdapter {
      * @throws FailedToDeleteCommentException if the delete operation fails
      */
     void deleteById(Long commentId);
+
+    CommentEntity findById(Long commentId);
 }

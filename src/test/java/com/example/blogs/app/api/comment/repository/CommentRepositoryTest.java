@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -110,4 +111,24 @@ class CommentRepositoryTest extends AbstractPostgresTest {
         assertThat(commentRepository.findById(createdComment.getId())).isEmpty();
     }
 
+    @Test
+    void findById_shouldReturnComment() {
+        UserEntity userToCreate = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(userToCreate);
+        PostEntity post = PostFixtures.post(createdUser);
+        PostEntity createdPost = postRepository.save(post);
+        CommentEntity commentToCreate = CommentEntity.builder()
+                .content("content")
+                .post(createdPost)
+                .author(createdUser)
+                .build();
+
+        CommentEntity createdComment = commentRepository.save(commentToCreate);
+
+        Optional<CommentEntity> result = commentRepository.findById(createdComment.getId());
+
+        assertThat(result)
+                .isPresent()
+                .isEqualTo(Optional.of(createdComment));
+    }
 }
