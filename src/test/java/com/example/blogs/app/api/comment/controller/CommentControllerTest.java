@@ -3,6 +3,7 @@ package com.example.blogs.app.api.comment.controller;
 import com.example.blogs.app.api.auth.fixture.AuthFixtures;
 import com.example.blogs.app.api.comment.dto.CommentCreateRequestDTO;
 import com.example.blogs.app.api.comment.dto.CommentDTO;
+import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.service.CommentService;
 import com.example.blogs.app.exception.ErrorResponseWriter;
@@ -175,6 +176,74 @@ class CommentControllerTest {
                     .andExpect(jsonPath("$.message").value("Database error"));
 
             verify(commentService).createComment(eq(authorId), eq(postId), any(CommentCreateRequestDTO.class));
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void deleteComment_shouldDeleteCommentSuccessfully() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+
+        try {
+            mockMvc.perform(delete("/comments/{commentId}", commentId))
+                    .andExpect(status().isNoContent());
+
+            verify(commentService).deleteCommentById(commentId);
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void deleteComment_shouldReturn500_whenServiceThrowsFailedToDeleteCommentException() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+
+        doThrow(new FailedToDeleteCommentException(null))
+                .when(commentService).deleteCommentById(commentId);
+
+        try {
+            mockMvc.perform(delete("/comments/{commentId}", commentId))
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(jsonPath("$.message").value("Failed to delete comment"));
+
+            verify(commentService).deleteCommentById(commentId);
+        } finally {
+            SecurityContextHolder.clearContext();
+        }
+    }
+
+    @Test
+    @SneakyThrows
+    void deleteComment_shouldReturn500_whenServiceThrowsUnexpectedException() {
+        Jwt jwt = AuthFixtures.jwt();
+        UserPrincipal userPrincipal = AuthFixtures.userPrincipal();
+        Authentication auth = new UserPrincipalAuthenticationToken(userPrincipal, jwt);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        Long commentId = 1L;
+
+        doThrow(new RuntimeException("Unexpected error"))
+                .when(commentService).deleteCommentById(commentId);
+
+        try {
+            mockMvc.perform(delete("/comments/{commentId}", commentId))
+                    .andExpect(status().isInternalServerError())
+                    .andExpect(jsonPath("$.message").value("Unexpected error"));
+
+            verify(commentService).deleteCommentById(commentId);
         } finally {
             SecurityContextHolder.clearContext();
         }

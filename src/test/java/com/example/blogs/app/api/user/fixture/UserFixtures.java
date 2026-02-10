@@ -10,13 +10,18 @@ import java.time.LocalDateTime;
 public class UserFixtures {
 
     /**
-     * Creates a user entity with default timestamp.
+     * Creates a user entity with default values for all fields.
      *
      * @return configured user entity
      */
     public static UserEntity user() {
-        LocalDateTime now = LocalDateTime.now().withNano(0);
-        return user(null, now);
+        return UserEntity.builder()
+                .username("username")
+                .email("email@gmail.com")
+                .passwordHash("passwordHash")
+                .bio("bio")
+                .profilePictureUrl("profilePictureUrl")
+                .build();
     }
 
     /**

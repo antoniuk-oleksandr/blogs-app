@@ -2,8 +2,10 @@ package com.example.blogs.app.api.comment.repository;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.post.entity.PostEntity;
+import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.post.repository.PostRepository;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.fixture.UserFixtures;
 import com.example.blogs.app.api.user.repository.UserRepository;
 import com.example.blogs.app.support.AbstractPostgresTest;
 import org.junit.jupiter.api.Test;
@@ -29,32 +31,23 @@ class CommentRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void findAllByPostId_shouldReturnAllPosts() {
-        UserEntity user = UserEntity.builder()
-                .username("username")
-                .passwordHash("passwordHash")
-                .email("email")
-                .build();
-        UserEntity createdUser = userRepository.save(user);
-        PostEntity post = PostEntity.builder()
-                .title("title")
-                .description("description")
-                .content("content")
-                .slug("slug")
-                .author(createdUser)
-                .build();
+        UserEntity userToCreate = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(userToCreate);
+        PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
-        CommentEntity comment = CommentEntity.builder()
+        CommentEntity firstComment = CommentEntity.builder()
                 .content("content")
                 .post(createdPost)
                 .author(createdUser)
                 .build();
-        commentRepository.save(comment);
-        comment = CommentEntity.builder()
-                .content("content2")
+        CommentEntity secondComment = CommentEntity.builder()
+                .content("content")
                 .post(createdPost)
                 .author(createdUser)
                 .build();
-        commentRepository.save(comment);
+
+        commentRepository.save(firstComment);
+        commentRepository.save(secondComment);
 
         List<CommentEntity> comments = commentRepository.findAllByPostId(createdPost.getId());
         assertThat(comments)
@@ -65,19 +58,9 @@ class CommentRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void findAllByPostId_shouldReturnEmptyList_whenNoCommentsExist() {
-        UserEntity user = UserEntity.builder()
-                .username("username")
-                .passwordHash("passwordHash")
-                .email("email")
-                .build();
-        UserEntity createdUser = userRepository.save(user);
-        PostEntity post = PostEntity.builder()
-                .title("title")
-                .description("description")
-                .content("content")
-                .slug("slug")
-                .author(createdUser)
-                .build();
+        UserEntity userToCreate = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(userToCreate);
+        PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
 
         List<CommentEntity> comments = commentRepository.findAllByPostId(createdPost.getId());
@@ -88,33 +71,43 @@ class CommentRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void save_shouldReturnSavedComment() {
-        UserEntity user = UserEntity.builder()
-                .username("username")
-                .passwordHash("passwordHash")
-                .email("email")
-                .build();
-        UserEntity createdUser = userRepository.save(user);
-        PostEntity post = PostEntity.builder()
-                .title("title")
-                .description("description")
-                .content("content")
-                .slug("slug")
-                .author(createdUser)
-                .build();
+        UserEntity userToCreate = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(userToCreate);
+        PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
-        CommentEntity comment = CommentEntity.builder()
+        CommentEntity commentToCreate = CommentEntity.builder()
                 .content("content")
                 .post(createdPost)
                 .author(createdUser)
                 .build();
 
-        CommentEntity savedComment = commentRepository.save(comment);
+        CommentEntity createdComment = commentRepository.save(commentToCreate);
 
-        assertThat(savedComment)
+        assertThat(createdComment)
                 .isNotNull();
-        assertThat(savedComment.getId()).isNotNull();
-        assertThat(savedComment.getContent()).isEqualTo(comment.getContent());
-        assertThat(savedComment.getPost()).isEqualTo(comment.getPost());
-        assertThat(savedComment.getAuthor()).isEqualTo(comment.getAuthor());
+        assertThat(createdComment.getId()).isNotNull();
+        assertThat(createdComment.getContent()).isEqualTo(commentToCreate.getContent());
+        assertThat(createdComment.getPost()).isEqualTo(commentToCreate.getPost());
+        assertThat(createdComment.getAuthor()).isEqualTo(commentToCreate.getAuthor());
     }
+
+    @Test
+    void deleteById_shouldDeleteComment() {
+        UserEntity userToCreate = UserFixtures.user();
+        UserEntity createdUser = userRepository.save(userToCreate);
+        PostEntity post = PostFixtures.post(createdUser);
+        PostEntity createdPost = postRepository.save(post);
+        CommentEntity commentToCreate = CommentEntity.builder()
+                .content("content")
+                .post(createdPost)
+                .author(createdUser)
+                .build();
+
+        CommentEntity createdComment = commentRepository.save(commentToCreate);
+
+        commentRepository.deleteById(createdComment.getId());
+
+        assertThat(commentRepository.findById(createdComment.getId())).isEmpty();
+    }
+
 }

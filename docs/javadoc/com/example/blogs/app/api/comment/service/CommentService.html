@@ -113,9 +113,14 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Creates a new comment on a specific post.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getCommentsByPostId(java.lang.Long)" class="member-name-link">getCommentsByPostId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#deleteCommentById(java.lang.Long)" class="member-name-link">deleteCommentById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Deletes a comment by its ID.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#getCommentsByPostId(java.lang.Long)" class="member-name-link">getCommentsByPostId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Retrieves all comments associated with a specific post.</div>
 </div>
 </div>
@@ -160,6 +165,18 @@ loadScripts(document, 'script');</script>
 <dd><code>requestDTO</code> - request containing the comment content</dd>
 <dt>Returns:</dt>
 <dd>newly created comment as DTO</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="deleteCommentById(java.lang.Long)">
+<h3>deleteCommentById</h3>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="element-name">deleteCommentById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId)</span></div>
+<div class="block">Deletes a comment by its ID.
+ Removes the comment from the database.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>commentId</code> - the ID of the comment to delete</dd>
 </dl>
 </section>
 </li>

@@ -57,4 +57,19 @@ public class CommentFixtures {
                 false
         );
     }
+
+    /**
+     * Creates a comment entity with the specified author and post.
+     *
+     * @param author the comment author
+     * @param post   the post the comment belongs to
+     * @return configured comment entity
+     */
+    public static CommentEntity commentEntity(UserEntity author, PostEntity post) {
+        return CommentEntity.builder()
+                .content("content")
+                .post(post)
+                .author(author)
+                .build();
+    }
 }

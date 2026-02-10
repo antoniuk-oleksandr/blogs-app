@@ -45,7 +45,6 @@ public class PostFixtures {
                 .build();
     }
 
-
     /**
      * Creates a post entity with the specified attributes including a file attachment.
      *

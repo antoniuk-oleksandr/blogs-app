@@ -29,4 +29,12 @@ public interface CommentService {
      * @return newly created comment as DTO
      */
     CommentDTO createComment(Long postId, Long userId, CommentCreateRequestDTO requestDTO);
+
+    /**
+     * Deletes a comment by its ID.
+     * Removes the comment from the database.
+     *
+     * @param commentId the ID of the comment to delete
+     */
+    void deleteCommentById(Long commentId);
 }
