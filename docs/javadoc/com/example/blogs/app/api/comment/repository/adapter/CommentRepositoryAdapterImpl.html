@@ -130,6 +130,11 @@ implements <a href="CommentRepositoryAdapter.html" title="interface in com.examp
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves all comments associated with a specific post with exception translation.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.comment.entity.CommentEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;commentEntity)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Saves a comment entity to the database with exception translation.</div>
+</div>
 </div>
 </div>
 </div>
@@ -176,6 +181,24 @@ implements <a href="CommentRepositoryAdapter.html" title="interface in com.examp
 <dd>list of comments for the post</dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/FailedToFindCommentsByPostIdException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToFindCommentsByPostIdException</a></code> - if the repository operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="save(com.example.blogs.app.api.comment.entity.CommentEntity)">
+<h3>save</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a></span>&nbsp;<span class="element-name">save</span><wbr><span class="parameters">(<a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;commentEntity)</span></div>
+<div class="block">Saves a comment entity to the database with exception translation.
+ Wraps repository exceptions in a domain-specific exception for consistent error handling.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="CommentRepositoryAdapter.html#save(com.example.blogs.app.api.comment.entity.CommentEntity)">save</a></code>&nbsp;in interface&nbsp;<code><a href="CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>commentEntity</code> - the comment entity to save</dd>
+<dt>Returns:</dt>
+<dd>the saved comment entity with generated ID</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToCreateCommentException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToCreateCommentException</a></code> - if the save operation fails</dd>
 </dl>
 </section>
 </li>

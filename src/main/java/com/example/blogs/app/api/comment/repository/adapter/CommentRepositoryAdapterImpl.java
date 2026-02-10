@@ -43,6 +43,14 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
         }
     }
 
+    /**
+     * Saves a comment entity to the database with exception translation.
+     * Wraps repository exceptions in a domain-specific exception for consistent error handling.
+     *
+     * @param commentEntity the comment entity to save
+     * @return the saved comment entity with generated ID
+     * @throws FailedToCreateCommentException if the save operation fails
+     */
     @Override
     public CommentEntity save(CommentEntity commentEntity) {
         try {

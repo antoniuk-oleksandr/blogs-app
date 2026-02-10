@@ -41,6 +41,15 @@ public class CommentServiceImpl implements CommentService {
         return commentRepositoryAdapter.findAllByPostId(postId);
     }
 
+    /**
+     * Creates a new comment on a specific post.
+     * Constructs the comment entity, persists it via the repository adapter, and converts to DTO.
+     *
+     * @param postId the ID of the post to comment on
+     * @param userId the ID of the user creating the comment
+     * @param requestDTO request containing the comment content
+     * @return newly created comment as DTO
+     */
     @Override
     public CommentDTO createComment(Long postId, Long userId, CommentCreateRequestDTO requestDTO) {
         PostEntity post = PostEntity.builder()

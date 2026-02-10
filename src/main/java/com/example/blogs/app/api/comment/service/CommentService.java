@@ -19,5 +19,14 @@ public interface CommentService {
      */
     List<CommentEntity> getCommentsByPostId(Long postId);
 
+    /**
+     * Creates a new comment on a specific post.
+     * Validates post and user existence, saves the comment, and returns the created comment.
+     *
+     * @param postId the ID of the post to comment on
+     * @param userId the ID of the user creating the comment
+     * @param requestDTO request containing the comment content
+     * @return newly created comment as DTO
+     */
     CommentDTO createComment(Long postId, Long userId, CommentCreateRequestDTO requestDTO);
 }

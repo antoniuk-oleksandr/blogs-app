@@ -35,6 +35,15 @@ public class CommentFixtures {
                 .build();
     }
 
+    /**
+     * Creates a comment DTO with the specified attributes.
+     *
+     * @param id       the comment ID
+     * @param postId   the post ID
+     * @param authorId the author ID
+     * @param time     the creation and update timestamp
+     * @return configured comment DTO
+     */
     public static CommentDTO commentDTO(
             Long id, Long postId, Long authorId, LocalDateTime time
     ) {

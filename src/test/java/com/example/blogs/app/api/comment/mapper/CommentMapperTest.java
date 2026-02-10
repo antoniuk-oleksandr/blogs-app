@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
 
+/**
+ * Tests for comment mapper entity-to-DTO conversions.
+ */
 class CommentMapperTest {
 
     @Test
