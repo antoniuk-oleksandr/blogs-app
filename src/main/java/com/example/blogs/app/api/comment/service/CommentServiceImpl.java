@@ -85,6 +85,15 @@ public class CommentServiceImpl implements CommentService {
         log.info("comment_deleted commentId={} requestId={}", commentId, MDC.get(MDCKeys.REQUEST_ID));
     }
 
+    /**
+     * Updates a comment by its ID with new content.
+     * Retrieves the comment, updates its content, marks it as edited, and persists the changes.
+     *
+     * @param commentId the ID of the comment to update
+     * @param requestDTO request containing the updated comment content
+     * @return updated comment as DTO
+     * @throws FailedToUpdateCommentException if the update operation fails
+     */
     @Override
     public CommentDTO updateCommentById(Long commentId, CommentWriteRequestDTO requestDTO) {
         CommentEntity comment = commentRepositoryAdapter.findById(commentId);

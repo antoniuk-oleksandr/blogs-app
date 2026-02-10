@@ -60,6 +60,15 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Updates a comment by its ID.
+     * Requires the authenticated user to be the owner of the comment.
+     *
+     * @param commentId the ID of the comment to update
+     * @param requestDTO request containing the updated comment content
+     * @return updated comment with HTTP 200 status
+     */
+    @CommentControllerDocs.UpdateCommentById
     @PatchMapping("/comments/{commentId}")
     @PreAuthorize("@commentSecurity.isOwner(#commentId)")
     public ResponseEntity<CommentDTO> updateCommentById(

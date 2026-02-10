@@ -38,5 +38,13 @@ public interface CommentService {
      */
     void deleteCommentById(Long commentId);
 
+    /**
+     * Updates a comment by its ID with new content.
+     * Marks the comment as edited and persists the changes.
+     *
+     * @param commentId the ID of the comment to update
+     * @param requestDTO request containing the updated comment content
+     * @return updated comment as DTO
+     */
     CommentDTO updateCommentById(Long commentId, CommentWriteRequestDTO requestDTO);
 }

@@ -118,6 +118,15 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
         }
     }
 
+    /**
+     * Retrieves a comment by its ID with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param commentId the ID of the comment to retrieve
+     * @return the comment entity if found
+     * @throws CommentNotFoundException if the comment does not exist
+     * @throws FailedToFindCommentByIdException if the retrieval operation fails
+     */
     @Override
     public CommentEntity findById(Long commentId) {
         try {
