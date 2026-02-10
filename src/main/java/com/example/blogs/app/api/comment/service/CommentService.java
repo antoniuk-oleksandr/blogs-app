@@ -29,4 +29,6 @@ public interface CommentService {
      * @return newly created comment as DTO
      */
     CommentDTO createComment(Long postId, Long userId, CommentCreateRequestDTO requestDTO);
+
+    void deleteCommentById(Long commentId);
 }

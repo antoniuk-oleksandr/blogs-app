@@ -90,4 +90,13 @@ class CommentServiceTest {
         verify(commentRepositoryAdapter).save(any(CommentEntity.class));
         verify(commentMapper).toCommentDTO(mockCommentEntity, postId, userId);
     }
+
+    @Test
+    void deleteCommentById_shouldDeleteCommentById() {
+        Long commentId = 1L;
+
+        commentService.deleteCommentById(commentId);
+
+        verify(commentRepositoryAdapter).deleteById(commentId);
+    }
 }

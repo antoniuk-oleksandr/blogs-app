@@ -45,8 +45,8 @@ public class CommentServiceImpl implements CommentService {
      * Creates a new comment on a specific post.
      * Constructs the comment entity, persists it via the repository adapter, and converts to DTO.
      *
-     * @param postId the ID of the post to comment on
-     * @param userId the ID of the user creating the comment
+     * @param postId     the ID of the post to comment on
+     * @param userId     the ID of the user creating the comment
      * @param requestDTO request containing the comment content
      * @return newly created comment as DTO
      */
@@ -70,5 +70,11 @@ public class CommentServiceImpl implements CommentService {
                 savedComment.getId(), postId, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
 
         return commentMapper.toCommentDTO(savedComment, postId, userId);
+    }
+
+    @Override
+    public void deleteCommentById(Long commentId) {
+        commentRepositoryAdapter.deleteById(commentId);
+        log.info("comment_deleted commentId={} requestId={}", commentId, MDC.get(MDCKeys.REQUEST_ID));
     }
 }
