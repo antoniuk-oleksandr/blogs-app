@@ -125,14 +125,30 @@ implements <a href="CommentRepositoryAdapter.html" title="interface in com.examp
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findAllByPostId(java.lang.Long)" class="member-name-link">findAllByPostId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#deleteById(java.lang.Long)" class="member-name-link">deleteById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Deletes a comment by its ID with exception translation.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#existsById(java.lang.Long)" class="member-name-link">existsById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if a comment exists with the specified ID.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#existsByIdAndAuthorId(java.lang.Long,java.lang.Long)" class="member-name-link">existsByIdAndAuthorId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;authorId)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if a comment exists with the specified ID and author ID.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findAllByPostId(java.lang.Long)" class="member-name-link">findAllByPostId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves all comments associated with a specific post with exception translation.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.comment.entity.CommentEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;commentEntity)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.comment.entity.CommentEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;commentEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Saves a comment entity to the database with exception translation.</div>
 </div>
 </div>
@@ -199,6 +215,60 @@ implements <a href="CommentRepositoryAdapter.html" title="interface in com.examp
 <dd>the saved comment entity with generated ID</dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/FailedToCreateCommentException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToCreateCommentException</a></code> - if the save operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="existsById(java.lang.Long)">
+<h3>existsById</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">existsById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId)</span></div>
+<div class="block">Checks if a comment exists with the specified ID.
+ Wraps repository exceptions in a domain-specific exception for consistent error handling.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="CommentRepositoryAdapter.html#existsById(java.lang.Long)">existsById</a></code>&nbsp;in interface&nbsp;<code><a href="CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>commentId</code> - the ID of the comment</dd>
+<dt>Returns:</dt>
+<dd>true if a comment with the given ID exists, false otherwise</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToCheckCommentExistenceException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToCheckCommentExistenceException</a></code> - if the check operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="existsByIdAndAuthorId(java.lang.Long,java.lang.Long)">
+<h3>existsByIdAndAuthorId</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">existsByIdAndAuthorId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;authorId)</span></div>
+<div class="block">Checks if a comment exists with the specified ID and author ID.
+ Wraps repository exceptions in a domain-specific exception for consistent error handling.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="CommentRepositoryAdapter.html#existsByIdAndAuthorId(java.lang.Long,java.lang.Long)">existsByIdAndAuthorId</a></code>&nbsp;in interface&nbsp;<code><a href="CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>commentId</code> - the ID of the comment</dd>
+<dd><code>authorId</code> - the ID of the author</dd>
+<dt>Returns:</dt>
+<dd>true if a comment with the given ID and author exists, false otherwise</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToCheckCommentExistenceException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToCheckCommentExistenceException</a></code> - if the check operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="deleteById(java.lang.Long)">
+<h3>deleteById</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">deleteById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;commentId)</span></div>
+<div class="block">Deletes a comment by its ID with exception translation.
+ Wraps repository exceptions in a domain-specific exception for consistent error handling.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="CommentRepositoryAdapter.html#deleteById(java.lang.Long)">deleteById</a></code>&nbsp;in interface&nbsp;<code><a href="CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>commentId</code> - the ID of the comment to delete</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/FailedToDeleteCommentException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToDeleteCommentException</a></code> - if the delete operation fails</dd>
 </dl>
 </section>
 </li>

@@ -64,6 +64,14 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
         }
     }
 
+    /**
+     * Checks if a comment exists with the specified ID.
+     * Wraps repository exceptions in a domain-specific exception for consistent error handling.
+     *
+     * @param commentId the ID of the comment
+     * @return true if a comment with the given ID exists, false otherwise
+     * @throws FailedToCheckCommentExistenceException if the check operation fails
+     */
     @Override
     public boolean existsById(Long commentId) {
         try {
@@ -75,6 +83,15 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
         }
     }
 
+    /**
+     * Checks if a comment exists with the specified ID and author ID.
+     * Wraps repository exceptions in a domain-specific exception for consistent error handling.
+     *
+     * @param commentId the ID of the comment
+     * @param authorId the ID of the author
+     * @return true if a comment with the given ID and author exists, false otherwise
+     * @throws FailedToCheckCommentExistenceException if the check operation fails
+     */
     @Override
     public boolean existsByIdAndAuthorId(Long commentId, Long authorId) {
         try {
@@ -86,6 +103,13 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
         }
     }
 
+    /**
+     * Deletes a comment by its ID with exception translation.
+     * Wraps repository exceptions in a domain-specific exception for consistent error handling.
+     *
+     * @param commentId the ID of the comment to delete
+     * @throws FailedToDeleteCommentException if the delete operation fails
+     */
     @Override
     public void deleteById(Long commentId) {
         try {

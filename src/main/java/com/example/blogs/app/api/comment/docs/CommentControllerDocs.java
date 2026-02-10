@@ -207,4 +207,130 @@ public class CommentControllerDocs {
     })
     public @interface CreateComment {
     }
+
+    /**
+     * Meta-annotation combining all OpenAPI documentation for the delete comment endpoint.
+     * <p>
+     * Apply this annotation to controller methods to include complete API documentation
+     * for deleting a comment by ID, including all response schemas and examples.
+     * </p>
+     */
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @Operation(
+            summary = "Delete a comment by ID",
+            description = """
+                    Deletes a specific comment from the system by its unique identifier.
+                                
+                    ## Requirements
+                    - **Authentication**: Valid JWT access token required
+                    - **Comment ID**: Must be a valid comment identifier that exists in the system
+                    - **Ownership**: User must be the owner of the comment to delete it
+                                
+                    ## Response
+                    Returns no content (204) upon successful deletion.
+                                
+                    ## Behavior
+                    - Comment is permanently removed from the database
+                    - Only the comment author can delete their own comment
+                    - If comment doesn't exist, returns 404 Not Found
+                    - If user is not the owner, returns 403 Forbidden
+                    - If user is not authenticated, returns 401 Unauthorized
+                    - If deletion fails due to database errors, returns 500 Internal Server Error
+                    """,
+            tags = {"Comments"}
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Comment successfully deleted",
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+            ),
+            @ApiResponse(
+                    responseCode = "401",
+                    description = "Unauthorized - invalid or expired JWT token",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Invalid JWT Token",
+                                    summary = "JWT token is invalid or has expired",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-02-10T15:07:00",
+                                              "status": 401,
+                                              "error": "Unauthorized",
+                                              "message": "Invalid or expired JWT token",
+                                              "path": "/comments/42"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "Forbidden - user is not the owner of the comment",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Access Denied",
+                                    summary = "User does not have permission to delete this comment",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-02-10T15:07:00",
+                                              "status": 403,
+                                              "error": "Forbidden",
+                                              "message": "Access Denied",
+                                              "path": "/comments/42"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Not Found - comment does not exist",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Comment Not Found",
+                                    summary = "The requested comment does not exist",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-02-10T15:07:00",
+                                              "status": 404,
+                                              "error": "Not Found",
+                                              "message": "Comment not found",
+                                              "path": "/comments/999"
+                                            }
+                                            """
+                            )
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error - failed to delete comment",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(
+                                    name = "Deletion Failed",
+                                    summary = "Comment deletion failed due to database or system error",
+                                    value = """
+                                            {
+                                              "timestamp": "2026-02-10T15:07:00",
+                                              "status": 500,
+                                              "error": "Internal Server Error",
+                                              "message": "Failed to delete comment",
+                                              "path": "/comments/42"
+                                            }
+                                            """
+                            )
+                    )
+            )
+    })
+    public @interface DeleteCommentById {
+    }
 }

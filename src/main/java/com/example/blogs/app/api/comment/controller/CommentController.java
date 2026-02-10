@@ -44,6 +44,14 @@ public class CommentController {
                 .body(commentService.createComment(postId, userPrincipal.id(), requestDTO));
     }
 
+    /**
+     * Deletes a comment by its ID.
+     * Requires the authenticated user to be the owner of the comment.
+     *
+     * @param commentId the ID of the comment to delete
+     * @return HTTP 204 No Content status upon successful deletion
+     */
+    @CommentControllerDocs.DeleteCommentById
     @DeleteMapping("/comments/{commentId}")
     @PreAuthorize("@commentSecurity.isOwner(#commentId)")
     public ResponseEntity<Void> deleteCommentById(@PathVariable Long commentId) {

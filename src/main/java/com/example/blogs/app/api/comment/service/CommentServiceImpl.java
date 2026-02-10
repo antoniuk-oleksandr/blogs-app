@@ -72,6 +72,12 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.toCommentDTO(savedComment, postId, userId);
     }
 
+    /**
+     * Deletes a comment by its ID.
+     * Delegates to the repository adapter for deletion and logs the operation.
+     *
+     * @param commentId the ID of the comment to delete
+     */
     @Override
     public void deleteCommentById(Long commentId) {
         commentRepositoryAdapter.deleteById(commentId);

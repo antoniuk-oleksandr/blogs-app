@@ -223,6 +223,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/comment/repository/adapter/package-summary.html">com.example.blogs.app.api.comment.repository.adapter</a> - package com.example.blogs.app.api.comment.repository.adapter</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/example/blogs/app/api/comment/security/package-summary.html">com.example.blogs.app.api.comment.security</a> - package com.example.blogs.app.api.comment.security</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/comment/service/package-summary.html">com.example.blogs.app.api.comment.service</a> - package com.example.blogs.app.api.comment.service</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/file/entity/package-summary.html">com.example.blogs.app.api.file.entity</a> - package com.example.blogs.app.api.file.entity</dt>
@@ -309,6 +311,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Meta-annotation combining all OpenAPI documentation for the create comment endpoint.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/docs/CommentControllerDocs.DeleteCommentById.html" class="type-name-link" title="annotation interface in com.example.blogs.app.api.comment.docs">CommentControllerDocs.DeleteCommentById</a> - Annotation Interface in <a href="com/example/blogs/app/api/comment/docs/package-summary.html">com.example.blogs.app.api.comment.docs</a></dt>
+<dd>
+<div class="block">Meta-annotation combining all OpenAPI documentation for the delete comment endpoint.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/comment/dto/CommentCreateRequestDTO.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.dto">CommentCreateRequestDTO</a> - Record Class in <a href="com/example/blogs/app/api/comment/dto/package-summary.html">com.example.blogs.app.api.comment.dto</a></dt>
 <dd>
 <div class="block">Data transfer object for creating a new comment.</div>
@@ -335,6 +341,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Maps between comment entities and DTOs using MapStruct.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/CommentNotFoundException.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.exception">CommentNotFoundException</a> - Exception Class in <a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when a requested comment is not found.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/CommentNotFoundException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">CommentNotFoundException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.comment.exception.<a href="com/example/blogs/app/api/comment/exception/CommentNotFoundException.html" title="class in com.example.blogs.app.api.comment.exception">CommentNotFoundException</a></dt>
+<dd>
+<div class="block">Constructs a new exception with a default message and cause.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/comment/repository/CommentRepository.html" class="type-name-link" title="interface in com.example.blogs.app.api.comment.repository">CommentRepository</a> - Interface in <a href="com/example/blogs/app/api/comment/repository/package-summary.html">com.example.blogs.app.api.comment.repository</a></dt>
 <dd>
 <div class="block">JPA repository for managing comment persistence operations.</div>
@@ -353,6 +367,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>comments</code> record component.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/security/CommentSecurity.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.security">CommentSecurity</a> - Class in <a href="com/example/blogs/app/api/comment/security/package-summary.html">com.example.blogs.app.api.comment.security</a></dt>
+<dd>
+<div class="block">Verifies comment ownership by coordinating with the comment repository and security context.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/security/CommentSecurity.html#%3Cinit%3E()" class="member-name-link">CommentSecurity()</a> - Constructor for class com.example.blogs.app.api.comment.security.<a href="com/example/blogs/app/api/comment/security/CommentSecurity.html" title="class in com.example.blogs.app.api.comment.security">CommentSecurity</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/example/blogs/app/api/comment/service/CommentService.html" class="type-name-link" title="interface in com.example.blogs.app.api.comment.service">CommentService</a> - Interface in <a href="com/example/blogs/app/api/comment/service/package-summary.html">com.example.blogs.app.api.comment.service</a></dt>
 <dd>
 <div class="block">Service for comment-related business operations.</div>
@@ -501,6 +521,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Deletes all revoked tokens that expired before the specified timestamp.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html#deleteById(java.lang.Long)" class="member-name-link">deleteById(Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Deletes a comment by its ID with exception translation.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html#deleteById(java.lang.Long)" class="member-name-link">deleteById(Long)</a> - Method in class com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a></dt>
+<dd>
+<div class="block">Deletes a comment by its ID with exception translation.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/file/repository/adapter/FileRepositoryAdapter.html#deleteById(java.lang.Long)" class="member-name-link">deleteById(Long)</a> - Method in interface com.example.blogs.app.api.file.repository.adapter.<a href="com/example/blogs/app/api/file/repository/adapter/FileRepositoryAdapter.html" title="interface in com.example.blogs.app.api.file.repository.adapter">FileRepositoryAdapter</a></dt>
 <dd>
 <div class="block">Deletes file metadata by its ID.</div>
@@ -520,6 +548,18 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/post/repository/PostRepository.html#deleteByIdReturningCount(java.lang.Long)" class="member-name-link">deleteByIdReturningCount(Long)</a> - Method in interface com.example.blogs.app.api.post.repository.<a href="com/example/blogs/app/api/post/repository/PostRepository.html" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a></dt>
 <dd>
 <div class="block">Deletes a post by its ID and returns the deleted post's ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/controller/CommentController.html#deleteCommentById(java.lang.Long)" class="member-name-link">deleteCommentById(Long)</a> - Method in class com.example.blogs.app.api.comment.controller.<a href="com/example/blogs/app/api/comment/controller/CommentController.html" title="class in com.example.blogs.app.api.comment.controller">CommentController</a></dt>
+<dd>
+<div class="block">Deletes a comment by its ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentService.html#deleteCommentById(java.lang.Long)" class="member-name-link">deleteCommentById(Long)</a> - Method in interface com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentService.html" title="interface in com.example.blogs.app.api.comment.service">CommentService</a></dt>
+<dd>
+<div class="block">Deletes a comment by its ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html#deleteCommentById(java.lang.Long)" class="member-name-link">deleteCommentById(Long)</a> - Method in class com.example.blogs.app.api.comment.service.<a href="com/example/blogs/app/api/comment/service/CommentServiceImpl.html" title="class in com.example.blogs.app.api.comment.service">CommentServiceImpl</a></dt>
+<dd>
+<div class="block">Deletes a comment by its ID.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html#deleteExpiredTokens(java.time.LocalDateTime)" class="member-name-link">deleteExpiredTokens(LocalDateTime)</a> - Method in interface com.example.blogs.app.api.auth.repository.adapter.<a href="com/example/blogs/app/api/auth/repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a></dt>
 <dd>
@@ -732,6 +772,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Checks if a post exists by its ID.</div>
 </dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html#existsById(java.lang.Long)" class="member-name-link">existsById(Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Checks if a comment exists with the specified ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html#existsById(java.lang.Long)" class="member-name-link">existsById(Long)</a> - Method in class com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a></dt>
+<dd>
+<div class="block">Checks if a comment exists with the specified ID.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html#existsByIdAndAuthorId(long,long)" class="member-name-link">existsByIdAndAuthorId(long, long)</a> - Method in interface com.example.blogs.app.api.post.repository.adapter.<a href="com/example/blogs/app/api/post/repository/adapter/PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></dt>
 <dd>
 <div class="block">Checks if a post exists by its ID and author ID.</div>
@@ -743,6 +791,18 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/post/repository/PostRepository.html#existsByIdAndAuthorId(long,long)" class="member-name-link">existsByIdAndAuthorId(long, long)</a> - Method in interface com.example.blogs.app.api.post.repository.<a href="com/example/blogs/app/api/post/repository/PostRepository.html" title="interface in com.example.blogs.app.api.post.repository">PostRepository</a></dt>
 <dd>
 <div class="block">Checks if a post exists by its ID and author ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html#existsByIdAndAuthorId(java.lang.Long,java.lang.Long)" class="member-name-link">existsByIdAndAuthorId(Long, Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapter.html" title="interface in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapter</a></dt>
+<dd>
+<div class="block">Checks if a comment exists with the specified ID and author ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html#existsByIdAndAuthorId(java.lang.Long,java.lang.Long)" class="member-name-link">existsByIdAndAuthorId(Long, Long)</a> - Method in class com.example.blogs.app.api.comment.repository.adapter.<a href="com/example/blogs/app/api/comment/repository/adapter/CommentRepositoryAdapterImpl.html" title="class in com.example.blogs.app.api.comment.repository.adapter">CommentRepositoryAdapterImpl</a></dt>
+<dd>
+<div class="block">Checks if a comment exists with the specified ID and author ID.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/repository/CommentRepository.html#existsByIdAndAuthorId(java.lang.Long,java.lang.Long)" class="member-name-link">existsByIdAndAuthorId(Long, Long)</a> - Method in interface com.example.blogs.app.api.comment.repository.<a href="com/example/blogs/app/api/comment/repository/CommentRepository.html" title="interface in com.example.blogs.app.api.comment.repository">CommentRepository</a></dt>
+<dd>
+<div class="block">Checks if a comment exists with the specified ID and author ID.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/auth/repository/RevokedTokenRepository.html#existsByToken(java.lang.String)" class="member-name-link">existsByToken(String)</a> - Method in interface com.example.blogs.app.api.auth.repository.<a href="com/example/blogs/app/api/auth/repository/RevokedTokenRepository.html" title="interface in com.example.blogs.app.api.auth.repository">RevokedTokenRepository</a></dt>
 <dd>
@@ -759,6 +819,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToCheckCommentExistenceException.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.exception">FailedToCheckCommentExistenceException</a> - Exception Class in <a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when a comment existence check operation fails.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToCheckCommentExistenceException.html#%3Cinit%3E(java.lang.Throwable)" class="member-name-link">FailedToCheckCommentExistenceException(Throwable)</a> - Constructor for exception class com.example.blogs.app.api.comment.exception.<a href="com/example/blogs/app/api/comment/exception/FailedToCheckCommentExistenceException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToCheckCommentExistenceException</a></dt>
+<dd>
+<div class="block">Constructs a new exception with a default message and cause.</div>
+</dd>
 <dt><a href="com/example/blogs/app/api/auth/exception/FailedToCheckTokenRevokedException.html" class="type-name-link" title="class in com.example.blogs.app.api.auth.exception">FailedToCheckTokenRevokedException</a> - Exception Class in <a href="com/example/blogs/app/api/auth/exception/package-summary.html">com.example.blogs.app.api.auth.exception</a></dt>
 <dd>
 <div class="block">Thrown when a database error occurs while checking if a token has been revoked.</div>
@@ -798,6 +866,14 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/user/exception/FailedToCreateUser.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">FailedToCreateUser(Exception)</a> - Constructor for exception class com.example.blogs.app.api.user.exception.<a href="com/example/blogs/app/api/user/exception/FailedToCreateUser.html" title="class in com.example.blogs.app.api.user.exception">FailedToCreateUser</a></dt>
 <dd>
 <div class="block">Constructs a new FailedToCreateUser exception with a default error message.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToDeleteCommentException.html" class="type-name-link" title="class in com.example.blogs.app.api.comment.exception">FailedToDeleteCommentException</a> - Exception Class in <a href="com/example/blogs/app/api/comment/exception/package-summary.html">com.example.blogs.app.api.comment.exception</a></dt>
+<dd>
+<div class="block">Exception thrown when a comment deletion operation fails.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/exception/FailedToDeleteCommentException.html#%3Cinit%3E(java.lang.Throwable)" class="member-name-link">FailedToDeleteCommentException(Throwable)</a> - Constructor for exception class com.example.blogs.app.api.comment.exception.<a href="com/example/blogs/app/api/comment/exception/FailedToDeleteCommentException.html" title="class in com.example.blogs.app.api.comment.exception">FailedToDeleteCommentException</a></dt>
+<dd>
+<div class="block">Constructs a new exception with a default message and cause.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/file/exception/FailedToDeleteFileByIdException.html" class="type-name-link" title="class in com.example.blogs.app.api.file.exception">FailedToDeleteFileByIdException</a> - Exception Class in <a href="com/example/blogs/app/api/file/exception/package-summary.html">com.example.blogs.app.api.file.exception</a></dt>
 <dd>
@@ -1353,6 +1429,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/example/blogs/app/api/auth/exception/InvalidCredentialsException.html#%3Cinit%3E(java.lang.Exception)" class="member-name-link">InvalidCredentialsException(Exception)</a> - Constructor for exception class com.example.blogs.app.api.auth.exception.<a href="com/example/blogs/app/api/auth/exception/InvalidCredentialsException.html" title="class in com.example.blogs.app.api.auth.exception">InvalidCredentialsException</a></dt>
 <dd>
 <div class="block">Constructs a new InvalidCredentialsException with a default message.</div>
+</dd>
+<dt><a href="com/example/blogs/app/api/comment/security/CommentSecurity.html#isOwner(java.lang.Long)" class="member-name-link">isOwner(Long)</a> - Method in class com.example.blogs.app.api.comment.security.<a href="com/example/blogs/app/api/comment/security/CommentSecurity.html" title="class in com.example.blogs.app.api.comment.security">CommentSecurity</a></dt>
+<dd>
+<div class="block">Checks if the authenticated user is the owner of the specified comment.</div>
 </dd>
 <dt><a href="com/example/blogs/app/api/post/security/PostSecurity.html#isOwner(java.lang.Long)" class="member-name-link">isOwner(Long)</a> - Method in interface com.example.blogs.app.api.post.security.<a href="com/example/blogs/app/api/post/security/PostSecurity.html" title="interface in com.example.blogs.app.api.post.security">PostSecurity</a></dt>
 <dd>

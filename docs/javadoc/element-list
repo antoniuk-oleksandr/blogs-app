@@ -15,6 +15,7 @@ com.example.blogs.app.api.comment.exception
 com.example.blogs.app.api.comment.mapper
 com.example.blogs.app.api.comment.repository
 com.example.blogs.app.api.comment.repository.adapter
+com.example.blogs.app.api.comment.security
 com.example.blogs.app.api.comment.service
 com.example.blogs.app.api.file.entity
 com.example.blogs.app.api.file.exception
