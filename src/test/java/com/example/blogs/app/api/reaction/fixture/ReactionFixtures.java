@@ -50,4 +50,24 @@ public class ReactionFixtures {
                 .reactionType(reactionType)
                 .build();
     }
+
+    /**
+     * Creates a reaction DTO with the specified attributes.
+     *
+     * @param id           the reaction ID
+     * @param postId       the post ID
+     * @param userId       the user ID
+     * @param reactionType the type of reaction
+     * @return configured reaction DTO
+     */
+    public static ReactionDTO reactionDTO(
+            Long id, Long postId, Long userId, ReactionType reactionType
+    ) {
+        return new ReactionDTO(
+                id,
+                reactionType,
+                userId,
+                postId
+        );
+    }
 }
