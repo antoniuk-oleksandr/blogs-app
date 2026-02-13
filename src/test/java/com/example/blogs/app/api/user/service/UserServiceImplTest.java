@@ -1,7 +1,7 @@
 package com.example.blogs.app.api.user.service;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
-import com.example.blogs.app.api.post.service.PostService;
+import com.example.blogs.app.api.post.repository.adapter.PostRepositoryAdapter;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.dto.UserDTO;
 import com.example.blogs.app.api.user.dto.UserPostSummaryDTO;
@@ -29,29 +29,30 @@ class UserServiceImplTest {
     private UserMapper userMapper;
 
     @Mock
-    private PostService postService;
+    private PostRepositoryAdapter postRepositoryAdapter;
 
     private UserService userService;
 
     @BeforeEach
     void setUp() {
-        userService = new UserServiceImpl(userRepositoryAdapter, postService, userMapper);
+        userService = new UserServiceImpl(userRepositoryAdapter, postRepositoryAdapter, userMapper);
     }
 
     @Test
     void createUser_shouldCreateUserSuccessfully() {
+        String username = "username";
         UserEntity mockUser = createTestUser();
 
         when(userRepositoryAdapter.save(any(CreateUserCommand.class))).thenReturn(mockUser);
 
         CreateUserCommand command = new CreateUserCommand(
-                "testuser",
+                username,
                 "hashedpassword",
                 "test@gmail.com"
         );
         UserEntity actualUser = userService.createUser(command);
 
-        assertThat(actualUser.getUsername()).isEqualTo("testuser");
+        assertThat(actualUser.getUsername()).isEqualTo(username);
         assertThat(actualUser.getEmail()).isEqualTo("test@gmail.com");
         assertThat(actualUser.getPasswordHash()).isEqualTo("hashedpassword");
         verify(userRepositoryAdapter).save(any(CreateUserCommand.class));
@@ -59,20 +60,22 @@ class UserServiceImplTest {
 
     @Test
     void getUserByUsernameOrEmail_shouldReturnUserByUsernameSuccessfully() {
+        String username = "username";
         UserEntity mockUser = createTestUser();
 
         when(userRepositoryAdapter.findByUsernameOrEmail(anyString())).thenReturn(mockUser);
 
-        UserEntity actualUser = userService.getUserByUsernameOrEmail("testuser");
+        UserEntity actualUser = userService.getUserByUsernameOrEmail(username);
 
-        assertThat(actualUser.getUsername()).isEqualTo("testuser");
+        assertThat(actualUser.getUsername()).isEqualTo(username);
         assertThat(actualUser.getEmail()).isEqualTo("test@gmail.com");
         assertThat(actualUser.getPasswordHash()).isEqualTo("hashedpassword");
-        verify(userRepositoryAdapter).findByUsernameOrEmail("testuser");
+        verify(userRepositoryAdapter).findByUsernameOrEmail(username);
     }
 
     @Test
     void getUserByUsername_shouldReturnUserDTOSuccessfully() {
+        String username = "username";
         UserEntity mockUser = createTestUser();
         List<PostEntity> mockPosts = List.of(
                 new PostEntity(), new PostEntity()
@@ -82,30 +85,30 @@ class UserServiceImplTest {
                 UserPostSummaryDTO.builder().build()
         );
         UserDTO mockUserDTO = UserDTO.builder()
-                .username("testuser")
+                .username(username)
                 .bio(null)
                 .profilePictureUrl(null)
                 .posts(mockPostSummaries)
                 .build();
-        when(postService.getPostsByUserId(anyLong())).thenReturn(mockPosts);
+        when(postRepositoryAdapter.findByAuthorId(anyLong())).thenReturn(mockPosts);
         when(userRepositoryAdapter.findByUsername(anyString())).thenReturn(mockUser);
         when(userMapper.toUserDTO(any(UserEntity.class), anyList())).thenReturn(mockUserDTO);
 
-        UserDTO actualUser = userService.getUserByUsername("testuser");
+        UserDTO actualUser = userService.getUserByUsername(username);
 
-        assertThat(actualUser.username()).isEqualTo("testuser");
+        assertThat(actualUser.username()).isEqualTo(username);
         assertThat(actualUser.bio()).isNull();
         assertThat(actualUser.profilePictureUrl()).isNull();
         assertThat(actualUser.posts()).hasSize(2);
-        verify(userRepositoryAdapter).findByUsername("testuser");
-        verify(postService).getPostsByUserId(mockUser.getId());
+        verify(userRepositoryAdapter).findByUsername(username);
+        verify(postRepositoryAdapter).findByAuthorId(mockUser.getId());
         verify(userMapper).toUserDTO(any(UserEntity.class), anyList());
     }
 
     UserEntity createTestUser() {
         return UserEntity.builder()
                 .id(1L)
-                .username("testuser")
+                .username("username")
                 .passwordHash("hashedpassword")
                 .email("test@gmail.com")
                 .build();

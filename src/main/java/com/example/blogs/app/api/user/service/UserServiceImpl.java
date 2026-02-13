@@ -1,8 +1,8 @@
 package com.example.blogs.app.api.user.service;
 
+import com.example.blogs.app.api.post.repository.adapter.PostRepositoryAdapter;
 import com.example.blogs.app.api.user.dto.UserDTO;
 import com.example.blogs.app.api.post.entity.PostEntity;
-import com.example.blogs.app.api.post.service.PostService;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.mapper.UserMapper;
@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepositoryAdapter userRepositoryAdapter;
 
-    private final PostService postService;
+    private final PostRepositoryAdapter postRepositoryAdapter;
 
     private final UserMapper userMapper;
 
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserByUsername(String username) {
         UserEntity userEntity = userRepositoryAdapter.findByUsername(username);
-        List<PostEntity> postEntities = postService.getPostsByUserId(userEntity.getId());
+        List<PostEntity> postEntities = postRepositoryAdapter.findByAuthorId(userEntity.getId());
 
         log.info("user_profile_viewed userId={} postCount={} requestId={}",
                 userEntity.getId(), postEntities.size(), MDC.get(MDCKeys.REQUEST_ID));
