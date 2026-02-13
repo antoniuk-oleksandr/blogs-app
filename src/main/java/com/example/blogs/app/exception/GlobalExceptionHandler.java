@@ -33,6 +33,14 @@ public class GlobalExceptionHandler {
 
     private final ExceptionHttpStatusMapper statusMapper;
 
+    /**
+     * Handles validation errors for request body fields annotated with Jakarta validation constraints.
+     * Extracts all validation error messages and returns them in a standardized error response.
+     *
+     * @param exception the validation exception containing binding result errors
+     * @param request the HTTP request that triggered the exception
+     * @return error response with HTTP 400 status and list of validation errors
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(
             MethodArgumentNotValidException exception,
@@ -54,6 +62,14 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
+    /**
+     * Handles validation errors for method parameters and path variables.
+     * Processes field errors and parameter constraint violations into standardized error messages.
+     *
+     * @param exception the validation exception containing parameter validation errors
+     * @param request the HTTP request that triggered the exception
+     * @return error response with HTTP 400 status and list of validation errors
+     */
     @ExceptionHandler(HandlerMethodValidationException.class)
     public ResponseEntity<ErrorResponse> handleMethodValidationException(
             HandlerMethodValidationException exception,
@@ -77,6 +93,14 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
+    /**
+     * Handles errors when HTTP message body cannot be read or parsed.
+     * Processes different scenarios: invalid enum values, unrecognized fields, missing body, or malformed JSON.
+     *
+     * @param exception the message parsing exception
+     * @param request the HTTP request that triggered the exception
+     * @return error response with HTTP 400 status and descriptive error message
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleMissingRequestBodyException(
             HttpMessageNotReadableException exception,
@@ -105,6 +129,15 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
+    /**
+     * Handles all domain-specific and unhandled exceptions.
+     * Maps exceptions to appropriate HTTP status codes using the status mapper.
+     * Logs server errors (5xx) with full context for debugging.
+     *
+     * @param exception the exception to handle
+     * @param request the HTTP request that triggered the exception
+     * @return error response with appropriate HTTP status and exception details
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleRegularException(
             Exception exception,
@@ -132,6 +165,14 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
+    /**
+     * Handles invalid enum value format errors by providing allowed values.
+     * Extracts enum constants and formats a user-friendly error message.
+     *
+     * @param ife the invalid format exception containing enum type information
+     * @param request the HTTP request that triggered the exception
+     * @return error response with HTTP 400 status and list of allowed enum values
+     */
     private ResponseEntity<ErrorResponse> handleReactionTypeEnum(InvalidFormatException ife, HttpServletRequest request) {
         String allowed = Arrays.toString(ife.getTargetType().getEnumConstants());
         String enumName = ife.getTargetType().getSimpleName();
@@ -144,6 +185,13 @@ public class GlobalExceptionHandler {
         );
     }
 
+    /**
+     * Builds a standardized error response for validation failures.
+     *
+     * @param errors list of validation error messages
+     * @param path the request URI path where the error occurred
+     * @return error response with HTTP 400 status, timestamp, and error details
+     */
     private ErrorResponse buildValidationErrorResponse(
             List<String> errors,
             String path

@@ -32,6 +32,15 @@ com.example.blogs.app.api.post.repository
 com.example.blogs.app.api.post.repository.adapter
 com.example.blogs.app.api.post.security
 com.example.blogs.app.api.post.service
+com.example.blogs.app.api.reaction.controller
+com.example.blogs.app.api.reaction.docs
+com.example.blogs.app.api.reaction.dto
+com.example.blogs.app.api.reaction.entity
+com.example.blogs.app.api.reaction.exception
+com.example.blogs.app.api.reaction.mapper
+com.example.blogs.app.api.reaction.repository
+com.example.blogs.app.api.reaction.repository.adapter
+com.example.blogs.app.api.reaction.service
 com.example.blogs.app.api.user.controller
 com.example.blogs.app.api.user.docs
 com.example.blogs.app.api.user.dto

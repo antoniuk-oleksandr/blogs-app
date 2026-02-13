@@ -12,6 +12,9 @@ import com.example.blogs.app.api.user.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * Orchestrates reaction operations by coordinating with repository adapters.
+ */
 @Service
 @AllArgsConstructor
 public class ReactionServiceImpl implements ReactionService {
@@ -22,6 +25,15 @@ public class ReactionServiceImpl implements ReactionService {
 
     private final ReactionMapper reactionMapper;
 
+    /**
+     * Sets or updates a user's reaction on a post.
+     * Attempts to find an existing reaction and update it. If not found, creates a new reaction.
+     *
+     * @param postId the ID of the post to react to
+     * @param userId the ID of the user making the reaction
+     * @param reactionType the type of reaction (LIKE or DISLIKE)
+     * @return the created or updated reaction as DTO
+     */
     @Override
     public ReactionDTO setReaction(Long postId, Long userId, ReactionType reactionType) {
         try {

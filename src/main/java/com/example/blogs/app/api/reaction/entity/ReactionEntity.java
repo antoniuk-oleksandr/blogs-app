@@ -8,6 +8,10 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entity representing a user's reaction to a post.
+ * Tracks LIKE or DISLIKE reactions with timestamps.
+ */
 @Getter
 @Setter
 @Builder

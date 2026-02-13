@@ -14,6 +14,9 @@ import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import com.example.blogs.app.api.reaction.repository.ReactionRepository;
 
+/**
+ * Wraps reaction repository operations with exception translation for consistent error handling.
+ */
 @Component
 @AllArgsConstructor
 public class ReactionRepositoryAdapterImpl implements ReactionRepositoryAdapter {
@@ -24,6 +27,15 @@ public class ReactionRepositoryAdapterImpl implements ReactionRepositoryAdapter 
 
     private final Logger log = LoggerFactory.getLogger(ReactionRepositoryAdapterImpl.class);
 
+    /**
+     * Saves a reaction entity to the database with exception translation.
+     * Detects unique constraint violations and wraps repository exceptions.
+     *
+     * @param reactionEntity the reaction entity to save
+     * @return the saved reaction entity with generated ID
+     * @throws UserHasAlreadyReactedException if user already has a reaction on this post
+     * @throws FailedToSaveReactionException if the save operation fails
+     */
     @Override
     public ReactionEntity save(ReactionEntity reactionEntity) {
         try {
@@ -41,6 +53,16 @@ public class ReactionRepositoryAdapterImpl implements ReactionRepositoryAdapter 
         }
     }
 
+    /**
+     * Finds a reaction by post ID and user ID with exception translation.
+     * Wraps repository exceptions in domain-specific exceptions for consistent error handling.
+     *
+     * @param postId the ID of the post
+     * @param userId the ID of the user
+     * @return the reaction entity if found
+     * @throws ReactionNotFoundException if the reaction does not exist
+     * @throws FailedToFindReactionException if the find operation fails
+     */
     @Override
     public ReactionEntity findByPostIdAndUserId(Long postId, Long userId) {
         try {
