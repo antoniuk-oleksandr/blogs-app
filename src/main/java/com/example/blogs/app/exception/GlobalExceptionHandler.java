@@ -1,6 +1,7 @@
 package com.example.blogs.app.exception;
 
 import com.example.blogs.app.logging.MDCKeys;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,27 +33,8 @@ public class GlobalExceptionHandler {
 
     private final ExceptionHttpStatusMapper statusMapper;
 
-    /**
-     * Main exception handler that routes different exception types to appropriate handlers.
-     *
-     * @param exception the exception to handle
-     * @param request the HTTP request where the exception occurred
-     * @return response entity with structured error information
-     */
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(
-            Exception exception,
-            HttpServletRequest request
-    ) {
-        return switch (exception) {
-            case MethodArgumentNotValidException e -> handleValidationException(e, request);
-            case HandlerMethodValidationException e -> handleMethodValidationException(e, request);
-            case HttpMessageNotReadableException ignored -> handleMissingRequestBodyException(request);
-            default -> handleRegularException(exception, request);
-        };
-    }
-
-    private ResponseEntity<ErrorResponse> handleValidationException(
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidationException(
             MethodArgumentNotValidException exception,
             HttpServletRequest request
     ) {
@@ -71,7 +54,8 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
-    private ResponseEntity<ErrorResponse> handleMethodValidationException(
+    @ExceptionHandler(HandlerMethodValidationException.class)
+    public ResponseEntity<ErrorResponse> handleMethodValidationException(
             HandlerMethodValidationException exception,
             HttpServletRequest request
     ) {
@@ -93,11 +77,26 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
-    private ResponseEntity<ErrorResponse> handleMissingRequestBodyException(
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleMissingRequestBodyException(
+            HttpMessageNotReadableException exception,
             HttpServletRequest request
     ) {
+        String errorMessage;
+
+        if (exception.getCause() instanceof InvalidFormatException ife && ife.getTargetType().isEnum()) {
+            return handleReactionTypeEnum(ife, request);
+        } else if (exception.getMessage() != null && exception.getMessage().contains("Unrecognized field")) {
+            errorMessage = "Unrecognized field in request body. Please check field names.";
+        } else if (exception.getMessage() != null && exception.getMessage().contains("Required request body is missing")) {
+            errorMessage = "Request body is required";
+        } else {
+            errorMessage = "Malformed JSON request: " + exception.getMostSpecificCause().getMessage();
+        }
+
+
         ErrorResponse errorResponse = buildValidationErrorResponse(
-                List.of("Request body is required"),
+                List.of(errorMessage),
                 request.getRequestURI()
         );
 
@@ -106,7 +105,8 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
-    private ResponseEntity<ErrorResponse> handleRegularException(
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleRegularException(
             Exception exception,
             HttpServletRequest request
     ) {
@@ -130,6 +130,18 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(status)
                 .body(errorResponse);
+    }
+
+    private ResponseEntity<ErrorResponse> handleReactionTypeEnum(InvalidFormatException ife, HttpServletRequest request) {
+        String allowed = Arrays.toString(ife.getTargetType().getEnumConstants());
+        String enumName = ife.getTargetType().getSimpleName();
+
+        return ResponseEntity.badRequest().body(
+                buildValidationErrorResponse(
+                        List.of("Invalid value for field '" + enumName + "'. Allowed values: " + allowed),
+                        request.getRequestURI()
+                )
+        );
     }
 
     private ErrorResponse buildValidationErrorResponse(

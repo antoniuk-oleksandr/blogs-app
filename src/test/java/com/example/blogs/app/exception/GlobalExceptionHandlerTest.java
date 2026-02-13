@@ -1,5 +1,6 @@
 package com.example.blogs.app.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,10 +38,11 @@ class GlobalExceptionHandlerTest {
         exceptionHandler = new GlobalExceptionHandler(mapper);
         methodParameter = mock(MethodParameter.class);
         request = mock(HttpServletRequest.class);
+        when(request.getRequestURI()).thenReturn("/test/path");
     }
 
     @Test
-    void handleException_withMethodArgumentNotValidException_shouldReturnValidationErrors() {
+    void handleValidationException_withMethodArgumentNotValidException_shouldReturnValidationErrors() {
         BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(new Object(), "testObject");
         bindingResult.addError(new FieldError("testObject", "username", "Username is required"));
         bindingResult.addError(new FieldError("testObject", "email", "Email is invalid"));
@@ -50,7 +52,7 @@ class GlobalExceptionHandlerTest {
                 bindingResult
         );
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleValidationException(exception, request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody()).isNotNull();
@@ -61,7 +63,7 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleException_withHandlerMethodValidationException_shouldReturnValidationErrors() {
+    void handleMethodValidationException_withHandlerMethodValidationException_shouldReturnValidationErrors() {
         FieldError fieldError1 = new FieldError("object", "field1", "Field 1 error");
         FieldError fieldError2 = new FieldError("object", "field2", "Field 2 error");
         ObjectError objectError = new ObjectError("object", "Object error");
@@ -72,7 +74,7 @@ class GlobalExceptionHandlerTest {
 
         doReturn(allErrors).when(exception).getAllErrors();
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMethodValidationException(exception, request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody()).isNotNull();
@@ -87,10 +89,12 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleException_withHttpMessageNotReadableException_shouldReturnRequestBodyRequiredError() {
+    void handleMissingRequestBodyException_withMissingBody_shouldReturnRequestBodyRequiredError() {
         HttpMessageNotReadableException exception = mock(HttpMessageNotReadableException.class);
+        when(exception.getMessage()).thenReturn("Required request body is missing");
+        when(exception.getCause()).thenReturn(null);
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMissingRequestBodyException(exception, request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(response.getBody()).isNotNull();
@@ -100,11 +104,119 @@ class GlobalExceptionHandlerTest {
         assertThat(response.getBody().errors()).contains("Request body is required");
     }
 
+
     @Test
-    void handleException_withGenericException_shouldReturnInternalServerError() {
+    void handleMissingRequestBodyException_withUnrecognizedField_shouldReturnUnrecognizedFieldError() {
+        HttpMessageNotReadableException exception = mock(HttpMessageNotReadableException.class);
+        when(exception.getMessage()).thenReturn("Unrecognized field \"reactionTypes\"");
+        when(exception.getCause()).thenReturn(null);
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMissingRequestBodyException(exception, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().status()).isEqualTo(400);
+        assertThat(response.getBody().message()).isEqualTo("Validation Failed");
+        assertThat(response.getBody().errors()).hasSize(1);
+        assertThat(response.getBody().errors()).contains("Unrecognized field in request body. Please check field names.");
+    }
+
+    @Test
+    void handleMissingRequestBodyException_withInvalidEnumValue_shouldReturnEnumValidationError() {
+        Class<TestEnum> enumClass = TestEnum.class;
+
+        InvalidFormatException invalidFormatException = mock(InvalidFormatException.class);
+        when(invalidFormatException.getTargetType()).thenReturn((Class) enumClass);
+
+        HttpMessageNotReadableException exception = mock(HttpMessageNotReadableException.class);
+        when(exception.getCause()).thenReturn(invalidFormatException);
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMissingRequestBodyException(exception, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().status()).isEqualTo(400);
+        assertThat(response.getBody().message()).isEqualTo("Validation Failed");
+        assertThat(response.getBody().errors()).hasSize(1);
+        assertThat(response.getBody().errors().getFirst()).contains("Invalid value for field 'TestEnum'");
+        assertThat(response.getBody().errors().getFirst()).contains("Allowed values:");
+    }
+
+    @Test
+    void handleMissingRequestBodyException_withMalformedJson_shouldReturnMalformedJsonError() {
+        RuntimeException cause = new RuntimeException("Unexpected character");
+
+        HttpMessageNotReadableException exception = mock(HttpMessageNotReadableException.class);
+        when(exception.getMessage()).thenReturn("JSON parse error");
+        when(exception.getCause()).thenReturn(cause);
+        when(exception.getMostSpecificCause()).thenReturn(cause);
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMissingRequestBodyException(exception, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().status()).isEqualTo(400);
+        assertThat(response.getBody().message()).isEqualTo("Validation Failed");
+        assertThat(response.getBody().errors()).hasSize(1);
+        assertThat(response.getBody().errors().getFirst()).startsWith("Malformed JSON request:");
+    }
+
+    @Test
+    void handleMissingRequestBodyException_withInvalidFormatException_butNotEnum_shouldFallThrough() {
+        InvalidFormatException invalidFormatException = mock(InvalidFormatException.class);
+        when(invalidFormatException.getTargetType()).thenReturn((Class) String.class);
+        HttpMessageNotReadableException exception = mock(HttpMessageNotReadableException.class);
+        when(exception.getCause()).thenReturn(invalidFormatException);
+        when(exception.getMessage()).thenReturn("Some other error");
+        when(exception.getMostSpecificCause()).thenReturn(invalidFormatException);
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMissingRequestBodyException(exception, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().errors()).hasSize(1);
+        assertThat(response.getBody().errors().getFirst()).startsWith("Malformed JSON request:");
+    }
+
+    @Test
+    void handleMissingRequestBodyException_withNullMessage_shouldReturnMalformedJsonError() {
+        RuntimeException cause = new RuntimeException("Unexpected error");
+
+        HttpMessageNotReadableException exception = mock(HttpMessageNotReadableException.class);
+        when(exception.getMessage()).thenReturn(null);
+        when(exception.getCause()).thenReturn(cause);
+        when(exception.getMostSpecificCause()).thenReturn(cause);
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMissingRequestBodyException(exception, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().errors()).hasSize(1);
+        assertThat(response.getBody().errors().getFirst()).startsWith("Malformed JSON request:");
+    }
+
+    @Test
+    void handleMissingRequestBodyException_withMessageNotContainingKeywords_shouldReturnMalformedJsonError() {
+        RuntimeException cause = new RuntimeException("Random parse error");
+
+        HttpMessageNotReadableException exception = mock(HttpMessageNotReadableException.class);
+        when(exception.getMessage()).thenReturn("Some random error message");
+        when(exception.getCause()).thenReturn(cause);
+        when(exception.getMostSpecificCause()).thenReturn(cause);
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMissingRequestBodyException(exception, request);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().errors()).hasSize(1);
+        assertThat(response.getBody().errors().getFirst()).startsWith("Malformed JSON request:");
+    }
+
+    @Test
+    void handleRegularException_withGenericException_shouldReturnInternalServerError() {
         Exception exception = new RuntimeException("Something went wrong");
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleRegularException(exception, request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
         assertThat(response.getBody()).isNotNull();
@@ -114,10 +226,10 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleException_withNullPointerException_shouldReturnInternalServerError() {
+    void handleRegularException_withNullPointerException_shouldReturnInternalServerError() {
         Exception exception = new NullPointerException("Null pointer encountered");
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleRegularException(exception, request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
         assertThat(response.getBody()).isNotNull();
@@ -127,12 +239,11 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
-    void handleException_withIllegalArgumentException_shouldReturnInternalServerError() {
+    void handleRegularException_withIllegalArgumentException_shouldReturnInternalServerError() {
         Exception exception = new IllegalArgumentException("Invalid argument provided");
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleRegularException(exception, request);
 
-        // Then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().status()).isEqualTo(500);
@@ -151,10 +262,8 @@ class GlobalExceptionHandlerTest {
                 bindingResult
         );
 
-        // When
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleValidationException(exception, request);
 
-        // Then
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().errors()).hasSize(3);
     }
@@ -168,7 +277,7 @@ class GlobalExceptionHandlerTest {
                 bindingResult
         );
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleValidationException(exception, request);
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().errors()).isEmpty();
@@ -185,7 +294,7 @@ class GlobalExceptionHandlerTest {
 
         doReturn(allErrors).when(exception).getAllErrors();
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleMethodValidationException(exception, request);
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().errors()).containsExactly("Error 1", "Error 2");
@@ -195,10 +304,34 @@ class GlobalExceptionHandlerTest {
     void errorResponse_shouldHaveCorrectTimestamp() {
         Exception exception = new RuntimeException("Test");
 
-        ResponseEntity<ErrorResponse> response = exceptionHandler.handleException(exception, request);
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleRegularException(exception, request);
 
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().timestamp()).isNotNull();
         assertThat(response.getBody().timestamp()).isBeforeOrEqualTo(LocalDateTime.now());
+    }
+
+    @Test
+    void errorResponse_shouldHaveCorrectPath() {
+        Exception exception = new RuntimeException("Test");
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleRegularException(exception, request);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().path()).isEqualTo("/test/path");
+    }
+
+    @Test
+    void errorResponse_shouldNotHaveNanoseconds() {
+        Exception exception = new RuntimeException("Test");
+
+        ResponseEntity<ErrorResponse> response = exceptionHandler.handleRegularException(exception, request);
+
+        assertThat(response.getBody()).isNotNull();
+        assertThat(response.getBody().timestamp().getNano()).isZero();
+    }
+
+    private enum TestEnum {
+        VALUE1, VALUE2, VALUE3
     }
 }
