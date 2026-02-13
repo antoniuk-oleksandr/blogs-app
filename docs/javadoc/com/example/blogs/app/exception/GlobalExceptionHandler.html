@@ -122,10 +122,28 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleException(java.lang.Exception,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">handleException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;exception,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleMethodValidationException(org.springframework.web.method.annotation.HandlerMethodValidationException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">handleMethodValidationException</a><wbr>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/method/annotation/HandlerMethodValidationException.html" title="class or interface in org.springframework.web.method.annotation" class="external-link">HandlerMethodValidationException</a>&nbsp;exception,
  jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Main exception handler that routes different exception types to appropriate handlers.</div>
+<div class="block">Handles validation errors for method parameters and path variables.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleMissingRequestBodyException(org.springframework.http.converter.HttpMessageNotReadableException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">handleMissingRequestBodyException</a><wbr>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/converter/HttpMessageNotReadableException.html" title="class or interface in org.springframework.http.converter" class="external-link">HttpMessageNotReadableException</a>&nbsp;exception,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Handles errors when HTTP message body cannot be read or parsed.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleRegularException(java.lang.Exception,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">handleRegularException</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;exception,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Handles all domain-specific and unhandled exceptions.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handleValidationException(org.springframework.web.bind.MethodArgumentNotValidException,jakarta.servlet.http.HttpServletRequest)" class="member-name-link">handleValidationException</a><wbr>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/MethodArgumentNotValidException.html" title="class or interface in org.springframework.web.bind" class="external-link">MethodArgumentNotValidException</a>&nbsp;exception,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Handles validation errors for request body fields annotated with Jakarta validation constraints.</div>
 </div>
 </div>
 </div>
@@ -159,18 +177,71 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="handleException(java.lang.Exception,jakarta.servlet.http.HttpServletRequest)">
-<h3>handleException</h3>
-<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@ExceptionHandler</a>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">java.lang.Exception.class</a>)
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</span>&nbsp;<span class="element-name">handleException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;exception,
+<section class="detail" id="handleValidationException(org.springframework.web.bind.MethodArgumentNotValidException,jakarta.servlet.http.HttpServletRequest)">
+<h3>handleValidationException</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@ExceptionHandler</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/MethodArgumentNotValidException.html" title="class or interface in org.springframework.web.bind" class="external-link">org.springframework.web.bind.MethodArgumentNotValidException.class</a>)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</span>&nbsp;<span class="element-name">handleValidationException</span><wbr><span class="parameters">(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/MethodArgumentNotValidException.html" title="class or interface in org.springframework.web.bind" class="external-link">MethodArgumentNotValidException</a>&nbsp;exception,
  jakarta.servlet.http.HttpServletRequest&nbsp;request)</span></div>
-<div class="block">Main exception handler that routes different exception types to appropriate handlers.</div>
+<div class="block">Handles validation errors for request body fields annotated with Jakarta validation constraints.
+ Extracts all validation error messages and returns them in a standardized error response.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>exception</code> - the validation exception containing binding result errors</dd>
+<dd><code>request</code> - the HTTP request that triggered the exception</dd>
+<dt>Returns:</dt>
+<dd>error response with HTTP 400 status and list of validation errors</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="handleMethodValidationException(org.springframework.web.method.annotation.HandlerMethodValidationException,jakarta.servlet.http.HttpServletRequest)">
+<h3>handleMethodValidationException</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@ExceptionHandler</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/method/annotation/HandlerMethodValidationException.html" title="class or interface in org.springframework.web.method.annotation" class="external-link">org.springframework.web.method.annotation.HandlerMethodValidationException.class</a>)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</span>&nbsp;<span class="element-name">handleMethodValidationException</span><wbr><span class="parameters">(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/method/annotation/HandlerMethodValidationException.html" title="class or interface in org.springframework.web.method.annotation" class="external-link">HandlerMethodValidationException</a>&nbsp;exception,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</span></div>
+<div class="block">Handles validation errors for method parameters and path variables.
+ Processes field errors and parameter constraint violations into standardized error messages.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>exception</code> - the validation exception containing parameter validation errors</dd>
+<dd><code>request</code> - the HTTP request that triggered the exception</dd>
+<dt>Returns:</dt>
+<dd>error response with HTTP 400 status and list of validation errors</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="handleMissingRequestBodyException(org.springframework.http.converter.HttpMessageNotReadableException,jakarta.servlet.http.HttpServletRequest)">
+<h3>handleMissingRequestBodyException</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@ExceptionHandler</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/converter/HttpMessageNotReadableException.html" title="class or interface in org.springframework.http.converter" class="external-link">org.springframework.http.converter.HttpMessageNotReadableException.class</a>)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</span>&nbsp;<span class="element-name">handleMissingRequestBodyException</span><wbr><span class="parameters">(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/converter/HttpMessageNotReadableException.html" title="class or interface in org.springframework.http.converter" class="external-link">HttpMessageNotReadableException</a>&nbsp;exception,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</span></div>
+<div class="block">Handles errors when HTTP message body cannot be read or parsed.
+ Processes different scenarios: invalid enum values, unrecognized fields, missing body, or malformed JSON.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>exception</code> - the message parsing exception</dd>
+<dd><code>request</code> - the HTTP request that triggered the exception</dd>
+<dt>Returns:</dt>
+<dd>error response with HTTP 400 status and descriptive error message</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="handleRegularException(java.lang.Exception,jakarta.servlet.http.HttpServletRequest)">
+<h3>handleRegularException</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@ExceptionHandler</a>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">java.lang.Exception.class</a>)
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="ErrorResponse.html" title="class in com.example.blogs.app.exception">ErrorResponse</a>&gt;</span>&nbsp;<span class="element-name">handleRegularException</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a>&nbsp;exception,
+ jakarta.servlet.http.HttpServletRequest&nbsp;request)</span></div>
+<div class="block">Handles all domain-specific and unhandled exceptions.
+ Maps exceptions to appropriate HTTP status codes using the status mapper.
+ Logs server errors (5xx) with full context for debugging.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>exception</code> - the exception to handle</dd>
-<dd><code>request</code> - the HTTP request where the exception occurred</dd>
+<dd><code>request</code> - the HTTP request that triggered the exception</dd>
 <dt>Returns:</dt>
-<dd>response entity with structured error information</dd>
+<dd>error response with appropriate HTTP status and exception details</dd>
 </dl>
 </section>
 </li>
