@@ -281,4 +281,76 @@ class UserRepositoryAdapterTest {
 
         verify(userRepository).save(mockUser);
     }
+
+    @Test
+    void update_shouldThrowUsernameTakenException_whenUsernameAlreadyExists() {
+        Long userId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockUser = UserFixtures.user(userId, null, now);
+        mockUser.setUsername("newusername");
+
+        ConstraintViolationException constraintException = 
+                new ConstraintViolationException("unique constraint violation", null, "users_username_key");
+
+        when(userRepository.save(any(UserEntity.class)))
+                .thenThrow(constraintException);
+        when(sqlExceptionUtils.containsUniqueViolation(any(), eq("users_username_key")))
+                .thenReturn(true);
+
+        assertThatThrownBy(() -> userRepositoryAdapter.update(mockUser))
+                .isInstanceOf(UsernameTakenException.class);
+
+        verify(userRepository).save(mockUser);
+        verify(sqlExceptionUtils).containsUniqueViolation(constraintException, "users_username_key");
+    }
+
+    @Test
+    void update_shouldThrowEmailTakenException_whenEmailAlreadyExists() {
+        Long userId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockUser = UserFixtures.user(userId, null, now);
+        mockUser.setEmail("newemail@example.com");
+
+        ConstraintViolationException constraintException = 
+                new ConstraintViolationException("unique constraint violation", null, "users_email_key");
+
+        when(userRepository.save(any(UserEntity.class)))
+                .thenThrow(constraintException);
+        when(sqlExceptionUtils.containsUniqueViolation(any(), eq("users_username_key")))
+                .thenReturn(false);
+        when(sqlExceptionUtils.containsUniqueViolation(any(), eq("users_email_key")))
+                .thenReturn(true);
+
+        assertThatThrownBy(() -> userRepositoryAdapter.update(mockUser))
+                .isInstanceOf(EmailTakenException.class);
+
+        verify(userRepository).save(mockUser);
+        verify(sqlExceptionUtils).containsUniqueViolation(constraintException, "users_username_key");
+        verify(sqlExceptionUtils).containsUniqueViolation(constraintException, "users_email_key");
+    }
+
+    @Test
+    void update_shouldThrowFailedToUpdateUserException_whenConstraintViolationIsNotUsernameOrEmail() {
+        Long userId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        UserEntity mockUser = UserFixtures.user(userId, null, now);
+
+        ConstraintViolationException constraintException = 
+                new ConstraintViolationException("unique constraint violation", null, "some_other_constraint");
+
+        when(userRepository.save(any(UserEntity.class)))
+                .thenThrow(constraintException);
+        when(sqlExceptionUtils.containsUniqueViolation(any(), eq("users_username_key")))
+                .thenReturn(false);
+        when(sqlExceptionUtils.containsUniqueViolation(any(), eq("users_email_key")))
+                .thenReturn(false);
+
+        assertThatThrownBy(() -> userRepositoryAdapter.update(mockUser))
+                .isInstanceOf(FailedToUpdateUserException.class)
+                .hasMessage("Failed to update user");
+
+        verify(userRepository).save(mockUser);
+        verify(sqlExceptionUtils).containsUniqueViolation(constraintException, "users_username_key");
+        verify(sqlExceptionUtils).containsUniqueViolation(constraintException, "users_email_key");
+    }
 }
