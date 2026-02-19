@@ -1,13 +1,19 @@
 package com.example.blogs.app.api.auth.service;
 
 import com.example.blogs.app.api.auth.dto.TokenPair;
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.fixture.UserFixtures;
 import com.example.blogs.app.security.JtiGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDateTime;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.*;
@@ -30,32 +36,17 @@ class TokenPairGeneratorImplTest {
 
     @Test
     void generateTokens_shouldReturnTokenPairSuccessfully() {
+        Long fileId = 1L;
+        Long userId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity user = UserFixtures.user(userId, file, now);
+
         when(jtiGenerator.generateJti()).thenReturn("jti");
         when(jwtService.generateAccessToken(anyString(), anyMap()))
                 .thenReturn("accessToken");
         when(jwtService.generateRefreshToken(anyString(), anyMap()))
                 .thenReturn("refreshToken");
-
-        UserEntity user = createUserEntity("https://example.com/profile.jpg");
-
-        TokenPair tokenPair = tokenPairGenerator.generateTokens(user);
-
-        assertThat(tokenPair.accessToken()).isEqualTo("accessToken");
-        assertThat(tokenPair.refreshToken()).isEqualTo("refreshToken");
-        verify(jwtService).generateAccessToken(anyString(), anyMap());
-        verify(jwtService).generateRefreshToken(anyString(), anyMap());
-        verify(jtiGenerator, times(2)).generateJti();
-    }
-
-    @Test
-    void generateTokens_shouldReturnTokenPairSuccessfully_whenProfilePictureIsNull() {
-        when(jtiGenerator.generateJti()).thenReturn("jti");
-        when(jwtService.generateAccessToken(anyString(), anyMap()))
-                .thenReturn("accessToken");
-        when(jwtService.generateRefreshToken(anyString(), anyMap()))
-                .thenReturn("refreshToken");
-
-        UserEntity user = createUserEntity(null);
 
         TokenPair tokenPair = tokenPairGenerator.generateTokens(user);
 
@@ -68,34 +59,18 @@ class TokenPairGeneratorImplTest {
 
     @Test
     void createClaims_shouldReturnClaimsMapSuccessfully() {
-        UserEntity user = createUserEntity("https://example.com/profile.jpg");
+        Long fileId = 1L;
+        Long userId = 1L;
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity user = UserFixtures.user(userId, file, now);
 
-        var claims = tokenPairGenerator.createClaims(user, "access");
+        Map<String, Object> claims = tokenPairGenerator.createClaims(user, "access");
 
-        assertThat(claims).containsEntry("username", "testuser")
-                .containsEntry("email", "test@gmail.com")
-                .containsEntry("profilePictureUrl", "https://example.com/profile.jpg")
+        assertThat(claims)
+                .containsEntry("id", user.getId().toString())
+                .containsEntry("username", user.getUsername())
+                .containsEntry("email", user.getEmail())
                 .containsEntry("type", "access");
-    }
-
-    @Test
-    void createClaims_shouldReturnClaimsMapSuccessfully_whenProfilePictureIsNull() {
-        UserEntity user = createUserEntity(null);
-
-        var claims = tokenPairGenerator.createClaims(user, "refresh");
-
-        assertThat(claims).containsEntry("username", "testuser")
-                .containsEntry("email", "test@gmail.com")
-                .containsEntry("profilePictureUrl", "")
-                .containsEntry("type", "refresh");
-    }
-
-    private UserEntity createUserEntity(String profilePictureUrl) {
-        return UserEntity.builder()
-                .id(1L)
-                .username("testuser")
-                .profilePictureUrl(profilePictureUrl)
-                .email("test@gmail.com")
-                .build();
     }
 }

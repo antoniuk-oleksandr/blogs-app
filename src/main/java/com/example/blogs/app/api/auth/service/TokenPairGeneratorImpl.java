@@ -49,13 +49,10 @@ public class TokenPairGeneratorImpl implements TokenPairGenerator {
      */
     @Override
     public Map<String, Object> createClaims(UserEntity user, String type) {
-        String profilePictureUrl = user.getProfilePictureUrl() != null ? user.getProfilePictureUrl() : "";
-
         return Map.ofEntries(
                 Map.entry("id", user.getId().toString()),
                 Map.entry("username", user.getUsername()),
                 Map.entry("email", user.getEmail()),
-                Map.entry("profilePictureUrl", profilePictureUrl),
                 Map.entry("type", type)
         );
     }

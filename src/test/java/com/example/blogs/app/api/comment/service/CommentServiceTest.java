@@ -7,6 +7,8 @@ import com.example.blogs.app.api.comment.exception.FailedToUpdateCommentExceptio
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.mapper.CommentMapper;
 import com.example.blogs.app.api.comment.repository.adapter.CommentRepositoryAdapter;
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.user.entity.UserEntity;
@@ -42,16 +44,22 @@ class CommentServiceTest {
 
     @Test
     void getCommentsByPostId_shouldReturnComments() {
+        Long fileId = 1L;
+        Long userId = 1L;
+        Long postId = 1L;
+        Long firstCommentId = 1L;
+        Long secondCommentId = 2L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockUser = UserFixtures.user(1L, now);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         List<CommentEntity> mockComments = List.of(
-                CommentFixtures.commentEntity(1L, now, mockUser, mockPost),
-                CommentFixtures.commentEntity(2L, now, mockUser, mockPost)
+                CommentFixtures.commentEntity(firstCommentId, now, mockUser, mockPost),
+                CommentFixtures.commentEntity(secondCommentId, now, mockUser, mockPost)
         );
-        when(commentRepositoryAdapter.findAllByPostId(1L)).thenReturn(mockComments);
+        when(commentRepositoryAdapter.findAllByPostId(postId)).thenReturn(mockComments);
 
-        List<CommentEntity> actualComments = commentService.getCommentsByPostId(1L);
+        List<CommentEntity> actualComments = commentService.getCommentsByPostId(postId);
 
         assertThat(actualComments).isEqualTo(mockComments);
         verify(commentRepositoryAdapter).findAllByPostId(1L);
@@ -59,9 +67,10 @@ class CommentServiceTest {
 
     @Test
     void getCommentsByPostId_shouldReturnEmptyListWhenNoComments() {
-        when(commentRepositoryAdapter.findAllByPostId(2L)).thenReturn(List.of());
+        Long postId = 2L;
+        when(commentRepositoryAdapter.findAllByPostId(postId)).thenReturn(List.of());
 
-        List<CommentEntity> actualComments = commentService.getCommentsByPostId(2L);
+        List<CommentEntity> actualComments = commentService.getCommentsByPostId(postId);
 
         assertThat(actualComments).isEmpty();
         verify(commentRepositoryAdapter).findAllByPostId(2L);
@@ -69,12 +78,14 @@ class CommentServiceTest {
 
     @Test
     void createComment_shouldCreateAndReturnCommentDTO() {
-        LocalDateTime now = LocalDateTime.now().withNano(0);
-        Long commentId = 1L;
-        Long postId = 1L;
+        Long fileId = 1L;
         Long userId = 1L;
+        Long postId = 1L;
+        Long commentId = 1L;
         String content = "content";
-        UserEntity mockUser = UserFixtures.user(userId, now);
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
         PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         CommentEntity mockCommentEntity = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
         CommentWriteRequestDTO requestDTO = new CommentWriteRequestDTO(content);
@@ -103,12 +114,14 @@ class CommentServiceTest {
 
     @Test
     void updateCommentById_shouldUpdateAndReturnCommentDTO() {
-        LocalDateTime now = LocalDateTime.now().withNano(0);
-        Long commentId = 1L;
-        Long postId = 1L;
+        Long fileId = 1L;
         Long userId = 1L;
+        Long postId = 1L;
+        Long commentId = 1L;
         String updatedContent = "updated content";
-        UserEntity mockUser = UserFixtures.user(userId, now);
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
         PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         CommentEntity mockCommentEntity = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
         CommentWriteRequestDTO requestDTO = new CommentWriteRequestDTO(updatedContent);
@@ -128,12 +141,14 @@ class CommentServiceTest {
 
     @Test
     void updateCommentById_shouldThrowFailedToUpdateCommentException_whenRepositoryFails() {
-        LocalDateTime now = LocalDateTime.now().withNano(0);
-        Long commentId = 1L;
-        Long postId = 1L;
+        Long fileId = 1L;
         Long userId = 1L;
+        Long postId = 1L;
+        Long commentId = 1L;
         String updatedContent = "updated content";
-        UserEntity mockUser = UserFixtures.user(userId, now);
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
         PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         CommentEntity mockCommentEntity = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
         CommentWriteRequestDTO requestDTO = new CommentWriteRequestDTO(updatedContent);

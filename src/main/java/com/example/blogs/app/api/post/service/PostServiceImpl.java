@@ -6,7 +6,6 @@ import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.file.service.FileUrlBuilder;
 import com.example.blogs.app.api.post.exception.FailedToCreatePostException;
 import com.example.blogs.app.logging.MDCKeys;
-import com.example.blogs.app.storage.FileLinkBuilder;
 import com.example.blogs.app.api.file.service.FileService;
 import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
@@ -43,8 +42,6 @@ public class PostServiceImpl implements PostService {
     private final TransactionalFileUploader transactionalFileUploader;
 
     private final FileService fileService;
-
-    private final FileLinkBuilder fileLinkBuilder;
 
     private final UserMapper userMapper;
 
@@ -93,17 +90,17 @@ public class PostServiceImpl implements PostService {
         List<CommentEntity> comments = commentService.getCommentsByPostId(post.getId());
 
         String previewImageUrl = Optional.ofNullable(post.getFile())
-                .map(file -> fileLinkBuilder.buildLink(
-                        file.getFilePath(),
-                        file.getUuid(),
-                        file.getFileExtension()
-                ))
+                .map(fileUrlBuilder::build)
+                .orElse(null);
+
+        String profilePictureUrl = Optional.ofNullable(post.getAuthor().getFile())
+                .map(fileUrlBuilder::build)
                 .orElse(null);
 
         log.info("post_viewed postId={} commentCount={} requestId={}",
                 post.getId(), comments.size(), MDC.get(MDCKeys.REQUEST_ID));
 
-        return postMapper.toPostDTO(post, comments, previewImageUrl);
+        return postMapper.toPostDTO(post, comments, previewImageUrl, profilePictureUrl);
     }
 
     /**
@@ -121,7 +118,7 @@ public class PostServiceImpl implements PostService {
             long postId, PostUpdateRequestDTO requestDTO, MultipartFile previewImage
     ) {
         PostEntity post = postRepositoryAdapter.findById(postId);
-        FileEntity oldFile = post.getFile();
+        Optional<FileEntity> oldFile = Optional.ofNullable(post.getFile());
 
         postSlugUpdater.apply(post, requestDTO);
 
@@ -131,22 +128,18 @@ public class PostServiceImpl implements PostService {
         newFile.ifPresent(post::setFile);
 
         String previewImageUrl = newFile
-                .map(f -> fileLinkBuilder.buildLink(
-                        f.getFilePath(),
-                        f.getUuid(),
-                        f.getFileExtension()
-                ))
-                .orElseGet(() -> fileUrlBuilder.build(post.getFile()));
+                .map(fileUrlBuilder::build)
+                .orElseGet(() -> oldFile.map(fileUrlBuilder::build).orElse(null));
 
         PostEntity updatedPost = postMapper.toPostEntity(requestDTO, post);
         PostEntity savedPost = postRepositoryAdapter.update(updatedPost);
 
-        newFile.ifPresent(file -> {
-            fileService.delete(oldFile);
+        newFile.ifPresent(newF -> oldFile.ifPresent(old -> {
+            fileService.delete(old);
             log.info("preview_image_updated postId={} oldFileId={} newFileId={} userId={} requestId={}",
-                    postId, oldFile.getId(), file.getId(),
+                    postId, old.getId(), newF.getId(),
                     MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
-        });
+        }));
 
         log.info("post_updated postId={} userId={} requestId={}",
                 postId, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
@@ -171,11 +164,7 @@ public class PostServiceImpl implements PostService {
     ) {
         try {
             FileEntity fileEntity = fileService.upload(previewImage, "posts");
-            String previewImageUrl = fileLinkBuilder.buildLink(
-                    fileEntity.getFilePath(),
-                    fileEntity.getUuid(),
-                    fileEntity.getFileExtension()
-            );
+            String previewImageUrl = fileUrlBuilder.build(fileEntity);
 
             String slug = slugService.generate(requestDTO.title());
             UserEntity author = userMapper.toUserEntity(authorId);

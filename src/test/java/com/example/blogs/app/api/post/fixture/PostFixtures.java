@@ -4,7 +4,6 @@ import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.entity.UserEntity;
-import com.example.blogs.app.api.user.fixture.UserFixtures;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,16 +12,6 @@ import java.util.List;
  * Test fixture factory for creating post entities and DTOs with predefined values.
  */
 public class PostFixtures {
-
-    /**
-     * Creates a post entity with default timestamp and user.
-     *
-     * @return configured post entity
-     */
-    public static PostEntity post() {
-        LocalDateTime now = LocalDateTime.now().withNano(0);
-        return post(null, now, UserFixtures.user());
-    }
 
     /**
      * Creates a post entity with the specified attributes.

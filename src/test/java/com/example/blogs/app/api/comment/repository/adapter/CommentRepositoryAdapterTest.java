@@ -4,6 +4,8 @@ import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.exception.*;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
 import com.example.blogs.app.api.comment.repository.CommentRepository;
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.user.entity.UserEntity;
@@ -37,10 +39,12 @@ class CommentRepositoryAdapterTest {
     void findAllByPostId_shouldReturnAllPosts() {
         Long userId = 1L;
         Long postId = 1L;
+        Long fileId = 1L;
         Long firstCommentId = 1L;
         Long secondCommentId = 2L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockUser = UserFixtures.user(userId, now);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
         PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         List<CommentEntity> mockComments = List.of(
                 CommentFixtures.commentEntity(firstCommentId, now, mockUser, mockPost),
@@ -80,9 +84,13 @@ class CommentRepositoryAdapterTest {
 
     @Test
     void save_shouldReturnSavedComment() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockUser = UserFixtures.user(1L, now);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         CommentEntity mockComment = CommentFixtures.commentEntity(1L, now, mockUser, mockPost);
 
         when(commentRepository.save(any(CommentEntity.class))).thenReturn(mockComment);
@@ -95,10 +103,15 @@ class CommentRepositoryAdapterTest {
 
     @Test
     void save_shouldThrowException_whenDBExceptionOccurs() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
+        Long commentId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockUser = UserFixtures.user(1L, now);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
-        CommentEntity mockComment = CommentFixtures.commentEntity(1L, now, mockUser, mockPost);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
+        CommentEntity mockComment = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
 
         when(commentRepository.save(any(CommentEntity.class)))
                 .thenThrow(new RuntimeException("Db exception"));
@@ -185,10 +198,14 @@ class CommentRepositoryAdapterTest {
 
     @Test
     void findBydId_shouldReturnComment_whenCommentExists() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         Long commentId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockUser = UserFixtures.user(1L, now);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockUser);
+        FileEntity mockFile = FileFixtures.file(fileId, now);
+        UserEntity mockUser = UserFixtures.user(userId, mockFile, now);
+        PostEntity mockPost = PostFixtures.post(postId, now, mockUser);
         CommentEntity mockComment = CommentFixtures.commentEntity(commentId, now, mockUser, mockPost);
 
         when(commentRepository.findById(anyLong())).thenReturn(java.util.Optional.of(mockComment));

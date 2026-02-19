@@ -3,6 +3,8 @@ package com.example.blogs.app.api.comment.mapper;
 import com.example.blogs.app.api.comment.dto.CommentDTO;
 import com.example.blogs.app.api.comment.entity.CommentEntity;
 import com.example.blogs.app.api.comment.fixture.CommentFixtures;
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.user.entity.UserEntity;
@@ -20,11 +22,13 @@ class CommentMapperTest {
 
     @Test
     void toCommentDTO_shouldMapAllFieldsCorrectly() {
-        Long commentId = 1L;
         Long authorId = 1L;
+        Long fileId = 1L;
         Long postId = 1L;
+        Long commentId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(authorId, now);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(authorId, file, now);
         PostEntity post = PostFixtures.post(postId, now, author);
         CommentEntity commentEntity = CommentFixtures.commentEntity(commentId, now, author, post);
 
