@@ -1,5 +1,7 @@
 package com.example.blogs.app.api.reaction.mapper;
 
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.reaction.dto.ReactionDTO;
@@ -20,12 +22,14 @@ class ReactionMapperTest {
 
     @Test
     void toReactionDTO_shouldMapEntityToDTO() {
+        Long fileId = 1L;
         Long userId = 1L;
         Long postId = 1L;
         Long reactionId = 1L;
         LocalDateTime now = LocalDateTime.now();
 
-        UserEntity user = UserFixtures.user(userId, now);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity user = UserFixtures.user(userId, file, now);
         PostEntity post = PostFixtures.post(postId, now, user);
         ReactionEntity reactionEntity = ReactionFixtures.reactionEntity(
                 reactionId, now, user, post, ReactionType.LIKE

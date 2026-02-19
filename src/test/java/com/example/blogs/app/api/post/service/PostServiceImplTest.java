@@ -8,7 +8,6 @@ import com.example.blogs.app.api.file.exception.FailedToUploadFileException;
 import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.file.service.FileUrlBuilder;
 import com.example.blogs.app.api.post.exception.FailedToCreatePostException;
-import com.example.blogs.app.storage.FileLinkBuilder;
 import com.example.blogs.app.api.file.service.FileService;
 import com.example.blogs.app.api.post.dto.*;
 import com.example.blogs.app.api.post.entity.PostEntity;
@@ -50,9 +49,6 @@ class PostServiceImplTest {
     private FileService fileService;
 
     @Mock
-    private FileLinkBuilder fileLinkBuilder;
-
-    @Mock
     private UserMapper userMapper;
 
     @Mock
@@ -78,7 +74,6 @@ class PostServiceImplTest {
                 slugService,
                 transactionalFileUploader,
                 fileService,
-                fileLinkBuilder,
                 userMapper,
                 postSlugUpdater,
                 fileUrlBuilder
@@ -113,26 +108,34 @@ class PostServiceImplTest {
 
     @Test
     void getPostBySlug_shouldReturnPostDTO() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
+        Long firstCommentId = 1L;
+        Long secondCommentId = 2L;
+        String previewImageUrl = "previewImageUrl";
+
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        FileEntity file = FileFixtures.file();
-        PostEntity post = PostFixtures.post(1L, now, author, file);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author, file);
+
         List<CommentEntity> comments = List.of(
-                CommentFixtures.commentEntity(1L, now, author, post),
-                CommentFixtures.commentEntity(2L, now, author, post)
+                CommentFixtures.commentEntity(firstCommentId, now, author, post),
+                CommentFixtures.commentEntity(secondCommentId, now, author, post)
         );
         PostUserSummaryDTO authorDTO = PostFixtures.postUserSummaryDTO(author.getId());
         List<PostCommentSummaryDTO> commentDTOs = List.of(
-                PostFixtures.postCommentSummaryDTO(1L, now, authorDTO),
-                PostFixtures.postCommentSummaryDTO(2L, now, authorDTO)
+                PostFixtures.postCommentSummaryDTO(firstCommentId, now, authorDTO),
+                PostFixtures.postCommentSummaryDTO(secondCommentId, now, authorDTO)
         );
-        PostDTO expectedDTO = PostFixtures.postDTO(1L, now, authorDTO, commentDTOs);
-        String previewImageUrl = "previewImageUrl";
+        PostDTO expectedDTO = PostFixtures.postDTO(postId, now, authorDTO, commentDTOs);
         when(postRepositoryAdapter.findBySlug(anyString())).thenReturn(post);
-        when(fileLinkBuilder.buildLink(anyString(), anyString(), anyString()))
+        when(fileUrlBuilder.build(any(FileEntity.class)))
                 .thenReturn(previewImageUrl);
         when(commentService.getCommentsByPostId(post.getId())).thenReturn(comments);
-        when(postMapper.toPostDTO(post, comments, previewImageUrl)).thenReturn(expectedDTO);
+        when(postMapper.toPostDTO(post, comments, previewImageUrl, previewImageUrl))
+                .thenReturn(expectedDTO);
 
         PostDTO result = postService.getPostBySlug(post.getSlug());
 
@@ -140,47 +143,32 @@ class PostServiceImplTest {
                 .isNotNull()
                 .isEqualTo(expectedDTO)
                 .satisfies(dto -> {
-                    assertThat(dto.id()).isEqualTo(1L);
+                    assertThat(dto.id()).isEqualTo(postId);
                     assertThat(dto.slug()).isEqualTo(post.getSlug());
                 });
         verify(postRepositoryAdapter).findBySlug(post.getSlug());
-        verify(commentService).getCommentsByPostId(1L);
-        verify(postMapper).toPostDTO(post, comments, previewImageUrl);
-        verify(fileLinkBuilder).buildLink(
-                post.getFile().getFilePath(),
-                post.getFile().getUuid(),
-                post.getFile().getFileExtension()
-        );
+        verify(commentService).getCommentsByPostId(postId);
+        verify(postMapper).toPostDTO(post, comments, previewImageUrl, previewImageUrl);
+        verify(fileUrlBuilder, times(2)).build(file);
         verifyNoMoreInteractions(postRepositoryAdapter, commentService, postMapper);
     }
 
     @Test
     void createPost_shouldReturnPostCreateResponseDTO() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        PostCreateRequestDTO requestDTO = new PostCreateRequestDTO(
-                "title",
-                "description",
-                "content"
-        );
-        Long authorId = 1L;
-        long postId = 1L;
-        UserEntity author = UserFixtures.user(authorId, now);
-        FileEntity fileEntity = FileFixtures.file();
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
+        PostCreateRequestDTO requestDTO = PostFixtures.postCreateRequestDTO();
         String previewImageUrl = "previewImageUrl";
         String generatedSlug = "slug";
-        PostEntity newPost = PostFixtures.post(postId, now, author);
-        PostCreateResponseDTO expectedResponse = new PostCreateResponseDTO(
-                postId,
-                requestDTO.title(),
-                requestDTO.description(),
-                requestDTO.content(),
-                generatedSlug,
-                previewImageUrl,
-                now
-        );
+        PostCreateResponseDTO expectedResponse = PostFixtures.postCreateResponseDTO(postId, now);
 
-        when(fileService.upload(any(), eq("posts"))).thenReturn(fileEntity);
-        when(fileLinkBuilder.buildLink(anyString(), anyString(), anyString()))
+        when(fileService.upload(any(), eq("posts"))).thenReturn(file);
+        when(fileUrlBuilder.build(any(FileEntity.class)))
                 .thenReturn(previewImageUrl);
         when(slugService.generate(anyString())).thenReturn(generatedSlug);
         when(userMapper.toUserEntity(anyLong())).thenReturn(author);
@@ -189,25 +177,21 @@ class PostServiceImplTest {
                 anyString(),
                 any(FileEntity.class),
                 any(UserEntity.class)
-        )).thenReturn(newPost);
-        when(postRepositoryAdapter.save(newPost)).thenReturn(newPost);
+        )).thenReturn(post);
+        when(postRepositoryAdapter.save(post)).thenReturn(post);
         when(postMapper.toPostCreateResponseDTO(any(PostEntity.class), anyString()))
                 .thenReturn(expectedResponse);
 
-        PostCreateResponseDTO response = postService.createPost(authorId, requestDTO, null);
+        PostCreateResponseDTO response = postService.createPost(userId, requestDTO, null);
 
         assertThat(response).isEqualTo(expectedResponse);
         verify(fileService).upload(any(), eq("posts"));
-        verify(fileLinkBuilder).buildLink(
-                fileEntity.getFilePath(),
-                fileEntity.getUuid(),
-                fileEntity.getFileExtension()
-        );
+        verify(fileUrlBuilder).build(file);
         verify(slugService).generate(requestDTO.title());
-        verify(userMapper).toUserEntity(authorId);
-        verify(postMapper).toPostEntity(requestDTO, generatedSlug, fileEntity, author);
-        verify(postRepositoryAdapter).save(newPost);
-        verify(postMapper).toPostCreateResponseDTO(newPost, previewImageUrl);
+        verify(userMapper).toUserEntity(userId);
+        verify(postMapper).toPostEntity(requestDTO, generatedSlug, file, author);
+        verify(postRepositoryAdapter).save(post);
+        verify(postMapper).toPostCreateResponseDTO(post, previewImageUrl);
     }
 
     @Test
@@ -222,25 +206,23 @@ class PostServiceImplTest {
                 .hasMessageContaining("Failed to create post");
 
         verify(fileService).upload(any(), eq("posts"));
-        verifyNoMoreInteractions(fileLinkBuilder, slugService, userMapper, postMapper, postRepositoryAdapter);
+        verifyNoMoreInteractions(fileUrlBuilder, slugService, userMapper, postMapper, postRepositoryAdapter);
     }
 
     @Test
     void updatePostById_shouldUploadNewFileAndDeleteOld_whenPreviewImageIsProvided() {
-        Long authorId = 1L;
-        Long postId = 1L;
+        Long userId = 1L;
+        long postId = 1L;
+        Long oldFileId = 1L;
+        Long newFileId = 2L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(authorId, now);
-        FileEntity oldFile = FileFixtures.file(1L, now);
-        FileEntity newFile = FileFixtures.file(2L, now);
+        FileEntity oldFile = FileFixtures.file(oldFileId, now);
+        UserEntity author = UserFixtures.user(userId, oldFile, now);
+        FileEntity newFile = FileFixtures.file(newFileId, now);
         PostEntity existingPost = PostFixtures.post(postId, now, author, oldFile);
         String newPreviewImageUrl = "newPreviewImageUrl";
         String newSlug = "updated-title";
-        PostUpdateRequestDTO request = new PostUpdateRequestDTO(
-                "Updated Title",
-                "Updated Description",
-                "Updated Content"
-        );
+        PostUpdateRequestDTO request = PostFixtures.postUpdateRequestDTO();
         existingPost.setSlug(newSlug);
         PostEntity updatedPost = PostEntity.builder()
                 .id(postId)
@@ -265,11 +247,7 @@ class PostServiceImplTest {
         when(postRepositoryAdapter.findById(postId)).thenReturn(existingPost);
         when(transactionalFileUploader.uploadWithTransactionRollback(multipartFile, "posts"))
                 .thenReturn(newFile);
-        when(fileLinkBuilder.buildLink(
-                newFile.getFilePath(),
-                newFile.getUuid(),
-                newFile.getFileExtension()
-        )).thenReturn(newPreviewImageUrl);
+        when(fileUrlBuilder.build(any(FileEntity.class))).thenReturn(newPreviewImageUrl);
         when(postMapper.toPostEntity(request, existingPost)).thenReturn(updatedPost);
         when(postRepositoryAdapter.update(updatedPost)).thenReturn(updatedPost);
         when(postMapper.toPostUpdateResponseDTO(updatedPost, newPreviewImageUrl))
@@ -281,11 +259,7 @@ class PostServiceImplTest {
         verify(postRepositoryAdapter).findById(postId);
         verify(postSlugUpdater).apply(existingPost, request);
         verify(transactionalFileUploader).uploadWithTransactionRollback(multipartFile, "posts");
-        verify(fileLinkBuilder).buildLink(
-                newFile.getFilePath(),
-                newFile.getUuid(),
-                newFile.getFileExtension()
-        );
+        verify(fileUrlBuilder).build(newFile);
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
         verify(postMapper).toPostUpdateResponseDTO(updatedPost, newPreviewImageUrl);
@@ -294,19 +268,15 @@ class PostServiceImplTest {
 
     @Test
     void updatePostById_shouldGenerateNewSlugButKeepOldFile_whenTitleUpdatedButNoNewFile() {
-        Long authorId = 1L;
-        Long postId = 1L;
-        String previewImageUrl = "previewImageUrl";
+        Long userId = 1L;
+        long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(authorId, now);
-        FileEntity fileEntity = FileFixtures.file();
-        PostEntity existingPost = PostFixtures.post(postId, now, author, fileEntity);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity existingPost = PostFixtures.post(postId, now, author);
         String newSlug = "updated-title";
-        PostUpdateRequestDTO request = new PostUpdateRequestDTO(
-                "Updated Title",
-                "Updated Description",
-                "Updated Content"
-        );
+        PostUpdateRequestDTO request = PostFixtures.postUpdateRequestDTO();
         existingPost.setSlug(newSlug);
         PostEntity updatedPost = PostEntity.builder()
                 .id(postId)
@@ -315,7 +285,7 @@ class PostServiceImplTest {
                 .description(request.description())
                 .content(request.content())
                 .slug(newSlug)
-                .file(fileEntity)
+                .file(file)
                 .createdAt(existingPost.getCreatedAt())
                 .build();
         PostUpdateResponseDTO expectedResponse = new PostUpdateResponseDTO(
@@ -324,44 +294,40 @@ class PostServiceImplTest {
                 request.description(),
                 request.content(),
                 newSlug,
-                previewImageUrl,
+                null,
                 now
         );
 
         when(postRepositoryAdapter.findById(postId)).thenReturn(existingPost);
-        when(fileUrlBuilder.build(fileEntity)).thenReturn(previewImageUrl);
         when(postMapper.toPostEntity(request, existingPost)).thenReturn(updatedPost);
         when(postRepositoryAdapter.update(updatedPost)).thenReturn(updatedPost);
-        when(postMapper.toPostUpdateResponseDTO(updatedPost, previewImageUrl))
-                .thenReturn(expectedResponse);
-
+        when(postMapper.toPostUpdateResponseDTO(
+                eq(updatedPost),
+                any()
+        )).thenReturn(expectedResponse);
         PostUpdateResponseDTO response = postService.updatePostById(postId, request, null);
 
         assertThat(response).isEqualTo(expectedResponse);
         verify(postRepositoryAdapter).findById(postId);
         verify(postSlugUpdater).apply(existingPost, request);
-        verify(fileUrlBuilder).build(fileEntity);
+        verify(fileUrlBuilder, never()).build(any(FileEntity.class));
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
-        verify(postMapper).toPostUpdateResponseDTO(updatedPost, previewImageUrl);
+        verify(postMapper).toPostUpdateResponseDTO(updatedPost, null);
         verify(transactionalFileUploader, never()).uploadWithTransactionRollback(any(), any());
         verify(fileService, never()).delete(any());
     }
 
     @Test
     void updatePostById_shouldReturnPostUpdateResponseDTO_whenTitleIsNullAndNoNewFile() {
-        Long authorId = 1L;
-        Long postId = 1L;
-        String previewImageUrl = "previewImageUrl";
+        Long userId = 1L;
+        long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(authorId, now);
-        FileEntity fileEntity = FileFixtures.file();
-        PostEntity existingPost = PostFixtures.post(postId, now, author, fileEntity);
-        PostUpdateRequestDTO request = new PostUpdateRequestDTO(
-                null,
-                "Updated Description",
-                "Updated Content"
-        );
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity existingPost = PostFixtures.post(postId, now, author);
+        PostUpdateRequestDTO request = PostFixtures.postUpdateRequestDTO();
         PostEntity updatedPost = PostEntity.builder()
                 .id(postId)
                 .author(author)
@@ -369,7 +335,7 @@ class PostServiceImplTest {
                 .description(request.description())
                 .content(request.content())
                 .slug(existingPost.getSlug())
-                .file(fileEntity)
+                .file(file)
                 .createdAt(existingPost.getCreatedAt())
                 .build();
         PostUpdateResponseDTO expectedResponse = new PostUpdateResponseDTO(
@@ -378,26 +344,27 @@ class PostServiceImplTest {
                 request.description(),
                 request.content(),
                 existingPost.getSlug(),
-                previewImageUrl,
+                null,
                 now
         );
 
         when(postRepositoryAdapter.findById(postId)).thenReturn(existingPost);
-        when(fileUrlBuilder.build(fileEntity)).thenReturn(previewImageUrl);
         when(postMapper.toPostEntity(request, existingPost)).thenReturn(updatedPost);
         when(postRepositoryAdapter.update(updatedPost)).thenReturn(updatedPost);
-        when(postMapper.toPostUpdateResponseDTO(updatedPost, previewImageUrl))
-                .thenReturn(expectedResponse);
+        when(postMapper.toPostUpdateResponseDTO(
+                eq(updatedPost),
+                any()
+        )).thenReturn(expectedResponse);
 
         PostUpdateResponseDTO response = postService.updatePostById(postId, request, null);
 
         assertThat(response).isEqualTo(expectedResponse);
         verify(postRepositoryAdapter).findById(postId);
         verify(postSlugUpdater).apply(existingPost, request);
-        verify(fileUrlBuilder).build(fileEntity);
+        verify(fileUrlBuilder, never()).build(any(FileEntity.class));
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
-        verify(postMapper).toPostUpdateResponseDTO(updatedPost, previewImageUrl);
+        verify(postMapper).toPostUpdateResponseDTO(updatedPost, null);
         verify(transactionalFileUploader, never()).uploadWithTransactionRollback(any(), any());
         verify(fileService, never()).delete(any());
         verify(slugService, never()).generate(any());
@@ -405,13 +372,13 @@ class PostServiceImplTest {
 
     @Test
     void updatePostById_shouldNotGenerateSlug_whenTitleIsBlank() {
-        Long authorId = 1L;
-        Long postId = 1L;
-        String previewImageUrl = "previewImageUrl";
+        Long userId = 1L;
+        long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(authorId, now);
-        FileEntity fileEntity = FileFixtures.file();
-        PostEntity existingPost = PostFixtures.post(postId, now, author, fileEntity);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity existingPost = PostFixtures.post(postId, now, author);
         PostUpdateRequestDTO request = new PostUpdateRequestDTO(
                 "",
                 "Updated Description",
@@ -424,7 +391,7 @@ class PostServiceImplTest {
                 .description(request.description())
                 .content(request.content())
                 .slug(existingPost.getSlug())
-                .file(fileEntity)
+                .file(file)
                 .createdAt(existingPost.getCreatedAt())
                 .build();
         PostUpdateResponseDTO expectedResponse = new PostUpdateResponseDTO(
@@ -433,26 +400,27 @@ class PostServiceImplTest {
                 request.description(),
                 request.content(),
                 existingPost.getSlug(),
-                previewImageUrl,
+                null,
                 now
         );
 
         when(postRepositoryAdapter.findById(postId)).thenReturn(existingPost);
-        when(fileUrlBuilder.build(fileEntity)).thenReturn(previewImageUrl);
         when(postMapper.toPostEntity(request, existingPost)).thenReturn(updatedPost);
         when(postRepositoryAdapter.update(updatedPost)).thenReturn(updatedPost);
-        when(postMapper.toPostUpdateResponseDTO(updatedPost, previewImageUrl))
-                .thenReturn(expectedResponse);
+        when(postMapper.toPostUpdateResponseDTO(
+                eq(updatedPost),
+                any()
+        )).thenReturn(expectedResponse);
 
         PostUpdateResponseDTO response = postService.updatePostById(postId, request, null);
 
         assertThat(response).isEqualTo(expectedResponse);
         verify(postRepositoryAdapter).findById(postId);
         verify(postSlugUpdater).apply(existingPost, request);
-        verify(fileUrlBuilder).build(fileEntity);
+        verify(fileUrlBuilder, never()).build(any(FileEntity.class));
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
-        verify(postMapper).toPostUpdateResponseDTO(updatedPost, previewImageUrl);
+        verify(postMapper).toPostUpdateResponseDTO(updatedPost, null);
         verify(slugService, never()).generate(any());
         verify(transactionalFileUploader, never()).uploadWithTransactionRollback(any(), any());
         verify(fileService, never()).delete(any());

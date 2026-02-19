@@ -1,5 +1,8 @@
 package com.example.blogs.app.api.post.repository;
 
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
+import com.example.blogs.app.api.file.repository.FileRepository;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.user.entity.UserEntity;
@@ -24,11 +27,18 @@ class PostRepositoryTest extends AbstractPostgresTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FileRepository fileRepository;
+
     @Test
     void findByAuthorId_shouldReturnPosts_whenAuthorIdExists() {
-        UserEntity user = UserFixtures.user();
-        PostEntity post = PostFixtures.post(user);
+        FileEntity file = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(file);
+
+        UserEntity user = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(user);
+
+        PostEntity post = PostFixtures.post(createdUser);
         postRepository.save(post);
 
         List<PostEntity> foundPosts = postRepository.findByAuthorId(createdUser.getId());
@@ -44,10 +54,7 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void deleteByIdReturningCount_shouldReturnCount_whenPostIdExists() {
-        UserEntity user = UserFixtures.user();
-        UserEntity createdUser = userRepository.save(user);
-        PostEntity post = PostFixtures.post(createdUser);
-        PostEntity createdPost = postRepository.save(post);
+        PostEntity createdPost = createPersistedPost();
 
         Long deletedCount = postRepository.deleteByIdReturningCount(createdPost.getId());
 
@@ -63,8 +70,12 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void findBySlug_shouldReturnPost_whenSlugExists() {
-        UserEntity user = UserFixtures.user();
+        FileEntity file = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(file);
+
+        UserEntity user = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(user);
+
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
 
@@ -82,10 +93,7 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void existsById_shouldReturnTrue_whenPostIdExists() {
-        UserEntity user = UserFixtures.user();
-        UserEntity createdUser = userRepository.save(user);
-        PostEntity post = PostFixtures.post(createdUser);
-        PostEntity createdPost = postRepository.save(post);
+        PostEntity createdPost = createPersistedPost();
 
         boolean exists = postRepository.existsById(createdPost.getId());
 
@@ -101,8 +109,12 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void existsByIdAndAuthorId_shouldReturnTrue_whenPostIdAndAuthorIdExist() {
-        UserEntity user = UserFixtures.user();
+        FileEntity file = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(file);
+
+        UserEntity user = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(user);
+
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
 
@@ -120,8 +132,12 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void findById_shouldReturnPost_whenPostIdExists() {
-        UserEntity user = UserFixtures.user();
+        FileEntity file = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(file);
+
+        UserEntity user = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(user);
+
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
 
@@ -139,17 +155,31 @@ class PostRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void save_shouldPersistPost_whenPostIsValid() {
-        UserEntity user = UserFixtures.user();
+        FileEntity file = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(file);
+
+        UserEntity user = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(user);
+
         PostEntity post = PostFixtures.post(createdUser);
+        PostEntity createdPost = postRepository.save(post);
 
-        PostEntity savedPost = postRepository.save(post);
+        assertThat(createdPost.getId()).isPositive();
+        assertThat(createdPost.getTitle()).isEqualTo(post.getTitle());
+        assertThat(createdPost.getSlug()).isEqualTo(post.getSlug());
+        assertThat(createdPost.getDescription()).isEqualTo(post.getDescription());
+        assertThat(createdPost.getContent()).isEqualTo(post.getContent());
+        assertThat(createdPost.getAuthor().getId()).isEqualTo(createdUser.getId());
+    }
 
-        assertThat(savedPost.getId()).isPositive();
-        assertThat(savedPost.getTitle()).isEqualTo(post.getTitle());
-        assertThat(savedPost.getSlug()).isEqualTo(post.getSlug());
-        assertThat(savedPost.getDescription()).isEqualTo(post.getDescription());
-        assertThat(savedPost.getContent()).isEqualTo(post.getContent());
-        assertThat(savedPost.getAuthor().getId()).isEqualTo(createdUser.getId());
+    PostEntity createPersistedPost() {
+        FileEntity file = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(file);
+
+        UserEntity user = UserFixtures.user(createdFile);
+        UserEntity createdUser = userRepository.save(user);
+
+        PostEntity post = PostFixtures.post(createdUser);
+        return postRepository.save(post);
     }
 }

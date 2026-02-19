@@ -18,28 +18,46 @@ public interface PostMapper {
     /**
      * Converts a post entity and its comments to a post DTO.
      *
-     * @param post            the post entity
-     * @param comments        the list of comments associated with the post
-     * @param previewImageUrl the URL of the preview image
+     * @param post                the post entity
+     * @param comments            the list of comments associated with the post
+     * @param postPreviewImageUrl the URL of the preview image
+     * @param profilePictureUrl   the URL of the author's profile picture
      * @return post DTO with comment summaries
      */
-    PostDTO toPostDTO(PostEntity post, List<CommentEntity> comments, String previewImageUrl);
+    @Mapping(target = "previewImageUrl", source = "postPreviewImageUrl")
+    @Mapping(
+            target = "author",
+            expression = "java(post != null && post.getAuthor() != null " +
+                    "? toPostUserSummaryDTO(post.getAuthor(), profilePictureUrl) " +
+                    ": null)")
+    PostDTO toPostDTO(
+            PostEntity post,
+            List<CommentEntity> comments,
+            String postPreviewImageUrl,
+            String profilePictureUrl
+    );
 
     /**
-     * Converts a user entity to a post user summary DTO.
+     * Converts a user entity to a user summary DTO.
      *
-     * @param post the user entity
-     * @return post user summary DTO
+     * @param user              the user entity
+     * @param profilePictureUrl the URL of the user's profile picture
+     * @return user summary DTO
      */
-    PostUserSummaryDTO toPostUserSummaryDTO(UserEntity post);
+    PostUserSummaryDTO toPostUserSummaryDTO(UserEntity user, String profilePictureUrl);
 
     /**
      * Converts a comment entity to a post comment summary DTO.
      *
-     * @param comment the comment entity
+     * @param comment           the comment entity
+     * @param profilePictureUrl the URL of the comment author's profile picture
      * @return post comment summary DTO
      */
-    PostCommentSummaryDTO toPostCommentSummaryDTO(CommentEntity comment);
+    @Mapping(
+            target = "author",
+            expression = "java(toPostUserSummaryDTO(comment.getAuthor(), profilePictureUrl))"
+    )
+    PostCommentSummaryDTO toPostCommentSummaryDTO(CommentEntity comment, String profilePictureUrl);
 
     /**
      * Updates a post entity with non-null fields from the request DTO.

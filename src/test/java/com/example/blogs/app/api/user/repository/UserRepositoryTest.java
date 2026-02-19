@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.user.repository;
 
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.fixture.UserFixtures;
 import com.example.blogs.app.support.AbstractPostgresTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,65 +22,65 @@ class UserRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void saveUser_shouldSaveUserSuccessfully() {
-        UserEntity partialUser = UserEntity.builder()
-                .username("test")
-                .passwordHash("passwordHash")
-                .email("test@gmail.com")
-                .build();
+        UserEntity user = UserFixtures.user(null);
 
-        UserEntity actualUser = userRepository.save(partialUser);
+        UserEntity savedUser = userRepository.save(user);
         LocalDateTime now = LocalDateTime.now().withNano(0);
 
-        assertUserEntity(actualUser, now);
+        assertUserEntity(savedUser, now);
     }
 
     @Test
     void findUserByUsernameOrEmail_shouldReturnUserByUsername_whenUserExists() {
-        UserEntity partialUser = createTestUserEntity();
-        userRepository.save(partialUser);
+        UserEntity user = UserFixtures.user(null);
+        userRepository.save(user);
         LocalDateTime now = LocalDateTime.now().withNano(0);
 
         Optional<UserEntity> actualUser = userRepository
-                .findUserByUsernameOrEmail("test", "test");
+                .findUserByUsernameOrEmail(user.getUsername(), user.getUsername());
 
         assertOptionalUserEntity(actualUser, now);
     }
 
     @Test
     void findUserByUsernameOrEmail_shouldReturnUserByEmail_whenUserExists() {
-        UserEntity partialUser = createTestUserEntity();
-        userRepository.save(partialUser);
+        UserEntity user = UserFixtures.user(null);
+        userRepository.save(user);
         LocalDateTime now = LocalDateTime.now().withNano(0);
 
         Optional<UserEntity> actualUser = userRepository
-                .findUserByUsernameOrEmail("test@gmail.com", "test@gmail.com");
+                .findUserByUsernameOrEmail(user.getEmail(), user.getEmail());
 
         assertOptionalUserEntity(actualUser, now);
     }
 
     @Test
     void findByUsername_shouldReturnUser_whenUserExists() {
-        UserEntity partialUser = createTestUserEntity();
-        userRepository.save(partialUser);
+        UserEntity user = UserFixtures.user(null);
+        userRepository.save(user);
         LocalDateTime now = LocalDateTime.now().withNano(0);
 
         Optional<UserEntity> actualUser = userRepository
-                .findByUsername("test");
+                .findByUsername(user.getUsername());
 
         assertOptionalUserEntity(actualUser, now);
     }
 
-    private UserEntity createTestUserEntity() {
-        return UserEntity.builder()
-                .username("test")
-                .passwordHash("passwordHash")
-                .email("test@gmail.com")
-                .build();
+    @Test
+    void findById_shouldReturnUser_whenUserExists() {
+        UserEntity user = UserFixtures.user(null);
+        UserEntity savedUser = userRepository.save(user);
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+
+        Optional<UserEntity> actualUser = userRepository
+                .findById(savedUser.getId());
+
+        assertOptionalUserEntity(actualUser, now);
     }
 
     private void assertUserEntity(UserEntity user, LocalDateTime time) {
-        assertThat(user.getUsername()).isEqualTo("test");
-        assertThat(user.getEmail()).isEqualTo("test@gmail.com");
+        assertThat(user.getUsername()).isEqualTo("username");
+        assertThat(user.getEmail()).isEqualTo("email@gmail.com");
         assertThat(user.getPasswordHash()).isEqualTo("passwordHash");
         assertThat(user.getId()).isNotNull().isNotNegative();
         assertThat(user.getUpdatedAt())

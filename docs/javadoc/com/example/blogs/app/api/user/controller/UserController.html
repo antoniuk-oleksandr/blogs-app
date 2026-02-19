@@ -126,6 +126,13 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves complete user profile including posts by username.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a><wbr>&lt;<a href="../dto/UpdateUserResponseDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserResponseDTO</a>&gt;</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateUserProfile(com.example.blogs.app.security.UserPrincipal,com.example.blogs.app.api.user.dto.UpdateUserRequestDTO,org.springframework.web.multipart.MultipartFile)" class="member-name-link">updateUserProfile</a><wbr>(<a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&nbsp;userPrincipal,
+ @Valid <a href="../dto/UpdateUserRequestDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;profilePicture)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates the authenticated user's profile information and optionally their profile picture.</div>
+</div>
 </div>
 </div>
 </div>
@@ -171,6 +178,28 @@ loadScripts(document, 'script');</script>
 <dd>HTTP 200 with user profile and post summaries</dd>
 <dt>Throws:</dt>
 <dd><code><a href="../exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></code> - if user is not found</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updateUserProfile(com.example.blogs.app.security.UserPrincipal,com.example.blogs.app.api.user.dto.UpdateUserRequestDTO,org.springframework.web.multipart.MultipartFile)">
+<h3>updateUserProfile</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@PatchMapping</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html#path()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">path</a>="/me",
+              <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/PatchMapping.html#consumes()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">consumes</a>="multipart/form-data")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html" title="class or interface in org.springframework.http" class="external-link">ResponseEntity</a>&lt;<a href="../dto/UpdateUserResponseDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserResponseDTO</a>&gt;</span>&nbsp;<span class="element-name">updateUserProfile</span><wbr><span class="parameters">(@AuthenticationPrincipal
+ <a href="../../../security/UserPrincipal.html" title="class in com.example.blogs.app.security">UserPrincipal</a>&nbsp;userPrincipal,
+ @NotNull @Valid <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestPart</a>("user")
+ @Valid <a href="../dto/UpdateUserRequestDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html" title="class or interface in org.springframework.web.bind.annotation" class="external-link">@RequestPart</a>(<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html#value()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">value</a>="profilePicture",<a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestPart.html#required()" title="class or interface in org.springframework.web.bind.annotation" class="external-link">required</a>=false)
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;profilePicture)</span></div>
+<div class="block">Updates the authenticated user's profile information and optionally their profile picture.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>userPrincipal</code> - the authenticated user's principal containing user details</dd>
+<dd><code>requestDTO</code> - the request DTO containing fields to update (e.g., name, bio)</dd>
+<dd><code>profilePicture</code> - optional multipart file for the new profile picture</dd>
+<dt>Returns:</dt>
+<dd>HTTP 200 with the updated user profile information</dd>
 </dl>
 </section>
 </li>

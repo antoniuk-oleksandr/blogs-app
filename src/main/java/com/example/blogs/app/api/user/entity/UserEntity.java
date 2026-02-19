@@ -1,5 +1,6 @@
 package com.example.blogs.app.api.user.entity;
 
+import com.example.blogs.app.api.file.entity.FileEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,11 +33,15 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(length = 500, nullable = true)
+    @Column(length = 500)
     private String bio;
 
-    @Column(name = "profile_picture_url", nullable = true)
-    private String profilePictureUrl;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "file_id",
+            foreignKey = @ForeignKey(name = "fk_users_file")
+    )
+    private FileEntity file;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

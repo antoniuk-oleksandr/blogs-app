@@ -140,6 +140,13 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves a user by username or email address.</div>
 </div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../dto/UpdateUserResponseDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserResponseDTO</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#updateUserProfile(java.lang.Long,com.example.blogs.app.api.user.dto.UpdateUserRequestDTO,org.springframework.web.multipart.MultipartFile)" class="member-name-link">updateUserProfile</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id,
+ <a href="../dto/UpdateUserRequestDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;profilePicture)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates user profile with optional field updates and profile picture replacement.</div>
+</div>
 </div>
 </div>
 </div>
@@ -219,6 +226,33 @@ implements <a href="UserService.html" title="interface in com.example.blogs.app.
 <dt>Throws:</dt>
 <dd><code><a href="../exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></code> - if no user is found</dd>
 <dd><code><a href="../exception/FailedToFindUserException.html" title="class in com.example.blogs.app.api.user.exception">FailedToFindUserException</a></code> - for database errors</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="updateUserProfile(java.lang.Long,com.example.blogs.app.api.user.dto.UpdateUserRequestDTO,org.springframework.web.multipart.MultipartFile)">
+<h3>updateUserProfile</h3>
+<div class="member-signature"><span class="annotations"><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Transactional.html" title="class or interface in org.springframework.transaction.annotation" class="external-link">@Transactional</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/UpdateUserResponseDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserResponseDTO</a></span>&nbsp;<span class="element-name">updateUserProfile</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id,
+ <a href="../dto/UpdateUserRequestDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserRequestDTO</a>&nbsp;requestDTO,
+ <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html" title="class or interface in org.springframework.web.multipart" class="external-link">MultipartFile</a>&nbsp;profilePicture)</span></div>
+<div class="block">Updates user profile with optional field updates and profile picture replacement.
+ Supports partial updates - only non-null fields are modified.
+ If a new profile picture is provided, the old one is deleted after successful update.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="UserService.html#updateUserProfile(java.lang.Long,com.example.blogs.app.api.user.dto.UpdateUserRequestDTO,org.springframework.web.multipart.MultipartFile)">updateUserProfile</a></code>&nbsp;in interface&nbsp;<code><a href="UserService.html" title="interface in com.example.blogs.app.api.user.service">UserService</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>id</code> - the user ID to update</dd>
+<dd><code>requestDTO</code> - DTO containing fields to update (all fields optional)</dd>
+<dd><code>profilePicture</code> - optional new profile picture file</dd>
+<dt>Returns:</dt>
+<dd>response DTO with updated profile information</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></code> - if user with given ID is not found</dd>
+<dd><code><a href="../exception/UsernameTakenException.html" title="class in com.example.blogs.app.api.user.exception">UsernameTakenException</a></code> - if new username is already taken</dd>
+<dd><code><a href="../exception/EmailTakenException.html" title="class in com.example.blogs.app.api.user.exception">EmailTakenException</a></code> - if new email is already taken</dd>
+<dd><code><a href="../exception/FailedToUpdateUserException.html" title="class in com.example.blogs.app.api.user.exception">FailedToUpdateUserException</a></code> - for database update failures</dd>
 </dl>
 </section>
 </li>

@@ -1,6 +1,9 @@
 package com.example.blogs.app.api.comment.repository;
 
 import com.example.blogs.app.api.comment.entity.CommentEntity;
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
+import com.example.blogs.app.api.file.repository.FileRepository;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.post.repository.PostRepository;
@@ -30,9 +33,14 @@ class CommentRepositoryTest extends AbstractPostgresTest {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    private FileRepository fileRepository;
+
     @Test
     void findAllByPostId_shouldReturnAllPosts() {
-        UserEntity userToCreate = UserFixtures.user();
+        FileEntity fileToCreate = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(fileToCreate);
+        UserEntity userToCreate = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(userToCreate);
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
@@ -59,7 +67,9 @@ class CommentRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void findAllByPostId_shouldReturnEmptyList_whenNoCommentsExist() {
-        UserEntity userToCreate = UserFixtures.user();
+        FileEntity fileToCreate = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(fileToCreate);
+        UserEntity userToCreate = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(userToCreate);
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
@@ -72,7 +82,9 @@ class CommentRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void save_shouldReturnSavedComment() {
-        UserEntity userToCreate = UserFixtures.user();
+        FileEntity fileToCreate = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(fileToCreate);
+        UserEntity userToCreate = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(userToCreate);
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
@@ -94,7 +106,9 @@ class CommentRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void deleteById_shouldDeleteComment() {
-        UserEntity userToCreate = UserFixtures.user();
+        FileEntity fileToCreate = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(fileToCreate);
+        UserEntity userToCreate = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(userToCreate);
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);
@@ -113,7 +127,9 @@ class CommentRepositoryTest extends AbstractPostgresTest {
 
     @Test
     void findById_shouldReturnComment() {
-        UserEntity userToCreate = UserFixtures.user();
+        FileEntity fileToCreate = FileFixtures.file();
+        FileEntity createdFile = fileRepository.save(fileToCreate);
+        UserEntity userToCreate = UserFixtures.user(createdFile);
         UserEntity createdUser = userRepository.save(userToCreate);
         PostEntity post = PostFixtures.post(createdUser);
         PostEntity createdPost = postRepository.save(post);

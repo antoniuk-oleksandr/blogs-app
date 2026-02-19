@@ -1,5 +1,7 @@
 package com.example.blogs.app.api.post.repository.adapter;
 
+import com.example.blogs.app.api.file.entity.FileEntity;
+import com.example.blogs.app.api.file.fixture.FileFixtures;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.exception.*;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
@@ -34,12 +36,12 @@ class PostRepositoryAdapterTest {
 
     @Test
     void findByAuthorId_shouldReturnPosts_whenAuthorIdExists() {
-        List<PostEntity> mockPosts = List.of(new PostEntity(), new PostEntity());
-        when(postRepository.findByAuthorId(anyLong())).thenReturn(mockPosts);
+        List<PostEntity> posts = List.of(new PostEntity(), new PostEntity());
+        when(postRepository.findByAuthorId(anyLong())).thenReturn(posts);
 
         List<PostEntity> result = postRepositoryAdapter.findByAuthorId(1L);
 
-        assertThat(result).isEqualTo(mockPosts);
+        assertThat(result).isEqualTo(posts);
         verify(postRepository).findByAuthorId(1L);
     }
 
@@ -94,12 +96,12 @@ class PostRepositoryAdapterTest {
 
     @Test
     void findBySlug_shouldReturnPost_whenSlugExists() {
-        PostEntity mockPost = new PostEntity();
-        when(postRepository.findBySlug(anyString())).thenReturn(Optional.of(mockPost));
+        PostEntity post = new PostEntity();
+        when(postRepository.findBySlug(anyString())).thenReturn(Optional.of(post));
 
         PostEntity result = postRepositoryAdapter.findBySlug("slug");
 
-        assertThat(result).isEqualTo(mockPost);
+        assertThat(result).isEqualTo(post);
         verify(postRepository).findBySlug("slug");
     }
 
@@ -163,14 +165,19 @@ class PostRepositoryAdapterTest {
 
     @Test
     void findById_shouldReturnPost_whenPostIdExists() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L);
-        PostEntity mockPost = PostFixtures.post(1L, now, author);
-        when(postRepository.findById(anyLong())).thenReturn(Optional.of(mockPost));
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
+
+        when(postRepository.findById(anyLong())).thenReturn(Optional.of(post));
 
         PostEntity result = postRepositoryAdapter.findById(1L);
 
-        assertThat(result).isEqualTo(mockPost);
+        assertThat(result).isEqualTo(post);
         verify(postRepository, times(1)).findById(1L);
     }
 
@@ -196,53 +203,73 @@ class PostRepositoryAdapterTest {
 
     @Test
     void update_shouldReturnUpdatedPost_whenRepositorySucceeds() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockAuthor = UserFixtures.user(1L);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
-        when(postRepository.save(any(PostEntity.class))).thenReturn(mockPost);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
-        PostEntity result = postRepositoryAdapter.update(mockPost);
+        when(postRepository.save(any(PostEntity.class))).thenReturn(post);
 
-        assertThat(result).isEqualTo(mockPost);
-        verify(postRepository, times(1)).save(mockPost);
+        PostEntity result = postRepositoryAdapter.update(post);
+
+        assertThat(result).isEqualTo(post);
+        verify(postRepository, times(1)).save(post);
     }
 
     @Test
     void update_shouldThrowFailedToUpdatePostException_whenRepositoryFails() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockAuthor = UserFixtures.user(1L);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
+
         when(postRepository.save(any(PostEntity.class))).thenThrow(RuntimeException.class);
 
-        assertThatThrownBy(() -> postRepositoryAdapter.update(mockPost))
+        assertThatThrownBy(() -> postRepositoryAdapter.update(post))
                 .isInstanceOf(FailedToUpdatePostException.class)
                 .hasMessage("Failed to update post");
-        verify(postRepository, times(1)).save(mockPost);
+        verify(postRepository, times(1)).save(post);
     }
 
     @Test
     void save_shouldReturnSavedPost_whenRepositorySucceeds() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockAuthor = UserFixtures.user(1L);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
-        when(postRepository.save(any(PostEntity.class))).thenReturn(mockPost);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
-        PostEntity result = postRepositoryAdapter.save(mockPost);
+        when(postRepository.save(any(PostEntity.class))).thenReturn(post);
 
-        assertThat(result).isEqualTo(mockPost);
-        verify(postRepository, times(1)).save(mockPost);
+        PostEntity result = postRepositoryAdapter.save(post);
+
+        assertThat(result).isEqualTo(post);
+        verify(postRepository, times(1)).save(post);
     }
 
     @Test
     void save_shouldThrowFailedToSavePostException_whenRepositoryFails() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity mockAuthor = UserFixtures.user(1L);
-        PostEntity mockPost = PostFixtures.post(1L, now, mockAuthor);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
+
         when(postRepository.save(any(PostEntity.class))).thenThrow(RuntimeException.class);
 
-        assertThatThrownBy(() -> postRepositoryAdapter.save(mockPost))
+        assertThatThrownBy(() -> postRepositoryAdapter.save(post))
                 .isInstanceOf(FailedToSavePostException.class)
                 .hasMessage("Failed to save post");
-        verify(postRepository, times(1)).save(mockPost);
+        verify(postRepository, times(1)).save(post);
     }
 }

@@ -22,12 +22,16 @@ class PostMapperTest {
 
     @Test
     void toPostDTO_shouldMapPostFieldsCorrectly() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
         String previewImageUrl = "previewImageUrl";
 
-        PostDTO result = postMapper.toPostDTO(post, List.of(), previewImageUrl);
+        PostDTO result = postMapper.toPostDTO(post, List.of(), previewImageUrl, null);
 
         assertThat(result.id()).isEqualTo(post.getId());
         assertThat(result.title()).isEqualTo(post.getTitle());
@@ -39,34 +43,41 @@ class PostMapperTest {
 
     @Test
     void toPostDTO_shouldMapAuthorCorrectly() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
         author.setUsername("username");
-        author.setProfilePictureUrl("profilePictureUrl");
-        PostEntity post = PostFixtures.post(1L, now, author);
-        String previewImageUrl = "previewImageUrl";
+        author.setFile(file);
+        PostEntity post = PostFixtures.post(postId, now, author);
+        String profilePictureUrl = "profilePictureUrl";
 
-        PostDTO result = postMapper.toPostDTO(post, List.of(), previewImageUrl);
+        PostDTO result = postMapper.toPostDTO(post, List.of(), null, profilePictureUrl);
 
         assertThat(result.author()).isNotNull();
         assertThat(result.author().id()).isEqualTo(author.getId());
         assertThat(result.author().username()).isEqualTo(author.getUsername());
-        assertThat(result.author().profilePictureUrl()).isEqualTo(author.getProfilePictureUrl());
+        assertThat(result.author().profilePictureUrl()).isEqualTo(profilePictureUrl);
     }
 
     @Test
     void toPostDTO_shouldMapCommentsCorrectly() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
-        String previewImageUrl = "previewImageUrl";
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
         List<CommentEntity> comments = List.of(
                 CommentFixtures.commentEntity(1L, now, author, post),
                 CommentFixtures.commentEntity(2L, now.plusMinutes(5), author, post)
         );
 
-        PostDTO result = postMapper.toPostDTO(post, comments, previewImageUrl);
+        PostDTO result = postMapper.toPostDTO(post, comments, null, null);
 
         assertThat(result.comments()).hasSize(2);
         assertThat(result.comments().getFirst().id()).isEqualTo(comments.getFirst().getId());
@@ -79,31 +90,37 @@ class PostMapperTest {
 
     @Test
     void toPostDTO_shouldHandleEmptyCommentsList() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
-        String previewImageUrl = "previewImageUrl";
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
-        PostDTO result = postMapper.toPostDTO(post, List.of(), previewImageUrl);
+        PostDTO result = postMapper.toPostDTO(post, List.of(), null, null);
 
         assertThat(result.comments()).isEmpty();
     }
 
     @Test
     void toPostDTO_shouldReturnNull_whenAllParametersAreNull() {
-        PostDTO result = postMapper.toPostDTO(null, null, null);
+        PostDTO result = postMapper.toPostDTO(null, null, null, null);
 
         assertThat(result).isNull();
     }
 
     @Test
     void toPostDTO_shouldReturnPostWithNullComments_whenCommentsAreNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
-        String previewImageUrl = "previewImageUrl";
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
-        PostDTO result = postMapper.toPostDTO(post, null, previewImageUrl);
+        PostDTO result = postMapper.toPostDTO(post, null, null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.comments()).isNull();
@@ -111,9 +128,7 @@ class PostMapperTest {
 
     @Test
     void toPostDTO_shouldReturnNullFields_whenPostEntityIsNull() {
-        String previewImageUrl = "previewImageUrl";
-
-        PostDTO result = postMapper.toPostDTO(null, List.of(), previewImageUrl);
+        PostDTO result = postMapper.toPostDTO(null, List.of(), null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.id()).isNull();
@@ -123,16 +138,20 @@ class PostMapperTest {
         assertThat(result.createdAt()).isNull();
         assertThat(result.author()).isNull();
         assertThat(result.comments()).isEmpty();
-        assertThat(result.previewImageUrl()).isEqualTo(previewImageUrl);
+        assertThat(result.previewImageUrl()).isNull();
     }
 
     @Test
     void toPostDTO_shouldReturnPostDTO_whenPreviewImageUrlIsNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
-        PostDTO result = postMapper.toPostDTO(post, List.of(), null);
+        PostDTO result = postMapper.toPostDTO(post, List.of(), null, null);
 
         assertThat(result).isNotNull();
         assertThat(result.id()).isEqualTo(post.getId());
@@ -145,45 +164,53 @@ class PostMapperTest {
 
     @Test
     void toPostUserSummaryDTO_shouldMapUserFieldsCorrectly() {
+        Long userId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity user = UserFixtures.user(1L, now);
-        user.setUsername("username");
-        user.setProfilePictureUrl("profilePictureUrl");
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity user = UserFixtures.user(userId, file, now);
+        String previewImageUrl = "previewImageUrl";
 
-        PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(user);
+        PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(user, previewImageUrl);
 
         assertThat(result.id()).isEqualTo(user.getId());
         assertThat(result.username()).isEqualTo(user.getUsername());
-        assertThat(result.profilePictureUrl()).isEqualTo(user.getProfilePictureUrl());
+        assertThat(result.profilePictureUrl()).isEqualTo(previewImageUrl);
     }
 
     @Test
     void toPostUserSummaryDTO_shouldHandleNullProfilePicture() {
+        Long userId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity user = UserFixtures.user(1L, now);
-        user.setProfilePictureUrl(null);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity user = UserFixtures.user(userId, file, now);
 
-        PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(user);
+        PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(user, null);
 
         assertThat(result.profilePictureUrl()).isNull();
     }
 
     @Test
     void toPostUserSummaryDTO_shouldReturnNull_whenPostIsNull() {
-        PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(null);
+        PostUserSummaryDTO result = postMapper.toPostUserSummaryDTO(null, null);
 
         assertThat(result).isNull();
     }
 
     @Test
     void toPostCommentSummaryDTO_shouldMapCommentFieldsCorrectly() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
         CommentEntity comment = CommentFixtures.commentEntity(5L, now, author, post);
         comment.setContent("content");
 
-        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment);
+        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment, null);
 
         assertThat(result.id()).isEqualTo(comment.getId());
         assertThat(result.content()).isEqualTo(comment.getContent());
@@ -192,46 +219,59 @@ class PostMapperTest {
 
     @Test
     void toPostCommentSummaryDTO_shouldMapCommentAuthorCorrectly() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
+        Long commentId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(3L, now);
-        author.setUsername("username");
-        author.setProfilePictureUrl("profilePictureUrl");
-        PostEntity post = PostFixtures.post(1L, now, author);
-        CommentEntity comment = CommentFixtures.commentEntity(10L, now, author, post);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
+        CommentEntity comment = CommentFixtures.commentEntity(commentId, now, author, post);
+        String profilePictureUrl = "profilePictureUrl";
 
-        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment);
+        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment, profilePictureUrl);
 
         assertThat(result.author()).isNotNull();
         assertThat(result.author().id()).isEqualTo(author.getId());
         assertThat(result.author().username()).isEqualTo(author.getUsername());
-        assertThat(result.author().profilePictureUrl()).isEqualTo(author.getProfilePictureUrl());
+        assertThat(result.author().profilePictureUrl()).isEqualTo(profilePictureUrl);
     }
 
     @Test
     void toPostCommentSummaryDTO_shouldIndicateNotEditedWhenTimesMatch() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
+        Long commentId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
-        CommentEntity comment = CommentFixtures.commentEntity(1L, now, author, post);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
+        CommentEntity comment = CommentFixtures.commentEntity(commentId, now, author, post);
         comment.setUpdatedAt(now);
 
-        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment);
+        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(comment, null);
 
         assertThat(result.edited()).isFalse();
     }
 
     @Test
     void toPostCommentSummaryDTO_shouldReturnNull_whenCommentIsNull() {
-        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(null);
+        PostCommentSummaryDTO result = postMapper.toPostCommentSummaryDTO(null, null);
 
         assertThat(result).isNull();
     }
 
     @Test
     void toPostEntity_shouldUpdatePostEntity_whenTitleIsNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity postEntity = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 null,
@@ -239,7 +279,7 @@ class PostMapperTest {
                 "Updated Content"
         );
 
-        PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
+        PostEntity result = postMapper.toPostEntity(updateRequestDTO, post);
 
         assertThat(result.getTitle()).isEqualTo("title");
         assertThat(result.getDescription()).isEqualTo("Updated Description");
@@ -248,9 +288,13 @@ class PostMapperTest {
 
     @Test
     void toPostEntity_shouldUpdatePostEntity_whenDescriptionIsNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity postEntity = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 "Updated Title",
@@ -258,7 +302,7 @@ class PostMapperTest {
                 "Updated Content"
         );
 
-        PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
+        PostEntity result = postMapper.toPostEntity(updateRequestDTO, post);
 
         assertThat(result.getTitle()).isEqualTo("Updated Title");
         assertThat(result.getDescription()).isEqualTo("description");
@@ -267,9 +311,13 @@ class PostMapperTest {
 
     @Test
     void toPostEntity_shouldUpdatePostEntity_whenContentIsNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity postEntity = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 "Updated Title",
@@ -277,7 +325,7 @@ class PostMapperTest {
                 null
         );
 
-        PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
+        PostEntity result = postMapper.toPostEntity(updateRequestDTO, post);
 
         assertThat(result.getTitle()).isEqualTo("Updated Title");
         assertThat(result.getDescription()).isEqualTo("Updated Description");
@@ -286,9 +334,13 @@ class PostMapperTest {
 
     @Test
     void toPostEntity_shouldUpdatePostEntity_whenPreviewImageUrlIsNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity postEntity = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
         PostUpdateRequestDTO updateRequestDTO = new PostUpdateRequestDTO(
                 "Updated Title",
@@ -296,7 +348,7 @@ class PostMapperTest {
                 "Updated Content"
         );
 
-        PostEntity result = postMapper.toPostEntity(updateRequestDTO, postEntity);
+        PostEntity result = postMapper.toPostEntity(updateRequestDTO, post);
 
         assertThat(result.getTitle()).isEqualTo("Updated Title");
         assertThat(result.getDescription()).isEqualTo("Updated Description");
@@ -307,13 +359,15 @@ class PostMapperTest {
     void toPostEntity_shouldReturnPostEntity_whenRequestDTOIsNull() {
         Long userId = 1L;
         Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(userId, now);
-        PostEntity postEntity = PostFixtures.post(postId, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
-        PostEntity result = postMapper.toPostEntity(null, postEntity);
+        PostEntity result = postMapper.toPostEntity(null, post);
 
-        assertThat(result).isEqualTo(postEntity);
+        assertThat(result).isEqualTo(post);
     }
 
     @Test
@@ -328,14 +382,14 @@ class PostMapperTest {
         Long userId = 1L;
         Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(userId, now);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
         String slug = "unique-slug";
         PostCreateRequestDTO createRequestDTO = new PostCreateRequestDTO(
                 "New Title",
                 "New Description",
                 "New Content"
         );
-        FileEntity file = FileFixtures.file(fileId, now);
 
         PostEntity result = postMapper.toPostEntity(createRequestDTO, slug, file, author);
 
@@ -350,9 +404,13 @@ class PostMapperTest {
 
     @Test
     void toPostUpdateResponseDTO_shouldMapPostFieldsCorrectly() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
         String previewImageUrl = "previewImageUrl";
 
         PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(post, previewImageUrl);
@@ -375,9 +433,13 @@ class PostMapperTest {
 
     @Test
     void toPostUpdateResponseDTO_shouldReturnNullPreviewImageUrl_whenPreviewImageUrlIsNull() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
 
         PostUpdateResponseDTO result = postMapper.toPostUpdateResponseDTO(post, null);
 
@@ -409,9 +471,13 @@ class PostMapperTest {
 
     @Test
     void toPostCreateResponseDTO_shouldReturnMappedFieldsCorrectly() {
+        Long userId = 1L;
+        Long postId = 1L;
+        Long fileId = 1L;
         LocalDateTime now = LocalDateTime.now().withNano(0);
-        UserEntity author = UserFixtures.user(1L, now);
-        PostEntity post = PostFixtures.post(1L, now, author);
+        FileEntity file = FileFixtures.file(fileId, now);
+        UserEntity author = UserFixtures.user(userId, file, now);
+        PostEntity post = PostFixtures.post(postId, now, author);
         String previewImageUrl = "previewImageUrl";
 
         PostCreateResponseDTO result = postMapper.toPostCreateResponseDTO(post, previewImageUrl);

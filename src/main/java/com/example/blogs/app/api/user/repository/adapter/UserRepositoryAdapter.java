@@ -2,6 +2,7 @@ package com.example.blogs.app.api.user.repository.adapter;
 
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
+import com.example.blogs.app.api.user.exception.FailedToCreateUserException;
 
 /**
  * Abstracts user repository operations with exception translation for domain-specific errors.
@@ -14,7 +15,7 @@ public interface UserRepositoryAdapter {
      * @return the saved user entity
      * @throws com.example.blogs.app.api.user.exception.UsernameTakenException if username already exists
      * @throws com.example.blogs.app.api.user.exception.EmailTakenException    if email already exists
-     * @throws com.example.blogs.app.api.user.exception.FailedToCreateUser     for other persistence failures
+     * @throws FailedToCreateUserException     for other persistence failures
      */
     UserEntity save(CreateUserCommand command);
 
@@ -37,4 +38,25 @@ public interface UserRepositoryAdapter {
      * @throws com.example.blogs.app.api.user.exception.FailedToFindUserException for database errors
      */
     UserEntity findByUsername(String username);
+
+    /**
+     * Finds a user by their unique ID.
+     *
+     * @param id the user ID to search for
+     * @return the matching user entity
+     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException           if no user is found
+     * @throws com.example.blogs.app.api.user.exception.FailedToFindUserByIdException for database errors
+     */
+    UserEntity findById(Long id);
+
+    /**
+     * Updates an existing user entity.
+     *
+     * @param userEntity the user entity with updated values
+     * @return the updated user entity
+     * @throws com.example.blogs.app.api.user.exception.UsernameTakenException      if updated username is already taken
+     * @throws com.example.blogs.app.api.user.exception.EmailTakenException         if updated email is already taken
+     * @throws com.example.blogs.app.api.user.exception.FailedToUpdateUserException for database update failures
+     */
+    UserEntity update(UserEntity userEntity);
 }
