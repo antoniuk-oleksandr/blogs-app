@@ -103,7 +103,8 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostCommentSummaryDTO(com.example.blogs.app.api.comment.entity.CommentEntity)" class="member-name-link">toPostCommentSummaryDTO</a><wbr>(<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;comment)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostCommentSummaryDTO(com.example.blogs.app.api.comment.entity.CommentEntity,java.lang.String)" class="member-name-link">toPostCommentSummaryDTO</a><wbr>(<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;comment,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Converts a comment entity to a post comment summary DTO.</div>
 </div>
@@ -114,9 +115,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Converts a post entity to a post creation response DTO with preview image URL.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostDTO(com.example.blogs.app.api.post.entity.PostEntity,java.util.List,java.lang.String)" class="member-name-link">toPostDTO</a><wbr>(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;post,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostDTO(com.example.blogs.app.api.post.entity.PostEntity,java.util.List,java.lang.String,java.lang.String)" class="member-name-link">toPostDTO</a><wbr>(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;post,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;&nbsp;comments,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;previewImageUrl)</code></div>
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;postPreviewImageUrl,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Converts a post entity and its comments to a post DTO.</div>
 </div>
@@ -141,9 +143,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Converts a post entity to a post update response DTO.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostUserSummaryDTO(com.example.blogs.app.api.user.entity.UserEntity)" class="member-name-link">toPostUserSummaryDTO</a><wbr>(<a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;post)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toPostUserSummaryDTO(com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)" class="member-name-link">toPostUserSummaryDTO</a><wbr>(<a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;user,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
-<div class="block">Converts a user entity to a post user summary DTO.</div>
+<div class="block">Converts a user entity to a user summary DTO.</div>
 </div>
 </div>
 </div>
@@ -160,43 +163,49 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="toPostDTO(com.example.blogs.app.api.post.entity.PostEntity,java.util.List,java.lang.String)">
+<section class="detail" id="toPostDTO(com.example.blogs.app.api.post.entity.PostEntity,java.util.List,java.lang.String,java.lang.String)">
 <h3>toPostDTO</h3>
 <div class="member-signature"><span class="return-type"><a href="../dto/PostDTO.html" title="class in com.example.blogs.app.api.post.dto">PostDTO</a></span>&nbsp;<span class="element-name">toPostDTO</span><wbr><span class="parameters">(<a href="../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;post,
  <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&gt;&nbsp;comments,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;previewImageUrl)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;postPreviewImageUrl,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</span></div>
 <div class="block">Converts a post entity and its comments to a post DTO.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>post</code> - the post entity</dd>
 <dd><code>comments</code> - the list of comments associated with the post</dd>
-<dd><code>previewImageUrl</code> - the URL of the preview image</dd>
+<dd><code>postPreviewImageUrl</code> - the URL of the preview image</dd>
+<dd><code>profilePictureUrl</code> - the URL of the author's profile picture</dd>
 <dt>Returns:</dt>
 <dd>post DTO with comment summaries</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="toPostUserSummaryDTO(com.example.blogs.app.api.user.entity.UserEntity)">
+<section class="detail" id="toPostUserSummaryDTO(com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)">
 <h3>toPostUserSummaryDTO</h3>
-<div class="member-signature"><span class="return-type"><a href="../dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></span>&nbsp;<span class="element-name">toPostUserSummaryDTO</span><wbr><span class="parameters">(<a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;post)</span></div>
-<div class="block">Converts a user entity to a post user summary DTO.</div>
+<div class="member-signature"><span class="return-type"><a href="../dto/PostUserSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostUserSummaryDTO</a></span>&nbsp;<span class="element-name">toPostUserSummaryDTO</span><wbr><span class="parameters">(<a href="../../user/entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;user,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</span></div>
+<div class="block">Converts a user entity to a user summary DTO.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>post</code> - the user entity</dd>
+<dd><code>user</code> - the user entity</dd>
+<dd><code>profilePictureUrl</code> - the URL of the user's profile picture</dd>
 <dt>Returns:</dt>
-<dd>post user summary DTO</dd>
+<dd>user summary DTO</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="toPostCommentSummaryDTO(com.example.blogs.app.api.comment.entity.CommentEntity)">
+<section class="detail" id="toPostCommentSummaryDTO(com.example.blogs.app.api.comment.entity.CommentEntity,java.lang.String)">
 <h3>toPostCommentSummaryDTO</h3>
-<div class="member-signature"><span class="return-type"><a href="../dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></span>&nbsp;<span class="element-name">toPostCommentSummaryDTO</span><wbr><span class="parameters">(<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;comment)</span></div>
+<div class="member-signature"><span class="return-type"><a href="../dto/PostCommentSummaryDTO.html" title="class in com.example.blogs.app.api.post.dto">PostCommentSummaryDTO</a></span>&nbsp;<span class="element-name">toPostCommentSummaryDTO</span><wbr><span class="parameters">(<a href="../../comment/entity/CommentEntity.html" title="class in com.example.blogs.app.api.comment.entity">CommentEntity</a>&nbsp;comment,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</span></div>
 <div class="block">Converts a comment entity to a post comment summary DTO.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>comment</code> - the comment entity</dd>
+<dd><code>profilePictureUrl</code> - the URL of the comment author's profile picture</dd>
 <dt>Returns:</dt>
 <dd>post comment summary DTO</dd>
 </dl>

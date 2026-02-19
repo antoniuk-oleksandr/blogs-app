@@ -126,19 +126,29 @@ implements <a href="UserRepositoryAdapter.html" title="interface in com.example.
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByUsername(java.lang.String)" class="member-name-link">findByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findById(java.lang.Long)" class="member-name-link">findById</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Finds a user by username and translates exceptions to domain-specific errors.</div>
+<div class="block">Finds a user by their unique ID.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByUsernameOrEmail(java.lang.String)" class="member-name-link">findByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByUsername(java.lang.String)" class="member-name-link">findByUsername</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;username)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Finds a user by username or email address.</div>
+<div class="block">Finds a user by username and translates exceptions to domain-specific errors.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.user.dto.CreateUserCommand)" class="member-name-link">save</a><wbr>(<a href="../../dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a>&nbsp;command)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByUsernameOrEmail(java.lang.String)" class="member-name-link">findByUsernameOrEmail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;usernameOrEmail)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Finds a user by username or email address.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.user.dto.CreateUserCommand)" class="member-name-link">save</a><wbr>(<a href="../../dto/CreateUserCommand.html" title="class in com.example.blogs.app.api.user.dto">CreateUserCommand</a>&nbsp;command)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Persists a new user entity.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(com.example.blogs.app.api.user.entity.UserEntity)" class="member-name-link">update</a><wbr>(<a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Updates an existing user entity and translates exceptions to domain-specific errors.</div>
 </div>
 </div>
 </div>
@@ -218,6 +228,42 @@ implements <a href="UserRepositoryAdapter.html" title="interface in com.example.
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/UserNotFoundException.html" title="class in com.example.blogs.app.api.user.exception">UserNotFoundException</a></code> - if no user is found</dd>
 <dd><code><a href="../../exception/FailedToFindUserException.html" title="class in com.example.blogs.app.api.user.exception">FailedToFindUserException</a></code> - for database errors</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="findById(java.lang.Long)">
+<h3>findById</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">findById</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="UserRepositoryAdapter.html#findById(java.lang.Long)">UserRepositoryAdapter</a></code></span></div>
+<div class="block">Finds a user by their unique ID.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="UserRepositoryAdapter.html#findById(java.lang.Long)">findById</a></code>&nbsp;in interface&nbsp;<code><a href="UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>id</code> - the user ID to search for</dd>
+<dt>Returns:</dt>
+<dd>the matching user entity</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="update(com.example.blogs.app.api.user.entity.UserEntity)">
+<h3>update</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">update</span><wbr><span class="parameters">(<a href="../../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity)</span></div>
+<div class="block">Updates an existing user entity and translates exceptions to domain-specific errors.
+ Handles uniqueness constraint violations for username and email updates.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="UserRepositoryAdapter.html#update(com.example.blogs.app.api.user.entity.UserEntity)">update</a></code>&nbsp;in interface&nbsp;<code><a href="UserRepositoryAdapter.html" title="interface in com.example.blogs.app.api.user.repository.adapter">UserRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>userEntity</code> - the user entity to update with new values</dd>
+<dt>Returns:</dt>
+<dd>the updated user entity</dd>
+<dt>Throws:</dt>
+<dd><code><a href="../../exception/UsernameTakenException.html" title="class in com.example.blogs.app.api.user.exception">UsernameTakenException</a></code> - if updated username is already taken</dd>
+<dd><code><a href="../../exception/EmailTakenException.html" title="class in com.example.blogs.app.api.user.exception">EmailTakenException</a></code> - if updated email is already taken</dd>
+<dd><code><a href="../../exception/FailedToUpdateUserException.html" title="class in com.example.blogs.app.api.user.exception">FailedToUpdateUserException</a></code> - for database update failures</dd>
 </dl>
 </section>
 </li>

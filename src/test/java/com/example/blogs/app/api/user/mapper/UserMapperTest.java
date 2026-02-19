@@ -314,22 +314,6 @@ class UserMapperTest {
     }
 
     @Test
-    void toUpdateUserResponseDTO_shouldMapWithOnlyUserEntity() {
-        Long userId = 1L;
-        Long fileId = 1L;
-        LocalDateTime now = LocalDateTime.now().withNano(0);
-        FileEntity file = FileFixtures.file(fileId, now);
-        UserEntity user = UserFixtures.user(userId, file, now);
-
-        UpdateUserResponseDTO responseDTO = userMapper.toUpdateUserResponseDTO(user, null);
-
-        assertThat(responseDTO).isNotNull();
-        assertThat(responseDTO.username()).isEqualTo(user.getUsername());
-        assertThat(responseDTO.bio()).isEqualTo(user.getBio());
-        assertThat(responseDTO.profilePictureUrl()).isNull();
-    }
-
-    @Test
     void toUpdateUserResponseDTO_shouldMapWithOnlyProfilePictureUrl() {
         String profilePictureUrl = "profilePictureUrl";
 

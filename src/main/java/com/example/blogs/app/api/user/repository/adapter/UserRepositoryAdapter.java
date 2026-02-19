@@ -39,7 +39,24 @@ public interface UserRepositoryAdapter {
      */
     UserEntity findByUsername(String username);
 
+    /**
+     * Finds a user by their unique ID.
+     *
+     * @param id the user ID to search for
+     * @return the matching user entity
+     * @throws com.example.blogs.app.api.user.exception.UserNotFoundException           if no user is found
+     * @throws com.example.blogs.app.api.user.exception.FailedToFindUserByIdException for database errors
+     */
     UserEntity findById(Long id);
 
+    /**
+     * Updates an existing user entity.
+     *
+     * @param userEntity the user entity with updated values
+     * @return the updated user entity
+     * @throws com.example.blogs.app.api.user.exception.UsernameTakenException      if updated username is already taken
+     * @throws com.example.blogs.app.api.user.exception.EmailTakenException         if updated email is already taken
+     * @throws com.example.blogs.app.api.user.exception.FailedToUpdateUserException for database update failures
+     */
     UserEntity update(UserEntity userEntity);
 }

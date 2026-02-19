@@ -40,7 +40,8 @@ public interface PostMapper {
     /**
      * Converts a user entity to a user summary DTO.
      *
-     * @param user the user entity
+     * @param user              the user entity
+     * @param profilePictureUrl the URL of the user's profile picture
      * @return user summary DTO
      */
     PostUserSummaryDTO toPostUserSummaryDTO(UserEntity user, String profilePictureUrl);
@@ -48,7 +49,8 @@ public interface PostMapper {
     /**
      * Converts a comment entity to a post comment summary DTO.
      *
-     * @param comment the comment entity
+     * @param comment           the comment entity
+     * @param profilePictureUrl the URL of the comment author's profile picture
      * @return post comment summary DTO
      */
     @Mapping(

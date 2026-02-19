@@ -39,6 +39,15 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserByUsername(username));
     }
 
+    /**
+     * Updates the authenticated user's profile information and optionally their profile picture.
+     *
+     * @param userPrincipal the authenticated user's principal containing user details
+     * @param requestDTO the request DTO containing fields to update (e.g., name, bio)
+     * @param profilePicture optional multipart file for the new profile picture
+     * @return HTTP 200 with the updated user profile information
+     */
+    @UserControllerDocs.UpdateUserProfile
     @PatchMapping(path = "/me", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UpdateUserResponseDTO> updateUserProfile(
             @AuthenticationPrincipal UserPrincipal userPrincipal,

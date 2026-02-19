@@ -102,11 +102,25 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserDTO(com.example.blogs.app.api.user.entity.UserEntity,java.util.List)" class="member-name-link">toUserDTO</a><wbr>(<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;&nbsp;posts)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UpdateUserResponseDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserResponseDTO</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUpdateUserResponseDTO(com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)" class="member-name-link">toUpdateUserResponseDTO</a><wbr>(<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Maps user entity and profile picture URL to update response DTO.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserDTO(com.example.blogs.app.api.user.entity.UserEntity,java.util.List,java.lang.String)" class="member-name-link">toUserDTO</a><wbr>(<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;&nbsp;posts,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Maps user entity and associated posts to a complete user DTO.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserEntity(com.example.blogs.app.api.user.dto.UpdateUserRequestDTO,com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)" class="member-name-link">toUserEntity</a><wbr>(<a href="../dto/UpdateUserRequestDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserRequestDTO</a>&nbsp;requestDTO,
+ <a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;passwordHash)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="block">Updates user entity with values from request DTO and password hash.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserEntity(java.lang.Long)" class="member-name-link">toUserEntity</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;id)</code></div>
@@ -114,7 +128,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Creates a user entity with only the ID populated.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="../dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserPostSummaryDto(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">toUserPostSummaryDto</a><wbr>(<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#toUserPostSummaryDto(com.example.blogs.app.api.post.entity.PostEntity,java.lang.String)" class="member-name-link">toUserPostSummaryDto</a><wbr>(<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
 <div class="block">Maps a post entity to a post summary DTO.</div>
 </div>
@@ -133,28 +148,32 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="toUserDTO(com.example.blogs.app.api.user.entity.UserEntity,java.util.List)">
+<section class="detail" id="toUserDTO(com.example.blogs.app.api.user.entity.UserEntity,java.util.List,java.lang.String)">
 <h3>toUserDTO</h3>
 <div class="member-signature"><span class="return-type"><a href="../dto/UserDTO.html" title="class in com.example.blogs.app.api.user.dto">UserDTO</a></span>&nbsp;<span class="element-name">toUserDTO</span><wbr><span class="parameters">(<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;&nbsp;posts)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;&nbsp;posts,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</span></div>
 <div class="block">Maps user entity and associated posts to a complete user DTO.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>userEntity</code> - user entity with profile information</dd>
 <dd><code>posts</code> - list of post entities authored by the user</dd>
+<dd><code>profilePictureUrl</code> - URL of the user's profile picture to include in the post summary</dd>
 <dt>Returns:</dt>
 <dd>user DTO with profile and post summaries</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="toUserPostSummaryDto(com.example.blogs.app.api.post.entity.PostEntity)">
+<section class="detail" id="toUserPostSummaryDto(com.example.blogs.app.api.post.entity.PostEntity,java.lang.String)">
 <h3>toUserPostSummaryDto</h3>
-<div class="member-signature"><span class="return-type"><a href="../dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></span>&nbsp;<span class="element-name">toUserPostSummaryDto</span><wbr><span class="parameters">(<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</span></div>
+<div class="member-signature"><span class="return-type"><a href="../dto/UserPostSummaryDTO.html" title="class in com.example.blogs.app.api.user.dto">UserPostSummaryDTO</a></span>&nbsp;<span class="element-name">toUserPostSummaryDto</span><wbr><span class="parameters">(<a href="../../post/entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</span></div>
 <div class="block">Maps a post entity to a post summary DTO.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>postEntity</code> - post entity to map</dd>
+<dd><code>profilePictureUrl</code> - URL of the user's profile picture to include in the post summary</dd>
 <dt>Returns:</dt>
 <dd>post summary DTO</dd>
 </dl>
@@ -170,6 +189,39 @@ loadScripts(document, 'script');</script>
 <dd><code>id</code> - the user ID</dd>
 <dt>Returns:</dt>
 <dd>user entity with only ID set</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toUserEntity(com.example.blogs.app.api.user.dto.UpdateUserRequestDTO,com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)">
+<h3>toUserEntity</h3>
+<div class="member-signature"><span class="return-type"><a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a></span>&nbsp;<span class="element-name">toUserEntity</span><wbr><span class="parameters">(<a href="../dto/UpdateUserRequestDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserRequestDTO</a>&nbsp;requestDTO,
+ <a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;passwordHash)</span></div>
+<div class="block">Updates user entity with values from request DTO and password hash.
+ Uses IGNORE strategy - only non-null fields from requestDTO are applied.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>requestDTO</code> - DTO containing fields to update (null fields are ignored)</dd>
+<dd><code>userEntity</code> - existing user entity to update (modified in place)</dd>
+<dd><code>passwordHash</code> - optional new password hash (null if password not changed)</dd>
+<dt>Returns:</dt>
+<dd>the modified user entity</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toUpdateUserResponseDTO(com.example.blogs.app.api.user.entity.UserEntity,java.lang.String)">
+<h3>toUpdateUserResponseDTO</h3>
+<div class="member-signature"><span class="return-type"><a href="../dto/UpdateUserResponseDTO.html" title="class in com.example.blogs.app.api.user.dto">UpdateUserResponseDTO</a></span>&nbsp;<span class="element-name">toUpdateUserResponseDTO</span><wbr><span class="parameters">(<a href="../entity/UserEntity.html" title="class in com.example.blogs.app.api.user.entity">UserEntity</a>&nbsp;userEntity,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;profilePictureUrl)</span></div>
+<div class="block">Maps user entity and profile picture URL to update response DTO.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>userEntity</code> - updated user entity</dd>
+<dd><code>profilePictureUrl</code> - URL of the user's profile picture</dd>
+<dt>Returns:</dt>
+<dd>update response DTO with username, bio, and profile picture URL</dd>
 </dl>
 </section>
 </li>

@@ -11,8 +11,7 @@ import com.example.blogs.app.api.user.dto.UserDTO;
 import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.user.dto.CreateUserCommand;
 import com.example.blogs.app.api.user.entity.UserEntity;
-import com.example.blogs.app.api.user.exception.FailedToFindUserException;
-import com.example.blogs.app.api.user.exception.UserNotFoundException;
+import com.example.blogs.app.api.user.exception.*;
 import com.example.blogs.app.api.user.mapper.UserMapper;
 import com.example.blogs.app.api.user.repository.adapter.UserRepositoryAdapter;
 import com.example.blogs.app.logging.MDCKeys;
@@ -85,6 +84,20 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserDTO(userEntity, postEntities, profilePictureUrl);
     }
 
+    /**
+     * Updates user profile with optional field updates and profile picture replacement.
+     * Supports partial updates - only non-null fields are modified.
+     * If a new profile picture is provided, the old one is deleted after successful update.
+     *
+     * @param id             the user ID to update
+     * @param requestDTO     DTO containing fields to update (all fields optional)
+     * @param profilePicture optional new profile picture file
+     * @return response DTO with updated profile information
+     * @throws UserNotFoundException       if user with given ID is not found
+     * @throws UsernameTakenException      if new username is already taken
+     * @throws EmailTakenException         if new email is already taken
+     * @throws FailedToUpdateUserException for database update failures
+     */
     @Override
     @Transactional
     public UpdateUserResponseDTO updateUserProfile(

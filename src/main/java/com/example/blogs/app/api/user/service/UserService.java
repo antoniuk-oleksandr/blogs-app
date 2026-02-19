@@ -44,5 +44,19 @@ public interface UserService {
      */
     UserDTO getUserByUsername(String username);
 
+    /**
+     * Updates user profile with optional field updates and profile picture replacement.
+     * Supports partial updates - only non-null fields are modified.
+     * If a new profile picture is provided, the old one is deleted after successful update.
+     *
+     * @param id             the user ID to update
+     * @param requestDTO     DTO containing fields to update (all fields optional)
+     * @param profilePicture optional new profile picture file
+     * @return response DTO with updated profile information
+     * @throws UserNotFoundException       if user with given ID is not found
+     * @throws UsernameTakenException      if new username is already taken
+     * @throws EmailTakenException         if new email is already taken
+     * @throws FailedToUpdateUserException for database update failures
+     */
     UpdateUserResponseDTO updateUserProfile(Long id, UpdateUserRequestDTO requestDTO, MultipartFile profilePicture);
 }

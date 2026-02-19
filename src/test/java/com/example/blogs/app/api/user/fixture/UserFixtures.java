@@ -37,6 +37,12 @@ public class UserFixtures {
                 .build();
     }
 
+    /**
+     * Creates a user entity with default values for all fields except ID and timestamps.
+     *
+     * @param fileEntity the associated file entity for the user's profile picture
+     * @return configured user entity without ID and timestamps
+     */
     public static UserEntity user(FileEntity fileEntity) {
         return UserEntity.builder()
                 .username("username")
@@ -47,6 +53,11 @@ public class UserFixtures {
                 .build();
     }
 
+    /**
+     * Creates a create user command with default values for all fields.
+     *
+     * @return configured create user command
+     */
     public static CreateUserCommand createUserCommand() {
         return new CreateUserCommand(
                 "username",
@@ -55,6 +66,12 @@ public class UserFixtures {
         );
     }
 
+    /**
+     * Creates a user DTO with default values for all fields, including the provided list of post summaries.
+     *
+     * @param posts the list of post summaries to include in the user DTO
+     * @return configured user DTO with post summaries
+     */
     public static UserDTO userDTO(List<UserPostSummaryDTO> posts) {
         return new UserDTO(
                 "username",

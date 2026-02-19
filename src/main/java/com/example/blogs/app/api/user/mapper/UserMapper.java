@@ -46,6 +46,15 @@ public interface UserMapper {
      */
     UserEntity toUserEntity(Long id);
 
+    /**
+     * Updates user entity with values from request DTO and password hash.
+     * Uses IGNORE strategy - only non-null fields from requestDTO are applied.
+     *
+     * @param requestDTO  DTO containing fields to update (null fields are ignored)
+     * @param userEntity  existing user entity to update (modified in place)
+     * @param passwordHash optional new password hash (null if password not changed)
+     * @return the modified user entity
+     */
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     UserEntity toUserEntity(
             UpdateUserRequestDTO requestDTO,
@@ -53,5 +62,12 @@ public interface UserMapper {
             String passwordHash
     );
 
+    /**
+     * Maps user entity and profile picture URL to update response DTO.
+     *
+     * @param userEntity        updated user entity
+     * @param profilePictureUrl URL of the user's profile picture
+     * @return update response DTO with username, bio, and profile picture URL
+     */
     UpdateUserResponseDTO toUpdateUserResponseDTO(UserEntity userEntity, String profilePictureUrl);
 }

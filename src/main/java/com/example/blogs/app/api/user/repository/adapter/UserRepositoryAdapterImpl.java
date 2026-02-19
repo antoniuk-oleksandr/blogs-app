@@ -104,11 +104,34 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
         }
     }
 
+    /**
+     * Updates an existing user entity and translates exceptions to domain-specific errors.
+     * Handles uniqueness constraint violations for username and email updates.
+     *
+     * @param userEntity the user entity to update with new values
+     * @return the updated user entity
+     * @throws UsernameTakenException      if updated username is already taken
+     * @throws EmailTakenException         if updated email is already taken
+     * @throws FailedToUpdateUserException for database update failures
+     */
     @Override
     public UserEntity update(UserEntity userEntity) {
         try {
             return userRepository.save(userEntity);
         } catch (Exception e) {
+            if (e instanceof ConstraintViolationException) {
+                if (sqlExceptionUtils.containsUniqueViolation(e, "users_username_key")) {
+                    log.warn("user_update_failed reason=username_taken username={} userId={} requestId={}",
+                            userEntity.getUsername(), userEntity.getId(), MDC.get(MDCKeys.REQUEST_ID));
+                    throw new UsernameTakenException(e);
+                }
+                if (sqlExceptionUtils.containsUniqueViolation(e, "users_email_key")) {
+                    log.warn("user_update_failed reason=email_taken email={} userId={} requestId={}",
+                            userEntity.getEmail(), userEntity.getId(), MDC.get(MDCKeys.REQUEST_ID));
+                    throw new EmailTakenException(e);
+                }
+            }
+
             log.error("database_operation_failed operation=update userId={} error={} requestId={}",
                     userEntity.getId(), e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToUpdateUserException(e);
