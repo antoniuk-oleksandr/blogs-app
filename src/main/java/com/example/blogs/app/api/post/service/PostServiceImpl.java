@@ -5,6 +5,7 @@ import com.example.blogs.app.api.comment.service.CommentService;
 import com.example.blogs.app.api.file.entity.FileEntity;
 import com.example.blogs.app.api.file.service.FileUrlBuilder;
 import com.example.blogs.app.api.post.exception.FailedToCreatePostException;
+import com.example.blogs.app.api.search.indexing.PostSearchIndexEventPublisher;
 import com.example.blogs.app.logging.MDCKeys;
 import com.example.blogs.app.api.file.service.FileService;
 import com.example.blogs.app.api.post.dto.*;
@@ -49,6 +50,8 @@ public class PostServiceImpl implements PostService {
 
     private final FileUrlBuilder fileUrlBuilder;
 
+    private final PostSearchIndexEventPublisher searchIndexEventPublisher;
+
     private static final Logger log = LoggerFactory.getLogger(PostServiceImpl.class);
 
     /**
@@ -72,6 +75,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePostById(Long postId) {
         postRepositoryAdapter.deleteById(postId);
+        searchIndexEventPublisher.publishDeleteAfterCommit(postId);
         log.info("post_deleted postId={} userId={} requestId={}",
                 postId, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
     }
@@ -133,6 +137,7 @@ public class PostServiceImpl implements PostService {
 
         PostEntity updatedPost = postMapper.toPostEntity(requestDTO, post);
         PostEntity savedPost = postRepositoryAdapter.update(updatedPost);
+        searchIndexEventPublisher.publishUpsertAfterCommit(savedPost.getId());
 
         newFile.ifPresent(newF -> oldFile.ifPresent(old -> {
             fileService.delete(old);
@@ -170,6 +175,7 @@ public class PostServiceImpl implements PostService {
             UserEntity author = userMapper.toUserEntity(authorId);
             PostEntity createPostEntity = postMapper.toPostEntity(requestDTO, slug, fileEntity, author);
             PostEntity post = postRepositoryAdapter.save(createPostEntity);
+            searchIndexEventPublisher.publishUpsertAfterCommit(post.getId());
 
             log.info("preview_image_uploaded postId={} fileId={} userId={} requestId={}",
                     post.getId(), fileEntity.getId(), authorId, MDC.get(MDCKeys.REQUEST_ID));

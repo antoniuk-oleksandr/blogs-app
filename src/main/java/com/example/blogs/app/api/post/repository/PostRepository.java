@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.post.repository;
 
 import com.example.blogs.app.api.post.entity.PostEntity;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -61,4 +62,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
      * @return optional containing the post if found, empty otherwise
      */
     Optional<PostEntity> findById(long postId);
+
+    @EntityGraph(attributePaths = {"author", "author.file", "file"})
+    List<PostEntity> findAllByIdIn(List<Long> postIds);
 }

@@ -54,6 +54,10 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
     }
+    implementation('org.springframework.boot:spring-boot-starter-amqp') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+    }
 
     // Database
     implementation 'org.postgresql:postgresql:42.7.8'
@@ -108,6 +112,14 @@ dependencies {
 
     // Spring Boot Actuator
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    /// Elasticsearch / OpenSearch Evolution
+    implementation 'com.senacor.elasticsearch.evolution:spring-boot-starter-elasticsearch-evolution:1.0.0'
+    implementation 'com.senacor.elasticsearch.evolution:elasticsearch-evolution-rest-abstraction-os-genericclient:1.0.0'
+
+    // OpenSearch Java Client
+    implementation 'org.opensearch.client:opensearch-java:3.5.0'
+    implementation 'org.opensearch.client:opensearch-rest-client:3.5.0'
 
     // Testing
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

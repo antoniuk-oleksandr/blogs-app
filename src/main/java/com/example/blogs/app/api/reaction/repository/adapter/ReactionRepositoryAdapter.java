@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.reaction.repository.adapter;
 
 import com.example.blogs.app.api.reaction.entity.ReactionEntity;
+import com.example.blogs.app.api.reaction.entity.ReactionType;
 import com.example.blogs.app.api.reaction.exception.FailedToFindReactionException;
 import com.example.blogs.app.api.reaction.exception.FailedToSaveReactionException;
 import com.example.blogs.app.api.reaction.exception.ReactionNotFoundException;
@@ -32,4 +33,13 @@ public interface ReactionRepositoryAdapter {
      * @throws FailedToFindReactionException if the find operation fails
      */
      ReactionEntity findByPostIdAndUserId(Long postId, Long userId);
+
+    /**
+     * Counts reactions of the specified type for a post with exception translation.
+     *
+     * @param postId the ID of the post
+     * @param reactionType the reaction type to count
+     * @return number of matching reactions
+     */
+     long countByPostIdAndReactionType(Long postId, ReactionType reactionType);
 }

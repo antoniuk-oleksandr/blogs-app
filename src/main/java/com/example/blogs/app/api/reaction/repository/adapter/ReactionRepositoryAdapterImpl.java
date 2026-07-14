@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.reaction.repository.adapter;
 
 import com.example.blogs.app.api.reaction.entity.ReactionEntity;
+import com.example.blogs.app.api.reaction.entity.ReactionType;
 import com.example.blogs.app.api.reaction.exception.FailedToFindReactionException;
 import com.example.blogs.app.api.reaction.exception.FailedToSaveReactionException;
 import com.example.blogs.app.api.reaction.exception.ReactionNotFoundException;
@@ -75,6 +76,17 @@ public class ReactionRepositoryAdapterImpl implements ReactionRepositoryAdapter 
         } catch (Exception e) {
             log.error("database_operation_failed operation=findByPostIdAndUserId postId={} userId={} error={} requestId={}",
                     postId, userId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
+            throw new FailedToFindReactionException(e);
+        }
+    }
+
+    @Override
+    public long countByPostIdAndReactionType(Long postId, ReactionType reactionType) {
+        try {
+            return reactionRepository.countByPostIdAndReactionType(postId, reactionType);
+        } catch (Exception e) {
+            log.error("database_operation_failed operation=countByPostIdAndReactionType postId={} reactionType={} error={} requestId={}",
+                    postId, reactionType, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToFindReactionException(e);
         }
     }

@@ -83,6 +83,28 @@ class CommentRepositoryAdapterTest {
     }
 
     @Test
+    void countByPostId_shouldReturnCommentCount() {
+        Long postId = 1L;
+        when(commentRepository.countByPostId(anyLong())).thenReturn(3L);
+
+        long result = commentRepositoryAdapter.countByPostId(postId);
+
+        assertThat(result).isEqualTo(3L);
+        verify(commentRepository).countByPostId(postId);
+    }
+
+    @Test
+    void countByPostId_shouldThrowFailedToFindCommentsByPostIdException_whenDBExceptionOccurs() {
+        Long postId = 1L;
+        when(commentRepository.countByPostId(anyLong()))
+                .thenThrow(new RuntimeException("Db exception"));
+
+        assertThatThrownBy(() -> commentRepositoryAdapter.countByPostId(postId))
+                .isInstanceOf(FailedToFindCommentsByPostIdException.class);
+        verify(commentRepository).countByPostId(postId);
+    }
+
+    @Test
     void save_shouldReturnSavedComment() {
         Long userId = 1L;
         Long postId = 1L;

@@ -42,6 +42,17 @@ public class CommentRepositoryAdapterImpl implements CommentRepositoryAdapter {
         }
     }
 
+    @Override
+    public long countByPostId(Long postId) {
+        try {
+            return commentRepository.countByPostId(postId);
+        } catch (Exception e) {
+            log.error("database_operation_failed operation=countByPostId postId={} error={} requestId={}",
+                    postId, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
+            throw new FailedToFindCommentsByPostIdException(e);
+        }
+    }
+
     /**
      * Saves a comment entity to the database with exception translation.
      * Wraps repository exceptions in a domain-specific exception for consistent error handling.
