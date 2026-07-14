@@ -55,6 +55,29 @@ class PostRepositoryAdapterTest {
     }
 
     @Test
+    void findAllByIdIn_shouldReturnPosts_whenRepositorySucceeds() {
+        List<Long> postIds = List.of(1L, 2L);
+        List<PostEntity> posts = List.of(new PostEntity(), new PostEntity());
+        when(postRepository.findAllByIdIn(postIds)).thenReturn(posts);
+
+        List<PostEntity> result = postRepositoryAdapter.findAllByIdIn(postIds);
+
+        assertThat(result).isEqualTo(posts);
+        verify(postRepository).findAllByIdIn(postIds);
+    }
+
+    @Test
+    void findAllByIdIn_shouldThrowFailedToFindPostByIdException_whenRepositoryFails() {
+        List<Long> postIds = List.of(1L, 2L);
+        when(postRepository.findAllByIdIn(postIds)).thenThrow(RuntimeException.class);
+
+        assertThatThrownBy(() -> postRepositoryAdapter.findAllByIdIn(postIds))
+                .isInstanceOf(FailedToFindPostByIdException.class)
+                .hasMessage("Failed to find post by ID");
+        verify(postRepository).findAllByIdIn(postIds);
+    }
+
+    @Test
     void deleteById_shouldDeletePost_whenPostIdExists() {
         Long postId = 1L;
         when(postRepository.deleteByIdReturningCount(postId)).thenReturn(postId);

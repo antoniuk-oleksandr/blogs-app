@@ -1,6 +1,7 @@
 package com.example.blogs.app.api.reaction.repository;
 
 import com.example.blogs.app.api.reaction.entity.ReactionEntity;
+import com.example.blogs.app.api.reaction.entity.ReactionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -18,4 +19,6 @@ public interface ReactionRepository extends JpaRepository<ReactionEntity, Long> 
      * @return optional containing the reaction if found, empty otherwise
      */
     Optional<ReactionEntity> findByPostIdAndUserId(Long postId, Long userId);
+
+    long countByPostIdAndReactionType(Long postId, ReactionType reactionType);
 }

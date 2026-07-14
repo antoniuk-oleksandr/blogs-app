@@ -138,4 +138,28 @@ class ReactionRepositoryAdapterTest {
 
         verify(reactionRepository).findByPostIdAndUserId(postId, userId);
     }
+
+    @Test
+    void countByPostIdAndReactionType_shouldReturnReactionCount() {
+        Long postId = 1L;
+        when(reactionRepository.countByPostIdAndReactionType(postId, ReactionType.LIKE)).thenReturn(4L);
+
+        long result = reactionRepositoryAdapter.countByPostIdAndReactionType(postId, ReactionType.LIKE);
+
+        assertThat(result).isEqualTo(4L);
+        verify(reactionRepository).countByPostIdAndReactionType(postId, ReactionType.LIKE);
+    }
+
+    @Test
+    void countByPostIdAndReactionType_shouldThrowFailedToFindReactionException_whenDatabaseFails() {
+        Long postId = 1L;
+        when(reactionRepository.countByPostIdAndReactionType(postId, ReactionType.LIKE))
+                .thenThrow(new RuntimeException("Database error"));
+
+        assertThatThrownBy(() -> reactionRepositoryAdapter.countByPostIdAndReactionType(postId, ReactionType.LIKE))
+                .isInstanceOf(FailedToFindReactionException.class)
+                .hasMessage("Failed to find reaction");
+
+        verify(reactionRepository).countByPostIdAndReactionType(postId, ReactionType.LIKE);
+    }
 }

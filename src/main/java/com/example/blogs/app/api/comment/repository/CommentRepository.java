@@ -19,6 +19,8 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
      */
     List<CommentEntity> findAllByPostId(Long postId);
 
+    long countByPostId(Long postId);
+
     /**
      * Checks if a comment exists with the specified ID and author ID.
      *

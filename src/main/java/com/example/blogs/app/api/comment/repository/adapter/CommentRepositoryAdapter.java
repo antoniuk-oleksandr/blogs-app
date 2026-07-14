@@ -19,6 +19,14 @@ public interface CommentRepositoryAdapter {
     List<CommentEntity> findAllByPostId(Long postId);
 
     /**
+     * Counts comments associated with a specific post with exception translation.
+     *
+     * @param postId the ID of the post
+     * @return number of comments for the post
+     */
+    long countByPostId(Long postId);
+
+    /**
      * Saves a comment entity to the database with exception translation.
      *
      * @param commentEntity the comment entity to save

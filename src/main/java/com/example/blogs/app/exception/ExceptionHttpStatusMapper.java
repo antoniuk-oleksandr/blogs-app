@@ -8,6 +8,7 @@ import com.example.blogs.app.api.comment.exception.FailedToCreateCommentExceptio
 import com.example.blogs.app.api.comment.exception.FailedToDeleteCommentException;
 import com.example.blogs.app.api.post.exception.FailedToFindPostBySlugException;
 import com.example.blogs.app.api.post.exception.PostNotFoundException;
+import com.example.blogs.app.api.search.exception.InvalidCursorException;
 import com.example.blogs.app.api.user.exception.EmailTakenException;
 import com.example.blogs.app.api.user.exception.FailedToFindUserException;
 import com.example.blogs.app.api.user.exception.UserNotFoundException;
@@ -40,7 +41,8 @@ public class ExceptionHttpStatusMapper {
             Map.entry(MissingServletRequestPartException.class, HttpStatus.BAD_REQUEST),
             Map.entry(CommentNotFoundException.class, HttpStatus.NOT_FOUND),
             Map.entry(FailedToCreateCommentException.class, HttpStatus.INTERNAL_SERVER_ERROR),
-            Map.entry(FailedToDeleteCommentException.class, HttpStatus.INTERNAL_SERVER_ERROR)
+            Map.entry(FailedToDeleteCommentException.class, HttpStatus.INTERNAL_SERVER_ERROR),
+            Map.entry(InvalidCursorException.class, HttpStatus.BAD_REQUEST)
     );
 
     /**

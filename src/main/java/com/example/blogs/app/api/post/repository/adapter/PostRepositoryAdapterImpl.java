@@ -42,6 +42,17 @@ public class PostRepositoryAdapterImpl implements PostRepositoryAdapter {
         }
     }
 
+    @Override
+    public List<PostEntity> findAllByIdIn(List<Long> postIds) {
+        try {
+            return postRepository.findAllByIdIn(postIds);
+        } catch (Exception e) {
+            log.error("database_operation_failed operation=findAllByIdIn postIds={} error={} requestId={}",
+                    postIds, e.getMessage(), MDC.get(MDCKeys.REQUEST_ID), e);
+            throw new FailedToFindPostByIdException(e);
+        }
+    }
+
     /**
      * Deletes a post by its ID with exception translation.
      * Verifies deletion success and wraps repository exceptions in domain-specific exceptions.

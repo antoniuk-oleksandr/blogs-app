@@ -14,6 +14,7 @@ import com.example.blogs.app.api.post.entity.PostEntity;
 import com.example.blogs.app.api.post.fixture.PostFixtures;
 import com.example.blogs.app.api.post.mapper.PostMapper;
 import com.example.blogs.app.api.post.repository.adapter.PostRepositoryAdapter;
+import com.example.blogs.app.api.search.indexing.PostSearchIndexEventPublisher;
 import com.example.blogs.app.api.user.entity.UserEntity;
 import com.example.blogs.app.api.user.fixture.UserFixtures;
 import com.example.blogs.app.api.user.mapper.UserMapper;
@@ -61,6 +62,9 @@ class PostServiceImplTest {
     private FileUrlBuilder fileUrlBuilder;
 
     @Mock
+    private PostSearchIndexEventPublisher searchIndexEventPublisher;
+
+    @Mock
     private MultipartFile multipartFile;
 
     private PostService postService;
@@ -76,7 +80,8 @@ class PostServiceImplTest {
                 fileService,
                 userMapper,
                 postSlugUpdater,
-                fileUrlBuilder
+                fileUrlBuilder,
+                searchIndexEventPublisher
         );
     }
 
@@ -104,6 +109,7 @@ class PostServiceImplTest {
         postService.deletePostById(postId);
 
         verify(postRepositoryAdapter).deleteById(postId);
+        verify(searchIndexEventPublisher).publishDeleteAfterCommit(postId);
     }
 
     @Test
@@ -191,6 +197,7 @@ class PostServiceImplTest {
         verify(userMapper).toUserEntity(userId);
         verify(postMapper).toPostEntity(requestDTO, generatedSlug, file, author);
         verify(postRepositoryAdapter).save(post);
+        verify(searchIndexEventPublisher).publishUpsertAfterCommit(postId);
         verify(postMapper).toPostCreateResponseDTO(post, previewImageUrl);
     }
 
@@ -262,6 +269,7 @@ class PostServiceImplTest {
         verify(fileUrlBuilder).build(newFile);
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
+        verify(searchIndexEventPublisher).publishUpsertAfterCommit(postId);
         verify(postMapper).toPostUpdateResponseDTO(updatedPost, newPreviewImageUrl);
         verify(fileService).delete(oldFile);
     }
@@ -313,6 +321,7 @@ class PostServiceImplTest {
         verify(fileUrlBuilder, never()).build(any(FileEntity.class));
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
+        verify(searchIndexEventPublisher).publishUpsertAfterCommit(postId);
         verify(postMapper).toPostUpdateResponseDTO(updatedPost, null);
         verify(transactionalFileUploader, never()).uploadWithTransactionRollback(any(), any());
         verify(fileService, never()).delete(any());
@@ -364,6 +373,7 @@ class PostServiceImplTest {
         verify(fileUrlBuilder, never()).build(any(FileEntity.class));
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
+        verify(searchIndexEventPublisher).publishUpsertAfterCommit(postId);
         verify(postMapper).toPostUpdateResponseDTO(updatedPost, null);
         verify(transactionalFileUploader, never()).uploadWithTransactionRollback(any(), any());
         verify(fileService, never()).delete(any());
@@ -420,6 +430,7 @@ class PostServiceImplTest {
         verify(fileUrlBuilder, never()).build(any(FileEntity.class));
         verify(postMapper).toPostEntity(request, existingPost);
         verify(postRepositoryAdapter).update(updatedPost);
+        verify(searchIndexEventPublisher).publishUpsertAfterCommit(postId);
         verify(postMapper).toPostUpdateResponseDTO(updatedPost, null);
         verify(slugService, never()).generate(any());
         verify(transactionalFileUploader, never()).uploadWithTransactionRollback(any(), any());

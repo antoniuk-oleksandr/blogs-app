@@ -20,6 +20,14 @@ public interface PostRepositoryAdapter {
     List<PostEntity> findByAuthorId(long userId);
 
     /**
+     * Retrieves posts by IDs with author and file data loaded for search indexing.
+     *
+     * @param postIds the IDs of posts to retrieve
+     * @return matching posts
+     */
+    List<PostEntity> findAllByIdIn(List<Long> postIds);
+
+    /**
      * Deletes a post by its ID with exception translation.
      *
      * @param postId the ID of the post to delete
