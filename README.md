@@ -1,7 +1,6 @@
-# Blog Application
+# Blogs App
 
-> Enterprise-grade REST API for a modern blog platform featuring JWT authentication, Redis caching, and comprehensive observability
-
+Spring Boot REST API for a blog platform. The application covers authentication, users, posts, comments, reactions, file storage, and asynchronous post indexing into OpenSearch.
 
 <div align="center">
 
@@ -15,169 +14,210 @@
 
 </div>
 
-## ✨ Features
+## What Is Implemented
 
-### Core Functionality
-- 🔐 **JWT Authentication** - Secure token-based authentication with refresh tokens
-- 👤 **User Management** - Complete user registration and profile management
-- 📝 **Article System** - Create, read, update, and delete blog posts *(Coming Soon)*
-- 💬 **Comments** - Threaded comment system *(Coming Soon)*
-- 🏷️ **Tags & Categories** - Organize content efficiently *(Coming Soon)*
+- JWT authentication: register, login, refresh, logout, current user lookup.
+- User profiles: public user lookup and authenticated profile update.
+- Posts: create, read by slug, update, delete, image upload support, ownership checks.
+- Comments: create, update, delete with author checks.
+- Reactions: set or update post reactions.
+- Search: OpenSearch-backed post search with relevance/newest/oldest sorting and cursor pagination.
+- Search indexing: post changes are published to RabbitMQ and indexed into OpenSearch in batches.
+- File storage: S3-compatible storage with LocalStack support for local development.
+- Database migrations: PostgreSQL schema managed through Flyway.
+- Observability: actuator health/metrics endpoints and Log4j2 JSON logging with optional CloudWatch delivery.
+- Quality gates: JUnit 5, Mockito, Testcontainers, JaCoCo, SonarCloud, and GitHub Actions.
 
-### Technical Features
-- ✅ **SOLID Principles** - Clean, maintainable OOP architecture
-- ✅ **Comprehensive Validation** - Request validation with Jakarta Bean Validation
-- ✅ **Global Exception Handling** - Centralized error handling with detailed responses
-- ✅ **Database Migrations** - Flyway for version-controlled schema changes
-- ✅ **Test Coverage** - JUnit, Mockito with JaCoCo reporting
-- ✅ **OpenAPI 3.0** - Interactive API documentation
-- ✅ **Observability** - Structured logging with Prometheus metrics and Grafana dashboards *(Coming Soon)*
-- ✅ **CI/CD Pipeline** - Automated testing and deployment *(Coming Soon)*
-- ✅ **Redis Caching** - Performance optimization for frequently accessed data *(Coming Soon)*
+## Architecture
 
-## 🛠️ Tech Stack
+The code is organized by feature under `src/main/java/com/example/blogs/app/api`.
 
-### Backend
-- **Java 21** - Latest LTS with modern language features
-- **Spring Boot 3.5.9** - Production-ready application framework
-- **Spring Security 6** - Enterprise security framework
-- **Spring Data JPA** - Database abstraction with Hibernate
+Main modules:
 
-### Database & Caching
-- **PostgreSQL 18** - Primary relational database
-- **Flyway** - Database migration management
-- **Redis 8** - In-memory caching *(Coming Soon)*
+- `auth` handles JWT login, refresh, logout, and revoked-token persistence.
+- `user` handles public profiles and profile updates.
+- `post` owns post lifecycle, slug handling, author checks, and post DTO mapping.
+- `comment` owns post comments and comment-level authorization.
+- `reaction` owns post reaction state.
+- `file` stores uploaded file metadata.
+- `search` owns OpenSearch query building, execution, cursor pagination, document mapping, and RabbitMQ indexing events.
 
-### Authentication & Security
-- **JWT (HS256)** - Stateless authentication
-- **BCrypt** - Password hashing
+Infrastructure and cross-cutting code lives outside feature modules:
 
-### Testing & Quality
-- **JUnit 5** - Unit testing framework
-- **Mockito** - Mocking for isolated tests
-- **JaCoCo** - Code coverage reporting
-- **Testcontainers** - Integration testing with real databases
+- `config` for Spring, security, OpenSearch, S3, and application configuration.
+- `exception` for centralized HTTP exception handling.
+- `security` for JWT conversion, password hashing, auth filters, and error responses.
+- `storage` for S3 key generation, bucket access, and public link building.
+- `logging` for CloudWatch/Log4j2 integration.
+- `validation` and `util` for shared helpers.
 
-### Observability & Monitoring
-- **SLF4J + Logback** - Structured logging *(Coming Soon)*
-- **Prometheus** - Metrics collection *(Coming Soon)*
-- **Grafana** - Metrics visualization and log aggregation *(Coming Soon)*
+## Search Flow
 
-### Build & Tools
-- **Gradle 8** - Build automation
-- **Docker & Docker Compose** - Containerization
-- **Lombok** - Boilerplate reduction
-- **SpringDoc OpenAPI** - API documentation generation
-- **Redoc** - Static API documentation
+Post search is eventually consistent:
 
-## 📚 Documentation
+1. A post is created, updated, or deleted in PostgreSQL.
+2. The application publishes a `PostSearchIndexEvent` after the database transaction commits.
+3. RabbitMQ stores the indexing event.
+4. The listener consumes events in batches.
+5. `PostSearchIndexingService` loads the required post data and sends bulk index/delete operations to OpenSearch.
+6. `GET /search` queries OpenSearch using relevance, newest, or oldest ordering.
 
-- **[REST API Documentation](https://antoniuk-oleksandr.github.io/blogs-app/openapi/api-documentation.html)** - Complete OpenAPI specification
-- **[JavaDoc](https://antoniuk-oleksandr.github.io/blogs-app/javadoc/)** - Detailed code documentation
+This keeps write requests tied to PostgreSQL first, while OpenSearch is used as a read model for search.
 
-For architecture details, see the JavaDoc package documentation.
+## Tech Stack
 
-## 🚀 Quick Start
+- Java 21
+- Spring Boot 3.5
+- Spring Security and OAuth2 Resource Server
+- PostgreSQL, JPA/Hibernate, Flyway
+- RabbitMQ
+- OpenSearch Java Client
+- S3-compatible object storage, AWS SDK, LocalStack
+- Log4j2, Spring Boot Actuator, optional CloudWatch logs
+- Gradle, Docker Compose
+- JUnit 5, Mockito, AssertJ, Testcontainers, JaCoCo, SonarCloud
 
-### Prerequisites
-- Java 21 or higher
-- Docker & Docker Compose
+## Local Development
 
-### Installation
+Requirements:
+
+- Java 21
+- Docker and Docker Compose
+
+Create a root `.env` file for local development:
+
 ```bash
-# Clone repository
-git clone https://github.com/antoniuk-oleksandr/blogs-app.git
-cd blogs-app
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=admin
+POSTGRES_DB=blogs
+POSTGRES_PORT=5432
+POSTGRES_URL=jdbc:postgresql://localhost:5432/blogs
+POSTGRES_USERNAME=admin
+JWT_SECRET_KEY=change_me
 
-# Start infrastructure (PostgreSQL)
-docker-compose up -d
-
-# Run application
-./gradlew bootRun
+OPENSEARCH_USERNAME=admin
+OPENSEARCH_PASSWORD=admin
+RABBITMQ_DEFAULT_USER=admin
+RABBITMQ_DEFAULT_PASS=admin
 ```
 
-The API will be available at `http://localhost:8080`
+The root `.env` is ignored by git. Keep local credentials there, not in tracked property files.
 
-**Interactive API Documentation:** http://localhost:8080/swagger-ui/index.html
+Start local infrastructure:
 
-### Running with Docker
 ```bash
-# Build and run all services
-docker-compose up --build
-
-# Stop all services
-docker-compose down
+just docker-compose-up
 ```
 
-## 🧪 Testing
+Run the application:
+
 ```bash
-# Run all tests
-./gradlew test
-
-# Run tests with coverage report
-./gradlew test jacocoTestReport
-
-# View coverage report
-open build/reports/jacoco/test/html/index.html
+./gw bootRun --args='--spring.profiles.active=local'
 ```
 
-## 🔧 Configuration
+Useful local URLs:
 
-### Environment Variables
+- API: `http://localhost:8080`
+- Actuator: `http://localhost:8081/actuator`
+- Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+- OpenSearch: `http://localhost:9200`
+- RabbitMQ Management: `http://localhost:15672`
+- Local SonarQube: `http://localhost:9000`
+
+Stop local infrastructure:
+
 ```bash
-# PostgreSQL Database Configuration
-POSTGRES_URL=your_postgres_url
-POSTGRES_USERNAME=your_postgres_username
-POSTGRES_PASSWORD=your_postgres_password
-
-# JWT configuration
-JWT_SECRET_KEY=your_jwt_secret_key
+just docker-compose-down
 ```
 
-See `.env.example` for complete configuration.
+## Configuration
 
-## 🎯 Roadmap
+Main local configuration is in `src/main/resources/application-local.properties`.
 
-### Phase 1: Foundation ✅
-- [x] User authentication (JWT)
-- [x] User registration
-- [x] Global exception handling
-- [x] OpenAPI documentation
-- [x] Database migrations (Flyway)
-- [x] Test coverage with JaCoCo
+Important environment variables:
 
-### Phase 2: Core Features (In Progress)
-- [ ] Article CRUD operations
-- [ ] Redis caching integration
-- [ ] Structured logging with JSON output
-- [ ] Prometheus metrics integration
-- [ ] Grafana dashboards (metrics + logs)
-- [ ] CI/CD pipeline with coverage reports
+```bash
+POSTGRES_URL=jdbc:postgresql://localhost:5432/blogs
+POSTGRES_USERNAME=admin
+POSTGRES_PASSWORD=admin
+JWT_SECRET_KEY=change_me
 
-### Phase 3: Advanced Features
-- [ ] Comment system
-- [ ] Tag and category management
-- [ ] User profile management
-- [ ] Article search and filtering
-- [ ] Pagination and sorting
-- [ ] Testcontainers for integration tests
+OPENSEARCH_HOST=http://localhost
+OPENSEARCH_PORT=9200
+OPENSEARCH_USERNAME=admin
+OPENSEARCH_PASSWORD=admin
 
-### Phase 4: Production Ready
-- [ ] Performance optimization
-- [ ] Rate limiting
-- [ ] API versioning
-- [ ] Comprehensive monitoring
+RABBITMQ_DEFAULT_USER=admin
+RABBITMQ_DEFAULT_PASS=admin
 
-## 📄 License
+SEARCH_INDEXING_EXCHANGE=blogs.search.indexing
+SEARCH_INDEXING_QUEUE=blogs.search.indexing.posts
+SEARCH_INDEXING_ROUTING_KEY=posts.index
+SEARCH_INDEXING_BATCH_SIZE=20
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Production values should be provided through the runtime environment or deployment secrets, not committed files.
 
----
+## Database And Search Migrations
 
-<div align="center">
+PostgreSQL migrations are stored in:
 
-**Built with Spring Boot**
+```text
+src/main/resources/db/migration
+```
 
-[Report Bug](https://github.com/antoniuk-oleksandr/blogs-app/issues) · [Request Feature](https://github.com/antoniuk-oleksandr/blogs-app/issues)
+OpenSearch index migrations are stored in:
 
-</div>
+```text
+src/main/resources/es/migration
+```
+
+Flyway validates the relational schema at startup. The search index is managed separately through the OpenSearch migration files.
+
+## Testing
+
+Run the full test suite:
+
+```bash
+./gw test
+```
+
+Run tests with coverage:
+
+```bash
+./gw test jacocoTestReport
+```
+
+Open the HTML coverage report:
+
+```bash
+xdg-open build/reports/jacoco/test/html/index.html
+```
+
+Run only search-related tests:
+
+```bash
+./gw test --tests 'com.example.blogs.app.api.search.*' --tests 'com.example.blogs.app.util.CursorUtilsTest'
+```
+
+## API Documentation
+
+When the app is running locally:
+
+- Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+- OpenAPI JSON: `http://localhost:8080/v3/api-docs`
+
+Published documentation:
+
+- [OpenAPI HTML](https://antoniuk-oleksandr.github.io/blogs-app/openapi/api-documentation.html)
+- [JavaDoc](https://antoniuk-oleksandr.github.io/blogs-app/javadoc/)
+
+## CI/CD
+
+GitHub Actions runs the build, tests, coverage reporting, SonarCloud analysis, documentation generation, Docker image publishing, and AWS deployment workflows depending on branch and workflow configuration.
+
+SonarCloud is configured as a quality gate for coverage, maintainability, reliability, and security checks on new code.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
