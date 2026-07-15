@@ -15,6 +15,7 @@ import org.opensearch.client.json.jackson.JacksonJsonpMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -49,15 +50,7 @@ public class OpenSearchConfig {
         String scheme = hostUri.getScheme() == null ? "http" : hostUri.getScheme();
         String hostname = hostUri.getHost() == null ? host : hostUri.getHost();
 
-        BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(
-                new AuthScope(hostname, port),
-                new UsernamePasswordCredentials(username, password.toCharArray())
-        );
-
-        CloseableHttpAsyncClient httpClient = HttpAsyncClients.custom()
-                .setDefaultCredentialsProvider(credentialsProvider)
-                .build();
+        CloseableHttpAsyncClient httpClient = buildHttpClient(hostname);
         httpClient.start();
 
         List<Header> defaultHeaders = new ArrayList<>();
@@ -84,5 +77,21 @@ public class OpenSearchConfig {
                         false
                 )
         );
+    }
+
+    private CloseableHttpAsyncClient buildHttpClient(String hostname) {
+        if (!StringUtils.hasText(username)) {
+            return HttpAsyncClients.custom().build();
+        }
+
+        BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(
+                new AuthScope(hostname, port),
+                new UsernamePasswordCredentials(username, password.toCharArray())
+        );
+
+        return HttpAsyncClients.custom()
+                .setDefaultCredentialsProvider(credentialsProvider)
+                .build();
     }
 }
