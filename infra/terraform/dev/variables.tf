@@ -10,7 +10,7 @@ variable "environment" {
 
 variable "container_image" {
   type        = string
-  default = "some-account-id.dkr.ecr.eu-central-1.amazonaws.com/blogs-app-dev:latest"
+  default     = "some-account-id.dkr.ecr.eu-central-1.amazonaws.com/blogs-app-dev:latest"
   description = "Full URL of the container image in ECR (repository_url:tag)"
 }
 
@@ -36,8 +36,18 @@ variable "db_name" {
 
 variable "jwt_secret_key" {
   type        = string
-  default = "someverysecureandlongsecretkeyvalue123"
+  default     = "someverysecureandlongsecretkeyvalue123"
   description = "Secret key used for signing JWT tokens"
+}
+
+variable "rabbitmq_username" {
+  type    = string
+  default = "blogs_app"
+}
+
+variable "rabbitmq_password" {
+  type      = string
+  sensitive = true
 }
 
 variable "region" {

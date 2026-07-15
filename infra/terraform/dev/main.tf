@@ -21,6 +21,39 @@ module "rds" {
   }
 }
 
+module "opensearch" {
+  depends_on = [module.network]
+  source     = "../modules/opensearch"
+
+  name                       = "${var.project}-${var.environment}"
+  region                     = var.region
+  vpc_id                     = module.network.vpc_id
+  subnet_ids                 = module.network.private_subnet_ids
+  allowed_security_group_ids = [module.network.ecs_service_sg_id]
+
+  tags = {
+    Environment = var.environment
+    Project     = var.project
+  }
+}
+
+module "rabbitmq" {
+  depends_on = [module.network]
+  source     = "../modules/rabbitmq"
+
+  name                       = "${var.project}-${var.environment}"
+  vpc_id                     = module.network.vpc_id
+  subnet_ids                 = module.network.private_subnet_ids
+  allowed_security_group_ids = [module.network.ecs_service_sg_id]
+  username                   = var.rabbitmq_username
+  password                   = var.rabbitmq_password
+
+  tags = {
+    Environment = var.environment
+    Project     = var.project
+  }
+}
+
 resource "aws_ecs_cluster" "this" {
   name = "${var.project}-${var.environment}-cluster"
 
@@ -31,7 +64,7 @@ resource "aws_ecs_cluster" "this" {
 }
 
 module "ssm" {
-  depends_on = [module.rds, module.s3, module.cloudwatch]
+  depends_on  = [module.rds, module.s3, module.cloudwatch, module.opensearch, module.rabbitmq]
   source      = "../modules/ssm"
   project     = var.project
   environment = var.environment
@@ -47,6 +80,15 @@ module "ssm" {
 
     SPRING_PROFILES_ACTIVE = "prod"
 
+    OPENSEARCH_HOST = module.opensearch.https_url
+    OPENSEARCH_PORT = "443"
+
+    SPRING_RABBITMQ_HOST        = module.rabbitmq.host
+    SPRING_RABBITMQ_PORT        = tostring(module.rabbitmq.port)
+    SPRING_RABBITMQ_USERNAME    = var.rabbitmq_username
+    SPRING_RABBITMQ_PASSWORD    = var.rabbitmq_password
+    SPRING_RABBITMQ_SSL_ENABLED = "true"
+
     CLOUDWATCH_LOG_GROUP = module.cloudwatch.log_group_name
     LOG_STREAM_NAME      = "${var.project}-${var.environment}-stream"
 
@@ -55,7 +97,8 @@ module "ssm" {
 
   sensitive_parameters = [
     "POSTGRES_PASSWORD",
-    "JWT_SECRET_KEY"
+    "JWT_SECRET_KEY",
+    "SPRING_RABBITMQ_PASSWORD"
   ]
 
   tags = {
@@ -69,7 +112,7 @@ module "fargate" {
   source             = "../modules/fargate"
   name               = "${var.project}-${var.environment}"
   cluster_id         = aws_ecs_cluster.this.id
-  container_image    = module.ecr.repository_url
+  container_image    = "${module.ecr.repository_url}:latest"
   container_port     = var.container_port
   subnet_ids         = module.network.public_subnet_ids
   security_group_ids = [module.network.ecs_service_sg_id]
