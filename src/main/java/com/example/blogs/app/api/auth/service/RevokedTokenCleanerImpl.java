@@ -9,6 +9,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 /**
@@ -24,18 +25,23 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
 
     private final String cron;
 
+    private final Clock clock;
+
     /**
      * Constructs a new revoked token cleaner with repository adapter and cron schedule.
      *
      * @param revokedTokenRepositoryAdapter adapter for accessing revoked token data
      * @param cron                          cron expression defining cleanup schedule (e.g., "0 0 2 * * *" for 2 AM daily)
+     * @param clock                         the application clock used for cleanup timestamps
      */
     public RevokedTokenCleanerImpl(
             RevokedTokenRepositoryAdapter revokedTokenRepositoryAdapter,
-            @Value("${revoked-token-cleaner.cron}") String cron
+            @Value("${revoked-token-cleaner.cron}") String cron,
+            Clock clock
     ) {
         this.revokedTokenRepositoryAdapter = revokedTokenRepositoryAdapter;
         this.cron = cron;
+        this.clock = clock;
     }
 
     /**
@@ -58,7 +64,7 @@ public class RevokedTokenCleanerImpl implements RevokedTokenCleaner, SchedulingC
      */
     @Override
     public void cleanUpExpiredTokens() {
-        LocalDateTime now = LocalDateTime.now().withNano(0);
+        LocalDateTime now = LocalDateTime.now(clock).withNano(0);
         revokedTokenRepositoryAdapter.deleteExpiredTokens(now);
         log.info("token_cleanup_completed timestamp={}", now);
     }

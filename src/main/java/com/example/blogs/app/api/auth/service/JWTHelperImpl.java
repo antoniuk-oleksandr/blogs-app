@@ -16,7 +16,9 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.time.Clock;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,18 +36,22 @@ public class JWTHelperImpl implements JWTHelper {
 
     private final JwtParser jwtParser;
 
+    private final Clock clock;
+
     /**
      * Constructs a JWTHelperImpl with the configured secret key.
      *
      * @param secretKey the secret key used for signing tokens, loaded from application properties
      * @param jwtParser the JWT parser for validating and parsing tokens
+     * @param clock     the application clock used for token timestamps
      */
-    public JWTHelperImpl(@Value("${jwt.secret-key}") String secretKey, JwtParser jwtParser) {
+    public JWTHelperImpl(@Value("${jwt.secret-key}") String secretKey, JwtParser jwtParser, Clock clock) {
         this.signingKey = new SecretKeySpec(
                 secretKey.getBytes(StandardCharsets.UTF_8),
                 "HmacSHA256"
         );
         this.jwtParser = jwtParser;
+        this.clock = clock;
     }
 
     /**
@@ -70,11 +76,14 @@ public class JWTHelperImpl implements JWTHelper {
      */
     @Override
     public String generateToken(String subject, Map<String, Object> claims, Duration expiration) {
+        Instant issuedAt = clock.instant();
+        Instant expiresAt = issuedAt.plus(expiration);
+
         return Jwts.builder()
                 .subject(subject)
                 .claims(claims)
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + expiration.toMillis()))
+                .issuedAt(Date.from(issuedAt))
+                .expiration(Date.from(expiresAt))
                 .signWith(signingKey)
                 .compact();
     }

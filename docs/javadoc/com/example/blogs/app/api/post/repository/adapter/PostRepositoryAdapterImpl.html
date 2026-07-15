@@ -142,28 +142,33 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <div class="block">Checks if a post exists by its ID and author ID.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByAuthorId(long)" class="member-name-link">findByAuthorId</a><wbr>(long&nbsp;userId)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findAllByIdIn(java.util.List)" class="member-name-link">findAllByIdIn</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;postIds)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves posts by IDs with author and file data loaded for search indexing.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a><wbr>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByAuthorId(long)" class="member-name-link">findByAuthorId</a><wbr>(long&nbsp;userId)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves all posts authored by the specified user with exception translation.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findById(long)" class="member-name-link">findById</a><wbr>(long&nbsp;postId)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findById(long)" class="member-name-link">findById</a><wbr>(long&nbsp;postId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves a post by its ID with exception translation.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findBySlug(java.lang.String)" class="member-name-link">findBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findBySlug(java.lang.String)" class="member-name-link">findBySlug</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;slug)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Retrieves a post by its unique slug identifier with exception translation.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Saves a new post entity with exception translation.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">update</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#update(com.example.blogs.app.api.post.entity.PostEntity)" class="member-name-link">update</a><wbr>(<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&nbsp;postEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Updates a post entity with exception translation.</div>
 </div>
 </div>
@@ -212,6 +217,22 @@ implements <a href="PostRepositoryAdapter.html" title="interface in com.example.
 <dd>list of posts by the author</dd>
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/FailedToFindPostsByAuthorIdException.html" title="class in com.example.blogs.app.api.post.exception">FailedToFindPostsByAuthorIdException</a></code> - if the repository operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="findAllByIdIn(java.util.List)">
+<h3>findAllByIdIn</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="../../entity/PostEntity.html" title="class in com.example.blogs.app.api.post.entity">PostEntity</a>&gt;</span>&nbsp;<span class="element-name">findAllByIdIn</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&gt;&nbsp;postIds)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="PostRepositoryAdapter.html#findAllByIdIn(java.util.List)">PostRepositoryAdapter</a></code></span></div>
+<div class="block">Retrieves posts by IDs with author and file data loaded for search indexing.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="PostRepositoryAdapter.html#findAllByIdIn(java.util.List)">findAllByIdIn</a></code>&nbsp;in interface&nbsp;<code><a href="PostRepositoryAdapter.html" title="interface in com.example.blogs.app.api.post.repository.adapter">PostRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>postIds</code> - the IDs of posts to retrieve</dd>
+<dt>Returns:</dt>
+<dd>matching posts</dd>
 </dl>
 </section>
 </li>
