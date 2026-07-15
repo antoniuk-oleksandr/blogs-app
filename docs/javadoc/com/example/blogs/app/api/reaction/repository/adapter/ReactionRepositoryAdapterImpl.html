@@ -125,15 +125,21 @@ implements <a href="ReactionRepositoryAdapter.html" title="interface in com.exam
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/ReactionEntity.html" title="class in com.example.blogs.app.api.reaction.entity">ReactionEntity</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByPostIdAndUserId(java.lang.Long,java.lang.Long)" class="member-name-link">findByPostIdAndUserId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;userId)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>long</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#countByPostIdAndReactionType(java.lang.Long,com.example.blogs.app.api.reaction.entity.ReactionType)" class="member-name-link">countByPostIdAndReactionType</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
+ <a href="../../entity/ReactionType.html" title="enum class in com.example.blogs.app.api.reaction.entity">ReactionType</a>&nbsp;reactionType)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Finds a reaction by post ID and user ID with exception translation.</div>
+<div class="block">Counts reactions of the specified type for a post with exception translation.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/ReactionEntity.html" title="class in com.example.blogs.app.api.reaction.entity">ReactionEntity</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.reaction.entity.ReactionEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/ReactionEntity.html" title="class in com.example.blogs.app.api.reaction.entity">ReactionEntity</a>&nbsp;reactionEntity)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#findByPostIdAndUserId(java.lang.Long,java.lang.Long)" class="member-name-link">findByPostIdAndUserId</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;userId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Finds a reaction by post ID and user ID with exception translation.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../../entity/ReactionEntity.html" title="class in com.example.blogs.app.api.reaction.entity">ReactionEntity</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#save(com.example.blogs.app.api.reaction.entity.ReactionEntity)" class="member-name-link">save</a><wbr>(<a href="../../entity/ReactionEntity.html" title="class in com.example.blogs.app.api.reaction.entity">ReactionEntity</a>&nbsp;reactionEntity)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Saves a reaction entity to the database with exception translation.</div>
 </div>
 </div>
@@ -204,6 +210,24 @@ implements <a href="ReactionRepositoryAdapter.html" title="interface in com.exam
 <dt>Throws:</dt>
 <dd><code><a href="../../exception/ReactionNotFoundException.html" title="class in com.example.blogs.app.api.reaction.exception">ReactionNotFoundException</a></code> - if the reaction does not exist</dd>
 <dd><code><a href="../../exception/FailedToFindReactionException.html" title="class in com.example.blogs.app.api.reaction.exception">FailedToFindReactionException</a></code> - if the find operation fails</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="countByPostIdAndReactionType(java.lang.Long,com.example.blogs.app.api.reaction.entity.ReactionType)">
+<h3>countByPostIdAndReactionType</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">countByPostIdAndReactionType</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link">Long</a>&nbsp;postId,
+ <a href="../../entity/ReactionType.html" title="enum class in com.example.blogs.app.api.reaction.entity">ReactionType</a>&nbsp;reactionType)</span></div>
+<div class="block"><span class="description-from-type-label">Description copied from interface:&nbsp;<code><a href="ReactionRepositoryAdapter.html#countByPostIdAndReactionType(java.lang.Long,com.example.blogs.app.api.reaction.entity.ReactionType)">ReactionRepositoryAdapter</a></code></span></div>
+<div class="block">Counts reactions of the specified type for a post with exception translation.</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="ReactionRepositoryAdapter.html#countByPostIdAndReactionType(java.lang.Long,com.example.blogs.app.api.reaction.entity.ReactionType)">countByPostIdAndReactionType</a></code>&nbsp;in interface&nbsp;<code><a href="ReactionRepositoryAdapter.html" title="interface in com.example.blogs.app.api.reaction.repository.adapter">ReactionRepositoryAdapter</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>postId</code> - the ID of the post</dd>
+<dd><code>reactionType</code> - the reaction type to count</dd>
+<dt>Returns:</dt>
+<dd>number of matching reactions</dd>
 </dl>
 </section>
 </li>

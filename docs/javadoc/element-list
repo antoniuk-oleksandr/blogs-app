@@ -41,6 +41,13 @@ com.example.blogs.app.api.reaction.mapper
 com.example.blogs.app.api.reaction.repository
 com.example.blogs.app.api.reaction.repository.adapter
 com.example.blogs.app.api.reaction.service
+com.example.blogs.app.api.search.controller
+com.example.blogs.app.api.search.docs
+com.example.blogs.app.api.search.dto
+com.example.blogs.app.api.search.exception
+com.example.blogs.app.api.search.indexing
+com.example.blogs.app.api.search.mapper
+com.example.blogs.app.api.search.service
 com.example.blogs.app.api.user.controller
 com.example.blogs.app.api.user.docs
 com.example.blogs.app.api.user.dto

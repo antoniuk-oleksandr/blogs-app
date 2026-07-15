@@ -8,7 +8,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Clock;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +35,8 @@ class JWTHelperImplTest {
     @BeforeEach
     void setUp() {
         String secretKey = "my-very-secure-secret-key-at-least-256-bits-long-for-hs256";
-        jwtHelper = new JWTHelperImpl(secretKey, jwtParser);
+        Clock clock = Clock.fixed(Instant.parse("2030-01-01T00:00:00Z"), ZoneOffset.UTC);
+        jwtHelper = new JWTHelperImpl(secretKey, jwtParser, clock);
     }
 
     @Test

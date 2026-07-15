@@ -110,8 +110,9 @@ implements <a href="RevokedTokenCleaner.html" title="interface in com.example.bl
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter,java.lang.String)" class="member-name-link">RevokedTokenCleanerImpl</a><wbr>(<a href="../repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a>&nbsp;revokedTokenRepositoryAdapter,
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cron)</code></div>
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter,java.lang.String,java.time.Clock)" class="member-name-link">RevokedTokenCleanerImpl</a><wbr>(<a href="../repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a>&nbsp;revokedTokenRepositoryAdapter,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cron,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Clock.html" title="class or interface in java.time" class="external-link">Clock</a>&nbsp;clock)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Constructs a new revoked token cleaner with repository adapter and cron schedule.</div>
 </div>
@@ -157,16 +158,18 @@ implements <a href="RevokedTokenCleaner.html" title="interface in com.example.bl
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter,java.lang.String)">
+<section class="detail" id="&lt;init&gt;(com.example.blogs.app.api.auth.repository.adapter.RevokedTokenRepositoryAdapter,java.lang.String,java.time.Clock)">
 <h3>RevokedTokenCleanerImpl</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">RevokedTokenCleanerImpl</span><wbr><span class="parameters">(<a href="../repository/adapter/RevokedTokenRepositoryAdapter.html" title="interface in com.example.blogs.app.api.auth.repository.adapter">RevokedTokenRepositoryAdapter</a>&nbsp;revokedTokenRepositoryAdapter,
  <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Value.html" title="class or interface in org.springframework.beans.factory.annotation" class="external-link">@Value</a>("${revoked-token-cleaner.cron}")
- <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cron)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cron,
+ <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/time/Clock.html" title="class or interface in java.time" class="external-link">Clock</a>&nbsp;clock)</span></div>
 <div class="block">Constructs a new revoked token cleaner with repository adapter and cron schedule.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>revokedTokenRepositoryAdapter</code> - adapter for accessing revoked token data</dd>
 <dd><code>cron</code> - cron expression defining cleanup schedule (e.g., "0 0 2 * * *" for 2 AM daily)</dd>
+<dd><code>clock</code> - the application clock used for cleanup timestamps</dd>
 </dl>
 </section>
 </li>

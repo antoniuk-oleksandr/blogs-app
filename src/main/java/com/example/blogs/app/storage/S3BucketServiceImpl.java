@@ -73,11 +73,11 @@ public class S3BucketServiceImpl implements S3BucketService {
 
         try {
             s3Client.putObject(putRequest, RequestBody.fromBytes(fileData));
-            log.info("s3_upload_success s3Key={} size={} userId={} requestId={}",
-                    s3Key, fileData.length, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
+            log.info("s3_upload_success bucket={} size={} userId={} requestId={}",
+                    bucketName, fileData.length, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
         } catch (Exception e) { 
-            log.error("s3_upload_failed s3Key={} error={} userId={} requestId={}",
-                    s3Key, e.getMessage(), MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID), e);
+            log.error("s3_upload_failed bucket={} error={} userId={} requestId={}",
+                    bucketName, e.getMessage(), MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToStoreFileException(e);
         }
     }
@@ -101,11 +101,11 @@ public class S3BucketServiceImpl implements S3BucketService {
 
         try {
             s3Client.deleteObject(deleteRequest);
-            log.info("s3_delete_success s3Key={} userId={} requestId={}",
-                    s3Key, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
+            log.info("s3_delete_success bucket={} userId={} requestId={}",
+                    bucketName, MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID));
         } catch (Exception e) { 
-            log.error("s3_delete_failed s3Key={} error={} userId={} requestId={}",
-                    s3Key, e.getMessage(), MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID), e);
+            log.error("s3_delete_failed bucket={} error={} userId={} requestId={}",
+                    bucketName, e.getMessage(), MDC.get(MDCKeys.USER_ID), MDC.get(MDCKeys.REQUEST_ID), e);
             throw new FailedToDeleteFileException(e);
         }
     }

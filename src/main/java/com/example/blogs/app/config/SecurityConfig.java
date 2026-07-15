@@ -51,6 +51,8 @@ public class SecurityConfig {
                 .addFilterBefore(requestLoggingFilter, SecurityContextHolderFilter.class)
                 .addFilterBefore(jwtExceptionFilter, BearerTokenAuthenticationFilter.class)
                 .addFilterAfter(mdcPopulatingFilter, BearerTokenAuthenticationFilter.class)
+                // Safe for this stateless REST API: authentication uses Bearer tokens in the
+                // Authorization header and refresh tokens are submitted in JSON bodies, not cookies.
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/auth/me").authenticated()

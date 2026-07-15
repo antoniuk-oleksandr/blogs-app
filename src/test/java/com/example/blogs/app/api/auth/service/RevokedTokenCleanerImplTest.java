@@ -12,8 +12,10 @@ import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.Mockito.*;
@@ -32,7 +34,8 @@ class RevokedTokenCleanerImplTest {
     @BeforeEach
     void setUp() {
         String cron = "0 0 * * * *";
-        revokedTokenCleaner = new RevokedTokenCleanerImpl(revokedTokenRepositoryAdapter, cron);
+        Clock clock = Clock.fixed(Instant.parse("2026-01-01T00:00:00Z"), ZoneOffset.UTC);
+        revokedTokenCleaner = new RevokedTokenCleanerImpl(revokedTokenRepositoryAdapter, cron, clock);
     }
 
     @Test

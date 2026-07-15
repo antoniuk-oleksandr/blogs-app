@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.HandlerMethodValidationException;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -152,7 +153,7 @@ public class GlobalExceptionHandler {
         }
 
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now().withNano(0),
+                LocalDateTime.now(ZoneOffset.UTC).withNano(0),
                 status.value(),
                 status.getReasonPhrase(),
                 exception.getMessage(),
@@ -197,7 +198,7 @@ public class GlobalExceptionHandler {
             String path
     ) {
         return new ErrorResponse(
-                LocalDateTime.now().withNano(0),
+                LocalDateTime.now(ZoneOffset.UTC).withNano(0),
                 HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
                 "Validation Failed",
